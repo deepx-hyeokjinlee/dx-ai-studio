@@ -1,0 +1,108 @@
+"""모델 카탈로그 — 임베디드 메타데이터 + 런타임 매니페스트 기반.
+
+runtime manifest가 존재하면 manifest 모델 목록을 카탈로그로 사용하고,
+없으면 임베디드 폴백 목록을 사용한다.
+"""
+from __future__ import annotations
+
+from core.config import DX_STREAM_ROOT, MODELS_DIR
+from core.runtime import load_model_manifest
+
+# 17개 임베디드 모델 메타데이터 (setup.sh에서 다운로드)
+_EMBEDDED_MODELS = [
+    # Object Detection (8)
+    {"name": "YOLOv26n", "file": "yolo26n.dxnn", "category": "object_detection",
+     "description_ko": "경량 객체 감지 모델", "description_en": "Lightweight object detection"},
+    {"name": "YOLOv5S", "file": "YoloV5S.dxnn", "category": "object_detection",
+     "description_ko": "YOLOv5 Small 객체 감지", "description_en": "YOLOv5 Small object detection"},
+    {"name": "YOLOv7", "file": "YoloV7.dxnn", "category": "object_detection",
+     "description_ko": "YOLOv7 객체 감지", "description_en": "YOLOv7 object detection"},
+    {"name": "YOLOv8N", "file": "YoloV8N.dxnn", "category": "object_detection",
+     "description_ko": "YOLOv8 Nano 객체 감지", "description_en": "YOLOv8 Nano object detection"},
+    {"name": "YOLOv9S", "file": "YoloV9S.dxnn", "category": "object_detection",
+     "description_ko": "YOLOv9 Small 객체 감지", "description_en": "YOLOv9 Small object detection"},
+    {"name": "YOLOXs", "file": "YoloXS.dxnn", "category": "object_detection",
+     "description_ko": "YOLOX Small 객체 감지", "description_en": "YOLOX Small object detection"},
+    {"name": "YOLOv11N", "file": "YOLOV11N.dxnn", "category": "object_detection",
+     "description_ko": "YOLOv11 Nano 객체 감지", "description_en": "YOLOv11 Nano object detection"},
+    {"name": "YOLOv5S PPU", "file": "YoloV5S_PPU.dxnn", "category": "object_detection",
+     "description_ko": "YOLOv5S 하드웨어 후처리", "description_en": "YOLOv5S with PPU"},
+    # Face Detection (3)
+    {"name": "YOLOv5s Face", "file": "YOLOv5s_Face.dxnn", "category": "face_detection",
+     "description_ko": "YOLOv5s 얼굴 감지", "description_en": "YOLOv5s face detection"},
+    {"name": "SCRFD500M", "file": "SCRFD500M.dxnn", "category": "face_detection",
+     "description_ko": "SCRFD 500M 얼굴 감지", "description_en": "SCRFD 500M face detection"},
+    {"name": "SCRFD500M PPU", "file": "SCRFD500M_PPU.dxnn", "category": "face_detection",
+     "description_ko": "SCRFD500M 하드웨어 후처리", "description_en": "SCRFD500M with PPU"},
+    # Pose Estimation (3)
+    {"name": "YOLOv26n Pose", "file": "yolo26n-pose.dxnn", "category": "pose_estimation",
+     "description_ko": "YOLOv26n 자세 추정", "description_en": "YOLOv26n pose estimation"},
+    {"name": "YOLOv8m Pose", "file": "yolov8m_pose.dxnn", "category": "pose_estimation",
+     "description_ko": "YOLOv8m 자세 추정", "description_en": "YOLOv8m pose estimation"},
+    {"name": "YOLOV5Pose PPU", "file": "YOLOV5Pose_PPU.dxnn", "category": "pose_estimation",
+     "description_ko": "YOLOV5Pose 하드웨어 후처리", "description_en": "YOLOV5Pose with PPU"},
+    # Segmentation (1)
+    {"name": "YOLOv26n Seg", "file": "yolo26n-seg.dxnn", "category": "segmentation",
+     "description_ko": "YOLOv26n 시맨틱 세그멘테이션", "description_en": "YOLOv26n semantic segmentation"},
+    # Classification (1)
+    {"name": "EfficientNet Lite0", "file": "EfficientNet_Lite0.dxnn", "category": "classification",
+     "description_ko": "EfficientNet Lite0 분류", "description_en": "EfficientNet Lite0 classification"},
+    # OBB Detection (1)
+    {"name": "YOLO26n OBB", "file": "yolo26n-obb.dxnn", "category": "obb_detection",
+     "description_ko": "YOLOv26n 회전 바운딩 박스 감지", "description_en": "YOLOv26n oriented bounding box detection"},
+]
+
+
+def _known_metadata_by_file() -> dict[str, dict]:
+    return {m["file"]: dict(m) for m in _EMBEDDED_MODELS}
+
+
+def _build_catalog() -> tuple[list[dict], str]:
+    manifest = load_model_manifest(DX_STREAM_ROOT)
+    if manifest.source == "manifest":
+        known = _known_metadata_by_file()
+        catalog = []
+        for mf in manifest.models:
+            entry = dict(known.get(mf, {
+                "file": mf,
+                "name": mf.replace(".dxnn", ""),
+                "category": "uncategorized",
+                "description_ko": f"{mf} (자동 감지)",
+                "description_en": f"{mf} (auto-detected)",
+            }))
+            entry["file"] = mf
+            catalog.append(entry)
+        return catalog, "manifest"
+    return [dict(m) for m in _EMBEDDED_MODELS], "fallback"
+
+
+_MODELS, _CATALOG_SOURCE = _build_catalog()
+
+
+def get_catalog_source() -> str:
+    return _CATALOG_SOURCE
+
+
+def get_models() -> list[dict]:
+    """전체 모델 카탈로그 반환 (dict 복사본)"""
+    return [dict(m) for m in _MODELS]
+
+
+def get_model_status() -> dict:
+    """각 모델의 설치 상태 반환 — {파일명: {installed, size}}"""
+    result = {}
+    for m in _MODELS:
+        p = MODELS_DIR / m["file"]
+        if p.exists():
+            result[m["file"]] = {"installed": True, "size": p.stat().st_size}
+        else:
+            result[m["file"]] = {"installed": False, "size": 0}
+    return result
+
+
+def get_models_by_category() -> dict[str, list[dict]]:
+    """카테고리별 모델 그룹핑 (dict 복사본)"""
+    cats: dict[str, list[dict]] = {}
+    for m in _MODELS:
+        cats.setdefault(m["category"], []).append(dict(m))
+    return cats
