@@ -916,6 +916,54 @@ class LauncherHandler(DXBaseHandler):
         except Exception as e:
             self.send_error(500, str(e))
 
+    _SDK_IMAGE_TYPES = {
+        ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+        ".gif": "image/gif", ".svg": "image/svg+xml", ".webp": "image/webp",
+        ".bmp": "image/bmp", ".ico": "image/x-icon",
+    }
+
+    def _serve_sdk_doc_image(self, parsed):
+        """Serve an image referenced by an SDK Library markdown doc.
+
+        Images are relative to the doc inside dx-all-suite, so the doc renderer
+        rewrites `![](rel)` to this endpoint. Read-only, image extensions only,
+        confined to the suite root, no traversal.
+        """
+        import urllib.parse as _up
+        qs = _up.parse_qs(parsed.query)
+        rel = qs.get("path", [""])[0]
+        if not rel or "\x00" in rel or "\\" in rel:
+            self.send_error(400, "Invalid path")
+            return
+        rel_path = Path(rel)
+        if rel_path.is_absolute() or any(part == ".." for part in rel_path.parts):
+            self.send_error(400, "Invalid path")
+            return
+        ctype = self._SDK_IMAGE_TYPES.get(rel_path.suffix.lower())
+        if ctype is None:
+            self.send_error(404, "Not found")
+            return
+        safe_root = BASE_DIR.parent.parent.resolve()
+        target = (safe_root / rel_path).resolve()
+        try:
+            target.relative_to(safe_root)
+        except ValueError:
+            self.send_error(400, "Invalid path")
+            return
+        if not target.is_file():
+            self.send_error(404, "Not found")
+            return
+        try:
+            data = target.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("Cache-Control", "public, max-age=3600")
+            self.end_headers()
+            self.wfile.write(data)
+        except Exception as e:
+            self.send_error(500, str(e))
+
     def _serve_sdk_pdf_status(self, parsed):
         """Report whether a registered SDK Library PDF is packaged."""
         import urllib.parse as _up
@@ -1257,6 +1305,8 @@ class LauncherHandler(DXBaseHandler):
             self._send_contained_file(BASE_DIR / "static", path[len("/static/"):])
         elif path == "/api/sdk-doc":
             self._serve_sdk_doc(parsed)
+        elif path == "/api/sdk-doc-image":
+            self._serve_sdk_doc_image(parsed)
         elif path == "/api/sdk-pdf-status":
             self._serve_sdk_pdf_status(parsed)
         elif path.startswith("/static/about-data"):

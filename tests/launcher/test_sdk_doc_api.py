@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import threading
 from http.server import ThreadingHTTPServer
 from pathlib import Path
@@ -216,3 +217,68 @@ class TestSdkPdfStatusApi:
 
     def test_backslash_pdf_path_returns_400(self, launcher_server):
         assert self._get_error(launcher_server, r"pdfs\\secret.pdf") == 400
+
+
+def _find_existing_doc_image() -> str:
+    """Find a doc-relative image (resolved suite-root path) that exists on disk."""
+    data = json.loads((STATIC / "sdk-library-data.json").read_text(encoding="utf-8"))
+    suite_root = ROOT.parent
+    for drawer in data.get("drawers", []):
+        for section in drawer.get("sections", []):
+            for file_info in section.get("files", []):
+                path = file_info.get("path", "")
+                if not path.endswith(".md") or not (suite_root / path).is_file():
+                    continue
+                text = (suite_root / path).read_text(encoding="utf-8", errors="ignore")
+                doc_dir = path.rsplit("/", 1)[0] if "/" in path else ""
+                for m in re.finditer(r"!\[[^\]]*\]\(([^)]+)\)", text):
+                    src = m.group(1).strip()
+                    if re.match(r"^(https?:|data:|/)", src, re.I):
+                        continue
+                    parts = doc_dir.split("/") if doc_dir else []
+                    for seg in src.split("/"):
+                        if seg in ("", "."):
+                            continue
+                        if seg == "..":
+                            if parts:
+                                parts.pop()
+                            continue
+                        parts.append(seg)
+                    resolved = "/".join(parts)
+                    if resolved.lower().rsplit(".", 1)[-1] in (
+                        "png", "jpg", "jpeg", "gif", "svg", "webp"
+                    ) and (suite_root / resolved).is_file():
+                        return resolved
+    return ""
+
+
+class TestSdkDocImageApi:
+    """SDK doc image endpoint serves doc-relative images safely."""
+
+    def _get(self, base_url: str, path_param: str) -> int:
+        url = f"{base_url}/api/sdk-doc-image?{urlencode({'path': path_param})}"
+        try:
+            return urlopen(url, timeout=5).status
+        except HTTPError as e:
+            return e.code
+
+    def test_registered_doc_image_returns_200(self, launcher_server):
+        img = _find_existing_doc_image()
+        if not img:
+            pytest.skip("No doc-relative image found on disk")
+        url = f"{launcher_server}/api/sdk-doc-image?{urlencode({'path': img})}"
+        resp = urlopen(url, timeout=5)
+        assert resp.status == 200
+        assert resp.headers.get("Content-Type", "").startswith("image/")
+
+    def test_non_image_extension_returns_404(self, launcher_server):
+        assert self._get(launcher_server, "dx-compiler/README.md") == 404
+
+    def test_dotdot_traversal_returns_400(self, launcher_server):
+        assert self._get(launcher_server, "../secret.png") == 400
+
+    def test_absolute_path_returns_400(self, launcher_server):
+        assert self._get(launcher_server, "/tmp/x.png") == 400
+
+    def test_missing_image_returns_404(self, launcher_server):
+        assert self._get(launcher_server, "dx-compiler/does-not-exist-xyz.png") == 404

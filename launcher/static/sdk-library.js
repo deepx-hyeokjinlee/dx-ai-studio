@@ -646,44 +646,140 @@
   }
 
   // ── Markdown → HTML ──
-  function mdToHtml(md) {
-    let html = md;
-    // Protect code blocks from subsequent transforms
+  // Resolve a doc-relative path ("img/a.png", "../x.png") against the doc's
+  // directory into a suite-root-relative path for /api/sdk-doc-image.
+  function _resolveDocRel(docPath, src) {
+    const dir = (docPath && docPath.indexOf('/') >= 0)
+      ? docPath.slice(0, docPath.lastIndexOf('/')) : '';
+    const parts = dir ? dir.split('/') : [];
+    src.split('/').forEach((seg) => {
+      if (seg === '' || seg === '.') return;
+      if (seg === '..') { if (parts.length) parts.pop(); return; }
+      parts.push(seg);
+    });
+    return parts.join('/');
+  }
+
+  // Block-based Markdown → HTML. Splits the source into blank-line-separated
+  // blocks and classifies each (heading / hr / code / table / blockquote / list /
+  // raw-HTML block / paragraph) rather than transforming line-by-line. This keeps
+  // paragraphs that start with inline markup (**bold**, `code`) wrapped in <p>,
+  // groups list items (incl. tab-indented `-\t`) into a single <ul>, converts
+  // trailing hard breaks to <br>, and rewrites BOTH markdown `![](rel)` and raw
+  // HTML `<img src="rel">` doc-relative sources through the image endpoint.
+  function mdToHtml(md, docPath) {
+    // Protect fenced code blocks from later transforms.
     const codeBlocks = [];
-    html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    let s = md.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
       const idx = codeBlocks.length;
       codeBlocks.push(`<pre><code class="lang-${lang}">${escHtml(code.trimEnd())}</code></pre>`);
-      return `\x00CODEBLOCK${idx}\x00`;
+      return `\x00CB${idx}\x00`;
     });
-    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-    html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
-    html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-    html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-    html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-    html = html.replace(/^---+$/gm, '<hr>');
-    html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-    html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
-    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-    html = html.replace(/^(\s*)[*-] (.+)$/gm, '$1<li>$2</li>');
-    html = html.replace(/^(\s*)\d+\. (.+)$/gm, '$1<li>$2</li>');
-    html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
-    html = html.replace(/^\|(.+)\|\s*\n\|[-| :]+\|\s*\n((?:\|.+\|\s*\n?)*)/gm, (_, hdr, body) => {
-      const ths = hdr.split('|').map(c => c.trim()).filter(Boolean)
-        .map(c => `<th>${c}</th>`).join('');
-      const rows = body.trim().split('\n').map(row => {
-        const tds = row.split('|').map(c => c.trim()).filter(Boolean)
-          .map(c => `<td>${c}</td>`).join('');
-        return `<tr>${tds}</tr>`;
+    // Reference-style link definitions: `[label]: url` — collect then blank the line.
+    const refs = {};
+    s = s.replace(/^[ \t]*\[([^\]]+)\]:\s*(\S+).*$/gm, (_, label, url) => {
+      refs[label.toLowerCase()] = url;
+      return '\x00REF\x00';
+    });
+
+    const rewriteSrc = (x) => {
+      x = x.trim();
+      // absolute/data/root-anchored/already-rewritten sources pass through
+      const abs = /^(https?:|data:|\/|\x00)/i.test(x);
+      return (abs || !docPath)
+        ? x
+        : '/api/sdk-doc-image?path=' + encodeURIComponent(_resolveDocRel(docPath, x));
+    };
+    const inline = (text) => {
+      let t = text;
+      t = t.replace(/`([^`]+)`/g, '<code>$1</code>');
+      t = t.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+      t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      t = t.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      // Markdown images → rewritten <img>
+      t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, alt, src) => `<img src="${rewriteSrc(src)}" alt="${alt}">`);
+      // Raw HTML <img src="rel"> → rewrite the src attribute (keep other attrs)
+      t = t.replace(/(<img\b[^>]*?\bsrc\s*=\s*["'])([^"']+)(["'])/gi, (m, pre, src, post) => `${pre}${rewriteSrc(src)}${post}`);
+      t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+      t = t.replace(/\[([^\]]+)\]\[([^\]]*)\]/g, (m, txt, label) => {
+        const url = refs[(label || txt).toLowerCase()];
+        return url ? `<a href="${url}" target="_blank">${txt}</a>` : m;
+      });
+      return t;
+    };
+
+    const lines = s.split('\n');
+    const out = [];
+    let i = 0;
+    const isBlank = (l) => /^\s*$/.test(l) || l.trim() === '\x00REF\x00';
+    const listRe = /^(\s*)(?:[*-]|\d+\.)[ \t]+(.+)$/;
+    const headRe = /^(#{1,6})\s+(.+)$/;
+    const hrRe = /^\s*(-{3,}|\*{3,}|_{3,})\s*$/;
+    const bqRe = /^\s*>\s?/;
+    const htmlRe = /^\s*<(\/?)(div|img|table|thead|tbody|tr|td|th|p|ul|ol|li|blockquote|figure|figcaption|h[1-6]|hr|br|section|span|pre|details|summary|iframe|video|source|!--)/i;
+    const cbRe = /^\s*\x00CB\d+\x00\s*$/;
+    const rowRe = /^\s*\|.*\|\s*$/;
+    const isSpecial = (l) => headRe.test(l) || hrRe.test(l) || listRe.test(l) || bqRe.test(l) || htmlRe.test(l) || cbRe.test(l) || rowRe.test(l);
+
+    while (i < lines.length) {
+      const line = lines[i];
+      if (isBlank(line)) { i++; continue; }
+      let m;
+      if ((m = line.match(headRe))) { out.push(`<h${m[1].length}>${inline(m[2].trim())}</h${m[1].length}>`); i++; continue; }
+      if (hrRe.test(line)) { out.push('<hr>'); i++; continue; }
+      if (cbRe.test(line)) { out.push(line.trim()); i++; continue; }
+      // Table: header row followed by a |---|---| separator.
+      if (rowRe.test(line) && i + 1 < lines.length && /^\s*\|[-| :]+\|\s*$/.test(lines[i + 1])) {
+        const cell = (r) => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+        const ths = cell(line).map(c => `<th>${inline(c)}</th>`).join('');
+        i += 2;
+        const trs = [];
+        while (i < lines.length && rowRe.test(lines[i])) {
+          trs.push(`<tr>${cell(lines[i]).map(c => `<td>${inline(c)}</td>`).join('')}</tr>`);
+          i++;
+        }
+        out.push(`<table><thead><tr>${ths}</tr></thead><tbody>${trs.join('')}</tbody></table>`);
+        continue;
+      }
+      // Blockquote
+      if (bqRe.test(line)) {
+        const buf = [];
+        while (i < lines.length && bqRe.test(lines[i])) { buf.push(lines[i].replace(bqRe, '')); i++; }
+        out.push(`<blockquote>${inline(buf.join(' '))}</blockquote>`);
+        continue;
+      }
+      // List — consecutive items (blank lines between items still merge into one <ul>).
+      if (listRe.test(line)) {
+        const items = [];
+        while (i < lines.length) {
+          if (listRe.test(lines[i])) { items.push(lines[i].match(listRe)[2].trim()); i++; }
+          else if (isBlank(lines[i]) && i + 1 < lines.length && listRe.test(lines[i + 1])) { i++; }
+          else break;
+        }
+        out.push('<ul>' + items.map((it) => `<li>${inline(it)}</li>`).join('') + '</ul>');
+        continue;
+      }
+      // Raw HTML block — pass through (apply inline so <img> src gets rewritten), no <p> wrap.
+      if (htmlRe.test(line)) {
+        const buf = [];
+        while (i < lines.length && !isBlank(lines[i])) { buf.push(lines[i]); i++; }
+        out.push(inline(buf.join('\n')));
+        continue;
+      }
+      // Paragraph — always consume the current line (guarantees progress even for
+      // a special-looking line no block handler claimed, e.g. a stray `|` row), then
+      // gather continuation lines until a blank line or the start of another block.
+      const buf = [lines[i]];
+      i++;
+      while (i < lines.length && !isBlank(lines[i]) && !isSpecial(lines[i])) { buf.push(lines[i]); i++; }
+      const para = buf.map((l, idx) => {
+        const hard = /  +$/.test(l) || /\\$/.test(l);
+        return l.replace(/\\$/, '').replace(/\s+$/, '') + (idx < buf.length - 1 ? (hard ? '<br>' : ' ') : '');
       }).join('');
-      return `<table><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table>`;
-    });
-    html = html.replace(/^(?!<[a-z]|\x00)((?!<\/)[^\n]+)$/gm, '<p>$1</p>');
-    html = html.replace(/<p>\s*<\/p>/g, '');
-    // Restore code blocks
-    html = html.replace(/\x00CODEBLOCK(\d+)\x00/g, (_, i) => codeBlocks[i]);
+      out.push(`<p>${inline(para)}</p>`);
+    }
+    let html = out.join('\n');
+    html = html.replace(/\x00CB(\d+)\x00/g, (_, idx) => codeBlocks[idx]);
     return html;
   }
 
@@ -930,7 +1026,7 @@
       const res = await fetch('/api/sdk-doc?path=' + encodeURIComponent(book.path));
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const md = await res.text();
-      const html = mdToHtml(md);
+      const html = mdToHtml(md, book.path);
       if (body) {
         body.classList.remove('sdk-pdf-mode');
         body.innerHTML = html;

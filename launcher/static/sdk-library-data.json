@@ -856,12 +856,6 @@
               "path": "dx-runtime/dx_stream/bindings/python/pydxs/README.md",
               "title": "pydxs",
               "size": 9941
-            },
-            {
-              "path": "dx-runtime/dx_stream/docs/source/docs/Appendix_Change_Log.md",
-              "title": "DX-Stream Change Log",
-              "type": "md",
-              "size": 9402
             }
           ]
         },
