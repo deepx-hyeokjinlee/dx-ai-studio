@@ -37,6 +37,10 @@ tests/zoom_audit_report.json
 # Superpowers planning artifacts — never committed (CLAUDE.md git safety)
 docs/superpowers/
 
+# User-manual (MkDocs) build artifacts — regenerated via docs/make_html.md
+docs/site/
+docs/.venv-docs/
+
 # Internal / non-shippable (agent-driven-dev output, agent working data, dev artifacts)
 dx-agent-dev/
 workspace/
