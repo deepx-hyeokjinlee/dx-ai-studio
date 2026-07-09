@@ -120,6 +120,14 @@ _comp_stdin_proc=None  # process whose stdin we can write to
 _DS=None; _dx_ok=False
 def _load_dx():
     global _DS,_dx_ok
+    def _imp():
+        from dx_engine.device_status import DeviceStatus; return DeviceStatus
+    # Try an already-built dx_engine (studio venv) BEFORE injecting fallback paths — the
+    # uncompiled dx_rt/python_package/src tree (no _pydxrt.so) would otherwise shadow it
+    # and force mock NPU data.
+    try:
+        _DS=_imp();_dx_ok=True;print("[OK] dx_engine loaded");return
+    except Exception:pass
     for root in[DX_RUNTIME_ROOT/"venv-dx-runtime",
                 _SUITE_ROOT/"venv-dx-runtime",
                 DX_RT_ROOT/"python_package"/"src"]:
@@ -127,8 +135,7 @@ def _load_dx():
         for sp in list(root.glob("lib/python*/site-packages"))+[root]:
             if sp.is_dir() and str(sp) not in sys.path:sys.path.insert(0,str(sp))
     try:
-        from dx_engine.device_status import DeviceStatus
-        _DS=DeviceStatus;_dx_ok=True;print("[OK] dx_engine loaded")
+        _DS=_imp();_dx_ok=True;print("[OK] dx_engine loaded (via fallback path)")
     except Exception:_dx_ok=False;print("[INFO] dx_engine unavailable — mock NPU data")
 _load_dx()
 

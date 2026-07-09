@@ -18,13 +18,29 @@ if not _NPU_STATS_BIN.exists():
         _NPU_STATS_BIN = _alt
 
 
+def _try_import_dx():
+    from dx_engine.device_status import DeviceStatus
+    return DeviceStatus
+
+
 def _load_dx():
     global _DS, _dx_ok
+    # 1) Prefer an already-importable dx_engine (e.g. the studio venv's fully-built
+    #    package). Do this BEFORE any sys.path injection so an *uncompiled* source tree
+    #    on a fallback path (dx_rt/python_package/src has no compiled _pydxrt.so) cannot
+    #    shadow a working install and force mock NPU data.
+    try:
+        _DS = _try_import_dx()
+        _dx_ok = True
+        print("[DX Monitor] dx_engine loaded")
+        return
+    except Exception:
+        pass
+    # 2) Fallback for environments where dx_engine is not on the path yet: inject known
+    #    SDK locations, then retry. Only reached when the direct import above failed.
     DX_RT_ROOT = SUITE_ROOT / "dx-runtime"
     for root in [DX_RT_ROOT / "venv-dx-runtime",
                  SUITE_ROOT / "venv-dx-runtime",
-                 # dx_engine lives under dx-runtime/dx_rt/python_package/src (the /dx_rt/ was
-                 # missing here → import failed → mock NPU data, unlike dx_app which has it).
                  DX_RT_ROOT / "dx_rt" / "python_package" / "src"]:
         if not (root and root.is_dir()):
             continue
@@ -32,10 +48,9 @@ def _load_dx():
             if sp.is_dir() and str(sp) not in sys.path:
                 sys.path.insert(0, str(sp))
     try:
-        from dx_engine.device_status import DeviceStatus
-        _DS = DeviceStatus
+        _DS = _try_import_dx()
         _dx_ok = True
-        print("[DX Monitor] dx_engine loaded")
+        print("[DX Monitor] dx_engine loaded (via fallback path)")
     except Exception:
         _dx_ok = False
         print("[DX Monitor] dx_engine unavailable — mock NPU data")
