@@ -222,3 +222,15 @@ const PlannerWorkspace = {
     if (value == null || !Number.isFinite(number)) return 'N/A';
     return '$' + number.toFixed(number >= 100 ? 0 : 2).replace(/\.0+$/, '').replace(/(\.\d*?)0+$/, '$1');
   },
+
+  _summaryChip(label, value) {
+    return '<span class="summary-chip"><strong>' + this._escHtml(label) + '</strong>' +
+      '<span>' + this._escHtml(value) + '</span></span>';
+  },
+
+  _escHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  },
+};
