@@ -170,7 +170,9 @@
   async function loadLibraryData() {
     if (_libData) return _libData;
     try {
-      const res = await fetch('/static/sdk-library-data.json');
+      // cache: 'no-cache' → always revalidate with the server (ETag), so catalog
+      // updates show up immediately instead of being masked by the max-age cache.
+      const res = await fetch('/static/sdk-library-data.json', { cache: 'no-cache' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       _libData = await res.json();
       return _libData;

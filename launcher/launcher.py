@@ -907,7 +907,56 @@ class LauncherHandler(DXBaseHandler):
             self.send_error(404, "Not found")
             return
         try:
-            data = target.read_bytes()
+            import re as _re, posixpath as _pp
+            text = target.read_text(encoding="utf-8", errors="ignore")
+
+            # Expand MkDocs `{% include-markdown "rel" ... %}` directives — the SDK
+            # Library uses a plain markdown renderer (not MkDocs), so unexpanded
+            # directives would render as literal text. Inline the referenced file and
+            # rewrite its relative image/link URLs to resolve against the host doc
+            # (mirrors the plugin's rewrite-relative-urls).
+            _inc_re = _re.compile(
+                r'\{%\s*include(?:-markdown)?\s+["\']([^"\']+)["\'][^%]*%\}', _re.S)
+
+            def _fix_url(u, from_dir, to_dir):
+                u = u.strip()
+                if _re.match(r'^(https?:|data:|/|#|mailto:)', u, _re.I):
+                    return u
+                absp = _pp.normpath(_pp.join(from_dir, u))
+                return _pp.relpath(absp, to_dir) if to_dir else absp
+
+            def _rewrite(txt, from_dir, to_dir):
+                txt = _re.sub(r'!\[([^\]]*)\]\(([^)]+)\)',
+                              lambda m: '![%s](%s)' % (m.group(1), _fix_url(m.group(2), from_dir, to_dir)), txt)
+                txt = _re.sub(r'(<img\b[^>]*?\bsrc\s*=\s*["\'])([^"\']+)(["\'])',
+                              lambda m: m.group(1) + _fix_url(m.group(2), from_dir, to_dir) + m.group(3), txt, flags=_re.I)
+                txt = _re.sub(r'(?<!\!)\[([^\]]+)\]\(([^)]+)\)',
+                              lambda m: '[%s](%s)' % (m.group(1), _fix_url(m.group(2), from_dir, to_dir)), txt)
+                return txt
+
+            def _expand(txt, doc_rel, depth=0):
+                if depth > 4:
+                    return txt
+                doc_dir = _pp.dirname(doc_rel)
+
+                def _repl(m):
+                    tgt_rel = _pp.normpath(_pp.join(doc_dir, m.group(1).strip()))
+                    if tgt_rel.startswith(".."):
+                        return ""
+                    tgt = (safe_root / tgt_rel).resolve()
+                    try:
+                        tgt.relative_to(safe_root)
+                    except ValueError:
+                        return ""
+                    if not tgt.is_file():
+                        return ""
+                    inc_txt = _rewrite(tgt.read_text(encoding="utf-8", errors="ignore"),
+                                       _pp.dirname(tgt_rel), doc_dir)
+                    return _expand(inc_txt, tgt_rel, depth + 1)
+
+                return _inc_re.sub(_repl, txt)
+
+            data = _expand(text, rel).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/plain; charset=utf-8")
             self.send_header("Content-Length", str(len(data)))
