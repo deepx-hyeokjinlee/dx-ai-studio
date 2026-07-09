@@ -6,7 +6,12 @@
   <title>DEEPX AI Studio</title>
   <!-- Hide main chrome until studio_ready + orbital layout (FOUC / VS Code port-forward race). -->
   <style id="launcher-boot-critical">
-    html.launcher-boot-pending .top-bar,
+    /* Dark base from the very first paint. VS Code "open in browser" fires the instant the
+       launcher port starts listening — i.e. BEFORE the external stylesheets (dx-base.css sets
+       the body background, style.css styles the splash/boot-gate covers) have arrived. Without
+       an inline background the boot-pending shell + not-yet-styled covers render as a blank
+       white page. The studio is dark-mode only, so pin the dark background inline. */
+    html, body { background: #080c16; }
     html.launcher-boot-pending #landing,
     html.launcher-boot-pending #replayBtn,
     html.launcher-boot-pending #about-view,
@@ -118,6 +123,9 @@
       <!-- Tabs injected by JS when inside an app -->
     </div>
     <div class="top-bar-right">
+      <a class="buy-topbar-btn" id="buyTopbarBtn" href="https://deepx.ai/buy-now/" target="_blank" rel="noopener noreferrer" aria-label="Purchase DEEPX NPU" data-i18n-aria-label="Purchase DEEPX NPU">
+        🛒 <span class="ko">구매</span><span class="en">Buy</span><span class="ja">購入</span><span class="zh-CN">购买</span><span class="zh-TW">購買</span><span class="es">Comprar</span>
+      </a>
       <div id="launcherToolbar" class="toolbar"></div>
       <div class="status-dots">
         <span class="dot" id="dotApp" title="DX App"></span>
@@ -142,21 +150,6 @@
 
   <!-- ── Landing Page (orbital layout) ── -->
   <main class="landing" id="landing">
-    <!-- Purchase entry point (slim, dismissible). Links to the DEEPX store. -->
-    <div class="buy-banner" id="buyBanner" role="region" aria-label="Purchase DEEPX NPU" data-i18n-aria-label="Purchase DEEPX NPU">
-      <span class="buy-banner-msg">
-        <span class="ko">🛒 DEEPX NPU가 필요하신가요? 지금 구매·평가 키트를 확인하세요.</span>
-        <span class="en">🛒 Need a DEEPX NPU? Check out purchase &amp; evaluation kits.</span>
-        <span class="ja">🛒 DEEPX NPU をお探しですか？購入・評価キットをご覧ください。</span>
-        <span class="zh-CN">🛒 需要 DEEPX NPU 吗？查看购买与评估套件。</span>
-        <span class="zh-TW">🛒 需要 DEEPX NPU 嗎？查看購買與評估套件。</span>
-        <span class="es">🛒 ¿Necesitas una DEEPX NPU? Consulta las opciones de compra y evaluación.</span>
-      </span>
-      <a class="buy-banner-cta" href="https://deepx.ai/buy-now/" target="_blank" rel="noopener noreferrer">
-        <span class="ko">구매하러 가기</span><span class="en">Buy now</span><span class="ja">購入する</span><span class="zh-CN">立即购买</span><span class="zh-TW">立即購買</span><span class="es">Comprar</span>
-      </a>
-      <button class="buy-banner-close" id="buyBannerClose" type="button" aria-label="Dismiss" data-i18n-aria-label="Dismiss">×</button>
-    </div>
     <!-- Background effects -->
     <div class="circuit-bg"></div>
     <div class="landing-particles">
@@ -569,18 +562,5 @@
   <script src="/launcher-app-frame.js"></script>
   <script src="/launcher.js"></script>
   <script src="/tutorial.js"></script>
-  <script>
-    // Purchase banner dismiss (persists in localStorage).
-    (function () {
-      var b = document.getElementById('buyBanner');
-      if (!b) return;
-      try { if (localStorage.getItem('dx-buy-banner-dismissed') === '1') b.classList.add('dismissed'); } catch (e) {}
-      var c = document.getElementById('buyBannerClose');
-      if (c) c.addEventListener('click', function () {
-        b.classList.add('dismissed');
-        try { localStorage.setItem('dx-buy-banner-dismissed', '1'); } catch (e) {}
-      });
-    })();
-  </script>
 </body>
 </html>

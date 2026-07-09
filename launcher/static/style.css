@@ -2223,28 +2223,12 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 }
 
 /* Purchase banner (slim, dismissible). Zoom-safe: %-width + box-sizing + flex-wrap, no fixed px width. */
-.buy-banner {
-  /* Pinned to the top of the landing (below the topbar), above the vertically-centered
-     orbital. absolute (not a flex item) so it doesn't get pulled into the centering. */
-  position: absolute; top: var(--launcher-topbar-h); left: 0; right: 0; z-index: 60;
-  box-sizing: border-box;
-  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-  gap: 8px 16px; padding: 8px 44px 8px 16px;
-  background: linear-gradient(90deg, rgba(30,52,96,0.96), rgba(24,40,74,0.96));
-  border-bottom: 1px solid rgba(90,150,240,0.45);
-  backdrop-filter: blur(2px);
-  font-size: 13px; color: var(--text-1, #cdd6e4); text-align: center;
+/* Purchase entry point — compact pill in the top bar (right side), symmetric with
+   the tutorial toggle. Replaces the old full-width banner that overlapped the orbital. */
+.buy-topbar-btn {
+  display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0;
+  padding: 4px 12px; border-radius: 999px;
+  background: #2f6ee0; color: #fff; text-decoration: none;
+  font-weight: 600; font-size: 12.5px; line-height: 1.4; white-space: nowrap;
 }
-.buy-banner.dismissed { display: none; }
-.buy-banner-msg { min-width: 0; }
-.buy-banner-cta {
-  flex-shrink: 0; display: inline-block; padding: 4px 14px; border-radius: 999px;
-  background: #2f6ee0; color: #fff; text-decoration: none; font-weight: 600; font-size: 12.5px;
-}
-.buy-banner-cta:hover { background: #3f7ef0; }
-.buy-banner-close {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; color: var(--text-2, #8b98ac);
-  font-size: 18px; line-height: 1; cursor: pointer; padding: 2px 6px;
-}
-.buy-banner-close:hover { color: var(--text-1, #cdd6e4); }
+.buy-topbar-btn:hover { background: #3f7ef0; }

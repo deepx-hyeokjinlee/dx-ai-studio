@@ -112,10 +112,21 @@
 
   async function loadData() {
     if (_aboutData) return _aboutData;
-    const r = await fetch('/static/about-data.json', { cache: 'no-store' });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    _aboutData = await r.json();
-    return _aboutData;
+    // Guard against a pending fetch (e.g. the launcher still saturated during early boot)
+    // turning into an infinite loading spinner — abort after 10s so the catch in
+    // initAboutView surfaces a retry instead of hanging forever.
+    const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 10000) : null;
+    try {
+      const opts = { cache: 'no-store' };
+      if (ctrl) opts.signal = ctrl.signal;
+      const r = await fetch('/static/about-data.json', opts);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      _aboutData = await r.json();
+      return _aboutData;
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
   }
 
   function renderHero(container, data) {

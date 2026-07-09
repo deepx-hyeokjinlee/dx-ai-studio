@@ -293,6 +293,7 @@
     if (iframe) iframe.dataset.loadState = 'loaded';
     if (ns.currentApp !== appKey) return;
     if (_moduleLoadTimer) { clearTimeout(_moduleLoadTimer); _moduleLoadTimer = null; }
+    if (ns._moduleRetryStart) ns._moduleRetryStart[appKey] = 0;  // success clears the self-heal window
     clearModuleEntryState();
     var overlay = document.getElementById('loadingOverlay');
     if (overlay) overlay.remove();
@@ -542,7 +543,7 @@
 
         if (!status || !status.alive) {
           var reason = (status && status.watchdogUnavailable) ? 'watchdog-unavailable' : 'unavailable';
-          renderModuleUnavailable(appKey, reason, function() {
+          handleModuleEntryFailure(appKey, opts, reason, function() {
             retryModuleLaunch(appKey, opts, reason);
           });
           return;
@@ -563,7 +564,7 @@
           _moduleLoadTimer = null;
           if (ns.currentApp !== appKey) return;
           iframe.onload = null;
-          renderModuleUnavailable(appKey, 'load-timeout', function() {
+          handleModuleEntryFailure(appKey, opts, 'load-timeout', function() {
             retryModuleLaunch(appKey, opts, 'load-timeout');
           });
         }, MODULE_LOAD_TIMEOUT_MS);
@@ -576,7 +577,7 @@
         if (ns.currentApp !== appKey) return;
         if (_moduleLoadTimer) { clearTimeout(_moduleLoadTimer); _moduleLoadTimer = null; }
         iframe.onload = null;
-        renderModuleUnavailable(appKey, 'error', function() {
+        handleModuleEntryFailure(appKey, opts, 'error', function() {
           retryModuleLaunch(appKey, opts, 'error');
         });
       });
@@ -849,6 +850,35 @@
   var MODULE_HEALTH_STALE_MS = 6000;
   var _moduleLoadTimer = null;
 
+  // ── Module entry auto-retry (self-heal for early access) ──────────
+  // When the studio is opened the instant the launcher port starts listening (e.g. VS
+  // Code "open in browser"), a module server may still be spawning — its first health
+  // probe / iframe load fails. Rather than dropping the user on a manual "unavailable"
+  // screen, silently retry within a bounded window so the module fills in once it is up.
+  var MODULE_AUTO_RETRY_WINDOW_MS = 30000;
+  var MODULE_AUTO_RETRY_DELAY_MS = 1500;
+  ns._moduleRetryStart = ns._moduleRetryStart || {};
+
+  function handleModuleEntryFailure(appKey, opts, reason, manualRetryFn) {
+    // A crashed-and-unrecoverable backend is not transient — go straight to manual.
+    if (reason === 'watchdog-unavailable') {
+      renderModuleUnavailable(appKey, reason, manualRetryFn);
+      return;
+    }
+    var now = Date.now();
+    if (!ns._moduleRetryStart[appKey]) ns._moduleRetryStart[appKey] = now;
+    if (now - ns._moduleRetryStart[appKey] < MODULE_AUTO_RETRY_WINDOW_MS) {
+      renderModuleLoading(appKey);
+      setTimeout(function() {
+        if (ns.currentApp !== appKey) return;
+        retryModuleLaunch(appKey, opts, reason);
+      }, MODULE_AUTO_RETRY_DELAY_MS);
+      return;
+    }
+    ns._moduleRetryStart[appKey] = 0;  // window exhausted — reset for a future manual retry
+    renderModuleUnavailable(appKey, reason, manualRetryFn);
+  }
+
   // ── Health polling ────────────────────────────────────
   function _maybeReloadForLauncherBoot(data) {
     if (!data || !data.launcher_boot) return false;
@@ -859,9 +889,18 @@
     }
     var prev = sessionStorage.getItem('dx-launcher-boot');
     if (prev && prev !== data.launcher_boot) {
+      // A changed boot id is a genuine launcher restart ONLY after we have already
+      // reached studio-ready once. Before first-ready — e.g. VS Code "open in browser"
+      // fires the instant the port starts listening, while the boot id is still
+      // settling — a reload here would abort a top-bar navigation that is queued behind
+      // ensureStudioReady() (currentApp is not set yet), making the click look ignored.
+      // That was a chronic early-open bug. Pre-ready: just adopt the new id, never reload.
       sessionStorage.setItem('dx-launcher-boot', data.launcher_boot);
-      location.reload();
-      return true;
+      if (ns._studioReadyResolved) {
+        location.reload();
+        return true;
+      }
+      return false;
     }
     if (!prev) sessionStorage.setItem('dx-launcher-boot', data.launcher_boot);
     return false;

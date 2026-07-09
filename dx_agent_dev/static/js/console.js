@@ -707,6 +707,7 @@
         const img = document.createElement('img');
         img.className = 'example-thumb';
         img.loading = 'lazy';
+        img.decoding = 'async';
         img.src = '/static/' + sc.media;
         img.alt = titleText;
         a.appendChild(img);

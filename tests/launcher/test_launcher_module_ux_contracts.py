@@ -253,11 +253,14 @@ def test_timeout_callback_has_stale_navigation_guard():
     set_timeout_pos = after_then.find("_moduleLoadTimer = setTimeout(function")
     assert set_timeout_pos != -1
     timeout_body = after_then[set_timeout_pos:]
-    # Guard must appear before renderModuleUnavailable in the timeout body
+    # Guard must appear before the failure handler in the timeout body. The timeout
+    # delegates to handleModuleEntryFailure (bounded auto-retry that falls back to
+    # renderModuleUnavailable once the self-heal window is exhausted).
     guard_pos = timeout_body.find("ns.currentApp !== appKey")
-    render_pos = timeout_body.find("renderModuleUnavailable")
+    fail_pos = timeout_body.find("handleModuleEntryFailure")
     assert guard_pos != -1, "Stale-navigation guard not found in timeout callback"
-    assert guard_pos < render_pos, "Guard must precede renderModuleUnavailable in timeout"
+    assert fail_pos != -1, "timeout callback must delegate to handleModuleEntryFailure"
+    assert guard_pos < fail_pos, "Guard must precede failure handling in timeout"
 
 
 def test_iframe_onload_has_stale_navigation_guard():
