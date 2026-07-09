@@ -443,6 +443,48 @@ def test_live_qxnn_resume_fails_without_checkpoint_support(live_server, tmp_path
     assert "checkpoint" in err or "nonexistent" in err or "resume failed" in err
 
 
+def test_live_resume_summary_returns_clear_400(live_server, fast_config, tmp_path, dx_com_info):
+    """A completed QXNN-resume job carries a .qxnn (not ONNX) as model_path, so
+    /summary must return a clear 400 — not a 500 from the ONNX parser choking on
+    the .qxnn (regression guard for the resume-summary 500)."""
+    if not dx_com_info.get("supports_checkpoint") or not dx_com_info.get("supports_quant_diagnosis"):
+        pytest.skip("needs dx_com 2.4+ (checkpoint + quant_diagnosis) to produce and resume a .qxnn")
+    # 1) produce a .qxnn via a quant_diagnosis compile
+    qd_out = tmp_path / "qd"
+    qd_out.mkdir()
+    job_id = _multipart_compile(
+        live_server["base_url"],
+        _compile_fields(fast_config, qd_out, quant_diagnosis="true"),
+    )
+    assert _wait_sse(live_server["base_url"], job_id, timeout=180).get("status") == "done"
+    qxnn = next(iter(qd_out.rglob("*.qxnn")), None)
+    assert qxnn is not None, "quant_diagnosis compile should emit a .qxnn"
+    # 2) resume from that .qxnn
+    resume_out = tmp_path / "resume"
+    resume_out.mkdir()
+    code, body = _post_json(
+        live_server["base_url"],
+        "/compile/resume",
+        {"qxnn_path": str(qxnn), "output_dir": str(resume_out)},
+    )
+    assert code == 200
+    m = re.search(r'data-job-id="([a-f0-9]+)"', body)
+    assert m
+    resume_job = m.group(1)
+    assert _wait_sse(live_server["base_url"], resume_job, timeout=180).get("status") == "done"
+    # 3) /summary on the resume job → clean 400 with a clear message, never a 500
+    req = Request(
+        live_server["base_url"] + f"/compile/{resume_job}/summary",
+        data=b"{}",
+        method="POST",
+        headers={"Content-Type": "application/json"},
+    )
+    with pytest.raises(HTTPError) as exc:
+        urlopen(req, timeout=30)
+    assert exc.value.code == 400
+    assert "resume" in exc.value.read().decode().lower()
+
+
 def test_live_quant_diagnosis_report_404(live_server, fast_config, tmp_path):
     out = tmp_path / "compile_report404"
     out.mkdir()

@@ -495,6 +495,13 @@ class CompilerHandler(DXBaseHandler):
             return self.send_error_json(404, "Job not found")
         if job.status != "done":
             return self.send_error_json(400, "Compilation not complete")
+        # QXNN resume jobs carry a .qxnn as model_path (no source ONNX), so the
+        # ONNX-based summary parser cannot run. Guard here to return a clear 400
+        # instead of a 500 from the ONNX parser choking on the .qxnn.
+        if getattr(job, "mode", "compile") == "resume":
+            return self.send_error_json(
+                400, "Summary is not available for QXNN resume jobs (no source ONNX model)."
+            )
 
         try:
             from dx_compiler.core.html_export import generate_summary_html
