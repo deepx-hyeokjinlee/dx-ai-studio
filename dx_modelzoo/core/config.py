@@ -33,7 +33,7 @@ except (TypeError, ValueError):
     DX_APP_PORT = 8080
 SERVER_NAME = "DX Model Zoo"
 
-# ── 17개 카테고리 (test_models.conf에서 확인된 실제 값) ──
+# ── 22개 카테고리 (test_models.conf에서 확인된 실제 값) ──
 CATEGORIES = {
     "object_detection":     {"label_en": "Object Detection",      "label_ko": "객체 탐지",           "icon": "🎯"},
     "classification":       {"label_en": "Classification",        "label_ko": "분류",               "icon": "🏷️"},
@@ -52,6 +52,11 @@ CATEGORIES = {
     "depth_estimation":     {"label_en": "Depth Estimation",      "label_ko": "깊이 추정",          "icon": "📏"},
     "image_enhancement":    {"label_en": "Image Enhancement",     "label_ko": "이미지 향상",        "icon": "🌟"},
     "hand_landmark":        {"label_en": "Hand Landmark",         "label_ko": "손 랜드마크",        "icon": "✋"},
+    "hand_detection":       {"label_en": "Hand Detection",        "label_ko": "손 탐지",            "icon": "🤚"},
+    "keypoint_detection":   {"label_en": "Keypoint Detection",    "label_ko": "키포인트 탐지",      "icon": "📍"},
+    "object_pose_estimation":{"label_en": "Object Pose Estimation","label_ko": "객체 자세 추정",     "icon": "📦"},
+    "panoptic_driving_perception":{"label_en": "Panoptic Driving Perception","label_ko": "파놉틱 주행 인식","icon": "🚗"},
+    "3d_object_detection":  {"label_en": "3D Object Detection",   "label_ko": "3D 객체 탐지",       "icon": "🧊"},
 }
 
 # 태스크별 Example 이미지 표시 타입
@@ -65,6 +70,9 @@ EXAMPLE_TYPES = {
     "semantic_segmentation": "overlay", "instance_segmentation": "overlay",
     "depth_estimation": "overlay",
     "classification": "classified", "reid": "gallery",
+    "hand_detection": "single", "keypoint_detection": "single",
+    "object_pose_estimation": "single", "3d_object_detection": "single",
+    "panoptic_driving_perception": "overlay",
 }
 
 # 태스크별 기본 샘플 이미지 (inference 용)
@@ -86,6 +94,11 @@ SAMPLE_IMAGES = {
     "ppu": "sample/img/sample_street.jpg",
     "hand_landmark": "sample/img/sample_hand.jpg",
     "face_alignment": "sample/img/sample_face_a1.jpg",
+    "hand_detection": "sample/img/sample_hand.jpg",
+    "keypoint_detection": "sample/img/sample_street.jpg",
+    "object_pose_estimation": "sample/dope/000000.png",
+    "panoptic_driving_perception": "sample/img/sample_parking.jpg",
+    "3d_object_detection": "sample/kitti/velodyne/000049.bin",
 }
 
 MODEL_IMAGE_OVERRIDE = {

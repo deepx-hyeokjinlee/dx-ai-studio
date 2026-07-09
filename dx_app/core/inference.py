@@ -819,6 +819,7 @@ def _parse_task_tags(content):
         "ALIGN": [l for l in _lines if l.startswith("[ALIGN] ")],
         "HAND":  [l for l in _lines if l.startswith("[HAND]")],
         "OBB":   [l for l in _lines if l.startswith("[OBB] ")],
+        "3D":    [l for l in _lines if l.startswith("[3D] ")],
     }
     # Determine dominant tag
     tag = max(_buckets, key=lambda k: len(_buckets[k]))
@@ -867,12 +868,15 @@ def _parse_task_tags(content):
             elif tag == "OBB":
                 parts = tl.split(); cls = parts[1]; conf = float(parts[2]); angle = parts[3]
                 last_pred.append(f"{cls}: {conf*100:.0f}% {angle}°")
+            elif tag == "3D":
+                parts = tl.split(); cls = parts[1]; conf = float(parts[2])
+                last_pred.append(f"{cls}: {conf*100:.0f}%")
         except:
             continue
 
     # Build summary (aggregated across all frames)
     summary = {}
-    if tag == "DET" or tag == "ISEG" or tag == "OBB":
+    if tag == "DET" or tag == "ISEG" or tag == "OBB" or tag == "3D":
         for tl in tag_lines:
             parts = tl.split()
             if len(parts) >= 3:

@@ -134,7 +134,12 @@ async function showDetail(name){
     embedding:T('Displays embedding vector info (dimension, value preview, L2 norm) as text.'),
     ppu:T('Displays PPU pipeline results.'),
     face_alignment:T('Draws face alignment landmark points.'),
-    hand_landmark:T('Draws 21 hand landmark points and connections.')
+    hand_landmark:T('Draws 21 hand landmark points and connections.'),
+    hand_detection:T('Draws bounding boxes around detected hands.'),
+    keypoint_detection:T('Draws detected keypoints (interest points) on the image.'),
+    object_pose_estimation:T('Draws the projected 3D bounding box and 6-DoF pose of the object.'),
+    panoptic_driving_perception:T('Overlays drivable area, lane lines, and vehicle detections on the driving scene.'),
+    '3d_object_detection':T('Renders 3D bounding boxes on the LiDAR bird\'s-eye-view.')
   };
   var h='';
   // Basic Info card  

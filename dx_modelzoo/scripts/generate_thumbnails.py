@@ -20,17 +20,27 @@ THUMB_DIR = DATA_DIR / "thumbnails"
 EXAMPLE_DIR = DATA_DIR / "examples"
 DX_APP_URL = f"http://127.0.0.1:{DX_APP_PORT}"
 
+# The C++ sync runners for these tasks do NOT honor DXAPP_SAVE_IMAGE (dx_app v3.2.0 gap),
+# so a cpp run yields no result image. The python runners save uniformly → force python.
+PY_LANG_CATEGORIES = {
+    "pose_estimation", "keypoint_detection",
+    "object_pose_estimation", "panoptic_driving_perception",
+}
+
 
 def run_inference_api(model_name, category, model_file):
     """dx_app /api/run 엔드포인트 호출."""
     image_path = MODEL_IMAGE_OVERRIDE.get(model_name, SAMPLE_IMAGES.get(category, ""))
-    payload = json.dumps({
+    payload_d = {
         "model_name": model_name,
         "category": category,
         "model_file": model_file,
         "input_type": "image",
         "image_path": image_path,
-    }).encode("utf-8")
+    }
+    if category in PY_LANG_CATEGORIES:
+        payload_d["lang"] = "python"
+    payload = json.dumps(payload_d).encode("utf-8")
     req = Request(f"{DX_APP_URL}/api/run", data=payload,
                   headers={"Content-Type": "application/json"})
     try:
@@ -47,7 +57,7 @@ def save_base64_image(b64_str, path):
     path.write_bytes(data)
 
 
-def generate(dry_run=False, single_model=None):
+def generate(dry_run=False, single_model=None, only_missing=False):
     if not is_dx_app_alive():
         print(f"[ERROR] dx_app is not running at port {DX_APP_PORT}. Aborting.")
         print("Start dx_app first: cd dx-ai-studio && python3 dx_app/server.py")
@@ -59,6 +69,9 @@ def generate(dry_run=False, single_model=None):
         if not models:
             print(f"[ERROR] Model '{single_model}' not found")
             sys.exit(1)
+    if only_missing:
+        models = [m for m in models if not (THUMB_DIR / f"{m['id']}.jpg").exists()]
+        print(f"[only-missing] {len(models)} models without a thumbnail")
 
     THUMB_DIR.mkdir(parents=True, exist_ok=True)
     EXAMPLE_DIR.mkdir(parents=True, exist_ok=True)
@@ -118,5 +131,6 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--model", type=str, default=None, help="Single model ID")
+    p.add_argument("--only-missing", action="store_true", help="Only models lacking a thumbnail")
     args = p.parse_args()
-    generate(dry_run=args.dry_run, single_model=args.model)
+    generate(dry_run=args.dry_run, single_model=args.model, only_missing=args.only_missing)

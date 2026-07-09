@@ -66,11 +66,15 @@ _CAT_IMAGE_OVERRIDES={"object_detection":"sample/img/sample_street.jpg",
  "ppu":"sample/img/sample_face.jpg","face_alignment":"sample/img/sample_face.jpg",
  "hand_landmark":"sample/img/sample_hand.jpg",
  "attribute_recognition":"sample/img/sample_person_a1.jpg",
+ "hand_detection":"sample/img/sample_hand.jpg","keypoint_detection":"sample/img/sample_street.jpg",
+ "object_pose_estimation":"sample/dope/000000.png","panoptic_driving_perception":"sample/img/sample_parking.jpg",
+ "3d_object_detection":"sample/kitti/velodyne/000049.bin",
  "object_detection_x_semantic_segmentation":"sample/img/sample_parking.jpg"}
 _CAT_VIDEO_OVERRIDES={"face_detection":"assets/videos/dance-solo.mov",
  "pose_estimation":"assets/videos/dance-solo.mov","obb_detection":"assets/videos/dron-citry-road.mov",
  "semantic_segmentation":"assets/videos/blackbox-city-road.mp4",
  "face_alignment":"assets/videos/dance-solo.mov","hand_landmark":"assets/videos/dance-solo.mov",
+ "hand_detection":"assets/videos/hand.mp4","panoptic_driving_perception":"assets/videos/blackbox-city-road.mp4",
  "object_detection_x_semantic_segmentation":"assets/videos/blackbox-city-road.mp4"}
 CAT_IMAGE={c:_CAT_IMAGE_OVERRIDES.get(c,_DEFAULT_IMAGE) for c in CATEGORIES}
 CAT_VIDEO={c:_CAT_VIDEO_OVERRIDES.get(c,_DEFAULT_VIDEO) for c in CATEGORIES}
@@ -181,9 +185,25 @@ _DX_POSTPROCESS_DIRS=[
     DX_APP_ROOT/"build"/"dx_postprocess",
     DX_APP_ROOT/"build_x86_64"/"dx_postprocess",
 ]
+def _runtime_python_has_dx_engine():
+    """True if _RUNTIME_PYTHON imports a WORKING dx_engine on its own (e.g. venv
+    site-packages). When it does, we must NOT prepend dx_rt/python_package/src to the
+    child PYTHONPATH — that source tree ships an uncompiled dx_engine that shadows the
+    working install and fails with `ImportError: _pydxrt`, breaking every python-variant
+    example subprocess (pose/keypoint/object_pose/panoptic thumbnails, etc.)."""
+    try:
+        return subprocess.run(
+            [_RUNTIME_PYTHON, "-c", "from dx_engine import InferenceEngine"],
+            capture_output=True, timeout=15).returncode == 0
+    except Exception:
+        return False
+
+# Only fall back to the dx_rt source tree when the runtime python can't provide dx_engine
+# itself. dx_postprocess dirs are always safe to add (independent pybind extension).
+_DX_ENGINE_SRC_DIRS=([] if _runtime_python_has_dx_engine() else
+    [DX_RT_ROOT/"python_package"/"src", DX_RT_ROOT/"python_package"])
 _RUNTIME_PYTHONPATH=os.pathsep.join(
     str(p) for p in [
-        DX_RT_ROOT/"python_package"/"src",
-        DX_RT_ROOT/"python_package",
+        *_DX_ENGINE_SRC_DIRS,
         *_DX_POSTPROCESS_DIRS,
     ] if p.is_dir())

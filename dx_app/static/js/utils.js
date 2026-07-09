@@ -20,6 +20,9 @@ const CAT_IMG={object_detection:'sample/img/sample_street.jpg',face_detection:'s
  image_enhancement:'sample/img/sample_dark_room.jpg',embedding:'sample/img/face_pair',reid:'sample/img/person_pair',ppu:'sample/img/sample_face.jpg',
  face_alignment:'sample/img/sample_face.jpg',hand_landmark:'sample/img/sample_people.jpg',
  attribute_recognition:'sample/img/sample_person_a1.jpg',
+ hand_detection:'sample/img/sample_hand.jpg',keypoint_detection:'sample/img/sample_street.jpg',
+ object_pose_estimation:'sample/dope/000000.png',panoptic_driving_perception:'sample/img/sample_parking.jpg',
+ '3d_object_detection':'sample/kitti/velodyne/000049.bin',
  object_detection_x_semantic_segmentation:'sample/img/sample_parking.jpg'};
 // CSS token-aware color constants (resolved at runtime)
 const _cs=getComputedStyle(document.documentElement);
