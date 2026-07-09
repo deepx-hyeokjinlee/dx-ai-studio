@@ -63,7 +63,7 @@
   "missing_required": [],
   "video_infos": {
     "od_pose_seg": {
-      "path": "/home/deepx/dx-all-suite/dx-runtime/dx_stream/dx_stream/apps/benchmark/assets/videos/od_benchmark_video.mp4",
+      "path": "~/dx-all-suite/dx-runtime/dx_stream/dx_stream/apps/benchmark/assets/videos/od_benchmark_video.mp4",
       "filename": "od_benchmark_video.mp4",
       "codec": "h264",
       "width": 1920,
@@ -76,7 +76,7 @@
       "bitrate_mbps": 4.47
     },
     "cls": {
-      "path": "/home/deepx/dx-all-suite/dx-runtime/dx_stream/dx_stream/apps/benchmark/assets/videos/od_benchmark_video.mp4",
+      "path": "~/dx-all-suite/dx-runtime/dx_stream/dx_stream/apps/benchmark/assets/videos/od_benchmark_video.mp4",
       "filename": "od_benchmark_video.mp4",
       "codec": "h264",
       "width": 1920,
@@ -89,7 +89,7 @@
       "bitrate_mbps": 4.47
     },
     "obb": {
-      "path": "/home/deepx/dx-all-suite/dx-runtime/dx_stream/dx_stream/apps/benchmark/assets/videos/obb_benchmark_video.mp4",
+      "path": "~/dx-all-suite/dx-runtime/dx_stream/dx_stream/apps/benchmark/assets/videos/obb_benchmark_video.mp4",
       "filename": "obb_benchmark_video.mp4",
       "codec": "h264",
       "width": 1920,

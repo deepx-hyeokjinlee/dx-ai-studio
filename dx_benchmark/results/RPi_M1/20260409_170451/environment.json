@@ -60,7 +60,7 @@
   "missing_required": [],
   "video_infos": {
     "obb": {
-      "path": "/home/deepx/github/dx-all-suite/dx-runtime/dx_stream/dx_stream/samples/videos/obb_test_video_6loop.mp4",
+      "path": "~/github/dx-all-suite/dx-runtime/dx_stream/dx_stream/samples/videos/obb_test_video_6loop.mp4",
       "filename": "obb_test_video_6loop.mp4",
       "codec": "h264",
       "width": 1920,
@@ -73,7 +73,7 @@
       "bitrate_mbps": 4.87
     },
     "od_pose_seg": {
-      "path": "/home/deepx/github/dx-all-suite/dx-runtime/dx_stream/dx_stream/samples/videos/856056-hd_1920_1080_30fps_4loop.mp4",
+      "path": "~/github/dx-all-suite/dx-runtime/dx_stream/dx_stream/samples/videos/856056-hd_1920_1080_30fps_4loop.mp4",
       "filename": "856056-hd_1920_1080_30fps_4loop.mp4",
       "codec": "h264",
       "width": 1920,
@@ -86,7 +86,7 @@
       "bitrate_mbps": 4.47
     },
     "cls": {
-      "path": "/home/deepx/github/dx-all-suite/dx-runtime/dx_stream/dx_stream/samples/videos/856056-hd_1920_1080_30fps_4loop.mp4",
+      "path": "~/github/dx-all-suite/dx-runtime/dx_stream/dx_stream/samples/videos/856056-hd_1920_1080_30fps_4loop.mp4",
       "filename": "856056-hd_1920_1080_30fps_4loop.mp4",
       "codec": "h264",
       "width": 1920,
