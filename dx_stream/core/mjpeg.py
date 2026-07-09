@@ -57,8 +57,10 @@ def build_mjpeg_pipeline(base_pipeline: str) -> str:
     반환값은 gst-launch-1.0에 전달할 파이프라인 문자열.
     """
     mjpeg_sink = (
+        # NOTE: a forced "video/x-raw,width=1280,height=720" caps here segfaults the
+        # pipeline (SIGSEGV) on the dxosd→videoscale path; leave videoscale uncapped so
+        # jpegenc encodes at the native frame size (the browser viewer scales it).
         "videoconvert ! videoscale ! "
-        "video/x-raw,width=1280,height=720 ! "
         "jpegenc quality=80 ! fdsink fd=1"
     )
 
@@ -100,8 +102,10 @@ def build_mjpeg_pipeline(base_pipeline: str) -> str:
 def get_sink_str() -> str:
     """파이프라인 끝에 추가할 MJPEG sink 문자열 (gst-launch-1.0 용)."""
     return (
+        # NOTE: a forced "video/x-raw,width=1280,height=720" caps here segfaults the
+        # pipeline (SIGSEGV) on the dxosd→videoscale path; leave videoscale uncapped so
+        # jpegenc encodes at the native frame size (the browser viewer scales it).
         "videoconvert ! videoscale ! "
-        "video/x-raw,width=1280,height=720 ! "
         "jpegenc quality=80 ! fdsink fd=1"
     )
 

@@ -47,27 +47,30 @@ LIB = "/usr/local/share/gstdxstream/lib"
 
 # ── model -> (postproc, task, input_size) ────────────────────────────────────
 # postproc is either ("lib", "<lib_basename>", "<func>") or ("config", "<dir>", None)
+# Keys are the actual sample-model file names from model_list.json v2_4_0
+# (<name>_640x640.dxnn; efficientnet is 256x256). PPU models keep their names.
 M = {
-    "yolo26n.dxnn":          (("lib", "yolo26od", "PostProcess"),     "od",       (640, 640)),
-    "YOLOV11N.dxnn":         (("lib", "yolov11", "PostProcess"),      "od",       (640, 640)),
-    "YoloV5S.dxnn":          (("lib", "yolov5s_6", "PostProcess"),    "od",       (640, 640)),
-    "YoloV7.dxnn":           (("lib", "yolov7", "PostProcess"),       "od",       (640, 640)),
-    "YoloV8N.dxnn":          (("lib", "yolov8n", "PostProcess"),      "od",       (640, 640)),
-    "YoloV9S.dxnn":          (("lib", "yolov9s", "PostProcess"),      "od",       (640, 640)),
-    "YoloXS.dxnn":           (("lib", "yoloxs", "PostProcess"),       "od",       (640, 640)),
-    "YOLOv5s_Face.dxnn":     (("lib", "yolov5s_face", "PostProcess"), "face",     (640, 640)),
-    "SCRFD500M.dxnn":        (("lib", "scrfd500m", "PostProcess"),    "face",     (640, 640)),
-    "yolo26n-pose.dxnn":     (("lib", "yolo26pose", "PostProcess"),   "pose",     (640, 640)),
-    "yolov8m_pose.dxnn":     (("lib", "yolov8m_pose", "PostProcess"), "pose",     (640, 640)),
-    "yolo26n-seg.dxnn":      (("lib", "yolo26seg", "PostProcess"),    "seg",      (640, 640)),
-    "EfficientNet_Lite0.dxnn": (("lib", "object_class", "PostProcess"), "cls",    (224, 224)),
-    "YoloV5S_PPU.dxnn":      (("config", "YoloV5S_PPU", None),        "od-ppu",   None),
-    "SCRFD500M_PPU.dxnn":    (("lib", "ppu", "SCRFD500M_PPU"),        "face-ppu", (640, 640)),
-    "YOLOV5Pose_PPU.dxnn":   (("lib", "ppu", "YOLOV5Pose_PPU"),       "pose-ppu", (640, 640)),
+    "yolo26-n_640x640.dxnn":         (("lib", "yolo26od", "PostProcess"),     "od",       (640, 640)),
+    "yolo11-n_640x640.dxnn":         (("lib", "yolov11", "PostProcess"),      "od",       (640, 640)),
+    "yolov5-s_640x640.dxnn":         (("lib", "yolov5s_6", "PostProcess"),    "od",       (640, 640)),
+    "yolov7_640x640.dxnn":           (("lib", "yolov7", "PostProcess"),       "od",       (640, 640)),
+    "yolov8-n_640x640.dxnn":         (("lib", "yolov8n", "PostProcess"),      "od",       (640, 640)),
+    "yolov9-s_640x640.dxnn":         (("lib", "yolov9s", "PostProcess"),      "od",       (640, 640)),
+    "yolox-s_640x640.dxnn":          (("lib", "yoloxs", "PostProcess"),       "od",       (640, 640)),
+    "yolov5-s-face_640x640.dxnn":    (("lib", "yolov5s_face", "PostProcess"), "face",     (640, 640)),
+    "scrfd-500m_640x640.dxnn":       (("lib", "scrfd500m", "PostProcess"),    "face",     (640, 640)),
+    "yolo26-n-pose_640x640.dxnn":    (("lib", "yolo26pose", "PostProcess"),   "pose",     (640, 640)),
+    "yolov8-m-pose_640x640.dxnn":    (("lib", "yolov8m_pose", "PostProcess"), "pose",     (640, 640)),
+    "yolo26-n-seg_640x640.dxnn":     (("lib", "yolo26seg", "PostProcess"),    "seg",      (640, 640)),
+    "efficientnet-lite0_256x256.dxnn": (("lib", "object_class", "PostProcess"), "cls",   (256, 256)),
+    "yolov5-s_640x640_ppu.dxnn":     (("config", "YoloV5S_PPU", None),        "od-ppu",   None),
+    "SCRFD500M_PPU.dxnn":            (("lib", "ppu", "SCRFD500M_PPU"),        "face-ppu", (640, 640)),
+    "YOLOV5Pose_PPU.dxnn":           (("lib", "ppu", "YOLOV5Pose_PPU"),       "pose-ppu", (640, 640)),
 }
 
-VIDS = sorted(f"file://{p}" for p in VIDEOS_DIR.glob("*.mp4")) or [
-    f"file://{VIDEOS_DIR}/boat.mp4"]
+# Videos extract into a sample_videos/ subdir → search recursively.
+VIDS = sorted(f"file://{p}" for p in VIDEOS_DIR.rglob("*.mp4")) or [
+    f"file://{VIDEOS_DIR}/sample_videos/boat.mp4"]
 V0 = VIDS[0]
 
 
@@ -140,9 +143,9 @@ def build_matrix(full):
     """Yield (label, builder_json). `full` -> every model x structure; else representative."""
     combos = []
     models = list(M.keys())
-    rep_models = ["yolo26n.dxnn", "YoloV5S_PPU.dxnn", "YOLOv5s_Face.dxnn",
-                  "SCRFD500M_PPU.dxnn", "yolo26n-pose.dxnn", "yolo26n-seg.dxnn",
-                  "EfficientNet_Lite0.dxnn"]
+    rep_models = ["yolo26-n_640x640.dxnn", "yolov5-s_640x640_ppu.dxnn", "yolov5-s-face_640x640.dxnn",
+                  "SCRFD500M_PPU.dxnn", "yolo26-n-pose_640x640.dxnn", "yolo26-n-seg_640x640.dxnn",
+                  "efficientnet-lite0_256x256.dxnn"]
     use = models if full else rep_models
 
     # 1) linear per model
@@ -155,14 +158,14 @@ def build_matrix(full):
             combos.append((f"linear+rate::{m}", s_linear(m, [("DxRate", {"rate": 15})])))
             combos.append((f"linear+convert::{m}", s_linear(m, [("DxConvert", {})])))
     else:
-        combos.append(("linear+scale::yolo26n.dxnn", s_linear("yolo26n.dxnn", [("DxScale", {"width": 960, "height": 540})])))
-        combos.append(("linear+rate::yolo26n.dxnn", s_linear("yolo26n.dxnn", [("DxRate", {"rate": 15})])))
+        combos.append(("linear+scale::yolo26-n_640x640.dxnn", s_linear("yolo26-n_640x640.dxnn", [("DxScale", {"width": 960, "height": 540})])))
+        combos.append(("linear+rate::yolo26-n_640x640.dxnn", s_linear("yolo26-n_640x640.dxnn", [("DxRate", {"rate": 15})])))
     # 3) tracker (detection models)
-    for m in (use if full else ["YoloV5S_PPU.dxnn"]):
+    for m in (use if full else ["yolov5-s_640x640_ppu.dxnn"]):
         if M[m][1] in ("od", "od-ppu", "face", "face-ppu"):
             combos.append((f"tracker::{m}", s_tracker(m)))
     # 4) multistream 2ch + 4ch
-    for m in (use if full else ["YoloV5S_PPU.dxnn", "yolo26n.dxnn"]):
+    for m in (use if full else ["yolov5-s_640x640_ppu.dxnn", "yolo26-n_640x640.dxnn"]):
         combos.append((f"multi2ch::{m}", s_multi(m, 2)))
         if full:
             combos.append((f"multi4ch::{m}", s_multi(m, 4)))

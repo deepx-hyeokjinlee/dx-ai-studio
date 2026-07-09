@@ -11,7 +11,51 @@ from core.config import DX_STREAM_SRC, MODELS_DIR, CONFIGS_DIR, PIPELINES_DIR, V
 from core.pipeline import payloader_with_payload_type
 import os
 
-_DEFAULT_VIDEO = f"file://{DX_STREAM_SRC}/samples/videos/boat.mp4"
+# model_list.json v2_4_0 renamed sample models to <name>_640x640.dxnn (efficientnet is
+# 256x256); PPU models keep their names. Map the logical names used in DEMOS/pipelines to
+# the actual on-disk files so the Demo Launcher resolves models after a fresh sample setup.
+_MODEL_ALIAS = {
+    "yolo26n.dxnn": "yolo26-n_640x640.dxnn",
+    "YOLOv5s_Face.dxnn": "yolov5-s-face_640x640.dxnn",
+    "yolo26n-pose.dxnn": "yolo26-n-pose_640x640.dxnn",
+    "yolo26n-seg.dxnn": "yolo26-n-seg_640x640.dxnn",
+    "YoloV5S_PPU.dxnn": "yolov5-s_640x640_ppu.dxnn",
+    "EfficientNet_Lite0.dxnn": "efficientnet-lite0_256x256.dxnn",
+    "SCRFD500M.dxnn": "scrfd-500m_640x640.dxnn",
+}
+
+
+def _model_file(name: str) -> str:
+    """Resolve a logical model name to its actual on-disk file (alias-aware)."""
+    return _MODEL_ALIAS.get(name, name)
+
+
+_VIDEO_EXTS = {".mp4", ".mov", ".avi", ".mkv"}
+
+
+def _video_path(name: str):
+    """Find a sample video by file name anywhere under VIDEOS_DIR (the tarball extracts
+    into a sample_videos/ subdir), or None."""
+    if not VIDEOS_DIR.exists():
+        return None
+    direct = VIDEOS_DIR / name
+    if direct.is_file():
+        return direct
+    for f in VIDEOS_DIR.rglob(name):
+        if f.is_file():
+            return f
+    return None
+
+
+def _first_video():
+    if VIDEOS_DIR.exists():
+        for f in sorted(VIDEOS_DIR.rglob("*")):
+            if f.is_file() and f.suffix.lower() in _VIDEO_EXTS:
+                return f"file://{f.resolve()}"
+    return f"file://{DX_STREAM_SRC}/samples/videos/sample_videos/boat.mp4"
+
+
+_DEFAULT_VIDEO = _first_video()
 
 _POSTPROC_LIB_DIR = os.environ.get("DX_POSTPROC_LIB_DIR", "/usr/local/share/gstdxstream/lib")
 
@@ -338,7 +382,7 @@ def _get_sink(encoder: dict, webrtc_ok: bool = True) -> str:
 def _standard_pipeline(demo: dict, encoder: dict, video_uri: str, webrtc_ok: bool = True) -> str:
     """일반 파이프라인 (개별 속성 방식) — 데모 0,2,3,4,5,6"""
     w, h = demo["resize"]
-    model_path = str(MODELS_DIR / demo["model"])
+    model_path = str(MODELS_DIR / _model_file(demo["model"]))
     sink = _get_sink(encoder, webrtc_ok)
     return (
         f"urisourcebin uri={video_uri} ! decodebin ! "
@@ -386,10 +430,9 @@ def _tracking_pipeline(demo: dict, encoder: dict, video_uri: str, webrtc_ok: boo
 
 def _get_video_files(max_count: int = 4) -> list[str]:
     """VIDEOS_DIR에서 영상 파일을 최대 max_count개 반환."""
-    exts = {".mp4", ".mov", ".avi", ".mkv"}
     files = sorted(
-        f for f in VIDEOS_DIR.iterdir()
-        if f.is_file() and f.suffix.lower() in exts
+        f for f in VIDEOS_DIR.rglob("*")
+        if f.is_file() and f.suffix.lower() in _VIDEO_EXTS
     ) if VIDEOS_DIR.exists() else []
     uris = [f"file://{f.resolve()}" for f in files[:max_count]]
     return uris if uris else [_DEFAULT_VIDEO]
@@ -516,7 +559,7 @@ def _secondary_pipeline(demo: dict, encoder: dict, video_uri: str, webrtc_ok: bo
         f"secondary-mode=true interval=5 min-object-width=50 min-object-height=50 keep-ratio=false ! "
         f"queue max-size-buffers=1 ! "
         f"dxinfer preprocess-id=2 inference-id=2 secondary-mode=true "
-        f"model-path={models_dir}/EfficientNet_Lite0.dxnn ! "
+        f"model-path={models_dir}/{_model_file('EfficientNet_Lite0.dxnn')} ! "
         f"queue max-size-buffers=1 ! "
         f"dxpostprocess inference-id=2 secondary-mode=true "
         f"library-file-path={lib_dir}/libpostprocess_object_class.so function-name=PostProcess ! "
@@ -527,7 +570,7 @@ def _secondary_pipeline(demo: dict, encoder: dict, video_uri: str, webrtc_ok: bo
         f"interval=5 keep-ratio=true pad-value=114 ! "
         f"queue max-size-buffers=1 ! "
         f"dxinfer preprocess-id=3 inference-id=3 secondary-mode=true "
-        f"model-path={models_dir}/SCRFD500M.dxnn ! "
+        f"model-path={models_dir}/{_model_file('SCRFD500M.dxnn')} ! "
         f"queue max-size-buffers=1 ! "
         f"dxpostprocess inference-id=3 secondary-mode=true "
         f"library-file-path={lib_dir}/libpostprocess_scrfd500m.so function-name=PostProcess ! "
@@ -579,7 +622,7 @@ def check_demo_available(demo_id: int) -> dict:
     # 모델 파일 확인
     model_files = demo.get("models", [demo["model"]] if "model" in demo else [])
     for mf in model_files:
-        if not (MODELS_DIR / mf).exists():
+        if not (MODELS_DIR / _model_file(mf)).exists():
             reason_items.append({"code": "missing_model", "path": mf})
 
     # 설정 디렉토리 확인
@@ -601,7 +644,7 @@ def check_demo_available(demo_id: int) -> dict:
 
     # 샘플 비디오 확인
     for video in demo.get("required_videos", []):
-        if not (VIDEOS_DIR / video).exists():
+        if not _video_path(video):
             reason_items.append({"code": "missing_sample_video", "path": video})
 
     # NPU 장치 확인
