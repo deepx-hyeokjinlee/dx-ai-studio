@@ -464,7 +464,14 @@ class DXStreamHandler(DXBaseHandler):
         try:
             from core import mjpeg
             encoder = _apply_webrtc_payload_types(detect_encoder(), payload_types)
-            pipeline_str = demos.build_pipeline_str(demo_id, encoder, webrtc_ok=True)
+            # Honor a user-selected sample video; otherwise build_pipeline_str falls back
+            # to the demo's own task-appropriate default (face/pose -> people clips, etc).
+            _sel = body.get("video") if isinstance(body, dict) else None
+            _vuri = None
+            if _sel:
+                _vp = demos._video_path(_sel)
+                _vuri = f"file://{_vp}" if _vp else (_sel if "://" in _sel else None)
+            pipeline_str = demos.build_pipeline_str(demo_id, encoder, video_uri=_vuri, webrtc_ok=True)
 
             extra_env = _get_gstshark_env()
 

@@ -91,7 +91,7 @@ DEMOS = [
         "postproc_lib": f"{_POSTPROC_LIB_DIR}/libpostprocess_yolo26od.so",
         "postproc_func": "PostProcess",
         "runtime_script": "single_network/object_detection/run_yolo26n.sh",
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["blackbox-city-road.mp4"],
     },
     {
         "id": 1,
@@ -105,7 +105,7 @@ DEMOS = [
         "config_dir": "YoloV5S_PPU",
         "runtime_script": "single_network/object_detection/run_YoloV5S_PPU.sh",
         "required_configs": ["YoloV5S_PPU"],
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["blackbox-city-road.mp4"],
     },
     {
         "id": 2,
@@ -121,7 +121,7 @@ DEMOS = [
         "postproc_lib": f"{_POSTPROC_LIB_DIR}/libpostprocess_yolov5s_face.so",
         "postproc_func": "PostProcess",
         "runtime_script": "single_network/face_detection/run_YOLOv5s_Face.sh",
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["dance-group.mov"],
     },
     {
         "id": 3,
@@ -137,7 +137,7 @@ DEMOS = [
         "postproc_lib": f"{_POSTPROC_LIB_DIR}/libpostprocess_ppu.so",
         "postproc_func": "SCRFD500M_PPU",
         "runtime_script": "single_network/face_detection/run_SCRFD500M_PPU.sh",
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["dance-group.mov"],
     },
     {
         "id": 4,
@@ -153,7 +153,7 @@ DEMOS = [
         "postproc_lib": f"{_POSTPROC_LIB_DIR}/libpostprocess_yolo26pose.so",
         "postproc_func": "PostProcess",
         "runtime_script": "single_network/pose_estimation/run_yolo26n-pose.sh",
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["dance-group.mov"],
     },
     {
         "id": 5,
@@ -169,7 +169,7 @@ DEMOS = [
         "postproc_lib": f"{_POSTPROC_LIB_DIR}/libpostprocess_ppu.so",
         "postproc_func": "YOLOV5Pose_PPU",
         "runtime_script": "single_network/pose_estimation/run_YOLOV5Pose_PPU.sh",
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["dance-group.mov"],
     },
     {
         "id": 6,
@@ -185,7 +185,7 @@ DEMOS = [
         "postproc_lib": f"{_POSTPROC_LIB_DIR}/libpostprocess_yolo26seg.so",
         "postproc_func": "PostProcess",
         "runtime_script": "single_network/semantic_segmentation/run_yolo26n-seg.sh",
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["blackbox-city-road.mp4"],
     },
     {
         "id": 7,
@@ -200,7 +200,7 @@ DEMOS = [
         "runtime_script": "tracking/run_multi_object_tracker.sh",
         "required_configs": ["YoloV5S_PPU"],
         "required_files": ["tracker_config.json"],
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["blackbox-city-road.mp4"],
     },
     {
         "id": 8,
@@ -213,7 +213,7 @@ DEMOS = [
         "pipeline_type": "multi",
         "runtime_script": "multi_stream/run_multi_stream.sh",
         "required_configs": ["YoloV5S_PPU"],
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["blackbox-city-road.mp4"],
     },
     {
         "id": 9,
@@ -241,7 +241,7 @@ DEMOS = [
         "runtime_script": "secondary_mode/run_secondary_mode.sh",
         "required_configs": ["YoloV5S_PPU"],
         "required_files": ["tracker_config.json"],
-        "required_videos": ["boat.mp4"],
+        "required_videos": ["dance-group.mov"],
     },
 ]
 
@@ -596,7 +596,15 @@ def build_pipeline_str(demo_id: int, encoder: dict, video_uri: str | None = None
     webrtc_ok=True: encoder + webrtcbin, False: fpsdisplaysink 폴백.
     """
     demo = DEMOS[demo_id]
-    uri = video_uri or _DEFAULT_VIDEO
+    # Default to the demo's OWN task-appropriate sample video (matching dx-runtime's
+    # reference run_*.sh — e.g. face/pose demos use people videos, not a boat clip).
+    # Fall back to the first available video only if the demo's video is missing.
+    demo_vid = None
+    for _name in demo.get("required_videos", []):
+        demo_vid = _video_path(_name)
+        if demo_vid:
+            break
+    uri = video_uri or demo_vid or _DEFAULT_VIDEO
     builder = _BUILDERS[demo["pipeline_type"]]
     return builder(demo, encoder, uri, webrtc_ok)
 
