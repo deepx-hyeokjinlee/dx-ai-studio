@@ -664,7 +664,8 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         try:
             if allowed_dir is not None:
                 return _shared_is_safe_path(path, [allowed_dir])
-            # allowed_dir 없으면 단순히 '..' 없는지 확인
+            # allowed_dir 없으면 '..' 없는지 확인 (resolve()로 null-byte 등 무효 경로도 거부)
+            Path(path).resolve()
             return ".." not in Path(path).parts
         except (ValueError, OSError):
             return False
