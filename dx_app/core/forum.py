@@ -6,7 +6,7 @@ a browser-local token (UUID stored in localStorage).
 """
 import json, time, uuid, threading
 from pathlib import Path
-from config import SCRIPT_DIR
+from dx_app.core.config import SCRIPT_DIR
 
 _FORUM_FILE = SCRIPT_DIR / "forum_data.json"
 _lock = threading.Lock()

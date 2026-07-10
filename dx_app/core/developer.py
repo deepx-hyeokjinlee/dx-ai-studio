@@ -2,12 +2,12 @@
 
 import os, re, json, time, hashlib, subprocess, shutil, base64, secrets
 from pathlib import Path
-import config
-from config import (DX_APP_ROOT, CPP_DIR, PY_DIR, ASSETS_DIR, SCRIPTS_DIR,
+from dx_app.core import config
+from dx_app.core.config import (DX_APP_ROOT, CPP_DIR, PY_DIR, ASSETS_DIR, SCRIPTS_DIR,
                     OUTPUTS_DIR, _lab_sessions, _lab_lock,
                     _LAB_SESSION_MAX, _LAB_SESSION_TTL_SECONDS)
-from dx_app_security import resolve_existing_file, resolve_under
-from models import _reload_reg, _sanitize_model_name, _to_class_name
+from dx_app.core.dx_app_security import resolve_existing_file, resolve_under
+from dx_app.core.models import _reload_reg, _sanitize_model_name, _to_class_name
 
 SKIP_CAT = config.SKIP_CAT
 _LAB_NAME_RE = re.compile(r'^[a-zA-Z][a-zA-Z0-9_]*$')
@@ -533,7 +533,7 @@ def dev_new_task(tok,task_name,lang="both",confirm_overwrite=False,scaffold_type
 
 def bug_report(model_name=None,error_log=None,model_config=None):
     import platform
-    from hardware import get_sysinfo, get_hw
+    from shared.hardware import get_sysinfo, get_hw
     r={"generated_at":time.strftime("%Y-%m-%d %H:%M:%S"),"system":get_sysinfo(),
        "hw_status":get_hw(),"model_name":model_name,"error_log":error_log,"model_config":model_config}
     try:r["uname"]=subprocess.check_output(["uname","-a"],text=True,timeout=5).strip()

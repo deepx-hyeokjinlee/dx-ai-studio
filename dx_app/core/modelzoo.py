@@ -5,8 +5,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-import config
-from config import DX_APP_ROOT, ASSETS_DIR, SCRIPTS_DIR, CONFIG_FILE
+from dx_app.core import config
+from dx_app.core.config import DX_APP_ROOT, ASSETS_DIR, SCRIPTS_DIR, CONFIG_FILE
 
 DEVELOPER_PORTAL = "https://developer.deepx.ai"
 SDK_BASE = "https://sdk.deepx.ai"
@@ -442,7 +442,7 @@ def modelzoo_stop():
 def _auto_register():
     """After download, update test_models.conf for newly downloaded models."""
     try:
-        from models import _reload_reg
+        from dx_app.core.models import _reload_reg
 
         reg_file = DX_APP_ROOT / "config" / "model_registry.json"
         registry = {}

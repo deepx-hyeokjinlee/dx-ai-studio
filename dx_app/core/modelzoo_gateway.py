@@ -9,7 +9,7 @@ class _DefaultModelZooAdapter:
     """Adapter that delegates to the existing modelzoo module functions."""
 
     def __init__(self):
-        from modelzoo import modelzoo_list, modelzoo_download, modelzoo_status, modelzoo_stop
+        from dx_app.core.modelzoo import modelzoo_list, modelzoo_download, modelzoo_status, modelzoo_stop
         self._list = modelzoo_list
         self._download = modelzoo_download
         self._status = modelzoo_status

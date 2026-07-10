@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from config import DX_APP_ROOT, SAMPLE_DIR, OUTPUTS_DIR, ASSETS_DIR
+from dx_app.core.config import DX_APP_ROOT, SAMPLE_DIR, OUTPUTS_DIR, ASSETS_DIR
 
 
 def get_file_content(rel):
@@ -55,7 +55,7 @@ def list_outputs():
             import re
             m=re.match(r'result_([^_]+)_',name)
             if m:
-                from config import CAT_IMAGE
+                from dx_app.core.config import CAT_IMAGE
                 model_hint=m.group(1)
                 for cat,img in CAT_IMAGE.items():
                     if model_hint.lower() in cat.lower():

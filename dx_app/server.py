@@ -4,18 +4,13 @@ import os, sys, json, time, re, signal, threading, webbrowser, mimetypes, shlex
 import shutil
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent / "core"))
-_STUDIO_DIR = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(_STUDIO_DIR))
-sys.path.insert(0, str(_STUDIO_DIR / "shared"))
-
 from shared.dx_server import DXBaseHandler, DXServer, RequestBodyError
 
-import config
-from config import (SCRIPT_DIR, DX_APP_ROOT, STATIC_DIR, TEMPLATES_DIR, SERVER_NAME, OUTPUTS_DIR,
+from dx_app.core import config
+from dx_app.core.config import (SCRIPT_DIR, DX_APP_ROOT, STATIC_DIR, TEMPLATES_DIR, SERVER_NAME, OUTPUTS_DIR,
                     CATEGORIES, TASK_TYPES, POSTPROCESSORS,
                     _HEARTBEAT, _HB_TIMEOUT, ASSETS_DIR, SAMPLE_DIR)
-from dx_app_security import (resolve_under, sanitize_filename, safe_content_disposition,
+from dx_app.core.dx_app_security import (resolve_under, sanitize_filename, safe_content_disposition,
                              resolve_existing_file, resolve_existing_path, existing_onnx)
 
 ONNX_INPUT_ROOTS = (OUTPUTS_DIR,)
@@ -117,9 +112,9 @@ def _validate_inference_payload(data, live=False):
         code = 403 if "outside allowed roots" in msg or "File not found" in msg or "Extension" in msg else 400
         return _error_payload(_validation_error_key(msg), msg), code
     return None, None
-from models import get_models, get_model_info
-from assets import get_file_content, get_images, get_videos, list_outputs, delete_output
-from inference import (run_inference, stop_inference, run_multi, list_cameras,
+from dx_app.core.models import get_models, get_model_info
+from dx_app.core.assets import get_file_content, get_images, get_videos, list_outputs, delete_output
+from dx_app.core.inference import (run_inference, stop_inference, run_multi, list_cameras,
                       run_inference_live, poll_inference, stop_inference_live,
                       get_inference_result, capture_live_frame, shutdown_live_processes)
 
@@ -138,13 +133,13 @@ def _json_bool(value, default=False):
     return bool(value)
 
 from shared.chat import ChatEngine
-from modelzoo_gateway import ModelZooGateway
-from filesystem import fs_list
-from setup_steps import SETUP_STEPS, setup_status, setup_run, deep_diagnostics, setup_log, setup_input
-from developer import (lab_session, lab_check, require_lab, _check_origin_local, dev_add,
+from dx_app.core.modelzoo_gateway import ModelZooGateway
+from dx_app.core.filesystem import fs_list
+from dx_app.core.setup_steps import SETUP_STEPS, setup_status, setup_run, deep_diagnostics, setup_log, setup_input
+from dx_app.core.developer import (lab_session, lab_check, require_lab, _check_origin_local, dev_add,
                        dev_delete, dev_git, dev_extract, extract_model_package,
                        dev_new_task, bug_report, save_capture)
-from lab_portal import lab_capabilities, plan_add_model, plan_add_model_response, apply_add_model, smoke_add_model, plan_task_scaffold_response, apply_task_scaffold, generated_files_for_manifest, validate_lab_manifest_id, start_experiment_run, get_experiment_run, cancel_experiment_run, active_experiment_run_for_source, list_pending_manifests, change_summary_by_root, rollback_manifest, scoped_git_plan
+from dx_app.core.lab_portal import lab_capabilities, plan_add_model, plan_add_model_response, apply_add_model, smoke_add_model, plan_task_scaffold_response, apply_task_scaffold, generated_files_for_manifest, validate_lab_manifest_id, start_experiment_run, get_experiment_run, cancel_experiment_run, active_experiment_run_for_source, list_pending_manifests, change_summary_by_root, rollback_manifest, scoped_git_plan
 
 _modelzoo_gw = ModelZooGateway()
 
@@ -353,7 +348,7 @@ class Handler(DXBaseHandler):
                 if err:
                     body = {k: v for k, v in err.items() if k != "status"}
                     return self.send_json(body, err.get("status", 403))
-                from lab_portal import _validate_run_id
+                from dx_app.core.lab_portal import _validate_run_id
                 id_err = _validate_run_id(run_id)
                 if id_err:
                     return self.send_json(id_err[0], id_err[1])
@@ -528,7 +523,7 @@ class Handler(DXBaseHandler):
 
             if path.startswith("/api/lab/experiment/") and path.endswith("/cancel"):
                 run_id = path[len("/api/lab/experiment/"):-len("/cancel")]
-                from lab_portal import _validate_run_id
+                from dx_app.core.lab_portal import _validate_run_id
                 id_err = _validate_run_id(run_id)
                 if id_err:
                     return self.send_json(id_err[0], id_err[1])

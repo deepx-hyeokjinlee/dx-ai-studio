@@ -6,10 +6,10 @@ import time
 from pathlib import Path
 from collections import OrderedDict
 
-import config
-from config import DX_APP_ROOT, CPP_DIR, PY_DIR, OUTPUTS_DIR
-from developer import require_lab, _require_lab_model_name, _require_lab_category, dev_add, dev_new_task, build_task_file_plan
-from dx_app_security import resolve_existing_file, resolve_under
+from dx_app.core import config
+from dx_app.core.config import DX_APP_ROOT, CPP_DIR, PY_DIR, OUTPUTS_DIR
+from dx_app.core.developer import require_lab, _require_lab_model_name, _require_lab_category, dev_add, dev_new_task, build_task_file_plan
+from dx_app.core.dx_app_security import resolve_existing_file, resolve_under
 
 SCRIPT_DIR = config.SCRIPT_DIR
 

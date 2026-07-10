@@ -2,7 +2,7 @@
 
 import os, re, json
 from pathlib import Path
-from config import (CPP_DIR, PY_DIR, ASSETS_DIR, CONFIG_FILE, SAMPLE_DIR,
+from dx_app.core.config import (CPP_DIR, PY_DIR, ASSETS_DIR, CONFIG_FILE, SAMPLE_DIR,
                     SKIP_CAT, CATEGORIES, CAT_LABEL, CAT_IMAGE, CAT_VIDEO,
                     TASK_TYPES, POSTPROCESSORS, DX_APP_ROOT)
 

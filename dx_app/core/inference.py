@@ -3,15 +3,15 @@
 import os, sys, re, json, time, base64, subprocess, threading, tempfile, uuid, io, shutil, atexit
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import config
-from config import (DX_APP_ROOT, CPP_DIR, PY_DIR, BUILD_DIR, ASSETS_DIR,
+from dx_app.core import config
+from dx_app.core.config import (DX_APP_ROOT, CPP_DIR, PY_DIR, BUILD_DIR, ASSETS_DIR,
                     SAMPLE_DIR, OUTPUTS_DIR, SCRIPTS_DIR, CAT_IMAGE, CAT_VIDEO,
                     _RUNTIME_PYTHON, _RUNTIME_PYTHONPATH)
 from shared.runtime import ld_library_path
-from dx_app_security import resolve_existing_file
-from performance import _parse_perf, _cvt_video
-from hardware import get_hw
-from run_config import build_run_config
+from dx_app.core.dx_app_security import resolve_existing_file
+from dx_app.core.performance import _parse_perf, _cvt_video
+from shared.hardware import get_hw
+from dx_app.core.run_config import build_run_config
 
 # Honor $TMPDIR (fall back to the system temp dir) instead of a hardcoded "/tmp",
 # so the app works where /tmp is unwritable/isolated.

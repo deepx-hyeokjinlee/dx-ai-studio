@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from config import CPP_DIR, PY_DIR
+from dx_app.core.config import CPP_DIR, PY_DIR
 
 # Tunable keys the Run UI may send. Unknown keys in config.json are preserved on merge
 # but not exposed in the UI until a binding is added.

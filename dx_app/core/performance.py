@@ -2,7 +2,7 @@
 
 import re, subprocess
 from pathlib import Path
-from config import OUTPUTS_DIR
+from dx_app.core.config import OUTPUTS_DIR
 
 
 def _parse_perf(stdout):

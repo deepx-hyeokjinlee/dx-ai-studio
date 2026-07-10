@@ -8,9 +8,6 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor,as_completed
 
 SCRIPT_DIR  = Path(__file__).resolve().parent.parent   # dx_app/ (one level above core/)
-_SHARED_DIR = SCRIPT_DIR.parent / "shared"
-if _SHARED_DIR.is_dir() and str(_SHARED_DIR) not in sys.path:
-    sys.path.insert(0, str(_SHARED_DIR))
 _NPU_STATS_BIN = SCRIPT_DIR / "dx_npu_stats"
 from shared.paths import SUITE_ROOT as _SUITE_ROOT, DX_APP_ROOT, DX_COMPILER_ROOT, DX_RUNTIME_ROOT
 import shared.runtime as _runtime
@@ -147,7 +144,7 @@ def _load_dx():
 _load_dx()
 
 # shared/hardware.py 초기화 — DX App 내 inference/developer에서 get_hw() 사용
-from hardware import init_hw as _init_hw
+from shared.hardware import init_hw as _init_hw
 _init_hw(ds=_DS, dx_ok=_dx_ok, npu_stats_bin=_NPU_STATS_BIN, app_root=DX_APP_ROOT)
 
 # python_example scripts hard-depend on numpy+cv2. venv-dx-runtime is frequently an empty

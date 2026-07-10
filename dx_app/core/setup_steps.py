@@ -2,8 +2,8 @@
 
 import os, sys, json, time, subprocess, threading, select, shutil, re, platform, tempfile, shlex
 from pathlib import Path
-import config
-from config import (SCRIPT_DIR, DX_APP_ROOT, SCRIPTS_DIR, BUILD_DIR,
+from dx_app.core import config
+from dx_app.core.config import (SCRIPT_DIR, DX_APP_ROOT, SCRIPTS_DIR, BUILD_DIR,
                     DX_COMPILER_ROOT, DX_COMPILER_VENV,
                     DX_RT_ROOT, DX_DRIVER_ROOT, ASSETS_DIR)
 from shared.runtime import runtime_venv_roots
