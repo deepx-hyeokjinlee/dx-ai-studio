@@ -1,5 +1,5 @@
 """copilot -p 비대화형 어댑터(--add-dir 격리)."""
-from core.adapters.base import SubprocessAdapter
+from dx_agent_dev.core.adapters.base import SubprocessAdapter
 
 
 class CopilotAdapter(SubprocessAdapter):

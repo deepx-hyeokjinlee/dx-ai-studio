@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
-    from core.conversation_store import Conversation
+    from dx_agent_dev.core.conversation_store import Conversation
 
 _CONSOLE_UX = """[DX Agent Dev Console — interaction rules]
 - This is a web chat console: one user message per HTTP request. You cannot read stdin mid-run.

@@ -3,7 +3,7 @@ import json
 import re
 import subprocess
 
-from core.adapters.base import SubprocessAdapter, _map_json_event, classify_plain_line
+from dx_agent_dev.core.adapters.base import SubprocessAdapter, _map_json_event, classify_plain_line
 
 _MODEL_LINE = re.compile(r"^(\S+)\s+-\s+")  # `auto - Auto`, `gpt-5.3-codex - Codex 5.3`
 

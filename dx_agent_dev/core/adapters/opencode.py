@@ -2,7 +2,7 @@
 import re
 import subprocess
 
-from core.adapters.base import SubprocessAdapter
+from dx_agent_dev.core.adapters.base import SubprocessAdapter
 
 _MODEL_LINE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.:-]+$")  # provider/model
 

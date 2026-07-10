@@ -3,14 +3,14 @@
 AGENT_REGISTRY는 도구명→어댑터 클래스. 신규 어댑터는 자신의 모듈에서 import 후
 아래 dict에 등록한다(Chunk 2). model은 make_adapter 생성 시 바인딩 → run arity 불변.
 """
-from core.agents_config import AGENTS
-from core.adapters.base import AgentAdapter, SubprocessAdapter
-from core.adapters.mock import MockAdapter
-from core.adapters.copilot import CopilotAdapter
-from core.adapters.codex import CodexAdapter
-from core.adapters.claude import ClaudeAdapter
-from core.adapters.opencode import OpenCodeAdapter
-from core.adapters.cursor import CursorAdapter
+from dx_agent_dev.core.agents_config import AGENTS
+from dx_agent_dev.core.adapters.base import AgentAdapter, SubprocessAdapter
+from dx_agent_dev.core.adapters.mock import MockAdapter
+from dx_agent_dev.core.adapters.copilot import CopilotAdapter
+from dx_agent_dev.core.adapters.codex import CodexAdapter
+from dx_agent_dev.core.adapters.claude import ClaudeAdapter
+from dx_agent_dev.core.adapters.opencode import OpenCodeAdapter
+from dx_agent_dev.core.adapters.cursor import CursorAdapter
 
 AGENT_REGISTRY = {
     "copilot": CopilotAdapter,

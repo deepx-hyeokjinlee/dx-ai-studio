@@ -5,7 +5,7 @@ _map_json_event 의 codex 분기(parse_codex_session 스키마)로 UI 슬롯에 
 """
 import json
 
-from core.adapters.base import SubprocessAdapter, _map_json_event, classify_plain_line
+from dx_agent_dev.core.adapters.base import SubprocessAdapter, _map_json_event, classify_plain_line
 
 
 class CodexAdapter(SubprocessAdapter):

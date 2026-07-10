@@ -10,12 +10,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Iterator, Optional
 
-from core.agents_config import MODEL_SHORT
-from core.config import GENERATION_TIMEOUT_SEC, KEEPALIVE_SEC
+from dx_agent_dev.core.agents_config import MODEL_SHORT
+from dx_agent_dev.core.config import GENERATION_TIMEOUT_SEC, KEEPALIVE_SEC
 
-from core.adapters import AgentAdapter, SubprocessAdapter, MockAdapter, CopilotAdapter
-from core.conversation_store import Conversation
-from core.run_context import RunContext
+from dx_agent_dev.core.adapters import AgentAdapter, SubprocessAdapter, MockAdapter, CopilotAdapter
+from dx_agent_dev.core.conversation_store import Conversation
+from dx_agent_dev.core.run_context import RunContext
 
 __all__ = ["AgentAdapter", "SubprocessAdapter", "MockAdapter", "CopilotAdapter",
            "AgentRunner", "detect_session_dirs"]

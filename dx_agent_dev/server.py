@@ -3,25 +3,21 @@
 from __future__ import annotations
 
 import json
-import sys
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-sys.path.insert(0, str(SCRIPT_DIR.parent / "shared"))
-sys.path.insert(0, str(SCRIPT_DIR.parent))
-sys.path.insert(0, str(SCRIPT_DIR))
 
-from core.config import (DEFAULT_PORT, STATIC_DIR, TEMPLATES_DIR, SERVER_NAME,
+from dx_agent_dev.core.config import (DEFAULT_PORT, STATIC_DIR, TEMPLATES_DIR, SERVER_NAME,
                          WORKSPACE_ROOT, PROMPT_MAX_LEN, resolve_target)
-from core import environment
-from core.agent_runner import AgentRunner, CopilotAdapter, MockAdapter
-from core.conversation_store import ConversationStore
-from core.message_pipeline import CLI_RESUME_AGENTS, prepare_sse_event
-from core.prompt_wrap import wrap_autopilot_prompt, wrap_console_prompt, wrap_with_conversation_history
-from core.run_context import RunContext
-from core.adapters import make_adapter
-from core.showcases import load_showcases
+from dx_agent_dev.core import environment
+from dx_agent_dev.core.agent_runner import AgentRunner, CopilotAdapter, MockAdapter
+from dx_agent_dev.core.conversation_store import ConversationStore
+from dx_agent_dev.core.message_pipeline import CLI_RESUME_AGENTS, prepare_sse_event
+from dx_agent_dev.core.prompt_wrap import wrap_autopilot_prompt, wrap_console_prompt, wrap_with_conversation_history
+from dx_agent_dev.core.run_context import RunContext
+from dx_agent_dev.core.adapters import make_adapter
+from dx_agent_dev.core.showcases import load_showcases
 from shared.dx_server import DXBaseHandler
 from shared.chat import ChatEngine
 
@@ -99,7 +95,7 @@ class AgentDevHandler(DXBaseHandler):
     def _agent_models(self):
         """?agent=<name> → 동적 모델 목록(+default). 정적 config 폴백은 list_agent_models 내부."""
         from urllib.parse import urlparse, parse_qs
-        from core.agents_config import AGENTS
+        from dx_agent_dev.core.agents_config import AGENTS
         agent = (parse_qs(urlparse(self.path).query).get("agent", [""])[0] or "").strip()
         models = environment.list_agent_models(agent) if agent else []
         return {"agent": agent, "models": models,
@@ -112,7 +108,7 @@ class AgentDevHandler(DXBaseHandler):
         is_authenticated()로 완료 여부를 재확인할 수 있게 한다(거짓 음성 방지: None=unknown).
         """
         from urllib.parse import urlparse, parse_qs
-        from core.adapters import make_adapter
+        from dx_agent_dev.core.adapters import make_adapter
         agent = (parse_qs(urlparse(self.path).query).get("agent", [""])[0] or "").strip()
         adapter = make_adapter(agent) if agent else None
         if adapter is None:
@@ -249,7 +245,7 @@ class AgentDevHandler(DXBaseHandler):
 
             assistant_text = "".join(assistant_chunks).strip()
             if assistant_text:
-                from core.message_sanitize import sanitize_assistant_text
+                from dx_agent_dev.core.message_sanitize import sanitize_assistant_text
                 conv.add_assistant(sanitize_assistant_text(assistant_text))
             _conversations.save(conv)
         except (BrokenPipeError, ConnectionResetError):

@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-from core.config import STUDIO_DIR
+from dx_agent_dev.core.config import STUDIO_DIR
 
 CONVERSATIONS_DIR = STUDIO_DIR / "workspace" / "agent-conversations"
 

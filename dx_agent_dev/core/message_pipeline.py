@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
-from core.message_sanitize import extract_model_notice, is_harness_status_line, sanitize_assistant_text
+from dx_agent_dev.core.message_sanitize import extract_model_notice, is_harness_status_line, sanitize_assistant_text
 
 # Agents that support native CLI thread resume (tested contract).
 CLI_RESUME_AGENTS = frozenset({"cursor", "claude"})

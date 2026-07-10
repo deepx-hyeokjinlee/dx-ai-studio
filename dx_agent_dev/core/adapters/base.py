@@ -11,7 +11,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Iterator, Optional
 
-from core.message_sanitize import is_harness_status_line, sanitize_assistant_text
+from dx_agent_dev.core.message_sanitize import is_harness_status_line, sanitize_assistant_text
 
 # cursor-agent 재연결·내부 상태 줄 → status 슬롯(채팅 말풍선 X)
 _STATUS_LINE = re.compile(

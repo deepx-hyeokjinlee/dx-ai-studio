@@ -3,7 +3,7 @@ import os
 import shutil
 import time
 
-from core.config import harness_search_paths
+from dx_agent_dev.core.config import harness_search_paths
 
 _models_cache = {}      # name -> (ts, models) — CLI 조회 비용 절감용 단기 캐시
 _MODELS_TTL = 120.0
@@ -14,8 +14,8 @@ def list_agent_models(name):
 
     CLI 조회는 비용이 있어 짧게 캐시한다.
     """
-    from core.agents_config import AGENTS
-    from core.adapters import make_adapter
+    from dx_agent_dev.core.agents_config import AGENTS
+    from dx_agent_dev.core.adapters import make_adapter
     now = time.time()
     cached = _models_cache.get(name)
     if cached and (now - cached[0]) < _MODELS_TTL:
@@ -53,8 +53,8 @@ def detect_available_agents():
 
     authenticated: True/False(확정) 또는 None(unknown). 어댑터의 값싼 자격증명 검사 결과.
     """
-    from core.agents_config import AGENTS
-    from core.adapters import make_adapter
+    from dx_agent_dev.core.agents_config import AGENTS
+    from dx_agent_dev.core.adapters import make_adapter
     out = []
     for name, cfg in AGENTS.items():
         if shutil.which(cfg["cli_bin"]):

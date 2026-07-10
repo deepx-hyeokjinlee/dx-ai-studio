@@ -1,7 +1,7 @@
 """쇼케이스 카탈로그 로드. 번들 폴백 JSON 사용(LOW-11)."""
 import json
 
-from core.config import STATIC_DIR
+from dx_agent_dev.core.config import STATIC_DIR
 
 _CATALOG = STATIC_DIR / "data" / "showcase_catalog.json"
 

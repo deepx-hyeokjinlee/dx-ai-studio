@@ -1,7 +1,7 @@
 """claude -p stream-json 어댑터(--add-dir 격리). normalize JSON 매핑은 provisional."""
 import json
 
-from core.adapters.base import SubprocessAdapter, _map_json_event, classify_plain_line
+from dx_agent_dev.core.adapters.base import SubprocessAdapter, _map_json_event, classify_plain_line
 
 
 class ClaudeAdapter(SubprocessAdapter):
