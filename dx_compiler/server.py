@@ -19,11 +19,8 @@ import uuid
 from pathlib import Path
 
 
-# script mode(__main__)에서도 패키지 import가 동작하도록 프로젝트 루트 추가
 _STUDIO_DIR = Path(__file__).resolve().parent
 _PROJECT_ROOT = _STUDIO_DIR.parent
-if str(_PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(_PROJECT_ROOT))
 
 from shared.dx_server import DXBaseHandler, DXServer, RequestBodyError
 from shared.chat import ChatEngine
