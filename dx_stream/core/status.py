@@ -7,11 +7,11 @@ from __future__ import annotations
 
 import json, os, shutil, subprocess, platform, sys
 from pathlib import Path
-from core.config import DX_STREAM_ROOT, MODELS_DIR, VIDEOS_DIR, MODEL_LIST_JSON
+from dx_stream.core.config import DX_STREAM_ROOT, MODELS_DIR, VIDEOS_DIR, MODEL_LIST_JSON
 
 
 def _all_model_files() -> list[str]:
-    from core.models import get_models
+    from dx_stream.core.models import get_models
     return [m["file"] for m in get_models()]
 
 
@@ -39,7 +39,7 @@ def _check_gst() -> dict:
 
 def _check_models() -> dict:
     """모델 다운로드 상태 — 카탈로그 기준 각 .dxnn 존재 여부"""
-    from core.models import get_catalog_source
+    from dx_stream.core.models import get_catalog_source
     all_models = _all_model_files()
     installed = []
     missing = []
@@ -150,7 +150,7 @@ def _check_perf(pipeline_mgr) -> dict:
     if not pipeline_mgr.is_running():
         return {"ok": False, "elements": {}, "message": "Pipeline not running"}
     try:
-        from core.gstshark import get_latest_trace
+        from dx_stream.core.gstshark import get_latest_trace
         trace = get_latest_trace()
         if not trace or "error" in trace:
             return {"ok": True, "elements": {}, "message": "No trace data"}

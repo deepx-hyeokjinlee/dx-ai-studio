@@ -13,7 +13,7 @@ import shutil
 import tempfile
 import shlex
 from pathlib import Path
-from core.config import DX_STREAM_ROOT
+from dx_stream.core.config import DX_STREAM_ROOT
 
 SETUP_STEPS = {
     "build": {
@@ -318,7 +318,7 @@ def stop_step():
 
 def get_setup_status() -> dict:
     """각 step의 완료 상태 — build: .so 존재 여부, models: 파일 존재 여부"""
-    from core.status import _check_build, _check_models
+    from dx_stream.core.status import _check_build, _check_models
     return {
         "build": _check_build(),
         "download-models": _check_models(),

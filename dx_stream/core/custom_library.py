@@ -7,7 +7,7 @@ from __future__ import annotations
 import subprocess
 import threading
 from pathlib import Path
-from core.config import DX_STREAM_SRC
+from dx_stream.core.config import DX_STREAM_SRC
 
 POSTPROC_LIB_DIR = DX_STREAM_SRC / "custom_library" / "postprocess_library"
 INSTALLED_SO_DIR = Path("/usr/local/share/gstdxstream/lib")

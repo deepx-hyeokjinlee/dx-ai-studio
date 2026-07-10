@@ -119,7 +119,7 @@ def get_webrtc_sink_str(encoder: dict) -> str:
 
 def _resolve_props(elem_type: str, props: dict) -> dict:
     """프로퍼티 값을 실제 경로로 보정 (라이브러리/모델 경로 자동 해결)."""
-    from core import config as _config
+    from dx_stream.core import config as _config
     resolved = dict(props)
     # model-path: 절대경로 아니면 MODELS_DIR에서 찾기
     if "model-path" in resolved:

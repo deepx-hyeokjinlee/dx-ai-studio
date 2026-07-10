@@ -7,8 +7,8 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
-from core.config import DX_STREAM_SRC, MODELS_DIR, CONFIGS_DIR, PIPELINES_DIR, VIDEOS_DIR
-from core.pipeline import payloader_with_payload_type
+from dx_stream.core.config import DX_STREAM_SRC, MODELS_DIR, CONFIGS_DIR, PIPELINES_DIR, VIDEOS_DIR
+from dx_stream.core.pipeline import payloader_with_payload_type
 import os
 
 # model_list.json v2_4_0 renamed sample models to <name>_640x640.dxnn (efficientnet is

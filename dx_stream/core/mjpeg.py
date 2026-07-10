@@ -273,7 +273,7 @@ def _spawn_process(cmd, env):
     CWD를 DX_STREAM_ROOT로 설정 — config JSON 내 상대 경로
     (e.g. ./dx_stream/samples/models/…)가 올바르게 해석되도록.
     """
-    from core.config import DX_STREAM_ROOT
+    from dx_stream.core.config import DX_STREAM_ROOT
 
     try:
         return subprocess.Popen(

@@ -8,17 +8,13 @@ from __future__ import annotations
 import json
 import logging
 import re
-import sys
 import threading
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
 from shared.dx_server import DXBaseHandler, DXServer, RequestBodyError
 from shared.chat import ChatEngine
-from core import config, status, demos, models, elements, setup
-from core.config import DEFAULT_PORT, STATIC_DIR, TEMPLATES_DIR, SERVER_NAME
+from dx_stream.core import config, status, demos, models, elements, setup
+from dx_stream.core.config import DEFAULT_PORT, STATIC_DIR, TEMPLATES_DIR, SERVER_NAME
 
 log = logging.getLogger(__name__)
 WEBRTC_INITIAL_ERROR_TIMEOUT = 0.25
@@ -27,8 +23,8 @@ WEBRTC_INITIAL_ERROR_TIMEOUT = 0.25
 _pipeline_mgr = None
 _webrtc_handler = None
 try:
-    from core.pipeline import PipelineManager, detect_encoder, pipeline_json_to_gst, get_webrtc_sink_str
-    from core.webrtc import WebRTCHandler
+    from dx_stream.core.pipeline import PipelineManager, detect_encoder, pipeline_json_to_gst, get_webrtc_sink_str
+    from dx_stream.core.webrtc import WebRTCHandler
     _pipeline_mgr = PipelineManager()
     _webrtc_handler = WebRTCHandler()
 except Exception:
@@ -43,7 +39,7 @@ _current_pipeline_id = None
 def _check_webrtc_available() -> bool:
     """WebRTC 스트리밍 가능 여부 (gstreamer1.0-nice 설치 확인)."""
     try:
-        from core.pipeline import Gst as _G
+        from dx_stream.core.pipeline import Gst as _G
         if _G is None:
             return False
         return _G.ElementFactory.find("nicesrc") is not None
@@ -61,7 +57,7 @@ def _stop_all_playback() -> None:
             except Exception:
                 log.debug("WebRTC pipeline stop failed during cleanup", exc_info=True)
         try:
-            from core import mjpeg
+            from dx_stream.core import mjpeg
             mjpeg.stop()
         except Exception:
             log.debug("MJPEG pipeline stop failed during cleanup", exc_info=True)
@@ -72,7 +68,7 @@ def _stop_all_playback() -> None:
 def _get_gstshark_env() -> dict | None:
     """GstShark 프로파일링 환경 변수를 반환한다."""
     try:
-        from core.gstshark import is_installed as shark_installed, get_tracer_env
+        from dx_stream.core.gstshark import is_installed as shark_installed, get_tracer_env
         if shark_installed():
             return get_tracer_env()
     except Exception:
@@ -242,7 +238,7 @@ class DXStreamHandler(DXBaseHandler):
                 return self.send_json(elements.get_elements())
             if path == "/api/pipeline/assets":
                 # 모델, 비디오, 라이브러리, 설정 목록 — 속성 드롭다운용
-                from core.config import MODELS_DIR, VIDEOS_DIR, CONFIGS_DIR
+                from dx_stream.core.config import MODELS_DIR, VIDEOS_DIR, CONFIGS_DIR
                 import glob as _glob
                 _models = sorted([f.name for f in MODELS_DIR.iterdir()
                                   if f.is_file() or f.is_symlink()]) if MODELS_DIR.is_dir() else []
@@ -274,7 +270,7 @@ class DXStreamHandler(DXBaseHandler):
                     "pipeline_id": _pipeline_mgr.get_pipeline_id(),
                 })
             if path == "/api/pipeline/list":
-                from core.config import PIPELINES_DIR
+                from dx_stream.core.config import PIPELINES_DIR
                 PIPELINES_DIR.mkdir(parents=True, exist_ok=True)
                 files = sorted(f.stem for f in PIPELINES_DIR.glob("*.json"))
                 return self.send_json(files)
@@ -282,7 +278,7 @@ class DXStreamHandler(DXBaseHandler):
                 name = path.split("/")[-1]
                 if not name or "/" in name or name.startswith("."):
                     return self._error(400, "bad_request", "Invalid pipeline name")
-                from core.config import PIPELINES_DIR
+                from dx_stream.core.config import PIPELINES_DIR
                 fpath = PIPELINES_DIR / f"{name}.json"
                 if not fpath.is_file():
                     return self._error(404, "not_found", f"Pipeline not found: {name}")
@@ -295,7 +291,7 @@ class DXStreamHandler(DXBaseHandler):
             if path == "/api/setup/status":
                 return self.send_json(setup.get_setup_status())
             if path == "/api/diagnostics":
-                from core.diagnostics import deep_diagnostics
+                from dx_stream.core.diagnostics import deep_diagnostics
                 return self.send_json(deep_diagnostics())
             if path == "/api/webrtc/ice":
                 if _webrtc_handler is None:
@@ -307,25 +303,25 @@ class DXStreamHandler(DXBaseHandler):
                 return self._handle_mjpeg_snapshot()
 
             if path == "/api/gstshark/status":
-                from core.gstshark import is_installed, get_install_log
+                from dx_stream.core.gstshark import is_installed, get_install_log
                 return self.send_json({"installed": is_installed(), "install_log": get_install_log()})
             if path == "/api/gstshark/trace":
-                from core.gstshark import get_latest_trace
+                from dx_stream.core.gstshark import get_latest_trace
                 return self.send_json(get_latest_trace())
 
             if path.startswith("/api/models/") and path.endswith("/metadata"):
                 return self._handle_model_metadata(path)
 
             if path == "/api/custom-library":
-                from core.custom_library import CustomLibraryManager
+                from dx_stream.core.custom_library import CustomLibraryManager
                 mgr = CustomLibraryManager()
                 return self.send_json(mgr.list_libraries())
             if path == "/api/custom-library/available-so":
-                from core.custom_library import CustomLibraryManager
+                from dx_stream.core.custom_library import CustomLibraryManager
                 mgr = CustomLibraryManager()
                 return self.send_json(mgr.get_available_so())
             if path == "/api/custom-library/build-log":
-                from core.custom_library import CustomLibraryManager
+                from dx_stream.core.custom_library import CustomLibraryManager
                 return self.send_json(CustomLibraryManager.get_build_log())
 
             if path.startswith("/api/"):
@@ -363,7 +359,7 @@ class DXStreamHandler(DXBaseHandler):
                 name = body.get("name", "").strip()
                 if not name or "/" in name or name.startswith("."):
                     return self._error(400, "bad_request", "Invalid pipeline name")
-                from core.config import PIPELINES_DIR
+                from dx_stream.core.config import PIPELINES_DIR
                 PIPELINES_DIR.mkdir(parents=True, exist_ok=True)
                 fpath = PIPELINES_DIR / f"{name}.json"
                 fpath.write_text(json.dumps(body, indent=2))
@@ -373,7 +369,7 @@ class DXStreamHandler(DXBaseHandler):
                 name = path.split("/")[-1]
                 if not name or "/" in name or name.startswith("."):
                     return self._error(400, "bad_request", "Invalid pipeline name")
-                from core.config import PIPELINES_DIR
+                from dx_stream.core.config import PIPELINES_DIR
                 fpath = PIPELINES_DIR / f"{name}.json"
                 if fpath.is_file():
                     fpath.unlink()
@@ -396,7 +392,7 @@ class DXStreamHandler(DXBaseHandler):
                 return self.send_json(setup.stop_step())
 
             if path == "/api/gstshark/install":
-                from core.gstshark import install
+                from dx_stream.core.gstshark import install
                 body = self._safe_read_json()
                 sudo_pw = body.get("password") if body else None
                 try:
@@ -417,8 +413,8 @@ class DXStreamHandler(DXBaseHandler):
 
     def _handle_model_metadata(self, path: str):
         """모델 메타데이터 반환."""
-        from core.metadata import get_model_metadata
-        from core.config import MODELS_DIR
+        from dx_stream.core.metadata import get_model_metadata
+        from dx_stream.core.config import MODELS_DIR
         parts = path.split("/")
         model_file = parts[3] if len(parts) >= 5 else ""
         # Path traversal / empty string guard
@@ -453,7 +449,7 @@ class DXStreamHandler(DXBaseHandler):
             return
 
         try:
-            from core import mjpeg
+            from dx_stream.core import mjpeg
             encoder = _apply_webrtc_payload_types(detect_encoder(), payload_types)
             # Honor a user-selected sample video; otherwise build_pipeline_str falls back
             # to the demo's own task-appropriate default (face/pose -> people clips, etc).
@@ -511,7 +507,7 @@ class DXStreamHandler(DXBaseHandler):
 
     def _handle_mjpeg_stream(self):
         """MJPEG 스트리밍 — multipart/x-mixed-replace 응답."""
-        from core import mjpeg
+        from dx_stream.core import mjpeg
         if not mjpeg.is_streaming():
             self._error(503, "unavailable", "No active stream")
             return
@@ -532,7 +528,7 @@ class DXStreamHandler(DXBaseHandler):
 
     def _handle_mjpeg_snapshot(self):
         """현재 프레임 1장 반환 (JPEG)."""
-        from core import mjpeg
+        from dx_stream.core import mjpeg
         frame = mjpeg.get_latest_frame()
         if frame is None:
             self._error(503, "unavailable", "No frame available")
@@ -605,7 +601,7 @@ class DXStreamHandler(DXBaseHandler):
             self._error(503, "unavailable", "GStreamer not available")
             return
         try:
-            from core import mjpeg
+            from dx_stream.core import mjpeg
 
             gst_str = pipeline_json_to_gst(body)
 
@@ -649,7 +645,7 @@ class DXStreamHandler(DXBaseHandler):
                 else:
                     log.info("Pipeline has no WebRTC-eligible sink, using MJPEG for Pipeline Builder run")
 
-                from core.mjpeg import get_sink_str, build_mjpeg_pipeline
+                from dx_stream.core.mjpeg import get_sink_str, build_mjpeg_pipeline
                 if not has_sink:
                     fallback_str = gst_str + " ! " + get_sink_str()
                 elif has_webrtcbin or has_display_sink:
@@ -719,7 +715,7 @@ class DXStreamHandler(DXBaseHandler):
 
     def _handle_custom_upload(self):
         """커스텀 라이브러리 소스 업로드 (JSON body with base64 content)."""
-        from core.custom_library import CustomLibraryManager
+        from dx_stream.core.custom_library import CustomLibraryManager
         import base64
         body = self._safe_read_json()
         if body is None:
@@ -738,7 +734,7 @@ class DXStreamHandler(DXBaseHandler):
 
     def _handle_custom_build(self, path: str):
         """커스텀 라이브러리 빌드."""
-        from core.custom_library import CustomLibraryManager
+        from dx_stream.core.custom_library import CustomLibraryManager
         self._drain_request_body()
         parts = path.split("/")
         name = parts[3] if len(parts) >= 5 else ""

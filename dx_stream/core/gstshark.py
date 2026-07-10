@@ -7,7 +7,7 @@ import re
 import subprocess
 import threading
 from pathlib import Path
-from core.config import DX_STREAM_ROOT
+from dx_stream.core.config import DX_STREAM_ROOT
 
 TRACE_DIR = DX_STREAM_ROOT / "shark_traces"
 
