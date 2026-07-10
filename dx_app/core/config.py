@@ -13,6 +13,7 @@ if _SHARED_DIR.is_dir() and str(_SHARED_DIR) not in sys.path:
     sys.path.insert(0, str(_SHARED_DIR))
 _NPU_STATS_BIN = SCRIPT_DIR / "dx_npu_stats"
 from shared.paths import SUITE_ROOT as _SUITE_ROOT, DX_APP_ROOT, DX_COMPILER_ROOT, DX_RUNTIME_ROOT
+import shared.runtime as _runtime
 CPP_DIR     = DX_APP_ROOT/"src"/"cpp_example"
 PY_DIR      = DX_APP_ROOT/"src"/"python_example"
 ASSETS_DIR  = DX_APP_ROOT/"assets"
@@ -138,12 +139,8 @@ def _load_dx():
     try:
         _DS=_imp();_dx_ok=True;print("[OK] dx_engine loaded");return
     except Exception:pass
-    for root in[DX_RUNTIME_ROOT/"venv-dx-runtime",
-                _SUITE_ROOT/"venv-dx-runtime",
-                DX_RT_ROOT/"python_package"/"src"]:
-        if not(root and root.is_dir()):continue
-        for sp in list(root.glob("lib/python*/site-packages"))+[root]:
-            if sp.is_dir() and str(sp) not in sys.path:sys.path.insert(0,str(sp))
+    for sp in _runtime.dx_engine_search_paths():
+        if str(sp) not in sys.path:sys.path.insert(0,str(sp))
     try:
         _DS=_imp();_dx_ok=True;print("[OK] dx_engine loaded (via fallback path)")
     except Exception:_dx_ok=False;print("[INFO] dx_engine unavailable — mock NPU data")
@@ -153,34 +150,11 @@ _load_dx()
 from hardware import init_hw as _init_hw
 _init_hw(ds=_DS, dx_ok=_dx_ok, npu_stats_bin=_NPU_STATS_BIN, app_root=DX_APP_ROOT)
 
-def _find_runtime_python():
-    # python_example scripts hard-depend on numpy+cv2. venv-dx-runtime is frequently an
-    # empty venv (dx_engine is injected via PYTHONPATH, not pip-installed), so probe each
-    # candidate and skip any interpreter missing numpy/cv2 — otherwise every python-variant
-    # demo dies with ModuleNotFoundError. Fall back to the gui server's own python.
-    cands=[]
-    for root in[DX_RUNTIME_ROOT/"venv-dx-runtime",_SUITE_ROOT/"venv-dx-runtime"]:
-        for name in["python3","python"]:
-            p=root/"bin"/name
-            if p.is_file():cands.append(str(p))
-    cands.append(sys.executable)
-    for name in ("python3", "python"):
-        p = shutil.which(name)
-        if p:
-            cands.append(p)
-    seen = set()
-    for py in cands:
-        if not py or py in seen:
-            continue
-        seen.add(py)
-        try:
-            if subprocess.run([py, "-c", "import numpy,cv2"],
-                              capture_output=True, timeout=15).returncode == 0:
-                return py
-        except Exception:
-            pass
-    return shutil.which("python3") or sys.executable
-_RUNTIME_PYTHON=_find_runtime_python()
+# python_example scripts hard-depend on numpy+cv2. venv-dx-runtime is frequently an empty
+# venv (dx_engine is injected via PYTHONPATH, not pip-installed), so shared.runtime probes
+# each candidate and skips any interpreter missing numpy/cv2 — otherwise every python-variant
+# demo dies with ModuleNotFoundError. Falls back to the gui server's own python.
+_RUNTIME_PYTHON=_runtime.runtime_python()
 print(f"[INFO] runtime python: {_RUNTIME_PYTHON}")
 
 # dx_engine is NOT pip-installed — it lives under dx_rt/python_package/src and must be on
@@ -190,23 +164,10 @@ _DX_POSTPROCESS_DIRS=[
     DX_APP_ROOT/"build"/"dx_postprocess",
     DX_APP_ROOT/"build_x86_64"/"dx_postprocess",
 ]
-def _runtime_python_has_dx_engine():
-    """True if _RUNTIME_PYTHON imports a WORKING dx_engine on its own (e.g. venv
-    site-packages). When it does, we must NOT prepend dx_rt/python_package/src to the
-    child PYTHONPATH — that source tree ships an uncompiled dx_engine that shadows the
-    working install and fails with `ImportError: _pydxrt`, breaking every python-variant
-    example subprocess (pose/keypoint/object_pose/panoptic thumbnails, etc.)."""
-    try:
-        return subprocess.run(
-            [_RUNTIME_PYTHON, "-c", "from dx_engine import InferenceEngine"],
-            capture_output=True, timeout=15).returncode == 0
-    except Exception:
-        return False
-
 # Only fall back to the dx_rt source tree when the runtime python can't provide dx_engine
-# itself. dx_postprocess dirs are always safe to add (independent pybind extension).
-_DX_ENGINE_SRC_DIRS=([] if _runtime_python_has_dx_engine() else
-    [DX_RT_ROOT/"python_package"/"src", DX_RT_ROOT/"python_package"])
+# itself (the `_pydxrt` shadow fix — see shared/runtime.py:dx_engine_pythonpath_dirs).
+# dx_postprocess dirs are always safe to add (independent pybind extension).
+_DX_ENGINE_SRC_DIRS=_runtime.dx_engine_pythonpath_dirs(_RUNTIME_PYTHON)
 _RUNTIME_PYTHONPATH=os.pathsep.join(
     str(p) for p in [
         *_DX_ENGINE_SRC_DIRS,

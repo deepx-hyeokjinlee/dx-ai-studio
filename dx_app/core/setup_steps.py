@@ -6,6 +6,7 @@ import config
 from config import (SCRIPT_DIR, DX_APP_ROOT, SCRIPTS_DIR, BUILD_DIR,
                     DX_COMPILER_ROOT, DX_COMPILER_VENV,
                     DX_RT_ROOT, DX_DRIVER_ROOT, ASSETS_DIR)
+from shared.runtime import runtime_venv_roots
 
 
 def _find_dxcom():
@@ -307,7 +308,7 @@ def deep_diagnostics():
 
     # 8. Python venv — dx_engine importable
     venv_ok=False;venv_detail=""
-    for vp in [DX_APP_ROOT.parent/"venv-dx-runtime",DX_APP_ROOT.parent.parent/"venv-dx-runtime"]:
+    for vp in runtime_venv_roots():
         py=vp/"bin"/"python3"
         if py.exists():
             try:

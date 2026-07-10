@@ -7,6 +7,7 @@ import config
 from config import (DX_APP_ROOT, CPP_DIR, PY_DIR, BUILD_DIR, ASSETS_DIR,
                     SAMPLE_DIR, OUTPUTS_DIR, SCRIPTS_DIR, CAT_IMAGE, CAT_VIDEO,
                     _RUNTIME_PYTHON, _RUNTIME_PYTHONPATH)
+from shared.runtime import ld_library_path
 from dx_app_security import resolve_existing_file
 from performance import _parse_perf, _cvt_video
 from hardware import get_hw
@@ -335,12 +336,7 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
     if merged_cfg is not None:
         tmp_config = tempfile.mktemp(suffix=".json", dir=_TMP)
         Path(tmp_config).write_text(json.dumps(merged_cfg))
-    _lib_dirs = ["/usr/local/lib", "/usr/lib",
-                 str(DX_APP_ROOT.parent / "dx_rt" / "build_x86_64" / "lib"),
-                 str(DX_APP_ROOT.parent / "dx_rt" / "lib")]
-    _existing = [d for d in _lib_dirs if os.path.isdir(d)]
-    _ld = ":".join(_existing)
-    if os.environ.get("LD_LIBRARY_PATH"): _ld = os.environ["LD_LIBRARY_PATH"] + ":" + _ld
+    _ld = ld_library_path()
     env = {**os.environ, "QT_QPA_PLATFORM": "offscreen", "LD_LIBRARY_PATH": _ld}
     if res_img:
         env["DXAPP_SAVE_IMAGE"] = res_img
@@ -692,18 +688,6 @@ def _ensure_xvfb(slot_idx=0):
         print(f"[LIVE] Xvfb started on {display} PID={p.pid}")
 
 
-def _build_ld_path():
-    """Build LD_LIBRARY_PATH string."""
-    _lib_dirs = ["/usr/local/lib", "/usr/lib",
-                 str(DX_APP_ROOT.parent / "dx_rt" / "build_x86_64" / "lib"),
-                 str(DX_APP_ROOT.parent / "dx_rt" / "lib")]
-    _existing = [d for d in _lib_dirs if os.path.isdir(d)]
-    _ld = ":".join(_existing)
-    if os.environ.get("LD_LIBRARY_PATH"):
-        _ld = os.environ["LD_LIBRARY_PATH"] + ":" + _ld
-    return _ld
-
-
 def run_inference_live(model_name, category, model_file, lang="cpp", variant="sync",
                        input_type="camera", camera_id=None, rtsp_url=None,
                        device_id=None, slot_idx=0, n_total_slots=1, **kwargs):
@@ -761,7 +745,7 @@ def run_inference_live(model_name, category, model_file, lang="cpp", variant="sy
 
     _display = f":{_XVFB_BASE + slot_idx}"
     _loop = 999999  # effectively infinite until SIGTERM
-    _ld = _build_ld_path()
+    _ld = ld_library_path()
     env = {**os.environ, "DISPLAY": _display, "LD_LIBRARY_PATH": _ld}
     env.pop("QT_QPA_PLATFORM", None)  # allow real X11 rendering
 

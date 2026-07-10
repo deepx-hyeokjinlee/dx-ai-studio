@@ -7,10 +7,7 @@ import subprocess
 import json
 import tempfile
 from pathlib import Path
-from core.config import DX_RT_ROOT
-
-_RT_VENV_PYTHON = DX_RT_ROOT / "venv-dx_rt" / "bin" / "python3"
-_FALLBACK_PYTHON = "python3"
+from shared.runtime import dx_rt_cli_python, dx_rt_cli_pythonpath
 
 
 def get_model_metadata(model_path: str) -> dict:
@@ -19,8 +16,8 @@ def get_model_metadata(model_path: str) -> dict:
     if not model_file.is_file():
         return {"error": f"Model file not found: {model_path}"}
 
-    python = str(_RT_VENV_PYTHON) if _RT_VENV_PYTHON.exists() else _FALLBACK_PYTHON
-    pythonpath = str(DX_RT_ROOT / "python_package")
+    python = dx_rt_cli_python()
+    pythonpath = str(dx_rt_cli_pythonpath())
 
     metadata = {"raw_output": "", "graph_info": None, "rmap_info": []}
 
