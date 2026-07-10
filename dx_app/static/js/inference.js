@@ -165,7 +165,12 @@ function onRCat(){
 }
 
 function updateRunInputMode(cat){
-  var imageOnly=['embedding','reid','attribute_recognition'];
+  // Mirror of dx_app _IMAGE_ONLY_TASKS (common/runner/sync_runner.py): single-model
+  // examples for these tasks reject video/camera/rtsp — they need a detector crop
+  // pipeline (embedding/reid/attribute), are single-frame (hand_*), or use non-video
+  // input (DOPE static pose, SFA3D LiDAR .bin). Video is disabled for them here.
+  var imageOnly=['embedding','reid','attribute_recognition',
+                 'hand_landmark','hand_detection','object_pose_estimation','3d_object_detection'];
   var vidRadio=$('r-input-vid');
   var imgRadio=$('r-input-img');
   var restrict=imageOnly.indexOf(cat)!==-1;

@@ -57,9 +57,10 @@ _DEFAULT_IMAGE="sample/img/sample_street.jpg"
 _DEFAULT_VIDEO="assets/videos/dance-group.mov"
 _CAT_IMAGE_OVERRIDES={"object_detection":"sample/img/sample_street.jpg",
  "face_detection":"sample/img/sample_face.jpg",
- "pose_estimation":"sample/img/sample_people.jpg","obb_detection":"sample/img/sample_parking.jpg",
+ "pose_estimation":"sample/img/sample_people.jpg","obb_detection":"sample/img/sample_airport_satellite_view.png",
  "classification":"sample/img/sample_dog.jpg","instance_segmentation":"sample/img/sample_street.jpg",
  "semantic_segmentation":"sample/img/sample_horse.jpg","depth_estimation":"sample/img/sample_kitchen.jpg",
+ # OBB detection: aerial/satellite scene (rotated boxes) — matches run_demo.py canonical input.
  "image_denoising":"sample/img/sample_denoising.jpg","super_resolution":"sample/img/sample_superresolution.png",
  "image_enhancement":"sample/img/sample_lowlight.jpg","embedding":"sample/img/face_pair",
  "reid":"sample/img/person_pair",
@@ -70,14 +71,28 @@ _CAT_IMAGE_OVERRIDES={"object_detection":"sample/img/sample_street.jpg",
  "object_pose_estimation":"sample/dope/000000.png","panoptic_driving_perception":"sample/img/sample_parking.jpg",
  "3d_object_detection":"sample/kitti/velodyne/000049.bin",
  "object_detection_x_semantic_segmentation":"sample/img/sample_parking.jpg"}
-_CAT_VIDEO_OVERRIDES={"face_detection":"assets/videos/dance-solo.mov",
- "pose_estimation":"assets/videos/dance-solo.mov","obb_detection":"assets/videos/dron-citry-road.mov",
- "semantic_segmentation":"assets/videos/blackbox-city-road.mp4",
- "face_alignment":"assets/videos/dance-solo.mov","hand_landmark":"assets/videos/dance-solo.mov",
- "hand_detection":"assets/videos/hand.mp4","panoptic_driving_perception":"assets/videos/blackbox-city-road.mp4",
+# Canonical per-category demo videos — synced to dx_app-dev scripts/run_demo.py (v3.1.x).
+# Each maps to a task-appropriate clip present in assets/videos (sample_videos_v3.1.0).
+_CAT_VIDEO_OVERRIDES={"object_detection":"assets/videos/snowboard.mp4",
+ "face_detection":"assets/videos/dance-group.mov","obb_detection":"assets/videos/obb.mp4",
+ "pose_estimation":"assets/videos/dance-solo.mov","hand_landmark":"assets/videos/hand.mp4",
+ "hand_detection":"assets/videos/hand.mp4","face_alignment":"assets/videos/face-alignment-closeup.mp4",
+ "instance_segmentation":"assets/videos/dogs.mp4","semantic_segmentation":"assets/videos/blackbox-city-road.mp4",
+ "classification":"assets/videos/dogs.mp4","depth_estimation":"assets/videos/blackbox-city-road.mp4",
+ "image_denoising":"assets/videos/noisy_hand.mp4","image_enhancement":"assets/videos/lowlight.mp4",
+ "embedding":"assets/videos/face-pair-sofa.mp4","attribute_recognition":"assets/videos/person-pair-hallway.mp4",
+ "reid":"assets/videos/person-pair-hallway.mp4","ppu":"assets/videos/snowboard.mp4",
+ "keypoint_detection":"assets/videos/snowboard.mp4","object_pose_estimation":"assets/videos/snowboard.mp4",
+ "panoptic_driving_perception":"assets/videos/blackbox-city-road.mp4",
+ "3d_object_detection":"assets/videos/blackbox-city-road.mp4",
  "object_detection_x_semantic_segmentation":"assets/videos/blackbox-city-road.mp4"}
 CAT_IMAGE={c:_CAT_IMAGE_OVERRIDES.get(c,_DEFAULT_IMAGE) for c in CATEGORIES}
 CAT_VIDEO={c:_CAT_VIDEO_OVERRIDES.get(c,_DEFAULT_VIDEO) for c in CATEGORIES}
+# Categories whose single-model examples accept image input only (mirror of dx_app
+# _IMAGE_ONLY_TASKS in common/runner/sync_runner.py). The run tab disables video/stream
+# input for these (see static/js/inference.js updateRunInputMode).
+IMAGE_ONLY_CATEGORIES={"embedding","reid","attribute_recognition","hand_landmark",
+ "hand_detection","object_pose_estimation","3d_object_detection"}
 _TASK_TYPES_EXCLUDE={"face_alignment","hand_landmark","object_detection_x_semantic_segmentation"}
 TASK_TYPES=[c for c in CATEGORIES if c not in _TASK_TYPES_EXCLUDE]
 POSTPROCESSORS={"object_detection":["yolov5","yolov7","yolov8","yolov9","yolov10","yolov11",
