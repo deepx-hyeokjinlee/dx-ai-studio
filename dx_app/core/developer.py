@@ -104,7 +104,13 @@ def lab_check(tok):
 
 
 def _is_local_origin(origin_str, server_host=None):
-    """Return True if origin_str represents a local address."""
+    """Return True if origin_str represents a local address.
+
+    DX_ALLOW_REMOTE_ORIGIN=1 accepts any origin — set it to expose the privileged
+    Lab over a trusted LAN (default off keeps Lab local-only for CSRF safety).
+    """
+    if os.environ.get("DX_ALLOW_REMOTE_ORIGIN", "").strip().lower() in ("1", "true", "yes"):
+        return True
     if not origin_str:
         return True  # absent Origin = same-origin (non-CORS)
     from urllib.parse import urlparse
