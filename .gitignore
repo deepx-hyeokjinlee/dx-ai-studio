@@ -14,6 +14,7 @@ dx_app/compiler_output/
 *.pyc
 .pytest_cache/
 .venv-i18n-audit/
+*.egg-info/
 
 # Runtime junk
 .superpowers/**/.server.log

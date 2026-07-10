@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dxstudio"
+version = "0.0.0"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.setuptools]
+packages = [
+  "shared", "shared.chat", "launcher",
+  "dx_app", "dx_app.core",
+  "dx_modelzoo", "dx_modelzoo.core", "dx_modelzoo.metadata", "dx_modelzoo.tools",
+  "dx_stream", "dx_stream.core",
+  "dx_compiler", "dx_compiler.core",
+  "dx_benchmark", "dx_benchmark.core",
+  "dx_monitor", "dx_monitor.core",
+  "dx_planner", "dx_planner.core",
+  "dx_agent_dev", "dx_agent_dev.core", "dx_agent_dev.core.adapters",
+]
+
+[tool.setuptools.package-data]
+"*" = ["templates/*", "static/**/*", "knowledge/*.md", "*.json"]
