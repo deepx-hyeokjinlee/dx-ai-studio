@@ -7,15 +7,15 @@ from datetime import datetime, timezone
 
 def test_config_output_dir_matches_benchmark_results():
     from dx_benchmark.core.config import BenchmarkConfig
-    root = Path(__file__).resolve().parents[2] / "dx_benchmark"
-    assert BenchmarkConfig().get_output_dir().resolve() == (root / "results").resolve()
+    studio_root = Path(__file__).resolve().parents[2]
+    assert BenchmarkConfig().get_output_dir().resolve() == (studio_root / "outputs" / "benchmark").resolve()
 
 
 def test_legacy_core_results_is_read_only_fallback():
     import dx_benchmark.server as server
     assert hasattr(server, "LEGACY_RESULTS_DIR")
     assert server.LEGACY_RESULTS_DIR.name == "results"
-    assert server.LEGACY_RESULTS_DIR.parent.name == "core"
+    assert server.LEGACY_RESULTS_DIR.parent.name == "dx_benchmark"
 
 
 def test_iter_result_dirs_yields_canonical_first():

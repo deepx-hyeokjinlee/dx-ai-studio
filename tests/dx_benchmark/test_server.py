@@ -112,11 +112,11 @@ def test_config_get(server):
 
 
 def test_config_reports_canonical_results_dir_only(server):
-    """GET /api/config results_dir must be canonical, never legacy/core path."""
+    """GET /api/config results_dir must be canonical (outputs/benchmark), never legacy/core path."""
     data = _get("/api/config")
     results_dir = data["results_dir"]
     assert "core" not in results_dir, f"results_dir should not contain 'core': {results_dir}"
-    assert results_dir.endswith("results")
+    assert results_dir.endswith("outputs/benchmark") or results_dir.endswith("outputs\\benchmark")
 
 
 def test_config_post_returns_501_not_implemented(server):

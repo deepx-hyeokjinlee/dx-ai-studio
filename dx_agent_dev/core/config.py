@@ -10,7 +10,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent.parent     # dx_agent_dev/
 STUDIO_DIR = SCRIPT_DIR.parent                          # dx-ai-studio/
 
-from shared.paths import SUITE_ROOT
+from shared.paths import SUITE_ROOT, var_dir
 
 # 서버 디렉토리
 STATIC_DIR = SCRIPT_DIR / "static"
@@ -20,7 +20,7 @@ DEFAULT_PORT = 8099
 SERVER_NAME = "DX Agent Dev"
 
 # 에이전트 세션 작업 디렉토리 (.gitignore 대상)
-WORKSPACE_ROOT = STUDIO_DIR / "workspace" / "agent-sessions"
+WORKSPACE_ROOT = var_dir("dx_agent_dev", "sessions")
 
 # 입력/스트림 한계
 PROMPT_MAX_LEN = 8000

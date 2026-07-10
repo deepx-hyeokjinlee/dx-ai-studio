@@ -4,7 +4,7 @@ import os
 import tempfile
 from pathlib import Path
 
-from shared.paths import SUITE_ROOT, is_safe_path as _shared_is_safe_path
+from shared.paths import SUITE_ROOT, is_safe_path as _shared_is_safe_path, var_dir
 
 SCRIPT_DIR    = Path(__file__).resolve().parent.parent   # dx_compiler/
 STATIC_DIR    = SCRIPT_DIR / "static"
@@ -19,8 +19,7 @@ CALIB_DIR         = SDK_ROOT / "dx_com" / "calibration_dataset"
 DEFAULT_PORT = 8095
 SERVER_NAME  = "DX Compiler"
 
-UPLOAD_DIR = SCRIPT_DIR / "compiler_uploads"
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+UPLOAD_DIR = var_dir("compiler", "uploads")
 
 # Allowed base directories for file-system access.
 _ALLOWED_ROOTS: list = [

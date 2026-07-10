@@ -13,13 +13,14 @@ from pathlib import Path
 
 from shared.dx_server import DXBaseHandler, DXServer
 from shared.chat import ChatEngine
+from shared.paths import outputs_dir
 
 DEFAULT_PORT = 8097
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 TEMPLATES_DIR = BASE_DIR / "templates"
-RESULTS_DIR = BASE_DIR / "results"
-LEGACY_RESULTS_DIR = BASE_DIR / "core" / "results"
+RESULTS_DIR = outputs_dir("benchmark")
+LEGACY_RESULTS_DIR = BASE_DIR / "results"
 DATASET_PATH = BASE_DIR / "dataset.json"
 SERVER_NAME = "DX Benchmark"
 
@@ -99,7 +100,10 @@ def _aggregate_all_result_dirs():
         # history: dict of lists, canonical-first via setdefault
         if "history" in merged and "history" in extra:
             for k, v in extra["history"].items():
-                merged["history"].setdefault(k, v)
+                if k in merged["history"]:
+                    merged["history"][k] = merged["history"][k] + v
+                else:
+                    merged["history"][k] = v
         # summaries: dict of lists, merge each sublist canonical-first
         # Dedup keys match aggregator's _dedup_latest key fields
         _summary_keys = {
@@ -145,6 +149,11 @@ def _aggregate_all_result_dirs():
                     merged["snapshots"].append(s)
                     seen_snaps.add(key)
         # meta: keep canonical as-is (already in merged)
+    # meta counts must reflect the final merged totals, not just canonical's own
+    # (canonical starts empty post-repoint while legacy holds prior history/runs).
+    if "meta" in merged:
+        merged["meta"]["run_count"] = len(merged.get("runs", []))
+        merged["meta"]["environment_count"] = len(merged.get("environments", []))
     return merged
 
 

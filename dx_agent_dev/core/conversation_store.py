@@ -10,8 +10,9 @@ from pathlib import Path
 from typing import Optional
 
 from dx_agent_dev.core.config import STUDIO_DIR
+from shared.paths import var_dir
 
-CONVERSATIONS_DIR = STUDIO_DIR / "workspace" / "agent-conversations"
+CONVERSATIONS_DIR = var_dir("dx_agent_dev", "conversations")
 
 
 def _now_iso() -> str:

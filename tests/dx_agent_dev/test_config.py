@@ -17,9 +17,10 @@ def test_server_name():
 
 def test_workspace_root_under_studio():
     from core import config
-    assert config.WORKSPACE_ROOT.name == "agent-sessions"
-    assert config.WORKSPACE_ROOT.parent.name == "workspace"
-    assert config.WORKSPACE_ROOT.parent.parent == config.STUDIO_DIR
+    assert config.WORKSPACE_ROOT.name == "sessions"
+    assert config.WORKSPACE_ROOT.parent.name == "dx_agent_dev"
+    assert config.WORKSPACE_ROOT.parent.parent.name == "var"
+    assert config.WORKSPACE_ROOT.parent.parent.parent == config.STUDIO_DIR
 
 
 def test_static_and_templates_dirs():

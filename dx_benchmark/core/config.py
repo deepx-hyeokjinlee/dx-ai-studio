@@ -11,6 +11,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
+from shared.paths import outputs_dir as _outputs_dir
+
 # dx_benchmark/core/ → dx_benchmark/ → dx-ai-studio/ → dx-all-suite/
 _STUDIO_DIR = Path(__file__).resolve().parent.parent
 _SUITE_DIR = _STUDIO_DIR.parent
@@ -228,7 +230,7 @@ class BenchmarkConfig:
     def get_output_dir(self) -> Path:
         if self.output_dir:
             return Path(self.output_dir)
-        return Path(__file__).resolve().parent.parent / "results"
+        return _outputs_dir("benchmark")
 
 
 def get_protocol_metadata(cfg: BenchmarkConfig) -> dict:
