@@ -207,7 +207,7 @@ def get_sysinfo():
     i["npu_count"] = _DS.get_device_count() if _dx_ok and _DS else 0
     # 임계치 (프론트엔드 전달용)
     try:
-        from core.config import THRESHOLDS
+        from dx_monitor.core.config import THRESHOLDS
         cpu_cores = i.get("cpu_cores", 4) or 4
         th = {}
         for k, v in THRESHOLDS.items():
