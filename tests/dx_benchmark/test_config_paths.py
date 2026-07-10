@@ -176,6 +176,85 @@ def test_aggregate_preserves_meta():
     assert merged["meta"]["dataset_version"] == "v2"
 
 
+def test_aggregate_legacy_history_and_counts_when_canonical_empty():
+    """When canonical is empty (post-repoint) and legacy holds prior runs/history,
+    the merged dataset must surface legacy history and meta.run_count /
+    meta.environment_count must reflect the merged totals, not 0."""
+    import dx_benchmark.server as server
+
+    canonical = _make_dataset()  # empty: no runs, no environments, no history
+    legacy = _make_dataset(
+        environments=[{"hw_id": "hw-1"}],
+        runs=[{"run_id": "run-1", "env_id": "env-1", "path": "/l/env-1/run-1"}],
+        history={"model": [{"env_id": "env-1", "ts": "t1"}],
+                 "e2e_single": [], "e2e_multi_capacity": []},
+    )
+
+    with patch.object(server, "RESULTS_DIR", Path("/fake/canonical")), \
+         patch.object(server, "LEGACY_RESULTS_DIR", Path("/fake/legacy")), \
+         patch("dx_benchmark.core.aggregator.aggregate_result_directories",
+               side_effect=[canonical, legacy]):
+        with patch.object(Path, "exists", return_value=True):
+            merged = server._aggregate_all_result_dirs()
+
+    assert merged["history"]["model"] == [{"env_id": "env-1", "ts": "t1"}]
+    assert merged["meta"]["run_count"] == 1
+    assert merged["meta"]["environment_count"] == 1
+
+
+def test_aggregate_history_concat_disjoint_keys_no_duplication():
+    """With disjoint canonical+legacy history entries, the merged history for a
+    subkey must contain both sides' entries exactly once each (concatenation,
+    no dedup, no duplication of either side)."""
+    import dx_benchmark.server as server
+
+    canonical = _make_dataset(
+        history={"model": [{"env_id": "env-A", "ts": "t-canonical"}],
+                 "e2e_single": [], "e2e_multi_capacity": []},
+    )
+    legacy = _make_dataset(
+        history={"model": [{"env_id": "env-B", "ts": "t-legacy"}],
+                 "e2e_single": [], "e2e_multi_capacity": []},
+    )
+
+    with patch.object(server, "RESULTS_DIR", Path("/fake/canonical")), \
+         patch.object(server, "LEGACY_RESULTS_DIR", Path("/fake/legacy")), \
+         patch("dx_benchmark.core.aggregator.aggregate_result_directories",
+               side_effect=[canonical, legacy]):
+        with patch.object(Path, "exists", return_value=True):
+            merged = server._aggregate_all_result_dirs()
+
+    model_history = merged["history"]["model"]
+    assert len(model_history) == 2
+    assert {"env_id": "env-A", "ts": "t-canonical"} in model_history
+    assert {"env_id": "env-B", "ts": "t-legacy"} in model_history
+    assert model_history.count({"env_id": "env-A", "ts": "t-canonical"}) == 1
+    assert model_history.count({"env_id": "env-B", "ts": "t-legacy"}) == 1
+
+
+def test_aggregate_runs_dedup_by_env_and_run_id_still_holds():
+    """Sibling category (runs) must still dedup by (env_id, run_id),
+    canonical-first, even though history now concatenates without dedup."""
+    import dx_benchmark.server as server
+
+    canonical = _make_dataset(runs=[
+        {"run_id": "run-1", "env_id": "env-1", "path": "/c/env-1/run-1"},
+    ])
+    legacy = _make_dataset(runs=[
+        {"run_id": "run-1", "env_id": "env-1", "path": "/l/env-1/run-1"},
+    ])
+
+    with patch.object(server, "RESULTS_DIR", Path("/fake/canonical")), \
+         patch.object(server, "LEGACY_RESULTS_DIR", Path("/fake/legacy")), \
+         patch("dx_benchmark.core.aggregator.aggregate_result_directories",
+               side_effect=[canonical, legacy]):
+        with patch.object(Path, "exists", return_value=True):
+            merged = server._aggregate_all_result_dirs()
+
+    assert len(merged["runs"]) == 1
+    assert merged["runs"][0]["path"] == "/c/env-1/run-1"
+
+
 def test_regenerate_dataset_does_not_rewrite_when_only_generated_at_changes(tmp_path):
     """Launcher startup must not dirty tracked dataset.json when data is unchanged."""
     import json
