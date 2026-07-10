@@ -12,6 +12,25 @@ from performance import _parse_perf, _cvt_video
 from hardware import get_hw
 from run_config import build_run_config
 
+# Honor $TMPDIR (fall back to the system temp dir) instead of a hardcoded "/tmp",
+# so the app works where /tmp is unwritable/isolated.
+_TMP = tempfile.gettempdir()
+
+def _sweep_stale_temp(max_age_s=6 * 3600):
+    """Best-effort janitor for our own leaked temp artifacts (e.g. a SIGKILL mid-run
+    leaves /tmp/dxapp_video_* / dxapp_upload_* behind — there is no finally net yet).
+    Only touches our own prefixed entries; never raises."""
+    import glob
+    now = time.time()
+    for pat in ("dxapp_video_*", "dxapp_upload_*"):
+        for p in glob.glob(os.path.join(_TMP, pat)):
+            try:
+                if now - os.path.getmtime(p) < max_age_s:
+                    continue
+                shutil.rmtree(p, ignore_errors=True) if os.path.isdir(p) else os.unlink(p)
+            except OSError:
+                pass
+
 MAX_IMAGE_BASE64_BYTES = 20 * 1024 * 1024
 RUN_UPLOAD_ROOTS = (DX_APP_ROOT, OUTPUTS_DIR, SAMPLE_DIR, ASSETS_DIR)
 _PAIR_COMPARE_CATS = frozenset({"embedding", "reid"})
@@ -219,7 +238,7 @@ def _crop_roi(imgp, roi):
         if cropped.size == 0:
             print(f"[ROI] Empty crop result")
             return None
-        tmp = tempfile.mktemp(suffix=".jpg", dir="/tmp")
+        tmp = tempfile.mktemp(suffix=".jpg", dir=_TMP)
         cv2.imwrite(tmp, cropped)
         print(f"[ROI] Saved crop to {tmp} ({w}x{h})")
         return tmp
@@ -258,6 +277,7 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
                   upload_path=None, timeout=120, loop=None,
                   camera_id=None, rtsp_url=None,
                   save_output=True, image_base64=None, _multi=False):
+    _sweep_stale_temp()
     if not model_file: return _err("no_model_file", "No model file configured")
     # Multi-model support: if model_file starts with '-', it contains custom CLI args
     is_multi_model = model_file.startswith("-")
@@ -282,7 +302,7 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
             img_bytes = base64.b64decode(raw, validate=True)
         except Exception:
             return _err("invalid_image_base64", "Invalid image_base64")
-        fd, _b64_tmp = tempfile.mkstemp(prefix="dxapp_upload_", suffix=".jpg", dir="/tmp")
+        fd, _b64_tmp = tempfile.mkstemp(prefix="dxapp_upload_", suffix=".jpg", dir=_TMP)
         os.close(fd)
         Path(_b64_tmp).write_bytes(img_bytes)
         upload_path = _b64_tmp
@@ -306,14 +326,14 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
     else: inp = DX_APP_ROOT / (video_path or CAT_VIDEO.get(category, "assets/videos/dance-group.mov"))
     if not _is_live and not inp.exists(): return _err("input_not_found", f"Input not found: {inp}")
     # DXAPP_SAVE_IMAGE forces per-frame render even with --no-display; skip for video (perf + no still needed).
-    res_img = None if input_type == "video" else tempfile.mktemp(suffix=".jpg", dir="/tmp")
+    res_img = None if input_type == "video" else tempfile.mktemp(suffix=".jpg", dir=_TMP)
     # Merge model config.json with UI overrides (schema-aligned; no per-model hardcoding)
     merged_cfg = build_run_config(
         category, model_name, config_overrides, conf_threshold, nms_threshold,
     )
     tmp_config = None
     if merged_cfg is not None:
-        tmp_config = tempfile.mktemp(suffix=".json", dir="/tmp")
+        tmp_config = tempfile.mktemp(suffix=".json", dir=_TMP)
         Path(tmp_config).write_text(json.dumps(merged_cfg))
     _lib_dirs = ["/usr/local/lib", "/usr/lib",
                  str(DX_APP_ROOT.parent / "dx_rt" / "build_x86_64" / "lib"),
@@ -376,14 +396,14 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
         py_extra = list(tag_extra)
         if tmp_config: py_extra += ["--config", tmp_config]
         if input_type == "video":
-            _video_save_dir = tempfile.mkdtemp(prefix="dxapp_video_", dir="/tmp")
+            _video_save_dir = tempfile.mkdtemp(prefix="dxapp_video_", dir=_TMP)
             py_extra += ["--save", "--save-dir", _video_save_dir]
         if _loop != 1:
             py_extra += ["-l", str(_loop)]
         cmd = [_RUNTIME_PYTHON, str(pf), "--model", str(mp),
                f"--{'image' if input_type=='image' else 'video'}", _inp_str, "--no-display"] + py_extra
     hw0 = get_hw(); t0 = time.time()
-    _stdout_file = tempfile.mktemp(suffix=".log", dir="/tmp")
+    _stdout_file = tempfile.mktemp(suffix=".log", dir=_TMP)
     proc = None
     try:
         with open(_stdout_file, "w") as _fout:
@@ -602,7 +622,7 @@ def run_pipeline(steps, input_path, input_type="image", mode="chain"):
                 if x2 <= x1 or y2 <= y1: continue
                 crop = orig_img[y1:y2, x1:x2]
                 if crop.size == 0: continue
-                tmp = tempfile.mktemp(suffix=".jpg", dir="/tmp")
+                tmp = tempfile.mktemp(suffix=".jpg", dir=_TMP)
                 cv2.imwrite(tmp, crop)
                 cr = run_inference(step.get("model_name", ""), step.get("category", ""), step.get("model_file", ""),
                  step.get("lang", "cpp"), step.get("variant", "sync"), "image", image_path=tmp)
@@ -628,7 +648,7 @@ def run_pipeline(steps, input_path, input_type="image", mode="chain"):
         r.update({"step_index": i, "step_model": step.get("model_name", "")}); results.append(r)
         if r.get("result_image") and input_type == "image":
             try:
-                tmp = tempfile.mktemp(suffix=".jpg", dir="/tmp")
+                tmp = tempfile.mktemp(suffix=".jpg", dir=_TMP)
                 open(tmp, "wb").write(base64.b64decode(r["result_image"])); cur = tmp
             except: pass
     return results
@@ -758,7 +778,7 @@ def run_inference_live(model_name, category, model_file, lang="cpp", variant="sy
         return _err("live_cpp_only", "Live mode currently supports C++ only")
 
     job_id = str(uuid.uuid4())[:8]
-    log_file = tempfile.mktemp(suffix=".log", dir="/tmp")
+    log_file = tempfile.mktemp(suffix=".log", dir=_TMP)
 
     with open(log_file, "w") as fout:
         proc = subprocess.Popen(cmd, stdout=fout, stderr=subprocess.STDOUT,
