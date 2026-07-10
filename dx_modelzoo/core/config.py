@@ -1,11 +1,16 @@
 """DX Model Zoo — 경로, 상수, 카테고리 정의."""
+import importlib
 import os
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent.parent          # dx_modelzoo/
-SUITE_ROOT = SCRIPT_DIR.parent.parent                        # dx-all-suite/
-DX_APP_ROOT = Path(os.environ["DX_APP_ROOT"]) if os.environ.get("DX_APP_ROOT") \
-    else SUITE_ROOT / "dx-runtime" / "dx_app"
+import shared.paths as _shared_paths
+# Reload so that a reload of THIS module (as done by env-override tests, e.g.
+# monkeypatch.setenv(...); importlib.reload(config)) re-reads the current
+# environment via shared.paths' own env-honoring computation, rather than
+# reusing a stale value cached from shared.paths' first import.
+importlib.reload(_shared_paths)
+from shared.paths import SUITE_ROOT, DX_APP_ROOT
 
 CONFIG_FILE = DX_APP_ROOT / "config" / "test_models.conf"
 ASSETS_DIR = DX_APP_ROOT / "assets"

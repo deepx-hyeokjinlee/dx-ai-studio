@@ -4,8 +4,9 @@ import os
 import tempfile
 from pathlib import Path
 
+from shared.paths import SUITE_ROOT, is_safe_path as _shared_is_safe_path
+
 SCRIPT_DIR    = Path(__file__).resolve().parent.parent   # dx_compiler/
-SUITE_ROOT    = SCRIPT_DIR.parent.parent                 # dx-all-suite/
 STATIC_DIR    = SCRIPT_DIR / "static"
 TEMPLATES_DIR = SCRIPT_DIR / "templates"
 CORE_DIR      = SCRIPT_DIR / "core"
@@ -31,12 +32,10 @@ _ALLOWED_ROOTS: list = [
 def is_safe_path(p: str) -> bool:
     """Check that *p* resolves to a location under an allowed root."""
     try:
-        resolved = Path(p).resolve()
+        Path(p).resolve()
     except (OSError, ValueError):
         return False
-    allowed = [UPLOAD_DIR.resolve()] + [r.resolve() for r in _ALLOWED_ROOTS]
-    return any(resolved == root or str(resolved).startswith(str(root) + "/")
-               for root in allowed)
+    return _shared_is_safe_path(p, [UPLOAD_DIR] + _ALLOWED_ROOTS)
 
 
 def static_version() -> str:

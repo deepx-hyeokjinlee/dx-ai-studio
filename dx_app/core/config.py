@@ -12,9 +12,7 @@ _SHARED_DIR = SCRIPT_DIR.parent / "shared"
 if _SHARED_DIR.is_dir() and str(_SHARED_DIR) not in sys.path:
     sys.path.insert(0, str(_SHARED_DIR))
 _NPU_STATS_BIN = SCRIPT_DIR / "dx_npu_stats"
-_SUITE_ROOT = SCRIPT_DIR.parent.parent                 # dx-all-suite/
-DX_APP_ROOT = Path(os.environ["DX_APP_ROOT"]) if os.environ.get("DX_APP_ROOT") \
-    else _SUITE_ROOT / "dx-runtime" / "dx_app"
+from shared.paths import SUITE_ROOT as _SUITE_ROOT, DX_APP_ROOT, DX_COMPILER_ROOT, DX_RUNTIME_ROOT
 CPP_DIR     = DX_APP_ROOT/"src"/"cpp_example"
 PY_DIR      = DX_APP_ROOT/"src"/"python_example"
 ASSETS_DIR  = DX_APP_ROOT/"assets"
@@ -114,11 +112,7 @@ _LAB_SESSION_MAX=256
 _LAB_SESSION_TTL_SECONDS=8*60*60
 _HEARTBEAT=time.time(); _HB_TIMEOUT=3600  # 1 hour — prevents premature shutdown during long sessions
 
-DX_COMPILER_ROOT = Path(os.environ["DX_COMPILER_ROOT"]) if os.environ.get("DX_COMPILER_ROOT") \
-    else _SUITE_ROOT / "dx-compiler"
 DX_COMPILER_VENV = DX_COMPILER_ROOT / "venv-dx-compiler-local"
-DX_RUNTIME_ROOT = Path(os.environ["DX_RUNTIME_ROOT"]) if os.environ.get("DX_RUNTIME_ROOT") \
-    else _SUITE_ROOT / "dx-runtime"
 DX_RT_ROOT = DX_RUNTIME_ROOT / "dx_rt"
 DX_DRIVER_ROOT = DX_RUNTIME_ROOT / "dx_rt_npu_linux_driver"
 for _name, _path in [("DX_APP_ROOT", DX_APP_ROOT), ("DX_COMPILER_ROOT", DX_COMPILER_ROOT),

@@ -50,6 +50,8 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs, parse_qsl, unquote, urlencode, urlunsplit, urlsplit
 
+from shared.paths import is_safe_path as _shared_is_safe_path
+
 
 # Behind a TLS-inspecting proxy (e.g. FortiGate) the OS trust store holds the
 # inspection root CA, but Python's `requests`/certifi bundle does not — so HTTPS
@@ -441,11 +443,7 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
     @staticmethod
     def _path_is_within(path: Path, root: Path) -> bool:
         """Return True when *path* is inside *root* or exactly *root*."""
-        try:
-            path.resolve().relative_to(root.resolve())
-            return True
-        except ValueError:
-            return False
+        return _shared_is_safe_path(path, [root])
 
     @classmethod
     def asset_content_hash(cls, filepath) -> str:
@@ -664,10 +662,8 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         (상대경로 트래버설 '..' 검출).
         """
         try:
-            resolved = Path(path).resolve()
             if allowed_dir is not None:
-                allowed = Path(allowed_dir).resolve()
-                return DXBaseHandler._path_is_within(resolved, allowed)
+                return _shared_is_safe_path(path, [allowed_dir])
             # allowed_dir 없으면 단순히 '..' 없는지 확인
             return ".." not in Path(path).parts
         except (ValueError, OSError):

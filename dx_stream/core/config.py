@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent.parent          # dx_stream/
-SUITE_ROOT = SCRIPT_DIR.parent.parent                        # dx-all-suite/
+from shared.paths import SUITE_ROOT
 
 # DX Stream 소스 경로 (환경변수 오버라이드 지원)
 DX_STREAM_ROOT = Path(os.environ["DX_STREAM_ROOT"]) if os.environ.get("DX_STREAM_ROOT") \
