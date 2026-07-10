@@ -36,12 +36,11 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DX_STREAM = HERE.parent
-sys.path.insert(0, str(DX_STREAM))
 
-from core import mjpeg                                      # noqa: E402
-from core.pipeline import pipeline_json_to_gst, detect_encoder  # noqa: E402
-from core.config import VIDEOS_DIR, MODELS_DIR             # noqa: E402
-from core.mjpeg import get_sink_str, build_mjpeg_pipeline  # noqa: E402
+from dx_stream.core import mjpeg                                      # noqa: E402
+from dx_stream.core.pipeline import pipeline_json_to_gst, detect_encoder  # noqa: E402
+from dx_stream.core.config import VIDEOS_DIR, MODELS_DIR             # noqa: E402
+from dx_stream.core.mjpeg import get_sink_str, build_mjpeg_pipeline  # noqa: E402
 
 LIB = "/usr/local/share/gstdxstream/lib"
 

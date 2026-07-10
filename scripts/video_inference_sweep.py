@@ -15,8 +15,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DX_APP_CORE = ROOT / "dx_app" / "core"
+# NOTE: dx_app/core/*.py itself still uses bare intra-package imports (e.g. `from
+# config import ...`) pending Task 4b — this insert stays load-bearing until that
+# lands. The studio-root insert that used to sit alongside it is gone: `shared.*`
+# (used internally by dx_app/core/config.py) now resolves via the dxstudio
+# editable install regardless of cwd.
 sys.path.insert(0, str(DX_APP_CORE))
-sys.path.insert(0, str(ROOT))
 
 from models import get_models  # noqa: E402
 from config import CAT_VIDEO, DX_APP_ROOT, BUILD_DIR, PY_DIR  # noqa: E402

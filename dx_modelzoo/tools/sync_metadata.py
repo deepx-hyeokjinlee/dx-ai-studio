@@ -7,8 +7,6 @@ from pathlib import Path
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _DX_AI_STUDIO_ROOT = _SCRIPT_DIR.parents[1]
-if str(_DX_AI_STUDIO_ROOT) not in sys.path:
-    sys.path.insert(0, str(_DX_AI_STUDIO_ROOT))
 
 from dx_modelzoo.metadata.sync import resolve_source_profile, run_sync
 

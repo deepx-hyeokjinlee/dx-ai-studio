@@ -9,12 +9,10 @@ from pathlib import Path
 from urllib.request import urlopen, Request
 from urllib.error import URLError
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-from core.config import (DX_APP_PORT, DX_APP_ROOT, DATA_DIR,
+from dx_modelzoo.core.config import (DX_APP_PORT, DX_APP_ROOT, DATA_DIR,
                           SAMPLE_IMAGES, MODEL_IMAGE_OVERRIDE, EXAMPLE_TYPES)
-from core.catalog import parse_test_models_conf
-from core.proxy import is_dx_app_alive
+from dx_modelzoo.core.catalog import parse_test_models_conf
+from dx_modelzoo.core.proxy import is_dx_app_alive
 
 THUMB_DIR = DATA_DIR / "thumbnails"
 EXAMPLE_DIR = DATA_DIR / "examples"

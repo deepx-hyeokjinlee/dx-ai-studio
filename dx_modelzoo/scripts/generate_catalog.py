@@ -3,11 +3,9 @@
 import sys, json
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-from core.config import (CONFIG_FILE, CATEGORIES, EXAMPLE_TYPES, SAMPLE_IMAGES,
+from dx_modelzoo.core.config import (CONFIG_FILE, CATEGORIES, EXAMPLE_TYPES, SAMPLE_IMAGES,
                           DX_APP_ROOT, DATA_DIR, CPP_DIR, PY_DIR)
-from core.catalog import parse_test_models_conf
+from dx_modelzoo.core.catalog import parse_test_models_conf
 
 
 def generate():
