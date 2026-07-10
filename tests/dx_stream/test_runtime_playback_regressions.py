@@ -2,9 +2,31 @@ import io
 import sys
 from pathlib import Path
 
+import dx_stream.core as _dx_stream_core
+
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "dx_stream"))
+
+
+def _install_fake_mjpeg(monkeypatch, name="fake_mjpeg_mod"):
+    """Install a fresh empty fake ``mjpeg`` module so a test can stub individual
+    functions on it.
+
+    Now that server.py imports the module qualified (``from dx_stream.core import
+    mjpeg`` / ``from dx_stream.core.mjpeg import ...``), interception requires BOTH:
+      * the sys.modules["dx_stream.core.mjpeg"] entry — feeds
+        ``from dx_stream.core.mjpeg import name``; and
+      * the ``mjpeg`` attribute on the already-imported ``dx_stream.core`` package
+        object — feeds ``from dx_stream.core import mjpeg`` (Python binds the parent
+        package's existing attribute and never consults sys.modules for it).
+    Patching only sys.modules (the pre-qualification behavior) silently misses the
+    second form. Both are monkeypatched so they auto-revert after the test.
+    """
+    fake = type(sys)(name)
+    monkeypatch.setitem(sys.modules, "dx_stream.core.mjpeg", fake)
+    monkeypatch.setattr(_dx_stream_core, "mjpeg", fake)
+    return fake
 
 
 def test_pipeline_config_file_paths_are_resolved_from_configs_dir(tmp_path, monkeypatch):
@@ -271,9 +293,9 @@ def test_demo_start_uses_webrtc_pipeline_without_mjpeg_conversion(monkeypatch):
     monkeypatch.setattr(server, "demos", type(sys)("fake_demos"))
     server.demos.build_pipeline_str = lambda *_args, **_kwargs: "videotestsrc ! webrtcbin name=sendrecv"
     server.demos.DEMOS = [{"name": "test"}]
-    monkeypatch.setitem(sys.modules, "core.mjpeg", type(sys)("fake_mjpeg"))
-    sys.modules["core.mjpeg"].stop = FakeMjpeg().stop
-    sys.modules["core.mjpeg"].build_mjpeg_pipeline = FakeMjpeg().build_mjpeg_pipeline
+    _install_fake_mjpeg(monkeypatch, "fake_mjpeg")
+    sys.modules["dx_stream.core.mjpeg"].stop = FakeMjpeg().stop
+    sys.modules["dx_stream.core.mjpeg"].build_mjpeg_pipeline = FakeMjpeg().build_mjpeg_pipeline
 
     sent = {}
     handler = object.__new__(server.DXStreamHandler)
@@ -336,11 +358,11 @@ def test_demo_start_falls_back_to_mjpeg_when_webrtc_start_fails(monkeypatch):
     server.demos.build_pipeline_str = lambda *_args, **_kwargs: original_pipeline
     server.demos.DEMOS = [{"name": "test"}]
     fake_mjpeg = FakeMjpeg()
-    monkeypatch.setitem(sys.modules, "core.mjpeg", type(sys)("fake_mjpeg_mod"))
-    sys.modules["core.mjpeg"].stop = fake_mjpeg.stop
-    sys.modules["core.mjpeg"].build_mjpeg_pipeline = fake_mjpeg.build_mjpeg_pipeline
-    sys.modules["core.mjpeg"].start = fake_mjpeg.start
-    sys.modules["core.mjpeg"].wait_until_ready = fake_mjpeg.wait_until_ready
+    _install_fake_mjpeg(monkeypatch)
+    sys.modules["dx_stream.core.mjpeg"].stop = fake_mjpeg.stop
+    sys.modules["dx_stream.core.mjpeg"].build_mjpeg_pipeline = fake_mjpeg.build_mjpeg_pipeline
+    sys.modules["dx_stream.core.mjpeg"].start = fake_mjpeg.start
+    sys.modules["dx_stream.core.mjpeg"].wait_until_ready = fake_mjpeg.wait_until_ready
 
     sent = {}
     handler = object.__new__(server.DXStreamHandler)
@@ -405,9 +427,9 @@ def test_pipeline_run_uses_webrtc_for_sink_cases(monkeypatch, source_pipeline, e
         "payloader": "rtpvp8pay",
     })
     fake_mjpeg = FakeMjpeg()
-    monkeypatch.setitem(sys.modules, "core.mjpeg", type(sys)("fake_mjpeg_mod"))
-    sys.modules["core.mjpeg"].stop = fake_mjpeg.stop
-    sys.modules["core.mjpeg"].build_mjpeg_pipeline = fake_mjpeg.build_mjpeg_pipeline
+    _install_fake_mjpeg(monkeypatch)
+    sys.modules["dx_stream.core.mjpeg"].stop = fake_mjpeg.stop
+    sys.modules["dx_stream.core.mjpeg"].build_mjpeg_pipeline = fake_mjpeg.build_mjpeg_pipeline
 
     sent = {}
     handler = object.__new__(server.DXStreamHandler)
@@ -460,12 +482,12 @@ def test_pipeline_run_falls_back_to_mjpeg_when_webrtc_start_fails(monkeypatch):
         "payloader": "rtpvp8pay",
     })
     fake_mjpeg = FakeMjpeg()
-    monkeypatch.setitem(sys.modules, "core.mjpeg", type(sys)("fake_mjpeg_mod"))
-    sys.modules["core.mjpeg"].stop = fake_mjpeg.stop
-    sys.modules["core.mjpeg"].build_mjpeg_pipeline = fake_mjpeg.build_mjpeg_pipeline
-    sys.modules["core.mjpeg"].start = fake_mjpeg.start
-    sys.modules["core.mjpeg"].wait_until_ready = fake_mjpeg.wait_until_ready
-    sys.modules["core.mjpeg"].get_sink_str = fake_mjpeg.get_sink_str
+    _install_fake_mjpeg(monkeypatch)
+    sys.modules["dx_stream.core.mjpeg"].stop = fake_mjpeg.stop
+    sys.modules["dx_stream.core.mjpeg"].build_mjpeg_pipeline = fake_mjpeg.build_mjpeg_pipeline
+    sys.modules["dx_stream.core.mjpeg"].start = fake_mjpeg.start
+    sys.modules["dx_stream.core.mjpeg"].wait_until_ready = fake_mjpeg.wait_until_ready
+    sys.modules["dx_stream.core.mjpeg"].get_sink_str = fake_mjpeg.get_sink_str
 
     sent = {}
     handler = object.__new__(server.DXStreamHandler)
@@ -511,12 +533,12 @@ def test_pipeline_run_logs_ineligible_sink_without_webrtc_unavailable(monkeypatc
         "payloader": "rtpvp8pay",
     })
     fake_mjpeg = FakeMjpeg()
-    monkeypatch.setitem(sys.modules, "core.mjpeg", type(sys)("fake_mjpeg_mod"))
-    sys.modules["core.mjpeg"].stop = fake_mjpeg.stop
-    sys.modules["core.mjpeg"].start = fake_mjpeg.start
-    sys.modules["core.mjpeg"].wait_until_ready = fake_mjpeg.wait_until_ready
-    sys.modules["core.mjpeg"].get_sink_str = fake_mjpeg.get_sink_str
-    sys.modules["core.mjpeg"].build_mjpeg_pipeline = fake_mjpeg.build_mjpeg_pipeline
+    _install_fake_mjpeg(monkeypatch)
+    sys.modules["dx_stream.core.mjpeg"].stop = fake_mjpeg.stop
+    sys.modules["dx_stream.core.mjpeg"].start = fake_mjpeg.start
+    sys.modules["dx_stream.core.mjpeg"].wait_until_ready = fake_mjpeg.wait_until_ready
+    sys.modules["dx_stream.core.mjpeg"].get_sink_str = fake_mjpeg.get_sink_str
+    sys.modules["dx_stream.core.mjpeg"].build_mjpeg_pipeline = fake_mjpeg.build_mjpeg_pipeline
 
     sent = {}
     handler = object.__new__(server.DXStreamHandler)
@@ -548,8 +570,8 @@ def test_demo_stop_stops_webrtc_and_mjpeg_backends(monkeypatch):
 
     monkeypatch.setattr(server, "_pipeline_mgr", FakePipelineMgr())
     fake_mjpeg = FakeMjpeg()
-    monkeypatch.setitem(sys.modules, "core.mjpeg", type(sys)("fake_mjpeg_mod"))
-    sys.modules["core.mjpeg"].stop = fake_mjpeg.stop
+    _install_fake_mjpeg(monkeypatch)
+    sys.modules["dx_stream.core.mjpeg"].stop = fake_mjpeg.stop
 
     sent = {}
     handler = object.__new__(server.DXStreamHandler)
@@ -576,8 +598,8 @@ def test_pipeline_stop_stops_webrtc_and_mjpeg_backends(monkeypatch):
 
     monkeypatch.setattr(server, "_pipeline_mgr", FakePipelineMgr())
     fake_mjpeg = FakeMjpeg()
-    monkeypatch.setitem(sys.modules, "core.mjpeg", type(sys)("fake_mjpeg_mod"))
-    sys.modules["core.mjpeg"].stop = fake_mjpeg.stop
+    _install_fake_mjpeg(monkeypatch)
+    sys.modules["dx_stream.core.mjpeg"].stop = fake_mjpeg.stop
 
     sent = {}
     handler = object.__new__(server.DXStreamHandler)
@@ -613,8 +635,8 @@ def test_pipeline_stop_sends_response_while_holding_playback_lock(monkeypatch):
     monkeypatch.setattr(server, "_playback_lock", playback_lock, raising=False)
     monkeypatch.setattr(server, "_pipeline_mgr", FakePipelineMgr())
     fake_mjpeg = FakeMjpeg()
-    monkeypatch.setitem(sys.modules, "core.mjpeg", type(sys)("fake_mjpeg_mod"))
-    sys.modules["core.mjpeg"].stop = fake_mjpeg.stop
+    _install_fake_mjpeg(monkeypatch)
+    sys.modules["dx_stream.core.mjpeg"].stop = fake_mjpeg.stop
 
     observed_depths = []
     handler = object.__new__(server.DXStreamHandler)
