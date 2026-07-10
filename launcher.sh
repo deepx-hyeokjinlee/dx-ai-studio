@@ -99,11 +99,15 @@ STUDIO_URL="http://localhost:$PORT"
 echo "$STUDIO_URL" > "$SCRIPT_DIR/.launcher-url"   # discoverable: cat dx-ai-studio/.launcher-url
 echo "  Starting DeepX AI Studio on port $PORT  (the clickable URL appears once it's ready)"
 
-# Prefer the project venv's interpreter (Python 3.12 + jinja2); fall back to system python3.
+# Prefer the project venv's interpreter (Python 3.12); fall back to system python3.
 # The launcher spawns each module server with its own interpreter, so this choice propagates.
 if [[ -x "$SCRIPT_DIR/.venv/bin/python" ]]; then
   DX_PY="$SCRIPT_DIR/.venv/bin/python"
 else
   DX_PY="python3"
 fi
+# Ensure the studio package is importable so module servers resolve `import dx_app.core...`
+# etc. without sys.path hacks. Dist name is "dxstudio" but there's no top-level dxstudio
+# package — probe a real import package. `|| true` keeps the mock studio bootable offline.
+"$DX_PY" -c "import shared, dx_app" 2>/dev/null || "$DX_PY" -m pip install -e "$SCRIPT_DIR" >/dev/null 2>&1 || true
 "$DX_PY" "$SCRIPT_DIR/launcher/launcher.py" --port "$PORT"

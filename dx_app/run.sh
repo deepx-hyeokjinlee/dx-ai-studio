@@ -32,4 +32,7 @@ echo ""
 # studio modules use 3.12-only syntax. Fall back to python3 if the venv is absent.
 PY="$SCRIPT_DIR/../.venv/bin/python"
 [ -x "$PY" ] || PY="python3"
+# Ensure the studio package is importable (so server.py resolves `import dx_app.core...`
+# without sys.path hacks). Editable install is idempotent; `|| true` keeps it bootable offline.
+"$PY" -c "import shared, dx_app" 2>/dev/null || "$PY" -m pip install -e "$SCRIPT_DIR/.." >/dev/null 2>&1 || true
 "$PY" "$SCRIPT_DIR/server.py" --port "$PORT"
