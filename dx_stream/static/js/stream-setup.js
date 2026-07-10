@@ -396,23 +396,18 @@ DXStream.checkEnvironment = async function () {
     var status = await DXStream.api('/api/status');
     if (status.error) return;
 
-    // GStreamer
     _setEnvRow('gst', status.gstreamer.ok,
         status.gstreamer.installed
             ? (status.gstreamer.plugin ? T('Plugin OK') : T('No plugin'))
             : T('Not installed'));
-    // NPU
     _setEnvRow('npu', status.npu.ok,
         status.npu.ok ? status.npu.devices.join(', ') : T('Not detected'));
-    // Plugin (build)
     if (status.build) {
         _setEnvRow('plugin', status.build.ok,
             status.build.ok ? (status.build.path || T('OK')) : T('Not built'));
     }
-    // Models
     _setEnvRow('model', status.models.ok,
         status.models.installed + '/' + status.models.total + ' ' + T('files'));
-    // Videos
     _setEnvRow('video', status.videos.ok,
         status.videos.count + ' ' + T('files'));
     // WebRTC — 서버 nice_plugin 상태 반영

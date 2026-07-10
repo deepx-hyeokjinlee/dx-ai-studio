@@ -54,7 +54,6 @@ def _err(error_key, error, **extra):
     return payload
 
 
-# ── Fallback binary map: category → known working binary names ──
 _FALLBACK_BINARIES = {
     "classification":           ["mobilenetv2","resnet50","alexnet","efficientnet_b0","mobilenetv1"],
     "object_detection":         ["yolov5s","yolov8n","yolov7","yolox_s","damoyolo","ssd_mobilenetv1"],
@@ -71,7 +70,6 @@ def _find_fallback_binary(category, variant="sync"):
         bp = BUILD_DIR / f"{name}_{variant}"
         if bp.exists():
             return bp
-    # Last resort: try any binary in build dir
     pattern = f"*_{variant}"
     for bp in sorted(BUILD_DIR.glob(pattern)):
         if bp.is_file() and os.access(str(bp), os.X_OK):
@@ -117,7 +115,6 @@ def _drain_dxrt_msgqueues():
     except Exception:
         pass
 
-# ─── Live Inference (Xvfb + MJPEG) ─────────────────────────────────
 _xvfb_procs = {}             # slot_idx -> Xvfb proc
 _xvfb_lock = threading.Lock()
 _live_jobs = {}              # job_id -> {proc, log_file, start_time, slot_idx, ...}
@@ -134,7 +131,6 @@ _capture_locks_meta = threading.Lock()
 _XVFB_BASE = 99
 _XVFB_RES = "1280x720x24"
 
-# ─── Camera multiplexing via ffmpeg UDP fan-out (no sudo needed) ────
 _UDP_BASE_PORT = 9100        # UDP ports 9100, 9101, 9102 ...
 _cam_mux_proc = None         # ffmpeg tee process
 _cam_mux_lock = threading.Lock()
@@ -145,7 +141,6 @@ def _start_cam_mux(real_cam_idx, n_slots):
     """Start ffmpeg to fan out real camera to N local UDP streams (no sudo)."""
     global _cam_mux_proc, _cam_mux_count
     with _cam_mux_lock:
-        # Stop existing ffmpeg mux if running
         if _cam_mux_proc and _cam_mux_proc.poll() is None:
             _cam_mux_proc.terminate()
             try: _cam_mux_proc.wait(timeout=3)
@@ -243,7 +238,6 @@ def list_cameras():
             idx_int = int(idx)
         except ValueError:
             continue
-        # Quick open test
         try:
             import cv2
             cap = cv2.VideoCapture(idx_int)
@@ -270,7 +264,6 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
     if is_multi_model:
         import shlex
         model_args = shlex.split(model_file)
-        # Validate each model file referenced in the args
         for i, arg in enumerate(model_args):
             if not arg.startswith("-") and arg.endswith(".dxnn"):
                 mfp = DX_APP_ROOT / arg
@@ -280,7 +273,6 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
     else:
         mp = DX_APP_ROOT / model_file
         if not mp.exists(): return _err("model_not_found", f"Model file not found: {model_file}")
-    # Decode image_base64 upload to a temp file if provided
     _b64_tmp = None
     if input_type == "image" and image_base64:
         try:
@@ -294,7 +286,6 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
         os.close(fd)
         Path(_b64_tmp).write_bytes(img_bytes)
         upload_path = _b64_tmp
-    # Determine input path based on input_type
     _is_live = input_type in ("camera", "rtsp")
     if _is_live:
         if input_type == "camera":
@@ -324,7 +315,6 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
     if merged_cfg is not None:
         tmp_config = tempfile.mktemp(suffix=".json", dir="/tmp")
         Path(tmp_config).write_text(json.dumps(merged_cfg))
-    # Build LD_LIBRARY_PATH with all known libdxrt.so locations
     _lib_dirs = ["/usr/local/lib", "/usr/lib",
                  str(DX_APP_ROOT.parent / "dx_rt" / "build_x86_64" / "lib"),
                  str(DX_APP_ROOT.parent / "dx_rt" / "lib")]
@@ -361,7 +351,6 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
     if run_lang == "cpp":
         bp = BUILD_DIR / f"{model_name}_{variant}"
         if not bp.exists():
-            # Fallback: use a compatible binary from the same category
             bp = _find_fallback_binary(category, variant)
             if not bp:
                 if _b64_tmp:
@@ -423,7 +412,6 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
         perf = _parse_perf(stdout); res["perf"] = perf
         res["fps"] = perf.get("overall_fps", ""); res["latency"] = perf.get("inference_latency", "")
 
-        # Parse task-specific tags from stdout
         task = _parse_task_tags(stdout)
         res["task_tag"] = task["tag"]
         res["task_summary"] = task["summary"]
@@ -474,7 +462,6 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
         if res_img:
             try: os.unlink(res_img)
             except: pass
-        # Result video
         res["result_video_url"] = None
         if input_type == "video":
             vo = _find_saved_video(stdout, _video_save_dir) or (DX_APP_ROOT / "result.mp4")
@@ -585,19 +572,16 @@ def run_pipeline(steps, input_path, input_type="image", mode="chain"):
     """
     results = []; cur = input_path
     if mode == "cascade" and len(steps) >= 2 and input_type == "image":
-        # ── Cascade mode: step 1 detects, step 2+ runs on each crop ──
         step0 = steps[0]
         r0 = run_inference(step0.get("model_name", ""), step0.get("category", ""), step0.get("model_file", ""),
          step0.get("lang", "cpp"), step0.get("variant", "sync"), "image",
          image_path=str(input_path))
         r0.update({"step_index": 0, "step_model": step0.get("model_name", "")})
         results.append(r0)
-        # Parse [DET] lines from stdout for bounding boxes
         dets = _parse_detections(r0.get("output", ""))
         if not dets:
             r0["cascade_note"] = "No detections found in step 1"
             return results
-        # For each subsequent step, crop and run
         for si in range(1, len(steps)):
             step = steps[si]
             crop_results = []
@@ -605,7 +589,6 @@ def run_pipeline(steps, input_path, input_type="image", mode="chain"):
             for di, det in enumerate(dets):
                 bbox = det["bbox"]  # x1,y1,x2,y2 in display coords
                 dw, dh = det.get("disp_w", 1), det.get("disp_h", 1)
-                # Read original image to get actual dimensions
                 try:
                     import cv2
                     orig_img = cv2.imread(str(DX_APP_ROOT / orig_path) if not os.path.isabs(str(orig_path)) else str(orig_path))
@@ -633,7 +616,6 @@ def run_pipeline(steps, input_path, input_type="image", mode="chain"):
             results.append({"step_index": si, "step_model": step.get("model_name", ""),
                            "cascade_crops": crop_results, "crop_count": len(crop_results)})
         return results
-    # ── Chain mode (original behavior) ──
     for i, step in enumerate(steps):
         actual = cur
         if step.get("crop_bbox") and input_type == "image" and os.path.exists(str(cur)):
@@ -671,10 +653,6 @@ def _parse_detections(stdout_text):
         except: continue
     return dets
 
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# Live Inference — Xvfb virtual display + MJPEG streaming
-# ═══════════════════════════════════════════════════════════════════════════════
 
 def _ensure_xvfb(slot_idx=0):
     """Start per-slot Xvfb if not already running."""
@@ -728,7 +706,6 @@ def run_inference_live(model_name, category, model_file, lang="cpp", variant="sy
         if not mp.exists():
             return _err("model_not_found", f"Model file not found: {model_file}")
 
-    # Build input source
     if input_type == "camera":
         _cam_idx = int(camera_id) if camera_id is not None else 0
         if n_total_slots > 1:
@@ -752,7 +729,6 @@ def run_inference_live(model_name, category, model_file, lang="cpp", variant="sy
     else:
         return _err("live_mode_unsupported", "Live mode only supports camera/rtsp")
 
-    # Stop any existing process on this slot
     with _live_procs_lock:
         old = _live_procs.get(slot_idx)
         if old and old.poll() is None:
@@ -1099,14 +1075,12 @@ def shutdown_live_processes():
     any in-flight run_multi children. Called on server shutdown AND watchdog restart
     so nothing is left as an orphan (F-13 / F-14a). Safe to call repeatedly."""
     global _cam_mux_proc
-    # Live inference children (per slot) + camera multiplexer.
     try: stop_inference_live(None)
     except Exception: pass
     with _live_procs_lock:
         for slot, p in list(_live_procs.items()):
             _terminate_proc(p)
             _live_procs.pop(slot, None)
-    # Xvfb virtual displays.
     with _xvfb_lock:
         for slot, p in list(_xvfb_procs.items()):
             _terminate_proc(p)
@@ -1115,7 +1089,6 @@ def shutdown_live_processes():
     with _cam_mux_lock:
         _terminate_proc(_cam_mux_proc)
         _cam_mux_proc = None
-    # In-flight multi runs and the single foreground run.
     try: stop_multi()
     except Exception: pass
     try: stop_inference()

@@ -1,4 +1,3 @@
-# tests/dx_agent_dev/test_runner_injection.py
 """요청별 어댑터 주입(H3) + 활성 어댑터 cancel 경로."""
 import sys
 from pathlib import Path

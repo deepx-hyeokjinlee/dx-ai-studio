@@ -11,9 +11,6 @@ import sys
 import threading
 from typing import Any
 
-# ---------------------------------------------------------------------------
-# Module server registry
-# ---------------------------------------------------------------------------
 
 _MODULE_FACTORIES: dict[str, str] = {
     "dx_app": "dx_app.server",

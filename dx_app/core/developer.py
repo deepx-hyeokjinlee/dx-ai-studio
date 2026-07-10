@@ -29,7 +29,6 @@ def _require_lab_category(category):
     return None
 
 
-# ── Multipart parser ──────────────────────────────────────────────────────────
 def _parse_multipart(handler):
     content_type=handler.headers.get("Content-Type","")
     if "multipart/form-data" not in content_type:return {},{}
@@ -132,7 +131,6 @@ def require_lab(tok):
     return None
 
 
-# ── Task type map ──────────────────────────────────────────────────────────────
 _TASK_TYPE_MAP={
     "object_detection":"detection","classification":"classification",
     "semantic_segmentation":"semantic_segmentation","instance_segmentation":"instance_segmentation",
@@ -143,7 +141,6 @@ _TASK_TYPE_MAP={
 }
 
 
-# ── Developer operations ──────────────────────────────────────────────────────
 def dev_add(tok,mn,tt,lang,cat,pp,sync_only=False,confirm_overwrite=False):
     err=require_lab(tok)
     if err:return err
@@ -153,7 +150,6 @@ def dev_add(tok,mn,tt,lang,cat,pp,sync_only=False,confirm_overwrite=False):
     if err:return err
     sh=SCRIPTS_DIR/"add_model.sh"
     if not sh.exists():return{"error":"add_model.sh not found"}
-    # Overwrite check: detect existing model directories
     bases={"cpp":[CPP_DIR],"python":[PY_DIR],"both":[CPP_DIR,PY_DIR]}.get(lang,[CPP_DIR,PY_DIR])
     existing=[]
     for base in bases:
@@ -210,7 +206,6 @@ def dev_git(tok,msg,push=False,confirm_push=""):
         return{"ok":r2.returncode==0,"output":out}
     except Exception as e:return{"error":str(e)}
 
-# Allowed roots for model input resolution
 MODEL_INPUT_ROOTS = (DX_APP_ROOT, ASSETS_DIR, OUTPUTS_DIR)
 
 
@@ -260,8 +255,6 @@ def dev_extract(tok, model_path, lang="both"):
         return err
     return extract_model_package(model_path, lang)
 
-
-# ── New task skeleton generator ────────────────────────────────────────────────
 
 _VALID_SCAFFOLD_TYPES = {"full", "postprocessor"}
 _VALID_LANGS = {"both", "cpp", "python"}
@@ -534,7 +527,6 @@ def dev_new_task(tok,task_name,lang="both",confirm_overwrite=False,scaffold_type
     return{"ok":True,"task_name":task_name,"task_upper":task_upper,"files":created,"count":len(created)}
 
 
-# ── Bug report & capture ──────────────────────────────────────────────────────
 def bug_report(model_name=None,error_log=None,model_config=None):
     import platform
     from hardware import get_sysinfo, get_hw

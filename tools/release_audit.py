@@ -31,7 +31,6 @@ from urllib import error as urllib_error
 from urllib import request as urllib_request
 from urllib.parse import urlsplit
 
-# ── Release routes (authoritative list) ────────────────────────────
 RELEASE_ROUTES: list[str] = [
     "/",
     "/app/",
@@ -401,7 +400,6 @@ def _try_playwright_audit(base_url: str, routes: list[str]) -> list[RouteResult]
             }""")
             page.wait_for_timeout(500)
 
-            # Status check
             if result.status and result.status >= 400:
                 result.findings.append(
                     RouteFinding(
@@ -410,7 +408,6 @@ def _try_playwright_audit(base_url: str, routes: list[str]) -> list[RouteResult]
                     )
                 )
 
-            # Console errors
             for msg in console_msgs:
                 if msg.startswith("[error]"):
                     result.findings.append(
@@ -421,7 +418,6 @@ def _try_playwright_audit(base_url: str, routes: list[str]) -> list[RouteResult]
                         RouteFinding(route, "console_warning", _severity_for("console_warning"), msg)
                     )
 
-            # Page errors
             for err in page_errors:
                 result.findings.append(
                     RouteFinding(route, "page_error", _severity_for("page_error"), err)
@@ -443,7 +439,6 @@ def _try_playwright_audit(base_url: str, routes: list[str]) -> list[RouteResult]
                     RouteFinding(route, category, _severity_for(category), resp_info)
                 )
 
-            # Visible text checks
             try:
                 body_text = page.inner_text("body", timeout=5_000)
             except Exception:

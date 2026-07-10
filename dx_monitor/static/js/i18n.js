@@ -1,4 +1,3 @@
-/* DX Monitor — i18n dictionary */
 window._DX_I18N_DICT = {
   'NPU Topology': {
     ko: 'NPU 토폴로지',
@@ -282,7 +281,6 @@ window._DX_I18N_DICT = {
   },
 
 
-  /* ─── Additional i18n entries ─── */
   'NPU Hardware Monitoring': { ko: 'NPU 하드웨어 모니터링', ja: 'NPU ハードウェアモニタリング', 'zh-CN': 'NPU 硬件监控', 'zh-TW': 'NPU 硬體監控',es:'Monitoreo de hardware NPU'},
   'Swap': { ko: '스왑', ja: 'スワップ', 'zh-CN': '交换区', 'zh-TW': '交換區',es:'Intercambio'},
   'CPU Cores (per-core)': { ko: 'CPU 코어별', ja: 'CPU コア別', 'zh-CN': 'CPU 各核心', 'zh-TW': 'CPU 各核心',es:'Núcleos de CPU (por núcleo)'},
@@ -354,7 +352,6 @@ window._DX_I18N_DICT = {
   '💾 DRAM': { ko: '💾 DRAM', ja: '💾 DRAM', 'zh-CN': '💾 DRAM', 'zh-TW': '💾 DRAM',es:'💾 DRAM'},
   '🌡️ DDR Channel Temp': { ko: '🌡️ DDR 채널 온도', ja: '🌡️ DDR チャネル温度', 'zh-CN': '🌡️ DDR 通道温度', 'zh-TW': '🌡️ DDR 通道溫度',es:'🌡️ Temp. del canal DDR'},
 
-  /* ─── Runtime dynamic keys ─── */
   'Mock': {
     ko: '모의',
     ja: 'モック',

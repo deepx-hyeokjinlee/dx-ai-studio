@@ -42,12 +42,8 @@
     }
   }
 
-  /* ════════════════════════════════════════════════════════════
-     SECTIONS
-     ════════════════════════════════════════════════════════════ */
   var sections = [
 
-    // ── 1. E2E FPS Overview (8 steps) ──
     { id:'dashboard-fps', icon:'📊',
       title:{ko:'📊 E2E FPS Overview', en:'📊 E2E FPS Overview', ja:'📊 E2E FPS概要', 'zh-CN':'📊 E2E FPS概述', 'zh-TW':'📊 E2E FPS概述', es:'📊 Resumen E2E FPS'},
       description:{ko:'전체 플랫폼의 E2E FPS를 한눈에 비교하는 대시보드', en:'Dashboard comparing E2E FPS across all platforms at a glance', ja:'全プラットフォームのE2E FPSを一覧で比較するダッシュボード', 'zh-CN':'一览比较所有平台E2E FPS的仪表盘', 'zh-TW':'一覽比較所有平台E2E FPS的儀表板', es:'Panel que compara el E2E FPS de todas las plataformas de un vistazo'},
@@ -91,7 +87,6 @@
       ]
     },
 
-    // ── 2. Full Metrics (8 steps) ──
     { id:'dashboard-metrics', icon:'📈',
       title:{ko:'📈 Full Metrics', en:'📈 Full Metrics', ja:'📈 Full Metrics', 'zh-CN':'📈 Full Metrics', 'zh-TW':'📈 Full Metrics', es:'📈 Full Metrics'},
       description:{ko:'NPU Throughput, E2E FPS, Latency 3중 메트릭 분석', en:'Triple metric analysis: NPU Throughput, E2E FPS, Latency', ja:'NPU Throughput、E2E FPS、Latencyのトリプルメトリクス分析', 'zh-CN':'NPU吞吐量、E2E FPS、延迟三重指标分析', 'zh-TW':'NPU吞吐量、E2E FPS、延遲三重指標分析', es:'Análisis triple de métricas: NPU Throughput, E2E FPS, Latency'},
@@ -136,7 +131,6 @@
       ]
     },
 
-    // ── 3. Detailed Data (7 steps) ──
     { id:'dashboard-detail', icon:'📋',
       title:{ko:'📋 Detailed Data', en:'📋 Detailed Data', ja:'📋 Detailed Data', 'zh-CN':'📋 Detailed Data', 'zh-TW':'📋 Detailed Data', es:'📋 Detailed Data'},
       description:{ko:'원시 수치 테이블로 상세 데이터 탐색', en:'Explore detailed data with raw numeric tables', ja:'生データテーブルで詳細データを探索', 'zh-CN':'通过原始数据表格探索详细数据', 'zh-TW':'透過原始數據表格探索詳細資料', es:'Explore datos detallados con tablas numéricas en bruto'},
@@ -175,7 +169,6 @@
       ]
     },
 
-    // ── 4. Version Trend (8 steps) ──
     { id:'dashboard-trend', icon:'📉',
       title:{ko:'📉 Version Trend', en:'📉 Version Trend', ja:'📉 Version Trend', 'zh-CN':'📉 Version Trend', 'zh-TW':'📉 Version Trend', es:'📉 Version Trend'},
       description:{ko:'SW 버전별 성능 추이를 시계열로 추적', en:'Track performance trends across SW versions over time', ja:'SWバージョン別のパフォーマンス推移を時系列で追跡', 'zh-CN':'按SW版本追踪性能趋势的时间序列', 'zh-TW':'按SW版本追蹤效能趨勢的時間序列', es:'Siga la evolución del rendimiento por versiones de SW a lo largo del tiempo'},
@@ -217,7 +210,6 @@
       ]
     },
 
-    // ── 5. Results Browser (7 steps) ──
     { id:'results', icon:'📁',
       title:{ko:'📁 Results Browser', en:'📁 Results Browser', ja:'📁 結果ブラウザ', 'zh-CN':'📁 结果浏览器', 'zh-TW':'📁 結果瀏覽器', es:'📁 Explorador de resultados'},
       description:{ko:'벤치마크 결과 탐색 및 리포트 확인', en:'Browse benchmark results and check reports', ja:'ベンチマーク結果の閲覧とレポート確認', 'zh-CN':'浏览基准测试结果并查看报告', 'zh-TW':'瀏覽基準測試結果並查看報告', es:'Explore los resultados del benchmark y consulte los informes'},
@@ -265,7 +257,6 @@
       ]
     },
 
-    // ── 6b. CLI Run (view-only UI — run from terminal) ──
     { id:'run-cli', icon:'▶️',
       title:{ko:'▶️ 벤치마크 실행', en:'▶️ Run Benchmarks', ja:'▶️ ベンチマーク実行', 'zh-CN':'▶️ 运行基准测试', 'zh-TW':'▶️ 執行基準測試', es:'▶️ Ejecutar benchmarks'},
       description:{ko:'웹 UI는 결과 조회 전용 — 터미널에서 벤치마크 실행', en:'Web UI is view-only — run benchmarks from the terminal', ja:'Web UIは結果閲覧専用 — ターミナルでベンチマーク実行', 'zh-CN':'Web UI 仅用于查看结果 — 请在终端运行基准测试', 'zh-TW':'Web UI 僅用於查看結果 — 請在終端機執行基準測試', es:'La UI web es solo de consulta — ejecute benchmarks en la terminal'},
@@ -280,7 +271,6 @@
       ]
     },
 
-    // ── 7. Settings (7 steps) ──
     { id:'settings', icon:'⚙️',
       title:{ko:'⚙️ Settings', en:'⚙️ Settings', ja:'⚙️ 設定', 'zh-CN':'⚙️ 设置', 'zh-TW':'⚙️ 設定', es:'⚙️ Ajustes'},
       description:{ko:'벤치마크 실행 환경 설정', en:'Configure benchmark execution settings', ja:'ベンチマーク実行環境の設定', 'zh-CN':'配置基准测试执行环境', 'zh-TW':'設定基準測試執行環境', es:'Configure los ajustes de ejecución del benchmark'},
@@ -310,7 +300,6 @@
       ]
     },
 
-    // ── 8. EdgeGuide 연동 (2 steps) ──
     { id:'edgeguide-link', icon:'💰',
       title:{ko:'💰 EdgeGuide 연동', en:'💰 EdgeGuide Integration', ja:'💰 EdgeGuide連携', 'zh-CN':'💰 EdgeGuide集成', 'zh-TW':'💰 EdgeGuide整合', es:'💰 Integración con EdgeGuide'},
       description:{ko:'벤치마크 필터 조건으로 EdgeGuide 최적 제품 추천', en:'Get optimal product recommendations via EdgeGuide with benchmark filters', ja:'ベンチマークフィルター条件でEdgeGuide最適製品を推薦', 'zh-CN':'通过基准测试筛选条件获取EdgeGuide最佳产品推荐', 'zh-TW':'透過基準測試篩選條件獲取EdgeGuide最佳產品推薦', es:'Obtenga recomendaciones de producto óptimas en EdgeGuide con los filtros del benchmark'},
@@ -336,7 +325,6 @@
       ]
     },
 
-    // ── 9. 챗봇 (3 steps) ──
     { id:'chat', icon:'💬',
       title:{ko:'💬 챗봇', en:'💬 Chatbot', ja:'💬 チャットボット', 'zh-CN':'💬 聊天机器人', 'zh-TW':'💬 聊天機器人', es:'💬 Chatbot'},
       description:{ko:'AI 챗봇으로 벤치마크 관련 질문하기', en:'Ask benchmark-related questions via AI chatbot', ja:'AIチャットボットでベンチマーク関連の質問をする', 'zh-CN':'通过AI聊天机器人咨询基准测试相关问题', 'zh-TW':'透過AI聊天機器人諮詢基準測試相關問題', es:'Formule preguntas sobre el benchmark mediante el chatbot de IA'},
@@ -369,9 +357,6 @@
 
   ];
 
-  /* ════════════════════════════════════════════════════════════
-     REFERENCE DOCS
-     ════════════════════════════════════════════════════════════ */
   var referenceDocs = [
     { id:'ref-dashboard', icon:'📊', title:{ko:'Dashboard 가이드', en:'Dashboard Guide', ja:'ダッシュボードガイド', 'zh-CN':'仪表盘指南', 'zh-TW':'儀表板指南', es:'Guía del panel'},
       body:{ko:'<h3>4개 서브탭</h3><ul><li><strong>E2E FPS Overview</strong>: 전체 플랫폼 FPS 비교 (그룹 바 차트)</li><li><strong>Full Metrics</strong>: NPU Throughput + E2E FPS + Latency 3중 메트릭</li><li><strong>Detailed Data</strong>: 원시 수치 테이블, 열 정렬, Best 하이라이트</li><li><strong>Version Trend</strong>: SW 버전별 성능 추이 라인 차트</li></ul><p>모든 서브탭에서 차트 바/포인트를 클릭하면 환경 상세 패널이 열립니다.</p>', en:'<h3>4 Sub-tabs</h3><ul><li><strong>E2E FPS Overview</strong>: Cross-platform FPS comparison</li><li><strong>Full Metrics</strong>: NPU Throughput + E2E FPS + Latency triple metrics</li><li><strong>Detailed Data</strong>: Raw numeric tables with sorting and Best highlights</li><li><strong>Version Trend</strong>: Performance trend line chart by SW version</li></ul><p>Click chart bars/points in any sub-tab to open the environment detail panel.</p>', ja:'<h3>4つのサブタブ</h3><ul><li><strong>E2E FPS Overview</strong>：全プラットフォームFPS比較（グループバーチャート）</li><li><strong>Full Metrics</strong>：NPU Throughput + E2E FPS + Latencyトリプルメトリクス</li><li><strong>Detailed Data</strong>：生データテーブル、列ソート、Bestハイライト</li><li><strong>Version Trend</strong>：SWバージョン別パフォーマンス推移ラインチャート</li></ul><p>すべてのサブタブでチャートバー/ポイントをクリックすると環境詳細パネルが開きます。</p>', 'zh-CN':'<h3>4个子选项卡</h3><ul><li><strong>E2E FPS Overview</strong>：全平台FPS比较（分组柱状图）</li><li><strong>Full Metrics</strong>：NPU吞吐量 + E2E FPS + 延迟三重指标</li><li><strong>Detailed Data</strong>：原始数据表格、列排序、最佳值高亮</li><li><strong>Version Trend</strong>：按SW版本的性能趋势折线图</li></ul><p>在所有子选项卡中点击图表柱形/数据点可打开环境详情面板。</p>', 'zh-TW':'<h3>4個子分頁</h3><ul><li><strong>E2E FPS Overview</strong>：全平台FPS比較（分組柱狀圖）</li><li><strong>Full Metrics</strong>：NPU吞吐量 + E2E FPS + 延遲三重指標</li><li><strong>Detailed Data</strong>：原始數據表格、欄位排序、最佳值高亮</li><li><strong>Version Trend</strong>：按SW版本的效能趨勢折線圖</li></ul><p>在所有子分頁中點擊圖表柱形/數據點可打開環境詳情面板。</p>', es:'<h3>4 subpestañas</h3><ul><li><strong>E2E FPS Overview</strong>: comparación de FPS entre plataformas</li><li><strong>Full Metrics</strong>: triple métrica NPU Throughput + E2E FPS + Latency</li><li><strong>Detailed Data</strong>: tablas numéricas en bruto con ordenación y resaltado de mejores valores</li><li><strong>Version Trend</strong>: gráfico de líneas de tendencia de rendimiento por versión de SW</li></ul><p>Haga clic en barras o puntos del gráfico en cualquier subpestaña para abrir el panel de detalle del entorno.</p>'} },
@@ -385,9 +370,6 @@
       body:{ko:'<h3>EdgeGuide 연동</h3><p>💰 버튼 또는 환경 상세 패널의 링크를 클릭하면 현재 벤치마크 필터 조건(Task, Size, ORT)을 그대로 EdgeGuide에 전달하여 최적 제품 추천을 받을 수 있습니다.</p>', en:'<h3>EdgeGuide Integration</h3><p>Click the 💰 button or the link in environment detail panel to pass current benchmark filters (Task, Size, ORT) to EdgeGuide for optimal product recommendation.</p>', ja:'<h3>EdgeGuide連携</h3><p>💰ボタンまたは環境詳細パネルのリンクをクリックすると、現在のベンチマークフィルター条件（Task、Size、ORT）をそのままEdgeGuideに渡して最適製品推薦を受けることができます。</p>', 'zh-CN':'<h3>EdgeGuide集成</h3><p>点击💰按钮或环境详情面板中的链接，即可将当前基准测试筛选条件（Task、Size、ORT）直接传递给EdgeGuide以获取最佳产品推荐。</p>', 'zh-TW':'<h3>EdgeGuide整合</h3><p>點擊💰按鈕或環境詳情面板中的連結，即可將目前基準測試篩選條件（Task、Size、ORT）直接傳遞給EdgeGuide以獲取最佳產品推薦。</p>', es:'<h3>Integración con EdgeGuide</h3><p>Haga clic en el botón 💰 o en el enlace del panel de detalle del entorno para enviar a EdgeGuide los filtros actuales del benchmark (Task, Size, ORT) y obtener la recomendación de producto óptima.</p>'} },
   ];
 
-  /* ════════════════════════════════════════════════════════════
-     INITIALIZATION
-     ════════════════════════════════════════════════════════════ */
   window.DXTutorial.create({
     appId: 'benchmark',
     sections: sections,

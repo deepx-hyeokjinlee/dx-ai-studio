@@ -305,9 +305,7 @@ def test_stream_reference_tab_labels_support_keyboard_activation():
     assert "activateRefTab(tab);" in js
 
 
-# ═══════════════════════════════════════════════════════
 # Task 9: Reference — 제거된 데모/모델 카테고리 검증
-# ═══════════════════════════════════════════════════════
 
 
 def test_stream_reference_matches_dev_demo_surface():

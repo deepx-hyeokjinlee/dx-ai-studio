@@ -130,7 +130,6 @@ def cmd_run(args: argparse.Namespace) -> int:
         print(f"[ERROR] Resume directory not found: {resume_dir}")
         return 2
 
-    # Preflight
     fp = collect_fingerprint()
     ok, errors = check_preflight(fp)
     if not ok:
@@ -176,7 +175,6 @@ def cmd_run(args: argparse.Namespace) -> int:
         print("[WARN] No models found.")
         return 1
 
-    # Collect video info for each task group used by the models
     video_infos: dict[str, dict] = {}
     for task_name in set(m.task for m in models):
         group = TASK_GROUP_MAP.get(task_name, "od_pose_seg")
@@ -202,7 +200,6 @@ def cmd_run(args: argparse.Namespace) -> int:
     }
     fp["protocol"] = get_protocol_metadata(cfg)
 
-    # Collect model metadata via parse_model
     from .env_fingerprint import collect_model_metadata
     benchmarked_models = []
     for m in models:
@@ -246,7 +243,6 @@ def cmd_run(args: argparse.Namespace) -> int:
     done = 0
     failure_context: dict | None = None
 
-    # ── Per-model sequential execution ───────────────────────────
     # Order per model (steady mode):
     #   ① cooldown → ② latency → ③ throughput → ④ E2E → ⑤ multi-stream
     run_model_level = "model" in families or "all" in families
@@ -329,7 +325,6 @@ def cmd_run(args: argparse.Namespace) -> int:
                     )
                     model_index[throughput_key] = r_dict
                     _save_result_set(model_results, out_dir / "model_results.csv", out_dir / "model_results.json")
-                    # Capture input tensor metadata
                     if r.input_tensor is not None:
                         for bm_entry in fp.get("benchmarked_models", []):
                             if bm_entry["name"] == m.name:
@@ -436,7 +431,6 @@ def cmd_run(args: argparse.Namespace) -> int:
         if failure_context:
             break
 
-    # ── Timing ────────────────────────────────────────────────────
     bench_end_time = time.time()
     bench_end_iso = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     session_elapsed_sec = bench_end_time - session_start_time
@@ -462,12 +456,10 @@ def cmd_run(args: argparse.Namespace) -> int:
     ))
     fp["timing_history"] = timing_history
 
-    # ── Save updated fingerprint with timing ──────────────────────
     env_path = out_dir / "environment.json"
     with open(env_path, "w") as _f:
         json.dump(fp, _f, indent=2)
 
-    # ── Generate report ───────────────────────────────────────────
     report_path = out_dir / "REPORT.md"
     generate_markdown_report(fp, model_results, pipeline_results, multi_results, report_path,
                              video_infos=video_infos)
@@ -568,7 +560,6 @@ def cmd_dashboard(args: argparse.Namespace) -> int:
     return 0
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────
 
 def _build_config(args: argparse.Namespace) -> BenchmarkConfig:
     base_cfg = BenchmarkConfig()
@@ -641,7 +632,6 @@ def _parse_local_timestamp(ts: str) -> float | None:
     except ValueError:
         return None
 
-# ── CLI ───────────────────────────────────────────────────────────────────
 
 def _build_parser() -> argparse.ArgumentParser:
     defaults = BenchmarkConfig()
@@ -652,29 +642,23 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
-    # preflight
     sub.add_parser("preflight", help="Check environment readiness")
 
-    # dry-run
     p_dry = sub.add_parser("dry-run", help="Show benchmark matrix without running")
     _add_common_args(p_dry)
     _add_benchmark_args(p_dry, defaults)
 
-    # run
     p_run = sub.add_parser("run", help="Execute benchmarks")
     _add_common_args(p_run)
     _add_benchmark_args(p_run, defaults)
 
-    # report
     p_report = sub.add_parser("report", help="Regenerate report from results")
     p_report.add_argument("result_dir", help="Path to result directory")
 
-    # aggregate
     p_aggregate = sub.add_parser("aggregate", help="Aggregate multiple result directories into dataset.json")
     p_aggregate.add_argument("results_root", help="Path containing benchmark result directories")
     p_aggregate.add_argument("--output", default=None, help="Output dataset.json path")
 
-    # dashboard
     p_dashboard = sub.add_parser("dashboard", help="Build a static dashboard from result directories")
     p_dashboard.add_argument("results_root", help="Path containing benchmark result directories")
     p_dashboard.add_argument("--output", default=None, help="Output directory for the static dashboard")

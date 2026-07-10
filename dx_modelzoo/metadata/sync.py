@@ -16,7 +16,6 @@ from dx_modelzoo.metadata.cache import atomic_write_json, load_catalog_cache
 from dx_modelzoo.metadata.merge import merge_adapter_results
 
 
-# 프로필별 어댑터 목록
 _PROFILE_ADAPTERS = {
     "local": ["local_runtime", "local_modelzoo_repo", "benchmark_cache"],
     "internal": ["local_runtime", "local_modelzoo_repo", "internal_modelzoo", "benchmark_cache"],
@@ -108,7 +107,6 @@ def run_sync(
 
     adapter_names = adapter_names_for_profile(source_profile, offline=offline)
 
-    # 어댑터 실행
     adapter_results = []
     adapter_errors = []
     adapter_warnings = []
@@ -142,7 +140,6 @@ def run_sync(
             [f"{name}: {w}" for w in r.get("warnings", [])]
         )
 
-    # 병합
     ok_results = [r for r in adapter_results if r.get("ok")]
     if ok_results:
         catalog = merge_adapter_results(adapter_results, source_profile=source_profile)
@@ -153,7 +150,6 @@ def run_sync(
     if catalog is None and cache_path:
         prior = load_catalog_cache(cache_path)
         if prior is not None:
-            # stale_cache 마킹
             for model in prior.get("models", []):
                 if isinstance(model.get("performance"), dict):
                     model["performance"]["source_status"] = "stale_cache"
@@ -167,15 +163,12 @@ def run_sync(
             "models": [],
         }
 
-    # 출력 작성
     output_path = Path(output_path)
     atomic_write_json(output_path, catalog)
 
-    # 캐시 작성
     if cache_path:
         atomic_write_json(cache_path, catalog)
 
-    # 리포트 생성
     report = {
         "source_profile": source_profile,
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -197,7 +190,6 @@ def _build_coverage_report(catalog):
     suspect_by_field = {}
 
     for model in catalog.get("models", []):
-        # missing 필드 집계
         for field in model.get("missing", []):
             missing_by_field[field] = missing_by_field.get(field, 0) + 1
 

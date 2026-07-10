@@ -46,7 +46,6 @@ const WizardController = {
     this._bindSetupNavigation();
     this._bindAdvancedSettings();
 
-    // ORT toggle
     document.querySelectorAll('.ort-btn[data-ort]').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.ort-btn').forEach(b => b.classList.remove('selected'));

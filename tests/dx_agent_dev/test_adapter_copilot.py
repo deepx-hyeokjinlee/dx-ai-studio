@@ -1,4 +1,3 @@
-# tests/dx_agent_dev/test_adapter_copilot.py
 """Copilot 어댑터 build_command 계약 + 경로 생성자 하위호환."""
 import sys
 from pathlib import Path

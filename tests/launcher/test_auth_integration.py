@@ -23,7 +23,6 @@ os.environ.pop("DX_AUTH_STATE_FILE", None)
 import launcher.launcher as lmod
 
 
-# ── Helpers ────────────────────────────────────────────────────────
 
 def _get(base, path, headers=None):
     req = urllib.request.Request(f"{base}{path}", headers=headers or {})
@@ -39,7 +38,6 @@ def _post(base, path, data=None, headers=None):
     return urllib.request.urlopen(req, timeout=5)
 
 
-# ── Fixtures ───────────────────────────────────────────────────────
 
 @pytest.fixture()
 def live_server(monkeypatch):
@@ -60,7 +58,6 @@ def live_server(monkeypatch):
     srv.server_close()
 
 
-# ── TestLauncherShutdown ───────────────────────────────────────────
 
 class TestLauncherShutdown:
     def test_signal_shutdown_does_not_call_blocking_http_shutdown(self, monkeypatch):
@@ -143,7 +140,6 @@ class TestLauncherShutdown:
         assert calls == [("stop_all", None), ("server_close", None), ("exit", 0)]
 
 
-# ── TestNoAuthLocalMode ───────────────────────────────────────────
 
 class TestNoAuthLocalMode:
     def test_status_reports_auth_disabled_and_unlocked(self, live_server):

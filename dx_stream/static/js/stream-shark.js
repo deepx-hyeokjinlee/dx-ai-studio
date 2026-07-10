@@ -1,4 +1,3 @@
-// dx_stream/static/js/stream-shark.js
 (function() {
     'use strict';
     DXStream.shark = {};

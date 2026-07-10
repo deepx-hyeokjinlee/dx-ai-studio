@@ -5,7 +5,6 @@ import os
 import sys
 from pathlib import Path
 
-# dx-ai-studio를 sys.path에 추가
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _DX_AI_STUDIO_ROOT = _SCRIPT_DIR.parents[1]
 if str(_DX_AI_STUDIO_ROOT) not in sys.path:
@@ -37,7 +36,6 @@ def main():
     )
     args = parser.parse_args()
 
-    # 프로젝트 루트 결정
     suite_root = _DX_AI_STUDIO_ROOT.parent
 
     # 소스 프로필 결정: 선호 경로 → legacy fallback
@@ -48,7 +46,6 @@ def main():
         config_path=config_path,
     )
 
-    # 기본 경로
     output_path = args.output or str(
         _DX_AI_STUDIO_ROOT / "dx_modelzoo" / "data" / "generated_catalog.json"
     )

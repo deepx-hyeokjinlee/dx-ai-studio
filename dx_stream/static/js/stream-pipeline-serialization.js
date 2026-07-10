@@ -285,15 +285,12 @@ function _demoSecondaryNodes(demo) {
             { id: 'pp0', type: 'DxPostprocess', category: 'postprocess', props: { 'config-file-path': cfgDir + '/postprocess_config.json' }, x: 700, y: 200 },
             { id: 'trk', type: 'DxTracker', category: 'tracking', props: { 'config-file-path': 'tracker_config.json' }, x: 860, y: 200 },
             { id: 'tee1', type: 'tee', category: 'utility', props: {}, x: 1020, y: 200 },
-            // Branch 1: classification
             { id: 'pre1', type: 'DxPreprocess', category: 'preprocess', props: { 'preprocess-id': 2, 'resize-width': 224, 'resize-height': 224, 'secondary-mode': true, 'interval': 5 }, x: 1180, y: 100 },
             { id: 'inf1', type: 'DxInfer', category: 'inference', props: { 'preprocess-id': 2, 'inference-id': 2, 'secondary-mode': true, 'model-path': (a && a.models_dir ? a.models_dir + '/' : '') + 'EfficientNet_Lite0.dxnn' }, x: 1340, y: 100 },
             { id: 'pp1', type: 'DxPostprocess', category: 'postprocess', props: { 'inference-id': 2, 'secondary-mode': true }, x: 1500, y: 100 },
-            // Branch 2: face
             { id: 'pre2', type: 'DxPreprocess', category: 'preprocess', props: { 'preprocess-id': 3, 'resize-width': 640, 'resize-height': 640, 'secondary-mode': true, 'target-class-id': 0, 'interval': 5 }, x: 1180, y: 300 },
             { id: 'inf2', type: 'DxInfer', category: 'inference', props: { 'preprocess-id': 3, 'inference-id': 3, 'secondary-mode': true, 'model-path': (a && a.models_dir ? a.models_dir + '/' : '') + 'SCRFD500M.dxnn' }, x: 1340, y: 300 },
             { id: 'pp2', type: 'DxPostprocess', category: 'postprocess', props: { 'inference-id': 3, 'secondary-mode': true }, x: 1500, y: 300 },
-            // Gather + OSD
             { id: 'gath', type: 'DxGather', category: 'utility', props: {}, x: 1660, y: 200 },
             { id: 'osd', type: 'DxOsd', category: 'visualization', props: {}, x: 1820, y: 200 },
         ],

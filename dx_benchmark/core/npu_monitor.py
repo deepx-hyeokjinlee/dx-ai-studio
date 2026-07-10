@@ -194,7 +194,6 @@ class NpuMonitor:
 
         time.sleep(self.drain_sec)
 
-        # Terminate the process group
         try:
             os.killpg(os.getpgid(self._proc.pid), signal.SIGTERM)
         except (ProcessLookupError, OSError):
@@ -290,7 +289,6 @@ class NpuMonitor:
         # (Previously filtered 0% frames, which inflated NPU Avg% when CPU-bound.)
         active_frames = frames
 
-        # Build per-core statistics from valid frames
         core_samples: dict[int, list[float]] = {cid: [] for cid in self.core_ids}
         for frame in active_frames:
             for cid in self.core_ids:
@@ -306,7 +304,6 @@ class NpuMonitor:
                 stats.core_avg_pct[cid] = 0.0
                 stats.core_max_pct[cid] = 0.0
 
-        # Build per-core clock statistics from clock frames
         core_clock_samples: dict[int, list[float]] = {cid: [] for cid in self.core_ids}
         for frame in clock_frames:
             for cid in self.core_ids:
@@ -322,7 +319,6 @@ class NpuMonitor:
         stats.temp_min_c = min(temp_samples) if temp_samples else None
         stats.temp_max_c = max(temp_samples) if temp_samples else None
 
-        # Cleanup
         try:
             os.unlink(log_path)
         except OSError:

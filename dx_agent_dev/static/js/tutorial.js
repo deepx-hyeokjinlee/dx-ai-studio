@@ -23,12 +23,8 @@
     bar.scrollIntoView({ block: 'nearest' });
   }
 
-  /* ════════════════════════════════════════════════════════════
-     SECTIONS
-     ════════════════════════════════════════════════════════════ */
   var sections = [
 
-    // ── 1. 개요 ──
     { id: 'overview', icon: '🖥️',
       title: { ko: '🖥️ 콘솔 개요', en: '🖥️ Console Overview', ja: '🖥️ コンソール概要', 'zh-CN': '🖥️ 控制台概述', 'zh-TW': '🖥️ 主控台概述', es: '🖥️ Resumen de la consola' },
       description: { ko: 'DX Agent Dev의 전체 구성과 핵심 기능 소개', en: 'Introduction to the layout and key features of DX Agent Dev', ja: 'DX Agent Devの全体構成と主要機能の紹介', 'zh-CN': 'DX Agent Dev的整体布局和主要功能介绍', 'zh-TW': 'DX Agent Dev的整體佈局和主要功能介紹', es: 'Introducción al diseño y funciones clave de DX Agent Dev' },
@@ -42,7 +38,6 @@
       ]
     },
 
-    // ── 2. 콘솔 ──
     { id: 'console', icon: '💬',
       title: { ko: '💬 콘솔 사용', en: '💬 Using the Console', ja: '💬 コンソールの使い方', 'zh-CN': '💬 使用控制台', 'zh-TW': '💬 使用主控台', es: '💬 Uso de la consola' },
       description: { ko: '채팅형 UI, 상태줄, Activity 패널로 앱 빌드 진행 확인', en: 'Build apps with chat-style replies, a status line, and the Activity panel', ja: 'チャット形式UI、ステータス行、Activityパネルでアプリ構築の進捗を確認', 'zh-CN': '通过聊天式回复、状态行和 Activity 面板查看构建进度', 'zh-TW': '透過聊天式回覆、狀態列和 Activity 面板查看建構進度', es: 'Crea apps con respuestas estilo chat, una línea de estado y el panel Activity' },
@@ -71,7 +66,6 @@
       ]
     },
 
-    // ── 3. 에이전트 & 모델 ──
     { id: 'controls', icon: '🤖',
       title: { ko: '🤖 에이전트 & 모델', en: '🤖 Agent & Model', ja: '🤖 エージェント & モデル', 'zh-CN': '🤖 智能体与模型', 'zh-TW': '🤖 智能體與模型', es: '🤖 Agente y modelo' },
       description: { ko: '코딩 에이전트와 모델을 선택', en: 'Select the coding agent and model', ja: 'コーディングエージェントとモデルを選択', 'zh-CN': '选择编码智能体和模型', 'zh-TW': '選擇編碼智能體和模型', es: 'Selecciona el agente de codificación y el modelo' },
@@ -97,7 +91,6 @@
       ]
     },
 
-    // ── 4. 쇼케이스 ──
     { id: 'showcase', icon: '🖼️',
       title: { ko: '🖼️ 쇼케이스 갤러리', en: '🖼️ Showcase Gallery', ja: '🖼️ ショーケースギャラリー', 'zh-CN': '🖼️ 展示区', 'zh-TW': '🖼️ 展示區', es: '🖼️ Galería de showcases' },
       description: { ko: '양옆 예시 카드에서 Agent Dev 세션 결과물 둘러보기', en: 'Browse example Agent Dev session outputs in the side panels', ja: '左右の例カードでAgent Devセッション成果物を閲覧', 'zh-CN': '在两侧示例卡片中浏览 Agent Dev 会话成果', 'zh-TW': '在兩側範例卡片中瀏覽 Agent Dev 工作階段成果', es: 'Explore resultados de sesiones Agent Dev en los paneles laterales' },
@@ -120,7 +113,6 @@
       ]
     },
 
-    // ── 5. Activity 패널 ──
     { id: 'activity', icon: '📋',
       title: { ko: '📋 Agent Activity', en: '📋 Agent Activity', ja: '📋 Agent Activity', 'zh-CN': '📋 Agent Activity', 'zh-TW': '📋 Agent Activity', es: '📋 Agent Activity' },
       description: { ko: '도구·셸 실행 로그를 접이 패널에서 확인', en: 'Inspect tool and shell runs in the collapsible activity panel', ja: 'ツール・シェル実行ログを折りたたみパネルで確認', 'zh-CN': '在可折叠 Activity 面板中查看工具与 Shell 运行日志', 'zh-TW': '在可摺疊 Activity 面板中查看工具與 Shell 執行日誌', es: 'Revise ejecuciones de herramientas y shell en el panel plegable Activity' },
@@ -167,9 +159,6 @@
 
   ];
 
-  /* ════════════════════════════════════════════════════════════
-     REFERENCE DOCS
-     ════════════════════════════════════════════════════════════ */
   var referenceDocs = [
     { id: 'flow', icon: '🛠️', title: { ko: '빌드 흐름', en: 'Build Flow', ja: 'ビルドフロー', 'zh-CN': '构建流程', 'zh-TW': '建構流程', es: 'Flujo de construcción' },
       body: { ko: '<p><strong>자연어 → NPU 앱</strong> 빌드 흐름:</p><ol><li>Agent Console에 만들 앱을 설명합니다.</li><li>선택한 CLI 에이전트가 <code>.deepx</code> 하네스를 읽고 코드를 작성·실행합니다.</li><li>답변은 채팅 말풍선으로, 도구/셸은 <strong>Agent activity</strong> 패널에 표시됩니다.</li><li>생성물은 <code>workspace/agent-sessions/</code>에 저장됩니다. 양옆 <strong>쇼케이스</strong>에서 예시를 볼 수 있습니다.</li></ol>', en: '<p><strong>Natural language → NPU app</strong> build flow:</p><ol><li>Describe the app in the Agent Console.</li><li>The selected CLI agent reads the <code>.deepx</code> harness and writes/runs code.</li><li>Replies appear as chat bubbles; tools/shell output goes to the <strong>Agent activity</strong> panel.</li><li>Outputs are saved under <code>workspace/agent-sessions/</code>. Browse examples in the side <strong>showcases</strong>.</li></ol>', ja: '<p><strong>自然言語 → NPUアプリ</strong>のビルドフロー：</p><ol><li>Agent Consoleで作りたいアプリを説明します。</li><li>選択したCLIエージェントが<code>.deepx</code>ハーネスを読み、コードを記述・実行します。</li><li>回答はチャット吹き出し、ツール/シェルは<strong>Agent activity</strong>パネルに表示されます。</li><li>生成物は<code>workspace/agent-sessions/</code>に保存されます。左右の<strong>ショーケース</strong>で例を確認できます。</li></ol>', 'zh-CN': '<p><strong>自然语言 → NPU应用</strong>构建流程：</p><ol><li>在 Agent Console 描述您想要的应用。</li><li>所选 CLI 智能体读取 <code>.deepx</code> harness 并编写/运行代码。</li><li>回复以聊天气泡显示；工具/Shell 输出进入 <strong>Agent activity</strong> 面板。</li><li>输出保存到 <code>workspace/agent-sessions/</code>。可在两侧<strong>展示区</strong>查看示例。</li></ol>', 'zh-TW': '<p><strong>自然語言 → NPU應用</strong>建構流程：</p><ol><li>在 Agent Console 描述您想要的應用。</li><li>所選 CLI 智能體讀取 <code>.deepx</code> harness 並編寫/執行程式碼。</li><li>回覆以聊天氣泡顯示；工具/Shell 輸出進入 <strong>Agent activity</strong> 面板。</li><li>輸出儲存至 <code>workspace/agent-sessions/</code>。可在兩側<strong>展示區</strong>查看範例。</li></ol>', es: '<p>Flujo de construcción <strong>lenguaje natural → app NPU</strong>:</p><ol><li>Describe la app en Agent Console.</li><li>El agente CLI seleccionado lee el harness <code>.deepx</code> y escribe/ejecuta código.</li><li>Las respuestas aparecen como burbujas de chat; la salida de herramientas/shell va al panel <strong>Agent activity</strong>.</li><li>La salida se guarda en <code>workspace/agent-sessions/</code>. Explora ejemplos en los <strong>showcases</strong> laterales.</li></ol>' } },
@@ -181,9 +170,6 @@
       body: { ko: '<p>설치된 실제 CLI가 없을 때는 <strong>Mock 모드</strong>로 동작합니다. 실제 코드 실행 없이 콘솔 흐름(입력 → 스트리밍 → 결과)을 시뮬레이션하여 UI를 안전하게 체험할 수 있습니다.</p>', en: '<p>When no real CLI is installed, the console runs in <strong>Mock mode</strong>. It simulates the flow (input → streaming → result) without executing real code, so you can safely explore the UI.</p>', ja: '<p>実際のCLIがインストールされていない場合は<strong>モックモード</strong>で動作します。実際のコード実行なしにコンソールの流れ（入力 → ストリーミング → 結果）をシミュレートし、UIを安全に体験できます。</p>', 'zh-CN': '<p>当未安装真实CLI时，控制台以<strong>模拟模式</strong>运行。它在不执行真实代码的情况下模拟流程（输入 → 流式传输 → 结果），让您安全地探索UI。</p>', 'zh-TW': '<p>當未安裝真實CLI時，主控台以<strong>模擬模式</strong>運行。它在不執行真實程式碼的情況下模擬流程（輸入 → 串流 → 結果），讓您安全地探索UI。</p>', es: '<p>Cuando no hay un CLI real instalado, la consola funciona en <strong>modo simulación</strong>. Simula el flujo (entrada → streaming → resultado) sin ejecutar código real, para que puedas explorar la UI con seguridad.</p>' } },
   ];
 
-  /* ════════════════════════════════════════════════════════════
-     INITIALIZATION
-     ════════════════════════════════════════════════════════════ */
   window.DXTutorial.create({
     appId: 'agent_dev',
     sections: sections,

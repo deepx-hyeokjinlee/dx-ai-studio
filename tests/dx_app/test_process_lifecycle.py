@@ -46,7 +46,6 @@ def _reset_state(inference):
         inference.config._running_proc = None
 
 
-# ── F-13 / F-14a : shutdown terminates all live-mode children ──────────────────
 
 def test_shutdown_terminates_live_xvfb_and_ffmpeg(monkeypatch):
     import inference
@@ -86,7 +85,6 @@ def test_shutdown_is_idempotent_on_empty_state(monkeypatch):
     _reset_state(inference)
 
 
-# ── F-13 / F-14a : watchdog restart path invokes the cleanup ───────────────────
 
 def test_watchdog_triggers_live_process_cleanup(monkeypatch):
     import server
@@ -126,7 +124,6 @@ def test_watchdog_triggers_live_process_cleanup(monkeypatch):
     assert calls["cleanup"] >= 1, "watchdog must call shutdown_live_processes()"
 
 
-# ── F-14b : run_multi guards shared process handles ────────────────────────────
 
 def test_multi_process_handles_are_guarded_by_lock():
     import inference

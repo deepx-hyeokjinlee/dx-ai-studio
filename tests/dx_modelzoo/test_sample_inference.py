@@ -281,7 +281,6 @@ def test_inference_js_render_panel_escapes_model_values():
         )
 
 
-# ---- Wave 3C: inline JS string interpolation 제거 검증 ----
 
 def _extract_js_function_body(content, func_name):
     """JS 소스에서 function funcName(...) { ... } 본문을 추출한다."""

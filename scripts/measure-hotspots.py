@@ -2,7 +2,6 @@
 from PIL import Image
 import json
 
-# Analyze chip die image dimensions
 for name in ['dx-m1-die.jpg', 'dx-m2-die.jpg']:
     img = Image.open(f'launcher/static/img/about/{name}')
     print(f'{name}: {img.size}')

@@ -1,4 +1,3 @@
-# tests/dx_agent_dev/test_agents_config.py
 """에이전트 설정 테이블 계약."""
 import sys
 from pathlib import Path

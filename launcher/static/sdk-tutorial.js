@@ -1,14 +1,8 @@
-/* ═══════════════════════════════════════════════════════
-   SDK Library — Tutorial Definitions
-   DXTutorialEngine-based interactive guide
-   Sections: 8 | Steps: ~30
-   ═══════════════════════════════════════════════════════ */
 (function() {
   'use strict';
 
   function _sdkDebugLog() { if (window.DX_DEBUG_SDK === true) console.log.apply(console, arguments); }
 
-  // ── Helper ──────────────────────────────────────────
   function _findFirstMdFile(data) {
     // Find the first non-PDF file in the data for document viewer tutorial step
     if (!data || !data.drawers) return null;
@@ -59,7 +53,6 @@
     if (found) window._sdkLib.openBookViewer(found.file, found.color);
   }
 
-  // ── Section 1: Welcome ──────────────────────────────
   var secWelcome = {
     id: 'welcome',
     icon: '🏠',
@@ -113,7 +106,6 @@
     ]
   };
 
-  // ── Section 2: View Modes ───────────────────────────
   var secViewModes = {
     id: 'view-modes',
     icon: '🔄',
@@ -164,7 +156,6 @@
     ]
   };
 
-  // ── Section 3: List Navigation ──────────────────────
   var secListNav = {
     id: 'list-navigation',
     icon: '📋',
@@ -229,7 +220,6 @@
     ]
   };
 
-  // ── Section 4: Cabinet Drawers ──────────────────────
   var secCabinetDrawers = {
     id: 'cabinet-drawers',
     icon: '🗄️',
@@ -289,7 +279,6 @@
     ]
   };
 
-  // ── Section 5: Search ───────────────────────────────
   var secSearch = {
     id: 'search',
     icon: '🔍',
@@ -323,7 +312,6 @@
     ]
   };
 
-  // ── Section 6: Document Viewer ──────────────────────
   var secDocViewer = {
     id: 'document-viewer',
     icon: '📖',
@@ -378,7 +366,6 @@
     ]
   };
 
-  // ── Section 7: Architecture ─────────────────────────
   var secArchitecture = {
     id: 'architecture',
     icon: '🏗️',
@@ -408,7 +395,6 @@
     ]
   };
 
-  // ── Section 8: Toolbar ──────────────────────────────
   var secToolbar = {
     id: 'toolbar',
     icon: '⚙️',
@@ -434,7 +420,6 @@
     ]
   };
 
-  // ── Assemble sections ───────────────────────────────
   var sections = [
     secWelcome,
     secViewModes,
@@ -446,8 +431,6 @@
     secToolbar
   ];
 
-  // ── Help Definitions ────────────────────────────────
-// ── Initialization ──────────────────────────────────
   var _initDone = false;
   var _engine = null;
 

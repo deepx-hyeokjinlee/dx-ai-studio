@@ -6,7 +6,6 @@ from config import (CPP_DIR, PY_DIR, ASSETS_DIR, CONFIG_FILE, SAMPLE_DIR,
                     SKIP_CAT, CATEGORIES, CAT_LABEL, CAT_IMAGE, CAT_VIDEO,
                     TASK_TYPES, POSTPROCESSORS, DX_APP_ROOT)
 
-# ── Model Registry ─────────────────────────────────────────────────────────────
 _BUNDLED_MODEL_CATALOG = Path(__file__).resolve().parents[2] / "dx_modelzoo" / "data" / "model_catalog.json"
 _CATALOG_ALIASES = {
     "efficientnet": "efficientnet_lite0",

@@ -212,7 +212,6 @@ def test_capabilities_route_does_not_trust_host_header_with_real_server():
     assert captured["code"] == 403
 
 
-# ── Add-model dry-run tests ───────────────────────────────────────────────────
 
 
 def test_add_model_dry_run_returns_manifest_without_writing(tmp_path, monkeypatch):
@@ -387,7 +386,6 @@ def test_add_model_dry_run_route_invalid_token_returns_403_without_status():
     assert "status" not in captured.get("data", {})
 
 
-# ── Apply add-model tests ────────────────────────────────────────────────────
 
 
 def test_add_model_apply_rejects_expired_manifest():
@@ -505,7 +503,6 @@ def test_add_model_apply_rejects_wrong_manifest_kind():
     assert res["error_code"] == "invalid_manifest_kind"
 
 
-# ── Apply route tests ────────────────────────────────────────────────────────
 
 
 def test_add_model_apply_route_rejects_hostile_origin():
@@ -578,7 +575,6 @@ def test_add_model_apply_marks_manifest_applied_after_success(monkeypatch):
     assert res2["error_code"] == "manifest_not_ready"
 
 
-# ── Smoke add-model tests ────────────────────────────────────────────────────
 
 
 def test_add_model_smoke_rejects_expired_manifest():
@@ -640,7 +636,6 @@ def test_add_model_smoke_requires_source_path():
     assert res["blocker"] == "source_path_required"
 
 
-# ── Task scaffold dry-run tests ──────────────────────────────────────────────
 
 
 def test_task_dry_run_returns_generated_file_previews_without_writing(tmp_path, monkeypatch):
@@ -736,7 +731,6 @@ def test_task_dry_run_cpp_only_generates_cpp_files():
     assert not any("python_example" in p for p in paths)
 
 
-# ── Task scaffold apply tests ────────────────────────────────────────────────
 
 
 def test_task_apply_rejects_expired_manifest():
@@ -916,7 +910,6 @@ def test_task_apply_rechecks_ready_status_after_lock(monkeypatch):
     assert calls == []
 
 
-# ── Task scaffold route tests ────────────────────────────────────────────────
 
 
 def test_task_dry_run_route_rejects_hostile_origin():
@@ -1004,7 +997,6 @@ def test_task_apply_route_preserves_dev_new_task_result(monkeypatch):
     assert captured["data"]["ok"] is True
 
 
-# ── Invalid lang validation ──────────────────────────────────────────────────
 
 
 def test_build_task_file_plan_rejects_invalid_lang():
@@ -1053,7 +1045,6 @@ def test_task_dry_run_route_returns_400_for_invalid_lang():
     assert result.get("error")
 
 
-# ── Generated file viewer tests (Task 3.2) ───────────────────────────────────
 
 
 def test_generated_files_returns_only_manifest_operations():
@@ -1261,7 +1252,6 @@ def test_generated_files_route_valid_returns_files():
     assert captured["data"]["files"][0]["preview"] == "print('hi')"
 
 
-# ── Safety Center contract tests (Task 5.1) ──────────────────────────────────
 
 
 def test_list_pending_manifests_returns_active_only():

@@ -365,7 +365,6 @@ def _extract_braced_body(source: str, anchor: str) -> str:
     raise AssertionError(f"unmatched braces after {anchor!r}")
 
 
-# ── Wave 3B: html lang should default to en ──
 def test_app_html_lang_defaults_to_en():
     """<html lang=...> must default to 'en', not 'ko', to avoid FOUC."""
     html = (ROOT / "dx_app" / "templates" / "index.html").read_text(encoding="utf-8")

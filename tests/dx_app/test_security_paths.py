@@ -18,9 +18,7 @@ sys.path.insert(0, str(_STUDIO_DIR / "dx_app"))
 sys.path.insert(0, str(_STUDIO_DIR / "dx_app" / "core"))
 
 
-# ---------------------------------------------------------------------------
 # 1. _resolve_under  — 경로 허용 목록 헬퍼
-# ---------------------------------------------------------------------------
 class TestResolveUnder(unittest.TestCase):
     """_resolve_under 헬퍼가 허용된 루트만 통과시키는지 검증."""
 
@@ -69,9 +67,7 @@ class TestResolveUnder(unittest.TestCase):
             self.assertTrue(result.is_file())
 
 
-# ---------------------------------------------------------------------------
 # 1b. resolve_existing_path — 파일 OR 디렉터리 허용 (reid/embedding pair dir)
-# ---------------------------------------------------------------------------
 class TestResolveExistingPath(unittest.TestCase):
     """resolve_existing_path가 루트 안의 디렉터리를 허용하되 탈출은 막는지 검증."""
 
@@ -104,9 +100,7 @@ class TestResolveExistingPath(unittest.TestCase):
             fn(str(root / "does_not_exist_xyz"), (root,))
 
 
-# ---------------------------------------------------------------------------
 # 2. sanitize_filename — 업로드 파일명 안전 처리
-# ---------------------------------------------------------------------------
 class TestSanitizeFilename(unittest.TestCase):
     """업로드 파일명에서 경로 구분자 및 위험 패턴을 제거."""
 
@@ -144,9 +138,7 @@ class TestSanitizeFilename(unittest.TestCase):
             fn("..", (".onnx",))
 
 
-# ---------------------------------------------------------------------------
 # 3. safe_content_disposition — 다운로드 헤더 안전 처리
-# ---------------------------------------------------------------------------
 class TestSafeContentDisposition(unittest.TestCase):
     """Content-Disposition 헤더 값에서 파일명을 안전하게 인용."""
 
@@ -171,9 +163,7 @@ class TestSafeContentDisposition(unittest.TestCase):
         self.assertNotIn("..", result)
 
 
-# ---------------------------------------------------------------------------
 # 5. fs_list / fs_read 경로 제한 (filesystem.py)
-# ---------------------------------------------------------------------------
 class TestFsListRestriction(unittest.TestCase):
     """fs_list 가 허용된 루트 외부를 거부해야 함."""
 
@@ -208,9 +198,7 @@ class TestFsReadRestriction(unittest.TestCase):
         self.assertIn("outside allowed roots", captured.get("data", {}).get("error", ""))
 
 
-# ---------------------------------------------------------------------------
 # 6. /outputs/ 경로 순회 차단
-# ---------------------------------------------------------------------------
 class TestOutputsTraversal(unittest.TestCase):
     """/outputs/../secret.txt 같은 경로 순회 요청을 403으로 거부."""
 
@@ -277,9 +265,7 @@ class TestFileRouteTraversal(unittest.TestCase):
             handler.wfile.write.assert_not_called()
 
 
-# ---------------------------------------------------------------------------
 # 7. /api/fs/read 존재 오라클 제거
-# ---------------------------------------------------------------------------
 class TestFsReadExistenceOracle(unittest.TestCase):
     """허용 루트 밖 경로는 존재 여부와 무관하게 항상 403을 반환해야 함."""
 
@@ -300,9 +286,6 @@ class TestFsReadExistenceOracle(unittest.TestCase):
                          f"Expected 403 for outside missing path, got {captured}")
 
 
-# ---------------------------------------------------------------------------
-# Phase 7: Lab — no hardcoded password / no public sentinel
-# ---------------------------------------------------------------------------
 class TestLabNoHardcodedPassword(unittest.TestCase):
     def test_no_dev_password_symbol_or_literal(self):
         root = Path(__file__).resolve().parent.parent.parent
@@ -320,9 +303,6 @@ class TestLabNoHardcodedPassword(unittest.TestCase):
         assert "__public__" not in server_src
 
 
-# ---------------------------------------------------------------------------
-# Phase 7: Path resolver contracts
-# ---------------------------------------------------------------------------
 class TestPhase7PathResolvers(unittest.TestCase):
     def test_resolve_existing_file_under_allowed_root(self):
         from dx_app_security import resolve_existing_file
@@ -344,9 +324,6 @@ class TestPhase7PathResolvers(unittest.TestCase):
                 resolve_output_child(bad, root)
 
 
-# ---------------------------------------------------------------------------
-# Phase 7: Route path validation
-# ---------------------------------------------------------------------------
 class TestPhase7RoutePathValidation(unittest.TestCase):
     def _post_route(self, path, payload, headers=None):
         import server
@@ -385,9 +362,6 @@ class TestPhase7RoutePathValidation(unittest.TestCase):
         self.assertIn(captured.get("code"), (400, 403))
 
 
-# ---------------------------------------------------------------------------
-# Phase 7: Confirmation checks
-# ---------------------------------------------------------------------------
 class TestPhase7ConfirmationChecks(unittest.TestCase):
     def _post_route(self, path, payload, headers=None):
         import server
@@ -405,7 +379,6 @@ class TestPhase7ConfirmationChecks(unittest.TestCase):
         return captured
 
     def test_delete_requires_confirmation(self):
-        # Use a valid lab token via lab_session()
         from developer import lab_session
         tok = lab_session()["token"]
         captured = self._post_route(
@@ -426,9 +399,6 @@ class TestPhase7ConfirmationChecks(unittest.TestCase):
         self.assertIn(captured.get("code"), (400,))
 
 
-# ---------------------------------------------------------------------------
-# Phase 7: Overwrite confirmation — dev_add / dev_new_task
-# ---------------------------------------------------------------------------
 class TestOverwriteConfirmation(unittest.TestCase):
     """dev_add / dev_new_task must reject overwrites unless confirm_overwrite=True."""
 
@@ -579,9 +549,6 @@ class TestOverwriteConfirmation(unittest.TestCase):
         self.assertIn("confirm_overwrite", snippet)
 
 
-# ---------------------------------------------------------------------------
-# Phase 7: Upload path validation
-# ---------------------------------------------------------------------------
 class TestRunInferenceUploadPathValidation(unittest.TestCase):
     def test_upload_path_outside_allowed_roots_rejected(self):
         import inference
@@ -703,9 +670,6 @@ class TestLegacyBackupSourceRemoval(unittest.TestCase):
 
 
 
-# ---------------------------------------------------------------------------
-# Phase 7: Cross-origin token mint rejection
-# ---------------------------------------------------------------------------
 class TestCrossOriginLabSession(unittest.TestCase):
     """lab_session must reject non-local cross-origin callers."""
 
@@ -783,9 +747,6 @@ class TestCrossOriginLabMutatingRoute(unittest.TestCase):
         self.assertEqual(captured.get("code"), 403)
 
 
-# ---------------------------------------------------------------------------
-# Phase 7: Bounded session eviction
-# ---------------------------------------------------------------------------
 class TestBoundedSessionEviction(unittest.TestCase):
     """Generating >256 sessions must not clear all tokens; must evict oldest only."""
 
@@ -818,9 +779,6 @@ class TestBoundedSessionEviction(unittest.TestCase):
                 _lab_sessions.update(orig)
 
 
-# ---------------------------------------------------------------------------
-# Phase 7 Chunk 1: Hostile Referer rejection
-# ---------------------------------------------------------------------------
 class TestHostileRefererLabSession(unittest.TestCase):
     """lab/session must reject hostile Referer when Origin is absent."""
 

@@ -60,7 +60,6 @@ def _post_sse(path, payload):
     return events
 
 
-# ── Task 6: 정적/상태/쇼케이스 ────────────────────────────────
 
 
 def test_root_returns_html(server):
@@ -85,7 +84,6 @@ def test_unknown_api_404(server):
     assert e.value.code == 404
 
 
-# ── Task 7: run SSE 계약 + 입력검증 + 강등 ────────────────────
 
 
 def test_run_sse_emits_done(server):

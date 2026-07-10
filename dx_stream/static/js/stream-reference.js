@@ -24,7 +24,6 @@ function buildRefCategories() {
 }
 
 function buildRefTopics() { return [
-  // ── Getting Started ──
   {
     id:'quick-start', cat:'getting-started', icon:'🏁',
     name: _T5('Quick Start','빠른 시작','クイックスタート','快速开始','快速開始'),
@@ -61,7 +60,6 @@ function buildRefTopics() { return [
       '<p>儀表板提供系統狀態的一覽視圖：</p><ul><li><b>5個狀態磁磚</b> — NPU裝置、GStreamer、模型、範例影片、外掛建置</li><li><b>管線狀態</b> — 活動管線資訊</li><li><b>快速啟動</b> — 3個預設</li><li><b>效能指標表</b> — FPS、推論延遲、NPU使用率</li><li><b>迷你圖表</b> — 即時圖表</li></ul>'
     ) }
   },
-  // ── Demo & Streaming ──
   {
     id:'demo-launcher', cat:'demo-streaming', icon:'🎬',
     name: _T5('Demo Launcher','데모 실행기','デモランチャー','演示启动器','示範啟動器'),
@@ -110,7 +108,6 @@ function buildRefTopics() { return [
       '<table><thead><tr><th>#</th><th>示範</th><th>模型</th><th>類別</th></tr></thead><tbody><tr><td>0</td><td>物件偵測</td><td>YOLOv26n</td><td>object_detection</td></tr><tr><td>1</td><td>物件偵測 PPU</td><td>YoloV5S_PPU</td><td>object_detection</td></tr><tr><td>2</td><td>人臉偵測</td><td>YOLOv5s_Face</td><td>face_detection</td></tr><tr><td>3</td><td>人臉偵測 PPU</td><td>SCRFD500M_PPU</td><td>face_detection</td></tr><tr><td>4</td><td>姿態估計</td><td>YOLOv26n_Pose</td><td>pose_estimation</td></tr><tr><td>5</td><td>姿態估計 PPU</td><td>YOLOV5Pose_PPU</td><td>pose_estimation</td></tr><tr><td>6</td><td>語義分割</td><td>YOLOv26n_Seg</td><td>segmentation</td></tr><tr><td>7</td><td>多物件追蹤</td><td>YoloV5S_PPU + DxTracker</td><td>tracking</td></tr><tr><td>8</td><td>多路串流</td><td>YoloV5S_PPU</td><td>multi_stream</td></tr><tr><td>9</td><td>多路串流 RTSP</td><td>YoloV5S_PPU</td><td>multi_stream</td></tr><tr><td>10</td><td>二次推論</td><td>Detection + Classification + Face</td><td>secondary</td></tr></tbody></table>'
     ) }
   },
-  // ── Pipeline ──
   {
     id:'visual-editor', cat:'pipeline', icon:'🎨',
     name: _T5('Visual Editor','비주얼 에디터','ビジュアルエディタ','可视化编辑器','視覺化編輯器'),
@@ -147,7 +144,6 @@ function buildRefTopics() { return [
       '<p>管線建置器的儲存和匯出功能：</p><ul><li><b>5個內建預設</b></li><li><b>載入預設</b> → 自動建置</li><li><b>儲存為JSON</b></li><li><b>匯入JSON</b></li><li><b>GStreamer命令預覽</b></li><li><b>執行按鈕</b></li><li><b>復原/重做</b></li></ul>'
     ) }
   },
-  // ── Models & Elements ──
   {
     id:'model-catalog', cat:'models-elements', icon:'🧠',
     name: _T5('Model Catalog','모델 카탈로그','モデルカタログ','模型目录','模型目錄'),
@@ -184,7 +180,6 @@ function buildRefTopics() { return [
       '<p>管理自訂後處理邏輯的C函式庫：</p><ul><li><b>上傳</b> — C原始碼檔案 + <code>meson.build</code></li><li><b>建置過程</b> — meson setup → compile → install</li><li><b>安裝路徑</b> — <code>/usr/local/share/gstdxstream/lib/</code></li><li><b>管線建置器整合</b> — <code>.so</code>自動出現</li></ul><div class="ref-box tip">💡 <code>.so</code>必須匯出與<code>function-name</code>匹配的C函式。</div>'
     ) }
   },
-  // ── System ──
   {
     id:'keyboard-shortcuts', cat:'system', icon:'⌨️',
     name: _T5('Keyboard Shortcuts','키보드 단축키','キーボードショートカット','键盘快捷键','鍵盤快捷鍵'),
@@ -223,12 +218,10 @@ function buildRefTopics() { return [
   }
 ]; }
 
-// ─── State ───
 var _currentFilter = 'all';
 var _expandedId = null;
 var _bound = false;
 
-// ─── Render ───
 function renderRefContent(filter, search) {
   var container = document.getElementById('ref-content');
   if (!container) return;

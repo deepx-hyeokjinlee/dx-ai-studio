@@ -730,7 +730,6 @@ def test_templates_do_not_hardcode_cache_busters_for_css_js():
     )
 
 
-# ── Router & View Lifecycle Source-Contract Tests ────────────────────
 
 
 def _function_body(source, name):
@@ -831,9 +830,6 @@ def test_sdk_library_is_lazy_initialized_and_i18n_aware():
     assert "DXI18n.onLangChange" in source
 
 
-# ══════════════════════════════════════════════════════════════════════
-#  Shared Chart Vendor & dx-charts.js contracts (Phase 1.5 Chunk 2)
-# ══════════════════════════════════════════════════════════════════════
 
 def test_stream_template_uses_shared_chart_vendor():
     """dx_stream/templates/index.html loads Chart.js from /static/shared/vendor/."""
@@ -861,7 +857,6 @@ def test_shared_dx_charts_exports_required_globals():
         assert f"window.{name}=" in source, f"{name} is not explicitly exported on window"
 
 
-# ── Launcher frontend modularization (Phase 1.5 Chunk 4) ──
 
 
 def test_launcher_loads_split_scripts_in_order():

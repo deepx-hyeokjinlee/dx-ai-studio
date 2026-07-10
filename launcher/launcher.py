@@ -35,7 +35,6 @@ from shared.dx_server import DXBaseHandler
 from shared.auth_policy import map_launcher_proxy
 from shared.chat import ChatEngine
 
-# ─── Configuration ──────────────────────────────────────────────────
 # Ports are env-overridable so the studio can coexist with other services on a
 # shared host (defaults unchanged → release behavior + tests unaffected). Set e.g.
 # DX_APP_PORT=8081 when 8080 is taken by nginx, or DX_LAUNCHER_PORT / --port for 8890.
@@ -76,7 +75,6 @@ MODULE_KEY_ALIASES = {
     "agent": "dx_agent_dev",
 }
 
-# Canonical key → user-facing proxy path
 _MODULE_PROXY_PATHS = {
     "dx_app": "/app/",
     "dx_stream": "/stream/",
@@ -105,7 +103,6 @@ _DISPLAY_NAME_TO_CANONICAL = {
     "DX Agent Dev": "dx_agent_dev",
 }
 
-# Reverse: canonical → display name
 _CANONICAL_TO_DISPLAY_NAME = {v: k for k, v in _DISPLAY_NAME_TO_CANONICAL.items()}
 
 
@@ -125,10 +122,8 @@ BENCHMARK_DIR  = STUDIO_DIR / "dx_benchmark"
 MONITOR_DIR   = STUDIO_DIR / "dx_monitor"
 AGENT_DIR     = STUDIO_DIR / "dx_agent_dev"
 
-# Sub-process handles
 _procs = {}
 
-# ─── Watchdog configuration ─────────────────────────────────────────
 WATCHDOG_MAX_RESTARTS = 3
 WATCHDOG_RESTART_WINDOW_SECONDS = 120
 
@@ -259,11 +254,9 @@ def _do_module_restart(name, entry):
             except Exception:
                 pass
 
-    # Free port
     if _is_port_open(port):
         _force_free_port(port)
 
-    # Derive server_id from module key
     server_id = name  # module keys are already server_ids like "dx_app"
 
     # Clean up stale display-name _procs entry before restart (I-2 fix)
@@ -480,7 +473,6 @@ def _force_free_port(port):
     time.sleep(1.0)
 
 
-# ─── Sub-server management ──────────────────────────────────────────
 def _port_file(server_id):
     """Path where sub-server <server_id> reports its OS-assigned port."""
     return str(PORTS_DIR / f"{server_id}.port")
@@ -560,7 +552,6 @@ def _resolve_port(preferred, used):
     return preferred  # give up — caller will surface the bind failure
 
 
-# ─── Health cache ────────────────────────────────────────────────────
 _HEALTH_CACHE_TTL_SEC = 2.0
 _health_cache_lock = threading.Lock()
 _health_cache_ts = 0.0
@@ -699,7 +690,6 @@ def _shutdown_launcher_server(server, exit_fn=sys.exit):
     exit_fn(0)
 
 
-# ─── Reverse proxy helper ───────────────────────────────────────────
 def _inject_before_body_close(body: bytes, snippet: bytes) -> bytes:
     lower = body.lower()
     idx = lower.rfind(b"</body>")
@@ -797,7 +787,6 @@ def _proxy(handler, target_port, path, inject_widget=True):
             conn.close()
 
 
-# ─── Browser navigation detection ───────────────────────────────────
 def _accepts_html(headers):
     accept = headers.get("Accept", "")
     return "text/html" in accept or "application/xhtml+xml" in accept
@@ -821,7 +810,6 @@ def _is_iframe_navigation(headers):
     return headers.get("Sec-Fetch-Dest", "").lower() == "iframe"
 
 
-# ─── HTTP Handler ───────────────────────────────────────────────────
 class LauncherHandler(DXBaseHandler):
     """Route requests: launcher pages or proxy to sub-servers."""
 
@@ -1249,7 +1237,6 @@ class LauncherHandler(DXBaseHandler):
         path = self.url_path
         parsed = self.parsed
 
-        # ── Auth compatibility endpoints: no-op in local no-auth mode ──
         if path == "/api/auth/status" and self.command in ("GET", "HEAD"):
             return self._handle_auth_status()
         if path == "/api/auth/unlock" and self.command == "POST":
@@ -1259,13 +1246,11 @@ class LauncherHandler(DXBaseHandler):
         if path == "/api/auth/relock" and self.command == "POST":
             return self._handle_auth_relock()
 
-        # ── Health check API ──
         # Always serve launcher health for /api/health
         # (sub-app iframes have their own status endpoints)
         if path == "/api/health":
             return self.send_json(_get_health_status())
 
-        # ── Module restart endpoint (local no-auth mode) ──
         if path.startswith("/api/modules/") and path.endswith("/restart") and self.command == "POST":
             parts = path.split("/")
             # /api/modules/<module_key>/restart → parts = ['', 'api', 'modules', '<key>', 'restart']
@@ -1275,18 +1260,15 @@ class LauncherHandler(DXBaseHandler):
                 code = 200 if result.get("ok") else 400
                 return self.send_json(result, code)
 
-        # ── Module watchdog status ──
         if path.startswith("/api/modules/") and path.endswith("/status") and self.command in ("GET", "HEAD"):
             parts = path.split("/")
             if len(parts) == 5:
                 module_key = parts[3]
                 return self.send_json(get_module_watchdog_status(module_key))
 
-        # ── Cross-origin chat/config rejection ──
         if self._is_cross_origin_chat_request(path):
             return self.send_error_json(403, "Cross-origin chat requests are not allowed")
 
-        # ── Top-level browser navigation → serve launcher shell ──
         if self._is_top_level_browser_navigation(path):
             self._serve_index()
             return
@@ -1301,7 +1283,6 @@ class LauncherHandler(DXBaseHandler):
                 _proxy(self, port, sub_path, inject_widget=(target_id not in ("dx_monitor", "dx_agent_dev")))
                 return
 
-        # ── Sub-app referer guard ──
         if self._has_subapp_referer():
             ambiguous = (
                 path.startswith("/api/")
@@ -1310,18 +1291,15 @@ class LauncherHandler(DXBaseHandler):
             if ambiguous and self._proxy_by_referer(path, parsed):
                 return
 
-        # ── Chat config API (delegated to shared handler) ──
         if path in ("/api/chat/config", "/api/chat/config/test"):
             if self.handle_chat_routes(_chat_engine):
                 return
             return self.send_error_json(405, "Method not allowed")
 
-        # ── Launcher-owned shared chat route ──
         if self._is_launcher_chat_request(path):
             if self.handle_chat_routes(_chat_engine):
                 return
 
-        # ── Launcher static files ──
         if path == "/" or path == "/index.html" or path == "/sdk-library" or path == "/about":
             self._serve_index()
         elif path == "/style.css":
@@ -1406,7 +1384,6 @@ class LauncherHandler(DXBaseHandler):
             bp = STUDIO_DIR / ".superpowers" / "brainstorm" / fname
             self.send_file(bp, "text/html")
         else:
-            # ── Referer-based fallback proxy ──
             if self._proxy_by_referer(path, parsed):
                 return
 
@@ -1430,7 +1407,6 @@ class LauncherHandler(DXBaseHandler):
                 self.send_error(404)
 
 
-# ─── Main ────────────────────────────────────────────────────────────
 def _open_browser(url):
     """Open the studio URL in a browser, quietly.
 

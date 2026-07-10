@@ -102,7 +102,6 @@ def main() -> int:
         if changed:
             source = source[:start] + render_map(texts) + source[end:]
 
-    # Update header comment
     source = source.replace(
         "12 sections, ~115 steps — bilingual (ko/en)",
         "12 sections, ~115 steps — 6-language (ko/en/ja/zh-CN/zh-TW/es)",

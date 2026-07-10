@@ -43,9 +43,7 @@ function getCanvasParentContentWidth(canvas, fallback) {
   return Math.max(parent.clientWidth - paddingX, 120);
 }
 
-// ──────────────────────────────────────────────
 // 1. BarChart — Step 2 수평 바 차트
-// ──────────────────────────────────────────────
 const BarChart = {
   draw(canvas, results, onBarClick) {
     if (!canvas || !results.length) return;
@@ -116,9 +114,7 @@ const BarChart = {
   }
 };
 
-// ──────────────────────────────────────────────
 // 2. GaugeChart — 미니 도넛 게이지 (60x60)
-// ──────────────────────────────────────────────
 const GaugeChart = {
   draw(canvas, current, required, boundaryFlag) {
     if (!canvas) return;
@@ -170,9 +166,7 @@ const GaugeChart = {
   }
 };
 
-// ──────────────────────────────────────────────
 // 3. GroupBarChart — 모델 사이즈별 그룹 바 (Step 3)
-// ──────────────────────────────────────────────
 const GroupBarChart = {
   draw(canvas, platform, task, ort, onBarClick) {
     if (!canvas || !platform) return;
@@ -292,9 +286,7 @@ const GroupBarChart = {
   }
 };
 
-// ──────────────────────────────────────────────
 // 4. RadarChart — 5축 레이더/스파이더 차트 (Step 3)
-// ──────────────────────────────────────────────
 const RadarChart = {
   draw(canvas, platforms, currentId, compareId, inputs) {
     if (!canvas || !platforms.length) return;

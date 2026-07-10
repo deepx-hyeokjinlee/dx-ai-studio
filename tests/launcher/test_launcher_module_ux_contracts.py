@@ -27,7 +27,6 @@ def _function_body(source, name):
     return match.group(1)
 
 
-# ─── Task 2.1: Health-gated module launch contracts ──────────────────
 
 
 def test_module_launch_uses_health_gate_before_iframe_load():
@@ -58,7 +57,6 @@ def test_module_unavailable_state_has_retry_without_duplicate_history():
     assert "_commitHistory" not in retry_body
 
 
-# ─── Task 2.1 Step 2: CSS state contracts ────────────────────────────
 
 
 def test_module_entry_css_states():
@@ -78,7 +76,6 @@ def test_module_loading_spinner_css():
     assert ".module-entry-loading .spinner" in css
 
 
-# ─── Task 2.3: Active card and invalid route contracts ───────────────
 
 
 def test_active_module_card_toggle():
@@ -99,7 +96,6 @@ def test_invalid_route_recovery_notice():
     assert "renderRouteRecoveryNotice" in restore_body
 
 
-# ─── forceHealth and resolveModuleHealth options ─────────────────────
 
 
 def test_resolve_module_health_accepts_options_and_force_guard():
@@ -119,7 +115,6 @@ def test_show_app_passes_opts_to_resolve_module_health():
     assert "forceHealth = true" in show_app
 
 
-# ─── Module load timer cleanup contracts ─────────────────────────────
 
 
 def test_module_scoped_load_timer_variable_exists():
@@ -158,7 +153,6 @@ def test_show_app_clears_stale_iframe_onload_at_start():
     assert onload_null_pos < health_pos
 
 
-# ─── Retry passes skipHistory and forceHealth ────────────────────────
 
 
 def test_retry_passes_skip_history_and_force_health():
@@ -177,7 +171,6 @@ def test_show_app_respects_skip_history_for_commit_history():
     assert "_commitHistory" in show_app
 
 
-# ─── Stale-navigation guard in health .then() callback ───────────────
 
 
 def test_health_then_has_stale_navigation_guard():
@@ -207,7 +200,6 @@ def test_health_then_clears_timer_before_new_timeout():
     assert clear_pos < set_pos, "Timer clear must precede new setTimeout"
 
 
-# ─── Promise chain .catch() and timeout stale-navigation guard ────────
 
 
 def test_health_promise_chain_has_catch():
@@ -308,7 +300,6 @@ def test_show_app_refreshes_health_on_user_navigation():
     )
 
 
-# ─── CSS contract: .route-recovery-notice ─────────────────────────────
 
 
 def test_route_recovery_notice_css_exists():
@@ -317,7 +308,6 @@ def test_route_recovery_notice_css_exists():
     assert ".route-recovery-notice" in css
 
 
-# ─── Hardened module entry rendering contracts ─────────────────────────
 
 
 def test_render_module_loading_uses_textcontent_not_innerhtml():
@@ -371,7 +361,6 @@ def test_show_app_does_not_call_update_active_module_cards_directly():
     )
 
 
-# ─── Wave 3A: Nav tab keyboard accessibility ─────────────────────────────
 
 
 class TestNavTabKeyboardAccessibility:
@@ -403,7 +392,6 @@ class TestNavTabKeyboardAccessibility:
         )
 
 
-# ─── Wave 3A: Health dots for Benchmark and Monitor ──────────────────────
 
 
 class TestHealthDotsCompleteness:
@@ -434,7 +422,6 @@ class TestHealthDotsCompleteness:
         )
 
 
-# ─── Wave 3A: checkHealth catch must update orbital statuses ─────────────
 
 
 class TestCheckHealthCatchOrbitalStatus:
@@ -480,7 +467,6 @@ class TestCheckHealthCatchOrbitalStatus:
         ), "checkHealth catch must call setStatus('statusMonitor', false)"
 
 
-# ─── Live runtime port exposure on home orbital cards ───────────────────
 
 
 class TestLiveModulePortLabels:

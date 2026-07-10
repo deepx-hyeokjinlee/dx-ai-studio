@@ -13,10 +13,8 @@ window.PlannerRuntime = {
   buildShareUrl(inputs) { return buildShareUrl(inputs || _lastInputs); },
 };
 
-// ── Persistence + share-link state ──
 const PLANNER_STORAGE_KEY = 'dxPlanner.state.v1';
 
-// ── Run recommendation & render workspace ──
 let _lastResults = null;
 let _lastInputs = null;
 let _suspendAutoRefresh = false;
@@ -226,11 +224,9 @@ function triggerInitialRecommendationFromUrl(hasPrefill) {
   scheduleOverviewChartRedraw();
 }
 
-// ── Main init ──
 async function initConfigurator() {
   // Init i18n (handled by shared/i18n.js on DOMContentLoaded)
 
-  // Load benchmark data
   try {
     await DataLoader.load();
   } catch (e) {

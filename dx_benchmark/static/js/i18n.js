@@ -1,11 +1,9 @@
 'use strict';
 
-// ── DX Benchmark i18n Dictionary ──
 // Shared core (shared/i18n.js) provides T(), toggleLang(), setLang(), etc.
 // This file only defines the translation dictionary.
 
 window._DX_I18N_DICT = {
-  // Navigation
   'Dashboard': {
     ko: '대시보드',
     ja: 'ダッシュボード',
@@ -35,7 +33,6 @@ window._DX_I18N_DICT = {
     es: 'Configuración',
   },
 
-  // Dashboard tabs & headings
   'Performance Dashboard': {
     ko: '성능 대시보드',
     ja: 'パフォーマンスダッシュボード',
@@ -163,7 +160,6 @@ window._DX_I18N_DICT = {
     es: 'Haga clic en un grupo de puntos de datos para ver detalles del entorno de la instantánea',
   },
 
-  // Filters & labels
   'Task': {
     ko: '작업',
     ja: 'タスク',
@@ -214,7 +210,6 @@ window._DX_I18N_DICT = {
     es: 'Métrica',
   },
 
-  // Task names
   'Object Detection': {
     ko: '객체 탐지',
     ja: '物体検出',
@@ -251,7 +246,6 @@ window._DX_I18N_DICT = {
     es: 'Clasificación',
   },
 
-  // Runner
   'Start Benchmark': {
     ko: '벤치마크 시작',
     ja: 'ベンチマーク開始',
@@ -295,7 +289,6 @@ window._DX_I18N_DICT = {
     es: 'Tamaño',
   },
 
-  // Settings
   'Path Settings': {
     ko: '경로 설정',
     ja: 'パス設定',
@@ -360,7 +353,6 @@ window._DX_I18N_DICT = {
     es: 'Directorio de resultados',
   },
 
-  // Results
   'Select Hardware': {
     ko: '하드웨어 선택',
     ja: 'ハードウェア選択',
@@ -390,7 +382,6 @@ window._DX_I18N_DICT = {
     es: 'Datos sin procesar',
   },
 
-  // Table headers
   'Model': {
     ko: '모델',
     ja: 'モデル',
@@ -455,7 +446,6 @@ window._DX_I18N_DICT = {
     es: 'Latencia (ms)',
   },
 
-  // Chart legends
   'NPU Latency (Single-Core)': {
     ko: 'NPU 지연시간 (싱글코어)',
     ja: 'NPU レイテンシ (シングルコア)',
@@ -499,7 +489,6 @@ window._DX_I18N_DICT = {
     es: 'Canales máx. (≥ 30fps)',
   },
 
-  // Trend
   'E2E FPS (Single-Channel) Trend': {
     ko: 'E2E FPS (단일 채널) 트렌드',
     ja: 'E2E FPS (シングルチャンネル) トレンド',
@@ -543,7 +532,6 @@ window._DX_I18N_DICT = {
     es: 'Rendimiento del modelo',
   },
 
-  // States & common
   'No data available': {
     ko: '데이터 없음',
     ja: 'データなし',
@@ -679,7 +667,6 @@ window._DX_I18N_DICT = {
   },
 
 
-  /* ─── Additional i18n entries ─── */
   'Performance Analyzer': { ko: '성능 측정 도구', ja: 'パフォーマンスアナライザー', 'zh-CN': '性能分析器', 'zh-TW': '效能分析器',es:'Analizador de rendimiento'},
 };
 
@@ -692,7 +679,6 @@ function _t(key) {
   return key;
 }
 
-// Delegate to shared core
 function toggleLang() {
   if (typeof DXI18n !== 'undefined') DXI18n.toggleLang();
 }

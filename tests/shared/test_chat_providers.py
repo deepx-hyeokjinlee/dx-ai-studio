@@ -21,9 +21,6 @@ def _patch_stream_chat_http(mock_stream):
     return patch.dict(stream_chat.__globals__, {"_http_stream": mock_stream})
 
 
-# -----------------------------------------------------------------------
-# SSE Parsing — pure functions, no mocks needed
-# -----------------------------------------------------------------------
 
 
 class TestParseOpenAISSE(unittest.TestCase):
@@ -79,9 +76,6 @@ class TestParseGoogleSSE(unittest.TestCase):
         self.assertEqual(parse_google_sse_line("event: keep-alive"), "")
 
 
-# -----------------------------------------------------------------------
-# Request Building — pure functions, no mocks needed
-# -----------------------------------------------------------------------
 
 
 class TestBuildOpenAIRequest(unittest.TestCase):
@@ -152,9 +146,6 @@ class TestBuildGoogleRequest(unittest.TestCase):
         self.assertEqual(body["contents"][1]["role"], "model")
 
 
-# -----------------------------------------------------------------------
-# Error Handling — mock _http_stream
-# -----------------------------------------------------------------------
 
 
 class TestStreamChatErrors(unittest.TestCase):
@@ -177,9 +168,6 @@ class TestStreamChatErrors(unittest.TestCase):
         self.assertEqual(ctx.exception.status_code, 429)
 
 
-# -----------------------------------------------------------------------
-# stream_chat integration (with mocked HTTP)
-# -----------------------------------------------------------------------
 
 
 class TestStreamChat(unittest.TestCase):

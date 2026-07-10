@@ -1,4 +1,3 @@
-# tests/dx_agent_dev/test_adapter_registry.py
 """어댑터 레지스트리: 클래스 조회 + 인스턴스 생성(model 바인딩)."""
 import sys
 from pathlib import Path

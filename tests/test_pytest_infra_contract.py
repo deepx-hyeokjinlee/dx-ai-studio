@@ -140,9 +140,6 @@ sys.stdout.write(str(Path(tools.i18n_audit.__file__).resolve()))
         assert str(REPO_ROOT / "tools" / "i18n_audit") in result.stdout
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# Task 7.2 — 모듈별 conftest 계약
-# ═══════════════════════════════════════════════════════════════════════════════
 
 TARGET_MODULE_CONFTESTS = [
     "tests/shared/conftest.py",

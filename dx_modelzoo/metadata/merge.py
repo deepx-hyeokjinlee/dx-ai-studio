@@ -22,7 +22,6 @@ _EDITORIAL_BY_TASK = {
     "instance_segmentation": "Instance segmentation model for per-object pixel masks.",
 }
 
-# 필수 성능 필드
 _REQUIRED_PERF_FIELDS = {"fps", "fps_per_watt"}
 _ARTIFACT_PRESENT_KEYS = {"remote_url", "local_path", "download_endpoint", "available"}
 
@@ -33,7 +32,6 @@ def merge_adapter_results(results, source_profile="local"):
     baseline 모델 목록은 local_runtime 어댑터에서 가져옴.
     다른 어댑터들은 baseline에 있는 모델만 보강함.
     """
-    # baseline 결정: local_runtime 어댑터
     baseline_ids = set()
     for r in results:
         if r.get("adapter") == "local_runtime":
@@ -67,7 +65,6 @@ def merge_adapter_results(results, source_profile="local"):
                     merged_flat[mid][k] = v
                     provenance[mid][k] = {"source": adapter_name}
 
-    # 구조화된 카탈로그 모델 생성
     models = []
     for mid in sorted(baseline_ids):
         flat = merged_flat.get(mid, {})
@@ -87,7 +84,6 @@ def _build_structured_model(mid, flat, prov):
     """flat 필드를 중첩 구조로 변환."""
     model = {"id": mid}
 
-    # display
     model["display"] = {
         "name": flat.get("display.name", mid),
         "task": flat.get("display.task", ""),
@@ -95,7 +91,6 @@ def _build_structured_model(mid, flat, prov):
     if "display.class_name" in flat:
         model["display"]["class_name"] = flat["display.class_name"]
 
-    # specification
     spec = {}
     for k, v in flat.items():
         if k.startswith("specification."):
@@ -104,7 +99,6 @@ def _build_structured_model(mid, flat, prov):
     if spec:
         model["specification"] = spec
 
-    # evaluation
     evaluation = {}
     for k, v in flat.items():
         if k.startswith("evaluation."):
@@ -113,7 +107,6 @@ def _build_structured_model(mid, flat, prov):
     if evaluation:
         model["evaluation"] = evaluation
 
-    # performance
     perf = {}
     for k, v in flat.items():
         if k.startswith("performance."):
@@ -124,7 +117,6 @@ def _build_structured_model(mid, flat, prov):
     for field in _REQUIRED_PERF_FIELDS:
         perf.setdefault(field, None)
 
-    # source_status 결정
     has_fps = perf.get("fps") is not None
     if has_fps:
         perf.setdefault("source_status", "provided")
@@ -132,7 +124,6 @@ def _build_structured_model(mid, flat, prov):
         perf["source_status"] = "benchmark_required"
     model["performance"] = perf
 
-    # legal
     legal = {}
     for k, v in flat.items():
         if k.startswith("legal."):
@@ -142,7 +133,6 @@ def _build_structured_model(mid, flat, prov):
     if legal:
         model["legal"] = legal
 
-    # artifacts
     artifacts = {}
     for k, v in flat.items():
         if k.startswith("artifacts."):
@@ -151,7 +141,6 @@ def _build_structured_model(mid, flat, prov):
     if artifacts:
         model["artifacts"] = artifacts
 
-    # processor (기본값)
     processor_devices = []
     for k, v in flat.items():
         if k.startswith("processor."):
@@ -163,7 +152,6 @@ def _build_structured_model(mid, flat, prov):
         "status": "metadata_pending" if not processor_devices else "provided",
     }
 
-    # missing 필드 분석
     missing = []
     # I2: _REQUIRED_PERF_FIELDS 활용 (performance. 접두사로 정규화)
     for pf in sorted(_REQUIRED_PERF_FIELDS):
@@ -179,22 +167,18 @@ def _build_structured_model(mid, flat, prov):
             missing.append(aid)
     model["missing"] = missing
 
-    # display enrichment: summary and category_label
     task = flat.get("display.task", "")
     editorial = _EDITORIAL_BY_TASK.get(task, f"AI model for {task} tasks." if task else "AI model.")
     category_label = task.replace("_", " ").title() if task else "Unknown"
     model["display"]["summary"] = {"en": editorial}
     model["display"]["category_label"] = category_label
 
-    # content (editorial)
     model["content"] = {
         "use_case": {"en": editorial},
     }
 
-    # provenance
     model["provenance"] = prov
 
-    # demo
     demo = {}
     for k, v in flat.items():
         if k.startswith("demo."):
@@ -203,7 +187,6 @@ def _build_structured_model(mid, flat, prov):
     if demo:
         model["demo"] = demo
 
-    # technical
     technical = {}
     for k, v in flat.items():
         if k.startswith("technical."):

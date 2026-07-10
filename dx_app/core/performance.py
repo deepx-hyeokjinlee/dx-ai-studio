@@ -48,7 +48,6 @@ def _parse_perf(stdout):
         elif re.search(r"Inference Throughput\s*:",s):
             val=re.search(r"([\d.]+)\s*FPS",s)
             if val:p["inference_fps"]=val.group(1)
-    # Post-process pipeline
     if p["pipeline"]:
         # Type B: async-only (all latency_ms == 0) → mark flag, keep Inference FPS row only
         all_zero=all(r["latency_ms"]==0 for r in p["pipeline"])

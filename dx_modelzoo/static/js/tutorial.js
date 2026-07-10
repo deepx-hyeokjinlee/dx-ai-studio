@@ -66,7 +66,6 @@
     })();
   }
 
-  // 요소가 존재하면 scrollIntoView 실행
   function scrollTo(selector) {
     var el = document.querySelector(selector);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -83,7 +82,6 @@
     if (badge) badge.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
 
-  // 챗봇 z-index 리프트 헬퍼
   var _chatOrigZ = {};
   function liftChat(sel) {
     var el = document.querySelector(sel);
@@ -99,12 +97,8 @@
     _chatOrigZ = {};
   }
 
-  /* ════════════════════════════════════════════════════════════
-     SECTIONS
-     ════════════════════════════════════════════════════════════ */
   var sections = [
 
-    // ── 1. Top Bar ──
     { id: 'topbar', icon: '🔝',
       title: { ko: '🔝 상단 바', en: '🔝 Top Bar', ja: '🔝 トップバー', 'zh-CN': '🔝 顶部栏', 'zh-TW': '🔝 頂部列', es: '🔝 Barra superior' },
       description: { ko: '상단 바 UI 요소 소개', en: 'Top bar UI elements overview', ja: 'トップバーUI要素の紹介', 'zh-CN': '顶部栏UI元素概览', 'zh-TW': '頂部列UI元素概覽', es: 'Descripción general de los elementos de la barra superior' },
@@ -125,7 +119,6 @@
       ]
     },
 
-    // ── 2. Catalog ──
     { id: 'catalog', icon: '📋',
       title: { ko: '📋 카탈로그 탐색', en: '📋 Catalog Browse', ja: '📋 カタログ閲覧', 'zh-CN': '📋 目录浏览', 'zh-TW': '📋 目錄瀏覽', es: '📋 Explorar catálogo' },
       description: { ko: '모델 검색, 필터링, 정렬 방법', en: 'Search, filter, and sort models', ja: 'モデルの検索、フィルター、ソート方法', 'zh-CN': '搜索、筛选和排序模型', 'zh-TW': '搜尋、篩選和排序模型', es: 'Busque, filtre y ordene modelos' },
@@ -158,7 +151,6 @@
           title: { ko: '모델 카드', en: 'Model Cards', ja: 'モデルカード', 'zh-CN': '模型卡片', 'zh-TW': '模型卡片', es: 'Tarjetas de modelo' },
           content: { ko: '카드를 클릭하면 <strong>모델 상세 페이지</strong>로 이동합니다. 카드에는 FPS 성능 배지(Q-Lite/Q-Pro)와 다운로드 상태(✅/📥)가 표시됩니다.', en: 'Click a card to go to the <strong>model detail page</strong>. Cards show FPS badges (Q-Lite/Q-Pro) and download status (✅/📥).', ja: 'カードをクリックすると<strong>モデル詳細ページ</strong>に移動します。カードにはFPSバッジ（Q-Lite/Q-Pro）とダウンロード状態（✅/📥）が表示されます。', 'zh-CN': '点击卡片进入<strong>模型详情页</strong>。卡片显示FPS标记（Q-Lite/Q-Pro）和下载状态（✅/📥）。', 'zh-TW': '點擊卡片進入<strong>模型詳情頁</strong>。卡片顯示FPS標記（Q-Lite/Q-Pro）和下載狀態（✅/📥）。', es: 'Haga clic en una tarjeta para ir a la <strong>página de detalle del modelo</strong>. Las tarjetas muestran insignias FPS (Q-Lite/Q-Pro) y estado de descarga (✅/📥).' },
           beforeStep: function () { scrollTo('#catalogContainer'); } },
-        // 개별 카드 상호작용 안내
         { target: '.mz-card', position: 'bottom',
           title: { ko: '카드 클릭', en: 'Card Click', ja: 'カードクリック', 'zh-CN': '点击卡片', 'zh-TW': '點擊卡片', es: 'Clic en tarjeta' },
           content: { ko: '각 카드를 클릭하면 해당 모델의 <strong>상세 페이지</strong>로 이동합니다. 카드에는 모델명, 카테고리 아이콘, 성능 배지가 표시됩니다.', en: 'Click any card to open its <strong>detail page</strong>. Each card displays model name, category icon, and performance badges.', ja: '各カードをクリックすると該当モデルの<strong>詳細ページ</strong>が開きます。カードにはモデル名、カテゴリアイコン、性能バッジが表示されます。', 'zh-CN': '点击任意卡片打开其<strong>详情页</strong>。每张卡片显示模型名称、类别图标和性能标记。', 'zh-TW': '點擊任意卡片開啟其<strong>詳情頁</strong>。每張卡片顯示模型名稱、類別圖示和效能標記。', es: 'Haga clic en cualquier tarjeta para abrir su <strong>página de detalle</strong>. Cada tarjeta muestra el nombre del modelo, el icono de categoría y las insignias de rendimiento.' },
@@ -166,7 +158,6 @@
       ]
     },
 
-    // ── 3. Detail ──
     { id: 'detail', icon: '🔍',
       title: { ko: '🔍 모델 상세', en: '🔍 Model Detail', ja: '🔍 モデル詳細', 'zh-CN': '🔍 模型详情', 'zh-TW': '🔍 模型詳情', es: '🔍 Detalle del modelo' },
       description: { ko: '모델 사양, 설명, 법적 정보 확인', en: 'View model specs, description, and legal info', ja: 'モデルの仕様、説明、法的情報の確認', 'zh-CN': '查看模型规格、描述和法律信息', 'zh-TW': '查看模型規格、描述和法律資訊', es: 'Vea especificaciones, descripción e información legal del modelo' },
@@ -205,7 +196,6 @@
       ]
     },
 
-    // ── 4. Examples ──
     { id: 'examples', icon: '🖼️',
       title: { ko: '🖼️ 예제 이미지', en: '🖼️ Example Images', ja: '🖼️ サンプル画像', 'zh-CN': '🖼️ 示例图片', 'zh-TW': '🖼️ 範例圖片', es: '🖼️ Imágenes de ejemplo' },
       description: { ko: '5가지 유형의 모델 예제 확인', en: 'View 5 types of model examples', ja: '5種類のモデルサンプルを確認', 'zh-CN': '查看5种模型示例类型', 'zh-TW': '查看5種模型範例類型', es: 'Vea 5 tipos de ejemplos de modelos' },
@@ -235,7 +225,6 @@
       ]
     },
 
-    // ── 5. Download ──
     { id: 'download', icon: '📥',
       title: { ko: '📥 모델 다운로드', en: '📥 Model Download', ja: '📥 モデルダウンロード', 'zh-CN': '📥 模型下载', 'zh-TW': '📥 模型下載', es: '📥 Descarga de modelos' },
       description: { ko: '모델 다운로드 프로세스 안내', en: 'Model download process guide', ja: 'モデルダウンロードプロセスガイド', 'zh-CN': '模型下载流程指南', 'zh-TW': '模型下載流程指南', es: 'Guía del proceso de descarga de modelos' },
@@ -275,7 +264,6 @@
       ]
     },
 
-    // ── 6. Inference ──
     { id: 'inference', icon: '🔬',
       title: { ko: '🔬 라이브 추론', en: '🔬 Live Inference', ja: '🔬 ライブ推論', 'zh-CN': '🔬 实时推理', 'zh-TW': '🔬 即時推論', es: '🔬 Inferencia en vivo' },
       description: { ko: '데모 코드 확인 및 추론 실행', en: 'View demo code and run inference', ja: 'デモコードの確認と推論の実行', 'zh-CN': '查看演示代码并运行推理', 'zh-TW': '查看演示程式碼並執行推論', es: 'Vea el código de demostración y ejecute inferencia' },
@@ -292,7 +280,6 @@
           title: { ko: '코드 탭', en: 'Code Tabs', ja: 'コードタブ', 'zh-CN': '代码标签', 'zh-TW': '程式碼標籤', es: 'Pestañas de código' },
           content: { ko: '각 탭을 클릭하면 해당 <strong>언어별 예제 코드</strong>가 표시됩니다. 코드는 모델에 맞게 자동 생성됩니다.', en: 'Click each tab to view <strong>language-specific example code</strong>. Code is auto-generated for the selected model.', ja: '各タブをクリックすると該当<strong>言語別サンプルコード</strong>が表示されます。コードはモデルに合わせて自動生成されます。', 'zh-CN': '点击每个标签查看<strong>特定语言的示例代码</strong>。代码根据所选模型自动生成。', 'zh-TW': '點擊每個標籤查看<strong>特定語言的範例程式碼</strong>。程式碼根據所選模型自動產生。', es: 'Haga clic en cada pestaña para ver <strong>código de ejemplo específico del idioma</strong>. El código se genera automáticamente para el modelo seleccionado.' },
           beforeStep: function () { pollFor('.mz-code-tabs', 50); } },
-        // 개별 코드 탭 (C++/Python/CLI) 상호작용
         { target: '.mz-code-tab', position: 'bottom',
           title: { ko: '개별 코드 탭', en: 'Individual Code Tab', ja: '個別コードタブ', 'zh-CN': '单独代码标签', 'zh-TW': '個別程式碼標籤', es: 'Pestaña de código individual' },
           content: { ko: '<strong>C++, Python, CLI</strong> 중 원하는 언어의 탭을 클릭하세요. 선택한 탭의 예제 코드만 표시됩니다.', en: 'Click a <strong>C++, Python, or CLI</strong> tab. Only the selected language\'s example code is shown.', ja: '<strong>C++、Python、CLI</strong>の中から希望する言語のタブをクリックしてください。選択したタブのサンプルコードのみ表示されます。', 'zh-CN': '点击<strong>C++、Python或CLI</strong>标签。仅显示所选语言的示例代码。', 'zh-TW': '點擊<strong>C++、Python或CLI</strong>標籤。僅顯示所選語言的範例程式碼。', es: 'Haga clic en una pestaña de <strong>C++, Python o CLI</strong>. Solo se muestra el código de ejemplo del idioma seleccionado.' },
@@ -314,7 +301,6 @@
             var d = document.querySelector('#inferencePanel');
             if (d) { var det = d.closest('details'); if (det) det.open = true; }
           } },
-        // 이미지 업로드 컨트롤
         { target: '#inferenceUploadTrigger', position: 'bottom',
           title: { ko: '이미지 업로드', en: 'Upload Image', ja: '画像アップロード', 'zh-CN': '上传图片', 'zh-TW': '上傳圖片', es: 'Subir imagen' },
           content: { ko: '<strong>📁 Upload Image</strong> 버튼을 클릭하여 추론할 이미지를 선택합니다. JPG, PNG 등 이미지 파일을 지원합니다.', en: 'Click <strong>📁 Upload Image</strong> to select an image for inference. Supports JPG, PNG, and other image formats.', ja: '<strong>📁 Upload Image</strong>ボタンをクリックして推論する画像を選択します。JPG、PNGなどの画像ファイルに対応しています。', 'zh-CN': '点击<strong>📁 Upload Image</strong>选择推理图片。支持JPG、PNG等图片格式。', 'zh-TW': '點擊<strong>📁 Upload Image</strong>選擇推論圖片。支援JPG、PNG等圖片格式。', es: 'Haga clic en <strong>📁 Upload Image</strong> para seleccionar una imagen para inferencia. Admite JPG, PNG y otros formatos de imagen.' },
@@ -323,7 +309,6 @@
             if (d) { var det = d.closest('details'); if (det) det.open = true; }
             pollFor('#inferenceUploadTrigger', 30);
           } },
-        // 기본 이미지로 실행 버튼
         { target: '#btnRunDefault', position: 'bottom',
           title: { ko: '기본 이미지 실행', en: 'Use Default Image', ja: 'デフォルト画像使用', 'zh-CN': '使用默认图片', 'zh-TW': '使用預設圖片', es: 'Usar imagen predeterminada' },
           content: { ko: '<strong>▶ Use Default</strong> 버튼을 클릭하면 모델에 포함된 <strong>기본 샘플 이미지</strong>로 즉시 추론을 실행합니다.', en: 'Click <strong>▶ Use Default</strong> to instantly run inference with the model\'s <strong>built-in sample image</strong>.', ja: '<strong>▶ Use Default</strong>ボタンをクリックすると、モデルに含まれる<strong>デフォルトサンプル画像</strong>で即座に推論を実行します。', 'zh-CN': '点击<strong>▶ Use Default</strong>使用模型的<strong>内置样本图片</strong>立即运行推理。', 'zh-TW': '點擊<strong>▶ Use Default</strong>使用模型的<strong>內建範例圖片</strong>立即執行推論。', es: 'Haga clic en <strong>▶ Use Default</strong> para ejecutar inferencia al instante con la <strong>imagen de muestra integrada</strong> del modelo.' },
@@ -338,7 +323,6 @@
       ]
     },
 
-    // ── 7. Chat ──
     { id: 'chat', icon: '💬',
       title: { ko: '💬 AI 챗봇', en: '💬 AI Chatbot', ja: '💬 AIチャットボット', 'zh-CN': '💬 AI聊天机器人', 'zh-TW': '💬 AI聊天機器人', es: '💬 Chatbot de IA' },
       description: { ko: 'AI 어시스턴트와 대화', en: 'Chat with AI assistant', ja: 'AIアシスタントとの対話', 'zh-CN': '与AI助手对话', 'zh-TW': '與AI助手對話', es: 'Converse con el asistente de IA' },
@@ -359,12 +343,10 @@
           title: { ko: '추천 질문', en: 'Suggestions', ja: 'おすすめ質問', 'zh-CN': '推荐问题', 'zh-TW': '推薦問題', es: 'Sugerencias' },
           content: { ko: '미리 준비된 <strong>추천 질문</strong>을 클릭하면 빠르게 대화를 시작할 수 있습니다.', en: 'Click <strong>pre-made suggestions</strong> to quickly start a conversation.', ja: '事前に用意された<strong>おすすめ質問</strong>をクリックすると素早く対話を始められます。', 'zh-CN': '点击<strong>预设问题</strong>快速开始对话。', 'zh-TW': '點擊<strong>預設問題</strong>快速開始對話。', es: 'Haga clic en las <strong>sugerencias predefinidas</strong> para iniciar una conversación rápidamente.' },
           beforeStep: function () { liftChat('.dx-chat-window'); } },
-        // 채팅 입력 필드
         { target: '.dx-chat-input', position: 'left',
           title: { ko: '메시지 입력', en: 'Message Input', ja: 'メッセージ入力', 'zh-CN': '消息输入', 'zh-TW': '訊息輸入', es: 'Entrada de mensaje' },
           content: { ko: '이 텍스트 영역에 <strong>질문을 입력</strong>합니다. Enter 키를 누르거나 전송 버튼을 클릭하여 메시지를 보냅니다.', en: 'Type your <strong>question</strong> in this text area. Press Enter or click the send button to send your message.', ja: 'このテキストエリアに<strong>質問を入力</strong>します。Enterキーを押すか送信ボタンをクリックしてメッセージを送信します。', 'zh-CN': '在此文本区域输入您的<strong>问题</strong>。按Enter或点击发送按钮发送消息。', 'zh-TW': '在此文字區域輸入您的<strong>問題</strong>。按Enter或點擊傳送按鈕傳送訊息。', es: 'Escriba su <strong>pregunta</strong> en esta área de texto. Pulse Enter o haga clic en el botón de envío para enviar su mensaje.' },
           beforeStep: function () { liftChat('.dx-chat-window'); } },
-        // 전송 버튼
         { target: '.dx-chat-send-btn', position: 'left',
           title: { ko: '전송 버튼', en: 'Send Button', ja: '送信ボタン', 'zh-CN': '发送按钮', 'zh-TW': '傳送按鈕', es: 'Botón de envío' },
           content: { ko: '<strong>전송 버튼</strong>을 클릭하면 입력한 메시지가 AI에게 전달됩니다. Enter 키로도 전송할 수 있습니다.', en: 'Click the <strong>send button</strong> to deliver your message to the AI. You can also press Enter to send.', ja: '<strong>送信ボタン</strong>をクリックすると入力したメッセージがAIに送信されます。Enterキーでも送信できます。', 'zh-CN': '点击<strong>发送按钮</strong>将消息发送给AI。也可以按Enter发送。', 'zh-TW': '點擊<strong>傳送按鈕</strong>將訊息傳送給AI。也可以按Enter傳送。', es: 'Haga clic en el <strong>botón de envío</strong> para entregar su mensaje a la IA. También puede pulsar Enter para enviar.' },
@@ -372,11 +354,8 @@
       ]
     },
 
-  ]; // end sections
+  ];
 
-  /* ════════════════════════════════════════════════════════════
-     INITIALIZATION
-     ════════════════════════════════════════════════════════════ */
   window.DXTutorial.create({
     appId: 'modelzoo',
     sections: sections,

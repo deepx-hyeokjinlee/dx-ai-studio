@@ -4,7 +4,6 @@ import os, sys, json, time, re, signal, threading, webbrowser, mimetypes, shlex
 import shutil
 from pathlib import Path
 
-# Add core/, shared/, and project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parent / "core"))
 _STUDIO_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(_STUDIO_DIR))
@@ -19,7 +18,6 @@ from config import (SCRIPT_DIR, DX_APP_ROOT, STATIC_DIR, TEMPLATES_DIR, SERVER_N
 from dx_app_security import (resolve_under, sanitize_filename, safe_content_disposition,
                              resolve_existing_file, resolve_existing_path, existing_onnx)
 
-# Allowed path roots for each endpoint type
 ONNX_INPUT_ROOTS = (OUTPUTS_DIR,)
 MODEL_INPUT_ROOTS = (DX_APP_ROOT, ASSETS_DIR, ASSETS_DIR / "models", OUTPUTS_DIR)
 TEST_RUN_INPUT_ROOTS = (DX_APP_ROOT, SAMPLE_DIR, ASSETS_DIR, OUTPUTS_DIR)
@@ -150,7 +148,6 @@ from lab_portal import lab_capabilities, plan_add_model, plan_add_model_response
 
 _modelzoo_gw = ModelZooGateway()
 
-# ── Lab origin helpers ─────────────────────────────────────────────────────────
 
 def _server_host_for_origin(handler):
     """Derive the server's own hostname for origin checks (never trust client Host header)."""
@@ -176,14 +173,12 @@ def _check_handler_origin_local(handler):
     referer = handler.headers.get("Referer")
     return _check_origin_local(origin, server_host=_server_host_for_origin(handler), referer=referer)
 
-# ── Heartbeat ──────────────────────────────────────────────────────────────────
 DEFAULT_PORT = 8080
 _gui_port=8080
 
 def _hb_touch():
     config._HEARTBEAT=time.time()
 
-# ── Chat Engine ────────────────────────────────────────────────────────────────
 _chat_engine = ChatEngine(
     app_name="dx_app",
     context_callback=lambda: {"models": [m.get("name","") for m in get_models()[:20]]},
@@ -199,7 +194,6 @@ _chat_engine = ChatEngine(
     ]
 )
 
-# ── HTTP Handler ───────────────────────────────────────────────────────────────
 class Handler(DXBaseHandler):
     server_name = SERVER_NAME
     static_dir = STATIC_DIR
@@ -237,7 +231,6 @@ class Handler(DXBaseHandler):
             return
 
         if method == "GET":
-            # Outputs
             if path.startswith("/outputs/"):
                 fname=path[9:];fp=OUTPUTS_DIR/fname
                 try:resolve_under(str(fp),(OUTPUTS_DIR,))
@@ -251,7 +244,6 @@ class Handler(DXBaseHandler):
                     self.send_header("Access-Control-Allow-Origin","*");self.end_headers();self.wfile.write(d)
                 else:self.send_error(404)
                 return
-            # File serve
             if path.startswith("/file/"):
                 fp=DX_APP_ROOT/path[6:]
                 try:
@@ -259,7 +251,6 @@ class Handler(DXBaseHandler):
                 except ValueError:
                     self.send_error(403);return
                 return self.send_file(safe_fp)
-            # APIs
             if path=="/api/models":return self.send_json(get_models())
             if path=="/api/model_info":
                 n=self.read_query_param("name")
@@ -283,7 +274,6 @@ class Handler(DXBaseHandler):
             if path=="/api/setup/status":return self.send_json(setup_status())
             if path=="/api/setup/log":return self.send_json(setup_log())
             if path=="/api/setup/diagnostics":return self.send_json(deep_diagnostics())
-            # ModelZoo GET routes
             if path=="/api/modelzoo/list":return self.send_json(_modelzoo_gw.list_models(self.read_query_param("source","public")))
             if path=="/api/modelzoo/status":return self.send_json(_modelzoo_gw.status())
             if path=="/api/fs/list":
@@ -387,7 +377,6 @@ class Handler(DXBaseHandler):
             return self.route_legacy()
 
         if method == "POST":
-            # Handle multipart upload separately (before JSON parsing)
             try:data=self.read_json_body()
             except RequestBodyError:raise
             except Exception:return self.send_json({"error":"Invalid JSON"},400)
@@ -572,7 +561,6 @@ class Handler(DXBaseHandler):
                 from dx_app.core.setup_steps import setup_stop
                 return self.send_json(setup_stop())
 
-            # ModelZoo POST routes
             if path=="/api/modelzoo/download":
                 items=data.get("items",[])
                 source=data.get("source","public")
@@ -586,7 +574,6 @@ class Handler(DXBaseHandler):
 
         return self.route_legacy()
 
-# ── Watchdog & main ────────────────────────────────────────────────────────────
 def _watchdog(srv):
     while True:
         time.sleep(5)

@@ -10,7 +10,6 @@ _STUDIO_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(_STUDIO_DIR / "shared"))
 
 
-# ── autouse fixture: clear experiment run store between tests ─────────────────
 
 @pytest.fixture(autouse=True)
 def _clear_experiment_runs(tmp_path, monkeypatch):
@@ -37,7 +36,6 @@ def _clear_experiment_runs(tmp_path, monkeypatch):
     lab_portal._experiment_runs.clear()
 
 
-# ── start_experiment_run tests ────────────────────────────────────────────────
 
 def test_start_experiment_run_returns_safe_run_id():
     from lab_portal import start_experiment_run
@@ -75,7 +73,6 @@ def test_start_experiment_run_steps_structure():
         assert s["status"] == "pending"
 
 
-# ── source path validation tests ─────────────────────────────────────────────
 
 def test_start_experiment_rejects_missing_source_path():
     """Empty or absent source_path → 400 with error_code missing_source_path, no run created."""
@@ -111,7 +108,6 @@ def test_start_experiment_rejects_missing_source_file(tmp_path):
     assert code == 400
 
 
-# ── run ID validation tests ──────────────────────────────────────────────────
 
 def test_experiment_rejects_bad_run_id():
     from lab_portal import get_experiment_run
@@ -138,7 +134,6 @@ def test_experiment_unknown_safe_run_id_returns_404():
     assert res["error_code"] == "run_not_found"
 
 
-# ── cancel tests ─────────────────────────────────────────────────────────────
 
 def test_cancel_only_affects_active_run():
     from lab_portal import start_experiment_run, cancel_experiment_run, get_experiment_run
@@ -162,7 +157,6 @@ def test_cancel_unknown_safe_run_id_returns_404():
     assert res["error_code"] == "run_not_found"
 
 
-# ── step transition tests ────────────────────────────────────────────────────
 
 def test_experiment_rejects_invalid_step_transition():
     from lab_portal import start_experiment_run, advance_experiment_step
@@ -194,7 +188,6 @@ def test_advance_unknown_safe_run_id_returns_404():
     assert res["error_code"] == "run_not_found"
 
 
-# ── failure/blocker tests ────────────────────────────────────────────────────
 
 def test_pipeline_stops_at_compile_failure_with_blocker():
     from lab_portal import start_experiment_run, mark_experiment_step_failed
@@ -218,7 +211,6 @@ def test_mark_step_failed_unknown_safe_run_id_returns_404():
     assert res["error_code"] == "run_not_found"
 
 
-# ── log tests ────────────────────────────────────────────────────────────────
 
 def test_experiment_logs_are_bounded():
     from lab_portal import start_experiment_run, append_experiment_log, get_experiment_run
@@ -270,7 +262,6 @@ def test_oversized_single_log_line_preserves_truncated_entry():
     assert len("\n".join(current["log_tail"])) <= 4096
 
 
-# ── terminal-state guard tests ───────────────────────────────────────────────
 
 def test_advance_cancelled_run_returns_409_and_state_unchanged():
     """Advancing a cancelled run must return 409 run_terminal; state must not change."""
@@ -304,7 +295,6 @@ def test_advance_failed_run_returns_409_and_state_unchanged():
     assert snapshot_after["steps"] == snapshot_before["steps"]
 
 
-# ── non-current step failure guard tests ─────────────────────────────────────
 
 def test_fail_non_current_step_returns_400_invalid_step():
     """Failing a step that is not the current step must return 400 invalid_step."""
@@ -321,7 +311,6 @@ def test_fail_non_current_step_returns_400_invalid_step():
     assert snapshot_after["current_step"] == snapshot_before["current_step"]
 
 
-# ── double-failure guard tests ───────────────────────────────────────────────
 
 def test_double_fail_current_step_rejected_no_duplicate_blockers():
     """Second failure of the same step must be rejected (409); blockers must not duplicate."""
@@ -338,7 +327,6 @@ def test_double_fail_current_step_rejected_no_duplicate_blockers():
     assert len(compile_blockers) == 1
 
 
-# ── cancel terminal-state guard tests ────────────────────────────────────────
 
 def test_cancel_failed_run_returns_409_and_preserves_state():
     """Cancelling a failed run must return 409 run_terminal; status and blockers unchanged."""
@@ -372,7 +360,6 @@ def test_cancel_already_cancelled_run_returns_409_and_state_unchanged():
     assert snapshot_after["updated_at"] == snapshot_before["updated_at"]
 
 
-# ── log trimming linear algorithm test ───────────────────────────────────────
 
 def test_log_trimming_many_lines_preserves_newest_and_bounded():
     """Appending many short lines: newest preserved, total ≤ 4096, oldest evicted."""
@@ -394,7 +381,6 @@ def test_log_trimming_many_lines_preserves_newest_and_bounded():
     assert indices[-1] == 999
 
 
-# ── immutability test ────────────────────────────────────────────────────────
 
 def test_get_experiment_run_returns_copy_not_reference():
     from lab_portal import start_experiment_run, get_experiment_run
@@ -407,9 +393,6 @@ def test_get_experiment_run_returns_copy_not_reference():
     assert not any(b.get("code") == "injected" for b in original["blockers"])
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# Task 4.2 — Experiment API route tests (server.py integration)
-# ══════════════════════════════════════════════════════════════════════════════
 
 def _make_handler(method, path, headers=None, body=None, server_obj=None):
     """Build a minimal mock Handler for route testing."""
@@ -429,7 +412,6 @@ def _make_handler(method, path, headers=None, body=None, server_obj=None):
     return handler, captured
 
 
-# ── POST /api/lab/experiment/start ────────────────────────────────────────────
 
 def test_experiment_start_route_valid_returns_run_id():
     """Valid start request returns 200 with run id starting 'run_'."""
@@ -539,7 +521,6 @@ def test_experiment_start_allows_same_source_after_cancel():
     assert second["code"] == 200
 
 
-# ── GET /api/lab/experiment/<run_id> ──────────────────────────────────────────
 
 def test_experiment_get_route_valid_returns_run_state():
     """GET with valid token returns the run state."""
@@ -630,7 +611,6 @@ def test_experiment_get_route_checks_token_before_run_id_validation():
     assert captured["data"].get("error_code") != "invalid_run_id"
 
 
-# ── POST /api/lab/experiment/<run_id>/cancel ──────────────────────────────────
 
 def test_experiment_cancel_route_valid_changes_state():
     """Cancel via route changes run state to 'cancelled'."""
@@ -705,7 +685,6 @@ def test_experiment_cancel_route_unknown_safe_id_returns_404():
     assert captured["data"]["error_code"] == "run_not_found"
 
 
-# ── Duplicate-source helper unit test ─────────────────────────────────────────
 
 def test_active_run_for_source_returns_none_when_no_active():
     """No active run → helper returns None."""
@@ -728,7 +707,6 @@ def test_active_run_for_source_ignores_terminal():
     assert active_experiment_run_for_source("outputs/model.dxnn") is None
 
 
-# ── Atomic duplicate-source guard (TOCTOU fix) ───────────────────────────────
 
 def test_start_experiment_run_rejects_duplicate_active_source():
     """Calling start_experiment_run twice with same active source_path returns 409."""

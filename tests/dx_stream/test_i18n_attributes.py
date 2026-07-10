@@ -196,9 +196,7 @@ def test_shared_i18n_supports_explicit_placeholder_and_title_attributes():
     assert re.search(r"setAttribute\(['\"]title['\"],\s*translated\s*!==\s*null\s*\?\s*translated\s*:\s*key\)", js)
 
 
-# ---------------------------------------------------------------------------
 # Behavior-level test: runs shared/static/i18n.js in Node.js
-# ---------------------------------------------------------------------------
 
 _JS_HARNESS = r"""
 'use strict';

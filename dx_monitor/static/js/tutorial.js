@@ -1,7 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════
-   DX Monitor — Tutorial Definitions v2.0
-   5 sections, redesigned dashboard selectors, 6-language support
-   ═══════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
@@ -52,12 +48,8 @@
     if (typeof _updateMockBanner === 'function') _updateMockBanner();
   }
 
-  /* ════════════════════════════════════════════════════════════
-     SECTIONS
-     ════════════════════════════════════════════════════════════ */
   var sections = [
 
-    // ── 1. 개요 ──
     { id: 'overview', icon: '🖥️',
       title: { ko: '🖥️ 모니터 개요', en: '🖥️ Monitor Overview', ja: '🖥️ モニター概要', 'zh-CN': '🖥️ 监控概述', 'zh-TW': '🖥️ 監控概述', es: '🖥️ Resumen del monitor' },
       description: { ko: 'DX Monitor의 전체 레이아웃과 주요 기능 소개', en: 'Introduction to the overall layout and key features of DX Monitor', ja: 'DX Monitorの全体レイアウトと主要機能の紹介', 'zh-CN': 'DX Monitor的整体布局和主要功能介绍', 'zh-TW': 'DX Monitor的整體佈局和主要功能介紹', es: 'Introducción al diseño general y funciones principales de DX Monitor' },
@@ -76,7 +68,6 @@
       ]
     },
 
-    // ── 2. 상태 및 컨트롤 ──
     { id: 'controls', icon: '🎛️',
       title: { ko: '🎛️ 상태 및 컨트롤', en: '🎛️ Status & Controls', ja: '🎛️ ステータスとコントロール', 'zh-CN': '🎛️ 状态与控制', 'zh-TW': '🎛️ 狀態與控制' , es: '🎛️ Estado y controles' },
       description: { ko: '상태 카드, 시간 범위, 메트릭 모드 컨트롤', en: 'Status cards, time range, and metric mode controls', ja: 'ステータスカード、時間範囲、メトリックモードコントロール', 'zh-CN': '状态卡片、时间范围和指标模式控件', 'zh-TW': '狀態卡片、時間範圍和指標模式控制項' , es: 'Tarjetas de estado, rango temporal y controles de modo de métricas' },
@@ -104,7 +95,6 @@
       ]
     },
 
-    // ── 3. 차트 모니터링 ──
     { id: 'charts', icon: '📈',
       title: { ko: '📈 차트 모니터링', en: '📈 Chart Monitoring', ja: '📈 チャートモニタリング', 'zh-CN': '📈 图表监控', 'zh-TW': '📈 圖表監控' , es: '📈 Monitorización de gráficos' },
       description: { ko: '차트 영역과 개별 메트릭 차트 모드', en: 'Chart area and individual metric chart modes', ja: 'チャート領域と個別メトリックチャートモード', 'zh-CN': '图表区域和各指标图表模式', 'zh-TW': '圖表區域和各指標圖表模式' , es: 'Área de gráficos y modos de gráficos de métricas individuales' },
@@ -146,7 +136,6 @@
       ]
     },
 
-    // ── 4. 토폴로지 및 시스템 ──
     { id: 'topology', icon: '🔌',
       title: { ko: '🔌 토폴로지 및 시스템', en: '🔌 Topology & System', ja: '🔌 トポロジーとシステム', 'zh-CN': '🔌 拓扑与系统', 'zh-TW': '🔌 拓撲與系統' , es: '🔌 Topología y sistema' },
       description: { ko: 'NPU 토폴로지, 상태, 시스템 정보 테이블', en: 'NPU topology, status, and system information table', ja: 'NPUトポロジー、ステータス、システム情報テーブル', 'zh-CN': 'NPU拓扑、状态和系统信息表', 'zh-TW': 'NPU拓撲、狀態和系統資訊表' , es: 'Topología del NPU, estado y tabla de información del sistema' },
@@ -169,7 +158,6 @@
       ]
     },
 
-    // ── 5. 런타임 이벤트 ──
     { id: 'events', icon: '📋',
       title: { ko: '📋 런타임 이벤트', en: '📋 Runtime Events', ja: '📋 ランタイムイベント', 'zh-CN': '📋 运行时事件', 'zh-TW': '📋 執行時事件' , es: '📋 Eventos de tiempo de ejecución' },
       description: { ko: '최근 모니터 이벤트와 이벤트 카운트', en: 'Recent monitor events and event count', ja: '最近のモニターイベントとイベントカウント', 'zh-CN': '最近的监控事件和事件计数', 'zh-TW': '最近的監控事件和事件計數' , es: 'Eventos recientes del monitor y recuento de eventos' },
@@ -193,9 +181,6 @@
 
   ];
 
-  /* ════════════════════════════════════════════════════════════
-     REFERENCE DOCS
-     ════════════════════════════════════════════════════════════ */
   var referenceDocs = [
     { id: 'sse', icon: '📡', title: { ko: 'SSE 스트림', en: 'SSE Stream', ja: 'SSEストリーム', 'zh-CN': 'SSE流', 'zh-TW': 'SSE串流' , es: 'Flujo SSE' },
       body: { ko: '<p><strong>Server-Sent Events (SSE)</strong>를 통해 <code>/api/hw_stream</code>에서 ~1.5초마다 NPU·시스템 데이터를 실시간으로 수신합니다.</p><p>SSE를 사용할 수 없는 환경(리버스 프록시 등)에서는 6초 이내에 응답이 없으면 자동으로 <strong>3초 폴링</strong> 방식으로 전환됩니다.</p><p>30초 후 SSE 재연결을 시도합니다.</p>', en: '<p>Receives NPU & system data every ~1.5s from <code>/api/hw_stream</code> via <strong>Server-Sent Events (SSE)</strong>.</p><p>Automatically falls back to <strong>3s polling</strong> if no SSE response within 6s (e.g., behind a reverse proxy).</p><p>Attempts SSE reconnect after 30s.</p>', ja: '<p><strong>Server-Sent Events（SSE）</strong>を通じて<code>/api/hw_stream</code>から約1.5秒ごとにNPU・システムデータをリアルタイムで受信します。</p><p>SSEが利用できない環境（リバースプロキシなど）では、6秒以内に応答がない場合自動的に<strong>3秒ポーリング</strong>方式に切り替わります。</p><p>30秒後にSSE再接続を試みます。</p>', 'zh-CN': '<p>通过<strong>Server-Sent Events（SSE）</strong>从<code>/api/hw_stream</code>约每1.5秒实时接收NPU和系统数据。</p><p>如果6秒内没有SSE响应（例如在反向代理后），自动回退到<strong>3秒轮询</strong>方式。</p><p>30秒后尝试重新连接SSE。</p>', 'zh-TW': '<p>透過<strong>Server-Sent Events（SSE）</strong>從<code>/api/hw_stream</code>約每1.5秒即時接收NPU和系統資料。</p><p>如果6秒內沒有SSE回應（例如在反向代理後），自動回退到<strong>3秒輪詢</strong>方式。</p><p>30秒後嘗試重新連接SSE。</p>', es: '<p>Recibe datos del NPU y del sistema cada ~1,5 s desde <code>/api/hw_stream</code> mediante <strong>Server-Sent Events (SSE)</strong>.</p><p>Si no hay respuesta SSE en 6 s (p. ej., detrás de un proxy inverso), cambia automáticamente a <strong>sondeo cada 3 s</strong>.</p><p>Intenta reconectar SSE tras 30 s.</p>' } },
@@ -206,9 +191,6 @@
     { id: 'metrics', icon: '📊', title: { ko: '메트릭 설명', en: 'Metric Descriptions', ja: 'メトリック説明', 'zh-CN': '指标说明', 'zh-TW': '指標說明' , es: 'Descripción de métricas' },
       body: { ko: '<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left">메트릭</th><th>단위</th><th>설명</th></tr><tr><td>🌡️ NPU 온도</td><td>°C</td><td>NPU 다이 평균 온도</td></tr><tr><td>⚡ 전압</td><td>mV</td><td>NPU 전원 전압</td></tr><tr><td>🔄 클럭</td><td>MHz</td><td>NPU 동작 클럭</td></tr><tr><td>🌡️ 코어 온도</td><td>°C</td><td>NPU 코어별 온도</td></tr><tr><td>💻 CPU 부하</td><td>-</td><td>CPU 평균 로드 (코어 정규화)</td></tr><tr><td>🧠 메모리</td><td>%</td><td>시스템 RAM 사용률</td></tr><tr><td>💾 NPU DRAM</td><td>%</td><td>NPU 전용 DRAM 사용률</td></tr><tr><td>⚙️ NPU 사용률</td><td>%</td><td>NPU 연산 코어 사용률</td></tr></table>', en: '<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left">Metric</th><th>Unit</th><th>Description</th></tr><tr><td>🌡️ NPU Temp</td><td>°C</td><td>NPU die average temperature</td></tr><tr><td>⚡ Voltage</td><td>mV</td><td>NPU supply voltage</td></tr><tr><td>🔄 Clock</td><td>MHz</td><td>NPU operating clock</td></tr><tr><td>🌡️ Core Temp</td><td>°C</td><td>Per-core NPU temperatures</td></tr><tr><td>💻 CPU Load</td><td>-</td><td>CPU avg load (normalized by cores)</td></tr><tr><td>🧠 Memory</td><td>%</td><td>System RAM usage</td></tr><tr><td>💾 NPU DRAM</td><td>%</td><td>NPU dedicated DRAM usage</td></tr><tr><td>⚙️ NPU Util</td><td>%</td><td>NPU compute core utilization</td></tr></table>', ja: '<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left">メトリック</th><th>単位</th><th>説明</th></tr><tr><td>🌡️ NPU温度</td><td>°C</td><td>NPUダイ平均温度</td></tr><tr><td>⚡ 電圧</td><td>mV</td><td>NPU電源電圧</td></tr><tr><td>🔄 クロック</td><td>MHz</td><td>NPU動作クロック</td></tr><tr><td>🌡️ コア温度</td><td>°C</td><td>NPUコア別温度</td></tr><tr><td>💻 CPU負荷</td><td>-</td><td>CPU平均ロード（コア正規化）</td></tr><tr><td>🧠 メモリ</td><td>%</td><td>システムRAM使用率</td></tr><tr><td>💾 NPU DRAM</td><td>%</td><td>NPU専用DRAM使用率</td></tr><tr><td>⚙️ NPU使用率</td><td>%</td><td>NPU演算コア使用率</td></tr></table>', 'zh-CN': '<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left">指标</th><th>单位</th><th>说明</th></tr><tr><td>🌡️ NPU温度</td><td>°C</td><td>NPU芯片平均温度</td></tr><tr><td>⚡ 电压</td><td>mV</td><td>NPU供电电压</td></tr><tr><td>🔄 时钟</td><td>MHz</td><td>NPU工作时钟</td></tr><tr><td>🌡️ 核心温度</td><td>°C</td><td>NPU各核心温度</td></tr><tr><td>💻 CPU负载</td><td>-</td><td>CPU平均负载（按核心归一化）</td></tr><tr><td>🧠 内存</td><td>%</td><td>系统RAM使用率</td></tr><tr><td>💾 NPU DRAM</td><td>%</td><td>NPU专用DRAM使用率</td></tr><tr><td>⚙️ NPU使用率</td><td>%</td><td>NPU计算核心使用率</td></tr></table>', 'zh-TW': '<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left">指標</th><th>單位</th><th>說明</th></tr><tr><td>🌡️ NPU溫度</td><td>°C</td><td>NPU晶片平均溫度</td></tr><tr><td>⚡ 電壓</td><td>mV</td><td>NPU供電電壓</td></tr><tr><td>🔄 時鐘</td><td>MHz</td><td>NPU工作時鐘</td></tr><tr><td>🌡️ 核心溫度</td><td>°C</td><td>NPU各核心溫度</td></tr><tr><td>💻 CPU負載</td><td>-</td><td>CPU平均負載（按核心歸一化）</td></tr><tr><td>🧠 記憶體</td><td>%</td><td>系統RAM使用率</td></tr><tr><td>💾 NPU DRAM</td><td>%</td><td>NPU專用DRAM使用率</td></tr><tr><td>⚙️ NPU使用率</td><td>%</td><td>NPU計算核心使用率</td></tr></table>', es: '<table style="width:100%;border-collapse:collapse"><tr><th style="text-align:left">Métrica</th><th>Unidad</th><th>Descripción</th></tr><tr><td>🌡️ Temp. NPU</td><td>°C</td><td>Temperatura media del die del NPU</td></tr><tr><td>⚡ Voltaje</td><td>mV</td><td>Voltaje de alimentación del NPU</td></tr><tr><td>🔄 Reloj</td><td>MHz</td><td>Reloj de funcionamiento del NPU</td></tr><tr><td>🌡️ Temp. del núcleo</td><td>°C</td><td>Temperaturas por núcleo del NPU</td></tr><tr><td>💻 Carga de CPU</td><td>-</td><td>Carga media de CPU (normalizada por núcleos)</td></tr><tr><td>🧠 Memoria</td><td>%</td><td>Uso de RAM del sistema</td></tr><tr><td>💾 NPU DRAM</td><td>%</td><td>Uso de DRAM dedicada del NPU</td></tr><tr><td>⚙️ Util. NPU</td><td>%</td><td>Utilización de núcleos de cómputo del NPU</td></tr></table>' } }  ];
 
-  /* ════════════════════════════════════════════════════════════
-     INITIALIZATION
-     ════════════════════════════════════════════════════════════ */
   window.DXTutorial.create({
     appId: 'monitor',
     sections: sections,

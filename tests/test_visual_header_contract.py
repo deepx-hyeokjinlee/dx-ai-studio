@@ -59,9 +59,6 @@ def _css_rule(css: str, selector: str) -> str:
     return matches[0].group(1)
 
 
-# ────────────────────────────────────────────────────────────────────
-# Step 1: 공유 셸 토큰 계약 테스트
-# ────────────────────────────────────────────────────────────────────
 
 class TestSharedCSSLoadOrder:
     """모든 템플릿이 module-chrome.css, brand.css, toolbar.css를 로컬 CSS보다 먼저 로드한다."""
@@ -273,9 +270,6 @@ class TestLanguageDropdownStacking:
         assert int(toolbar_z.group(1)) >= 1
 
 
-# ────────────────────────────────────────────────────────────────────
-# Step 2: 알려진 예외 문서화 테스트
-# ────────────────────────────────────────────────────────────────────
 
 class TestMonitorZIndexLayerLadder:
     """DX Monitor z-index layers must not conflict with shared toolbar popup layers."""

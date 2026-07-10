@@ -39,7 +39,6 @@ def _get_json(path: str):
     return json.loads(_get(path))
 
 
-# ── 테스트 ────────────────────────────────────────────────────
 
 
 def test_get_root_returns_html(server):

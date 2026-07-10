@@ -1,8 +1,6 @@
 'use strict';
 
-// ---------------------------------------------------------------------------
 // 전역 상태 (기존 app/message handler가 참조)
-// ---------------------------------------------------------------------------
 let _viewMode = 'card';
 let _selectedCategories = [];
 let _allModels = [];
@@ -10,9 +8,6 @@ let _allCategories = {};
 let _sortField = 'name';
 let _sortDir = 'asc';
 
-// ---------------------------------------------------------------------------
-// 가상화 상수
-// ---------------------------------------------------------------------------
 const PAGE_SIZE = 60;
 const MAX_CACHED_PAGES = 20;
 const CARD_ESTIMATED_HEIGHT = 300;
@@ -21,9 +16,7 @@ const OVERSCAN_ROWS = 3;
 const CARD_DOM_LIMIT = 50;
 const LIST_ROW_DOM_LIMIT = 100;
 
-// ---------------------------------------------------------------------------
 // 최적화 이미지 헬퍼 (Task 9) — window에 노출하여 detail.js와 공유
-// ---------------------------------------------------------------------------
 
 function optimizedImageCandidates(originalPath) {
   if (!originalPath) return [];
@@ -68,9 +61,6 @@ function _escapeAttr(s) {
 window.handleImageFallback = handleImageFallback;
 window.ModelZooImages = { optimizedImageCandidates, imageTagWithFallback, handleImageFallback };
 
-// ---------------------------------------------------------------------------
-// 유틸리티
-// ---------------------------------------------------------------------------
 
 function _localLabel(obj, prefix) {
   const lang = DXI18n.lang;
@@ -184,9 +174,6 @@ function _artifactBadges(m) {
   ].join(' ');
 }
 
-// ---------------------------------------------------------------------------
-// ModelZooVirtualCatalog — 가상화된 카탈로그 렌더러
-// ---------------------------------------------------------------------------
 function _commitCatalogStateSave(state) {
   sessionStorage.setItem('modelzooCatalogState', JSON.stringify(state));
 }
@@ -692,9 +679,6 @@ const ModelZooVirtualCatalog = {
   },
 };
 
-// ---------------------------------------------------------------------------
-// 활성 필터 요약
-// ---------------------------------------------------------------------------
 
 function updateCatalogHeading() {
   const titleEl = document.getElementById('catalogTitle');
@@ -736,9 +720,7 @@ function syncCatalogControls() {
   document.getElementById('btnListView')?.classList.toggle('active', _viewMode === 'list');
 }
 
-// ---------------------------------------------------------------------------
 // 공개 API — 기존 호환 래퍼
-// ---------------------------------------------------------------------------
 
 function initCatalog(data) {
   if (!data) return;

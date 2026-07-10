@@ -1,8 +1,6 @@
-/* ─── DXLauncher Shared State ─────────────────────────── */
 
 window.DXLauncher = window.DXLauncher || {};
 
-// Splash state
 window.DXLauncher._splashTimers = [];
 window.DXLauncher._splashActive = false;
 window.DXLauncher._deferredLauncherWorkStarted = false;
@@ -10,7 +8,6 @@ window.DXLauncher._launcherCoreStarted = false;
 window.DXLauncher._studioReadyPromise = null;
 window.DXLauncher._studioReadyResolved = false;
 
-// App state
 window.DXLauncher.currentApp = null;
 window.DXLauncher.APP_PATHS = {
   app: '/app/',
@@ -23,7 +20,6 @@ window.DXLauncher.APP_PATHS = {
   agent: '/agent/',
 };
 
-// Splash module config
 window.DXLauncher._SPLASH_MODULES = [
   { name: 'DX App',       angle: 0,    icon: 'app' },
   { name: 'DX Stream',    angle: 45,   icon: 'stream' },
@@ -35,15 +31,12 @@ window.DXLauncher._SPLASH_MODULES = [
   { name: 'DX Agent Dev', angle: 315,  icon: 'agent' },
 ];
 
-// Logo decode constants
 window.DXLauncher._DECODE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 window.DXLauncher._DECODE_FRAME_INTERVAL = 50;
 window.DXLauncher._TRACE_LENGTH_CACHE = new Map();
 window.DXLauncher._decodeRAF = null;
 
-// Orbital state
 window.DXLauncher._orbitalResizeTimer = null;
 
-// Language state
 window.DXLauncher.SUPPORTED_LANGS = ['en', 'ja', 'ko', 'es', 'zh-CN', 'zh-TW'];
 window.DXLauncher.LANG_SHORT = { en: 'EN', ja: 'JA', ko: 'KO', es: 'ES', 'zh-CN': '简', 'zh-TW': '繁' };

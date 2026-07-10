@@ -1,4 +1,3 @@
-# tests/dx_agent_dev/test_server_agents.py
 """status agents 필드 + run agent/model 분기(폐쇄망 Mock 경로)."""
 import json
 import os

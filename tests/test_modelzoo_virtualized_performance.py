@@ -27,7 +27,6 @@ def load_optimizer():
     return module
 
 
-# === Legal merge bug regression tests ===
 
 def test_legal_merge_prefers_generated_over_empty_legacy():
     """legacy legal 필드가 비어 있으면 generated catalog 값이 표시되어야 한다."""
@@ -200,9 +199,6 @@ def test_rgba_composites_on_white_background(tmp_path):
     )
 
 
-# ---------------------------------------------------------------------------
-# 프론트엔드 정적 계약 테스트 (Task 7)
-# ---------------------------------------------------------------------------
 
 def read_text(path):
     """UTF-8 텍스트 파일을 읽어 반환합니다."""
@@ -536,9 +532,6 @@ def test_detail_js_escape_html_handles_quotes():
     )
 
 
-# ---------------------------------------------------------------------------
-# C-1: detail.js 에러 경로 XSS 방지
-# ---------------------------------------------------------------------------
 
 def test_detail_js_error_path_escapes_model_id():
     """C-1: renderDetailPage 에러 경로에서 modelId를 escapeHtml로 이스케이프해야 합니다."""
@@ -557,9 +550,6 @@ def test_detail_js_error_path_escapes_model_id():
         )
 
 
-# ---------------------------------------------------------------------------
-# I-2: detail.js 모델 필드 이스케이프
-# ---------------------------------------------------------------------------
 
 def test_detail_js_escapes_model_name_in_title():
     """I-2: renderDetail에서 model.name이 escapeHtml으로 이스케이프되어야 합니다."""
@@ -783,9 +773,6 @@ def test_catalog_js_avoids_inline_sort_header_handlers():
     assert "onListHeaderClick(target.dataset.sortKey || '')" in src
 
 
-# ---------------------------------------------------------------------------
-# I-1: window 스크롤 리스너
-# ---------------------------------------------------------------------------
 
 def test_catalog_js_window_scroll_listener():
     """I-1: catalog.js가 window scroll 이벤트도 바인딩해야 합니다."""
@@ -805,9 +792,6 @@ def test_catalog_js_effective_scroll_uses_window():
     )
 
 
-# ---------------------------------------------------------------------------
-# Explorer 리디자인 계약 테스트 (Chunk 1)
-# ---------------------------------------------------------------------------
 
 def test_catalog_js_processor_placeholder_removed_from_release():
     """catalog.js와 style.css에서 프로세서 플레이스홀더가 제거되었어야 합니다 (릴리스 계약)."""
@@ -1070,7 +1054,6 @@ def test_detail_artifact_table_uses_remote_url_as_source_when_present():
     assert "data.source || ''" not in body
 
 
-# ── Task 2: Suspect accuracy frontend contract ──
 
 
 def test_detail_accuracy_matrix_shows_suspect_label():
@@ -1098,7 +1081,6 @@ def test_catalog_best_accuracy_skips_suspect():
     assert "suspect" in body
 
 
-# ── Task 3+4: class_name display fix ──
 
 
 def test_modelzoo_inference_sends_no_save_output_flag():

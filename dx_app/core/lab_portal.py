@@ -153,13 +153,11 @@ def plan_add_model(tok, payload):
     if err:
         return err
 
-    # Validate source_path if provided
     if source_path:
         err = _validate_source_path(source_path)
         if err:
             return err
 
-    # Build operations list
     bases = {"cpp": [CPP_DIR], "python": [PY_DIR], "both": [CPP_DIR, PY_DIR]}.get(lang, [CPP_DIR, PY_DIR])
     operations = []
     confirmations = []
@@ -317,9 +315,6 @@ def smoke_add_model(tok, payload):
     return {"ok": False, "status": "blocked", "blocker": "sample_input_required"}, 200
 
 
-# ── Generated file viewer ─────────────────────────────────────────────────────
-
-
 def generated_files_for_manifest(manifest_id):
     """Return preview files from a manifest filtered to create/modify actions."""
     result, code = get_manifest(manifest_id)
@@ -337,9 +332,6 @@ def generated_files_for_manifest(manifest_id):
                 "size": len(preview.encode("utf-8")),
             })
     return {"files": files}, 200
-
-
-# ── Safety Center helpers ─────────────────────────────────────────────────────
 
 
 def list_pending_manifests():
@@ -472,7 +464,6 @@ def plan_task_scaffold(tok, payload):
             existing_files.append(str(rel))
 
     if existing_files:
-        # Normalize task_name for confirmation key
         normalized = task_name.lower().replace("-", "_")
         confirmations.append({
             "key": "overwrite",
@@ -501,8 +492,6 @@ def plan_task_scaffold_response(tok, payload):
     result = plan_task_scaffold(tok, payload)
     return _result_with_http_status(result)
 
-
-# ── Experiment pipeline run-state store ────────────────────────────────────────
 
 EXPERIMENT_STEPS = ["compile", "register", "smoke", "benchmark", "package"]
 _STEP_INDEX = {s: i for i, s in enumerate(EXPERIMENT_STEPS)}
@@ -565,7 +554,6 @@ def _new_run_state(run_id, inputs):
 def _evict_experiment_runs():
     """Evict oldest completed/cancelled/failed runs when over cap."""
     while len(_experiment_runs) > MAX_EXPERIMENT_RUNS:
-        # Try to evict a finished run first
         evicted = False
         for rid in list(_experiment_runs):
             if _experiment_runs[rid]["status"] in ("completed", "cancelled", "failed"):
@@ -643,7 +631,6 @@ def cancel_experiment_run(run_id):
 
         run["status"] = "cancelled"
         run["updated_at"] = time.time()
-        # Mark remaining pending/current steps as cancelled
         for step in run["steps"]:
             if step["status"] in ("pending", "current"):
                 step["status"] = "cancelled"
@@ -670,7 +657,6 @@ def advance_experiment_step(run_id, next_step):
         if next_idx is None or cur_idx is None or next_idx != cur_idx + 1:
             return {"error": "Invalid step transition", "error_code": "invalid_step_transition"}, 400
 
-        # Mark current step done, next step current
         run["steps"][cur_idx]["status"] = "done"
         run["steps"][next_idx]["status"] = "current"
         run["current_step"] = next_step
@@ -706,7 +692,6 @@ def mark_experiment_step_failed(run_id, step, message):
         run["blockers"].append({"code": f"{step}_failed", "message": str(message)})
         run["updated_at"] = time.time()
 
-        # Cancel remaining pending steps
         for s in run["steps"]:
             if s["status"] in ("pending", "current") and s["id"] != step:
                 s["status"] = "cancelled"
@@ -723,7 +708,6 @@ def append_experiment_log(run_id, line):
         if not run:
             return {"error": "Run not found", "error_code": "run_not_found"}, 404
 
-        # Truncate individual lines to bounded length
         truncated = str(line)[:_LOG_LINE_MAX_CHARS]
         run["log_tail"].append(truncated)
         run["updated_at"] = time.time()

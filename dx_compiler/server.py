@@ -40,7 +40,6 @@ from dx_compiler.core.compiler_service import (
 from dx_compiler.core.onnx_parser import parse_onnx_model
 from dx_compiler.core.setup_service import setup_service
 
-# ─── Minimal stdlib template renderer ───
 # Replaces Jinja2 so DX AI Studio has ZERO third-party runtime dependencies.
 # Supports exactly the constructs the compiler templates use:
 #   {% extends "base.html" %} + {% block content %}...{% endblock %}
@@ -68,10 +67,8 @@ def _render_template(name, ctx):
         src = src[:inc.start()] + partial + src[inc.end():]
     return _VAR_RE.sub(lambda m: str(ctx.get(m.group(1), "")), src)
 
-# ─── Compiler Service (singleton) ───
 compiler_service = CompilerService()
 
-# ─── Static version for cache-busting ───
 STATIC_VERSION = static_version()
 
 PHASE_NAMES = ["PREPARE", "SURGERY", "PARTITION", "QUANTIZATION", "OPTIMIZE", "CODEGEN"]
@@ -211,7 +208,6 @@ class CompilerHandler(DXBaseHandler):
         ctx.setdefault("v", STATIC_VERSION)
         return _render_template(template_name, ctx)
 
-    # ── Routing ──
 
     def route(self):
         path = self.url_path
@@ -270,12 +266,10 @@ class CompilerHandler(DXBaseHandler):
                 job_id = path[len("/compile/"):-len("/cancel")]
                 return self._compile_cancel(job_id)
 
-            # /compile/{job_id}/calculate-exclude
             if path.startswith("/compile/") and path.endswith("/calculate-exclude"):
                 job_id = path[len("/compile/"):-len("/calculate-exclude")]
                 return self._calc_exclude(job_id)
 
-            # /compile/{job_id}/summary
             if path.startswith("/compile/") and path.endswith("/summary"):
                 job_id = path[len("/compile/"):-len("/summary")]
                 return self._compile_summary(job_id)
@@ -297,7 +291,6 @@ class CompilerHandler(DXBaseHandler):
 
         self.send_error_json(404, "Not found")
 
-    # ── Route implementations ──
 
     def _compile(self):
         """Submit a compile job (form-data). Return progress HTML partial."""
@@ -834,6 +827,5 @@ def create_server(port=DEFAULT_PORT):
     return srv
 
 
-# ── Main ──
 if __name__ == "__main__":
     DXServer(CompilerHandler, SERVER_NAME, DEFAULT_PORT).start()

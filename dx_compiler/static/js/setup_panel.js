@@ -275,7 +275,6 @@ class SetupPanel {
     if (this.status) this._render();
   }
 
-  // ─── 내부 ───────────────────────────────
 
   _expand() {
     this.body.style.display = 'block';

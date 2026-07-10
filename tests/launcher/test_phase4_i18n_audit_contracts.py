@@ -38,7 +38,6 @@ MODULE_BRIDGE_FILES = {
 SHARED_I18N = "shared/static/i18n.js"
 
 
-# ─── helpers ───────────────────────────────────────────────────────────────
 
 def _read(relpath: str) -> str:
     """Read a file relative to project root."""
@@ -145,7 +144,6 @@ def _read_module_with_shared(module: str) -> str:
     return "\n".join(parts)
 
 
-# ─── Bridge pattern tests ──────────────────────────────────────────────────
 
 class TestModuleBridgePatterns:
     """Each module must have language bridge integration."""
@@ -207,7 +205,6 @@ class TestModuleBridgePatterns:
         )
 
 
-# ─── Korean default tests ──────────────────────────────────────────────────
 
 class TestNoKoreanDefaults:
     """Critical: modules must not default to Korean."""
@@ -249,7 +246,6 @@ class TestNoKoreanDefaults:
         )
 
 
-# ─── CSS language marker tests ─────────────────────────────────────────────
 
 class TestCSSLanguageMarkers:
     """Modules using CSS language classes must update html lang and body classes."""
@@ -281,7 +277,6 @@ class TestCSSLanguageMarkers:
         )
 
 
-# ─── Hardcoded visible text audit (Critical/High) ─────────────────────────
 
 class TestNoHardcodedCriticalText:
     """Critical hardcoded UI text must use i18n wrappers."""

@@ -93,7 +93,6 @@ def collect_fingerprint() -> dict[str, Any]:
         "tools": {},
     }
 
-    # Required tools
     missing = []
     for tool in REQUIRED_TOOLS:
         info = _tool_version(tool)
@@ -101,7 +100,6 @@ def collect_fingerprint() -> dict[str, Any]:
         if not info["available"]:
             missing.append(tool)
 
-    # Optional tools
     for tool in OPTIONAL_TOOLS:
         fp["tools"][tool] = _tool_version(tool)
 
@@ -182,7 +180,6 @@ def _get_npu_info() -> dict[str, Any]:
         return info
     info["raw"] = raw
 
-    # Parse structured fields from dxrt-cli -s output
     device_count = 0
     device_boards: list[str | None] = []   # board type per device
     current_board: str | None = None
@@ -230,7 +227,6 @@ def _get_npu_info() -> dict[str, Any]:
     info["device_count"] = device_count
     info.update(_summarize_npu_topology(device_boards, device_count))
 
-    # Extract max NPU clock from core info
     clock_mhz: int | None = None
     for core_line in info["cores"]:
         cm = re.search(r"clock\s+(\d+)\s*MHz", core_line)
@@ -325,12 +321,10 @@ def collect_model_metadata(model_path: str | Path) -> dict[str, Any]:
 
     result: dict[str, Any] = {}
 
-    # .dxnn Format Version
     m = re.search(r"\.dxnn Format Version\s*:\s*(\S+)", raw)
     if m:
         result["format_version"] = m.group(1)
 
-    # DX-COM Version
     m = re.search(r"DX-COM Version\s*:\s*(\S+)", raw)
     if m:
         result["dxcom_version"] = m.group(1)

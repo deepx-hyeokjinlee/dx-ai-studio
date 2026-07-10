@@ -17,7 +17,6 @@ def _read(name):
     return (STATIC / name).read_text(encoding="utf-8")
 
 
-# ─── popstate contract ──────────────────────────────────────────────
 
 def test_popstate_calls_restore_from_location():
     src = _read("launcher.js")
@@ -30,7 +29,6 @@ def test_popstate_calls_restore_from_location():
     assert "location" in arg, f"queueRouteRestore arg should reference location, got: {arg}"
 
 
-# ─── restoreFromLocation contract ────────────────────────────────────
 
 def test_restore_handles_about_and_sdk():
     src = _read("launcher-app-frame.js")
@@ -62,7 +60,6 @@ def test_restore_unknown_path_shows_home():
     assert "_showHome" in fn_body, "Unknown paths must fall through to _showHome"
 
 
-# ─── _showApp suffix/query contract ─────────────────────────────────
 
 def test_show_app_carries_suffix_and_query():
     src = _read("launcher-app-frame.js")
@@ -119,7 +116,6 @@ def test_setVisibleView_preserves_sdk_and_about_state():
     assert "forceReload" in fn_body
 
 
-# ─── NAV_TAB_CONFIG contract ────────────────────────────────────────
 
 def test_nav_tab_config_contains_expected_entries():
     src = _read("launcher-app-frame.js")
@@ -132,7 +128,6 @@ def test_nav_tab_config_contains_expected_entries():
             f"NAV_TAB_CONFIG must include {app_name}"
 
 
-# ─── Active class contract ──────────────────────────────────────────
 
 def test_active_classes_include_required_variants():
     src = _read("launcher-app-frame.js")
@@ -144,7 +139,6 @@ def test_active_classes_include_required_variants():
             f"NAV_ACTIVE_CLASSES must include {cls}"
 
 
-# ─── Public aliases contract ─────────────────────────────────────────
 
 @pytest.mark.parametrize("alias", [
     "window.launch",
@@ -158,7 +152,6 @@ def test_public_aliases_are_registered(alias):
     assert alias in src, f"{alias} must be registered in launcher.js"
 
 
-# ─── updateSdkLibraryQuery contract ─────────────────────────────────
 
 class TestUpdateSdkLibraryQueryContract:
     """LauncherRouter must expose updateSdkLibraryQuery for SDK URL management."""
@@ -202,7 +195,6 @@ class TestUpdateSdkLibraryQueryContract:
         assert "/sdk-library" in body
 
 
-# ─── _showSdk applyQuery contract ───────────────────────────────────
 
 class TestShowSdkApplyQueryContract:
     """_showSdk must call SDKLibrary.init() before SDKLibrary.applyQuery()."""
@@ -246,7 +238,6 @@ class TestShowSdkApplyQueryContract:
             "_showSdk must pass source:'restore' default"
 
 
-# ─── popstate source:'popstate' contract ─────────────────────────────
 
 class TestPopstateSourceContract:
     """popstate handler must pass source:'popstate' for sdk-library restoration."""
@@ -282,7 +273,6 @@ class TestPopstateSourceContract:
         assert "source" in body, "restoreFromLocation must propagate source"
 
 
-# ─── Task 3.1: _showSdk route contract ───────────────────────────────
 
 class TestShowSdkRouteContract:
     """_showSdk must commit /sdk-library paths with query, never APP_PATHS/iframe URLs."""
@@ -363,7 +353,6 @@ class TestShowSdkRouteContract:
         assert "updateNavTabs" in body, "_showSdk must call updateNavTabs"
 
 
-# ─── _serializeSdkQuery URLSearchParams contract ─────────────────────
 
 class TestSerializeSdkQueryURLSearchParams:
     """_serializeSdkQuery must accept both plain objects and URLSearchParams."""
@@ -385,7 +374,6 @@ class TestSerializeSdkQueryURLSearchParams:
             "_serializeSdkQuery must detect URLSearchParams-like input"
 
 
-# ─── popstate no-history-mutation contract ───────────────────────────
 
 def test_show_sdk_does_not_commit_history_on_popstate():
     """_showSdk must guard _commitHistory so it is skipped when source is popstate."""

@@ -1,8 +1,4 @@
-// DX Monitor — Dashboard (Redesigned)
 
-// ══════════════════════════════════════════════
-// 초기 로드 + 상태 바
-// ══════════════════════════════════════════════
 
 function _updateMockBanner(){
   var el=$('mock-banner');
@@ -84,18 +80,13 @@ function renderStatusBar(hw){
     var worstClock=Math.min.apply(null,npus.map(function(n){return n.clock_avg||0}));
     h+='<div class="status-card" data-help-id="status-clock"><span class="sc-label">'+statusLabel('Clock')+'</span><span class="sc-value">'+worstClock.toFixed(0)+' MHz</span></div>';
   }
-  // CPU
   var cpuSt=getStatus('cpu_load',hw.cpu_load||0);
   h+='<div class="status-card '+statusClass(cpuSt)+'" data-help-id="status-cpu"><span class="sc-badge">'+statusEmoji(cpuSt)+'</span><span class="sc-label">CPU</span><span class="sc-value">'+(hw.cpu_load||0).toFixed(2)+'</span></div>';
-  // Memory
   var memSt=getStatus('memory',hw.mem_pct||0);
   h+='<div class="status-card '+statusClass(memSt)+'" data-help-id="status-memory"><span class="sc-badge">'+statusEmoji(memSt)+'</span><span class="sc-label">'+statusLabel('Memory')+'</span><span class="sc-value">'+(hw.mem_pct||0).toFixed(1)+'%</span></div>';
   $('status-bar').innerHTML=h;
 }
 
-// ══════════════════════════════════════════════
-// SSE + 데이터 수집
-// ══════════════════════════════════════════════
 
 var _sseFallbackTimer=null;
 
@@ -199,9 +190,6 @@ function startSSE(){
   }catch(e){_startHWPoll();setTimeout(startSSE,5000);}
 }
 
-// ══════════════════════════════════════════════
-// 차트 렌더링
-// ══════════════════════════════════════════════
 
 var RT_PTS={'rt':40,'5m':200,'15m':600,'30m':1200,'1h':2400,'all':RT_MAX};
 
@@ -409,9 +397,6 @@ function _drawAllMode(area,data,tl,npuCount){
   });
 }
 
-// ══════════════════════════════════════════════
-// 컨트롤 전환
-// ══════════════════════════════════════════════
 
 function setTimeRange(r){
   S.rtView=r;
@@ -432,9 +417,6 @@ function setChartMode(m){
   requestAnimationFrame(drawCharts);
 }
 
-// ══════════════════════════════════════════════
-// NPU Topology + System Info (기존 이관)
-// ══════════════════════════════════════════════
 
 function _fmtBytes(b){
   if(!b||b<=0)return'0 B';
@@ -507,9 +489,6 @@ function renderSysInfo(si){
   S.cpuCores=si.cpu_cores||4;
 }
 
-// ══════════════════════════════════════════════
-// Runtime Event Log (기존 이관)
-// ══════════════════════════════════════════════
 
 var _eventLastTs=0;
 function _eventBadge(level){

@@ -42,7 +42,6 @@ def test_release_audit_route_list_is_complete():
         )
 
 
-# ── Requirement 4: console warnings are captured ──────────────────
 def test_console_warnings_are_collected():
     """Console warning messages must produce console_warning findings."""
     assert '"warning"' in _AUDIT_SRC or "'warning'" in _AUDIT_SRC, (
@@ -53,7 +52,6 @@ def test_console_warnings_are_collected():
     )
 
 
-# ── Requirement 4: HTTP responses >= 400 are captured ─────────────
 def test_http_error_responses_are_collected():
     """Every sub-resource response with status >= 400 must be recorded."""
     assert '"response"' in _AUDIT_SRC or "'response'" in _AUDIT_SRC, (
@@ -64,7 +62,6 @@ def test_http_error_responses_are_collected():
     )
 
 
-# ── Fix 1: BLOCKER_CATEGORIES is wired into severity logic ───────
 def test_blocker_categories_wired():
     """Severity must be derived from BLOCKER_CATEGORIES, not hard-coded."""
     assert "BLOCKER_CATEGORIES" in _AUDIT_SRC, (
@@ -103,7 +100,6 @@ def _function_def(name: str) -> ast.FunctionDef:
     raise AssertionError(f"Function {name} not found")
 
 
-# ── Fix 2: placeholder matching uses word-boundary regex ──────────
 def test_placeholder_uses_word_boundary_regex():
     """'null' and 'undefined' detection must use word-boundary regex."""
     assert "_PLACEHOLDER_PATTERNS" in _AUDIT_SRC, (
@@ -122,7 +118,6 @@ def test_placeholder_uses_word_boundary_regex():
     )
 
 
-# ── Fix 3: no duplicate finding for main navigation 4xx ──────────
 def test_response_listener_filters_goto_response_by_identity():
     """The response listener must collect all >=400 responses, then after goto
     returns, exclude the goto-returned response by object identity — not just

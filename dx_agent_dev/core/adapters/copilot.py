@@ -1,4 +1,3 @@
-# dx_agent_dev/core/adapters/copilot.py
 """copilot -p 비대화형 어댑터(--add-dir 격리)."""
 from core.adapters.base import SubprocessAdapter
 

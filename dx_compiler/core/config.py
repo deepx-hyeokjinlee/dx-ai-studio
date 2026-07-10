@@ -4,7 +4,6 @@ import os
 import tempfile
 from pathlib import Path
 
-# ─── Path Calculation ───
 SCRIPT_DIR    = Path(__file__).resolve().parent.parent   # dx_compiler/
 SUITE_ROOT    = SCRIPT_DIR.parent.parent                 # dx-all-suite/
 STATIC_DIR    = SCRIPT_DIR / "static"
@@ -16,11 +15,9 @@ SDK_PROPS     = SDK_ROOT / "compiler.properties"
 SAMPLE_MODELS_DIR = SDK_ROOT / "dx_com" / "sample_models"
 CALIB_DIR         = SDK_ROOT / "dx_com" / "calibration_dataset"
 
-# ─── Server Config ───
 DEFAULT_PORT = 8095
 SERVER_NAME  = "DX Compiler"
 
-# ─── Upload / Output ───
 UPLOAD_DIR = SCRIPT_DIR / "compiler_uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 

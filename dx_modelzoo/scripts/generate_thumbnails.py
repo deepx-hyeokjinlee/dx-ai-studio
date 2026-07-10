@@ -98,7 +98,6 @@ def generate(dry_run=False, single_model=None, only_missing=False):
             failed.append(mid)
             continue
 
-        # 결과 이미지 저장
         img_b64 = result.get("result_image") or result.get("image", "")
         if not img_b64:
             print("FAIL: no image in response")
@@ -107,7 +106,6 @@ def generate(dry_run=False, single_model=None, only_missing=False):
 
         # 썸네일 (결과 이미지 = 썸네일)
         save_base64_image(img_b64, THUMB_DIR / f"{mid}.jpg")
-        # 예제 결과
         save_base64_image(img_b64, EXAMPLE_DIR / f"{mid}_result.jpg")
 
         # before_after/overlay: 원본 이미지도 복사

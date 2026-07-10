@@ -15,7 +15,6 @@ from .report_models import (
     _build_legacy_timing_history,
 )
 
-# ── Test Timing section ──────────────────────────────────────────────────
 
 def _add_timing_section(lines: list[str], fingerprint: dict) -> None:
     timing = fingerprint.get("timing")
@@ -135,7 +134,6 @@ def _normalize_history_value(value: Any) -> tuple:
     return (str(value),)
 
 
-# ── Executive Summary section ────────────────────────────────────────────
 
 def _add_executive_summary(
     lines: list[str],
@@ -261,7 +259,6 @@ def _add_protocol_section(lines: list[str], fingerprint: dict) -> None:
     lines.append("")
 
 
-# ── Benchmark Parameters section ─────────────────────────────────────────
 
 def _add_benchmark_params_section(lines: list[str], fingerprint: dict) -> None:
     params = fingerprint.get("benchmark_params")
@@ -289,7 +286,6 @@ def _add_benchmark_params_section(lines: list[str], fingerprint: dict) -> None:
     lines.append("")
 
 
-# ── Model Info section ───────────────────────────────────────────────────
 
 def _add_model_info_section(lines: list[str], fingerprint: dict, model_results: list[dict] | None = None) -> None:
     models = fingerprint.get("benchmarked_models")
@@ -335,7 +331,6 @@ def _add_model_info_section(lines: list[str], fingerprint: dict, model_results: 
     lines.append("")
 
 
-# ── Environment section ──────────────────────────────────────────────────
 
 def _add_environment_section(lines: list[str], fingerprint: dict) -> None:
     lines.append("## Environment")
@@ -377,7 +372,6 @@ def _add_environment_section(lines: list[str], fingerprint: dict) -> None:
     lines.append("")
 
 
-# ── Input Video section ──────────────────────────────────────────────────
 
 def _add_video_section(lines: list[str], video_infos: dict[str, dict] | None) -> None:
     if not video_infos:
@@ -412,7 +406,6 @@ def _add_video_section(lines: list[str], video_infos: dict[str, dict] | None) ->
         lines.append("")
 
 
-# ── Clock formatting helper ──────────────────────────────────────────────
 
 def _format_clock(clk_min: float | None, clk_max: float | None) -> str:
     """Format min~max clock MHz.  Returns '—' when no data."""
@@ -436,7 +429,6 @@ def _format_temp(temp_min: float | None, temp_max: float | None) -> str:
     return f"{lo}~{hi}"
 
 
-# ── Model Throughput section ─────────────────────────────────────────────
 
 def _add_model_throughput_section(lines: list[str], throughput: list[dict]) -> None:
     lines.append("### Throughput (Multi-Core, Async)")
@@ -497,7 +489,6 @@ def _add_model_throughput_section(lines: list[str], throughput: list[dict]) -> N
             lines.append("")
 
 
-# ── Model Latency section ───────────────────────────────────────────────
 
 def _add_model_latency_section(lines: list[str], latency: list[dict]) -> None:
     lines.append("### Latency (Single-Core, Sync)")
@@ -546,7 +537,6 @@ def _add_model_latency_section(lines: list[str], latency: list[dict]) -> None:
             lines.append("")
 
 
-# ── E2E Pipeline section ────────────────────────────────────────────────
 
 def _add_pipeline_section(lines: list[str], pipeline_results: list[dict]) -> None:
     lines.append("## E2E Pipeline (Single-Stream)")
@@ -620,7 +610,6 @@ def _add_pipeline_section(lines: list[str], pipeline_results: list[dict]) -> Non
         _add_ort_comparison_table(lines, sorted_results, "avg_e2e_fps", "E2E FPS")
 
 
-# ── Multi-stream section ────────────────────────────────────────────────
 
 def _add_multi_stream_section(lines: list[str], multi_stream_results: list[dict]) -> None:
     lines.append("## E2E Pipeline (Multi-Stream)")
@@ -704,7 +693,6 @@ def _add_multi_stream_section(lines: list[str], multi_stream_results: list[dict]
         _add_capacity_summary(lines, multi_relevant)
 
 
-# ── ORT comparison table ────────────────────────────────────────────────
 
 def _add_ort_comparison_table(lines: list[str], results: list[dict],
                                metric_key: str, metric_label: str) -> None:
@@ -735,7 +723,6 @@ def _add_ort_comparison_table(lines: list[str], results: list[dict],
     lines.append("")
 
 
-# ── Capacity summary ────────────────────────────────────────────────────
 
 def _add_capacity_summary(lines: list[str], results: list[dict]) -> None:
     """Add max capacity summary from multi-stream results with per-ch FPS."""

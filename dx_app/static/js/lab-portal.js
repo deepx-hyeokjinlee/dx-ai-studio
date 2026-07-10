@@ -1,4 +1,3 @@
-// DX-APP — Lab Extension Portal
 window.LabPortal = (function () {
   'use strict';
   var _ready = false;
@@ -67,7 +66,6 @@ window.LabPortal = (function () {
     }
   }
 
-  // ── DOM helpers (safe rendering) ──
 
   function _clear(node) {
     if (node) node.textContent = '';
@@ -103,7 +101,6 @@ window.LabPortal = (function () {
     sel.appendChild(opt);
   }
 
-  // ── Manifest helpers ──
 
   function canApplyManifest(manifest) {
     return !!manifest && manifest.status === 'ready' && !(manifest.blockers || []).length;
@@ -118,7 +115,6 @@ window.LabPortal = (function () {
     return result;
   }
 
-  // ── Manifest preview (textContent only) ──
 
   function _describeManifestItem(item) {
     if (!item) return '';
@@ -195,7 +191,6 @@ window.LabPortal = (function () {
     root.appendChild(applyBtn);
   }
 
-  // ── Button state helper ──
 
   function _syncAddModelButtons() {
     var dryBtn = document.querySelector('.btn-dry-run');
@@ -205,7 +200,6 @@ window.LabPortal = (function () {
     if (applyBtn) applyBtn.disabled = busy || !canApplyManifest(_currentManifest);
   }
 
-  // ── Dry run & apply ──
 
   async function runAddModelDryRun() {
     if (_dryRunInFlight) return;
@@ -276,7 +270,6 @@ window.LabPortal = (function () {
     }
   }
 
-  // ── Add Model Wizard renderer ──
 
   function renderAddModelWizard() {
     var root = document.getElementById('lab-flow-root');

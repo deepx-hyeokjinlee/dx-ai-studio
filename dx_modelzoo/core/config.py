@@ -2,7 +2,6 @@
 import os
 from pathlib import Path
 
-# ── 경로 계산 (dx_stream/core/config.py 패턴) ──
 SCRIPT_DIR = Path(__file__).resolve().parent.parent          # dx_modelzoo/
 SUITE_ROOT = SCRIPT_DIR.parent.parent                        # dx-all-suite/
 DX_APP_ROOT = Path(os.environ["DX_APP_ROOT"]) if os.environ.get("DX_APP_ROOT") \
@@ -22,7 +21,6 @@ TEMPLATES_DIR = SCRIPT_DIR / "templates"
 DATA_DIR = SCRIPT_DIR / "data"
 CATALOG_FILE = DATA_DIR / "model_catalog.json"
 
-# ── 서버 설정 ──
 DEFAULT_PORT = 8094
 # Inference is proxied to the dx_app server. The launcher may reassign dx_app to a
 # free port when 8080 is held by a foreign process, so honor DX_APP_PORT from the
@@ -33,7 +31,6 @@ except (TypeError, ValueError):
     DX_APP_PORT = 8080
 SERVER_NAME = "DX Model Zoo"
 
-# ── 22개 카테고리 (test_models.conf에서 확인된 실제 값) ──
 CATEGORIES = {
     "object_detection":     {"label_en": "Object Detection",      "label_ko": "객체 탐지",           "icon": "🎯"},
     "classification":       {"label_en": "Classification",        "label_ko": "분류",               "icon": "🏷️"},

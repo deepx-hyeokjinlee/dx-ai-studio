@@ -175,8 +175,6 @@ class DXStreamHandler(DXBaseHandler):
     templates_dir = TEMPLATES_DIR
     log_silent = True
 
-    # ── 헬퍼 ─────────────────────────────────────────────────
-
     def _error(self, code: int, error: str, message: str, detail: str = ""):
         """에러 JSON 응답 (원본 포맷 유지)."""
         payload = {"error": error, "message": message}
@@ -218,8 +216,6 @@ class DXStreamHandler(DXBaseHandler):
         if rfile is not None:
             rfile.read(length)
 
-    # ── 라우팅 ────────────────────────────────────────────────
-
     def route(self):
         if self.handle_chat_routes(_chat_engine):
             return
@@ -229,7 +225,6 @@ class DXStreamHandler(DXBaseHandler):
 
         path = self.url_path
 
-        # ── GET ───────────────────────────────────────────
         if self.command == "GET":
             if path == "/api/status":
                 return self.send_json(status.check_system(pipeline_mgr=_pipeline_mgr))
@@ -337,7 +332,6 @@ class DXStreamHandler(DXBaseHandler):
             if path.startswith("/api/"):
                 return self._error(404, "not_found", f"Unknown API endpoint: {path}")
 
-        # ── POST ──────────────────────────────────────────
         if self.command == "POST":
             if path.startswith("/api/demos/") and path.endswith("/start"):
                 return self._handle_demo_start(path)
@@ -421,8 +415,6 @@ class DXStreamHandler(DXBaseHandler):
             return self._error(404, "not_found", f"Unknown POST endpoint: {path}")
 
         self.route_legacy()
-
-    # ── POST 핸들러 ───────────────────────────────────────────
 
     def _handle_model_metadata(self, path: str):
         """모델 메타데이터 반환."""

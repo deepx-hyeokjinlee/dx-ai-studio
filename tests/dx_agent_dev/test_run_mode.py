@@ -11,7 +11,6 @@ def _src() -> str:
     return SRV.read_text()
 
 
-# ── 1. mode param is read from body ─────────────────────────────────────────
 
 def test_server_reads_mode_from_body():
     """Server must parse the 'mode' key from the JSON body."""
@@ -19,7 +18,6 @@ def test_server_reads_mode_from_body():
     assert 'body.get("mode")' in s, "server.py must read body.get(\"mode\")"
 
 
-# ── 2. wrap_autopilot_prompt is imported and used ───────────────────────────
 
 def test_server_imports_wrap_autopilot_prompt():
     """wrap_autopilot_prompt must be imported in server.py."""
@@ -39,7 +37,6 @@ def test_server_uses_wrap_autopilot_prompt_in_handler():
     )
 
 
-# ── 3. RunContext is constructed with autopilot=True in the autopilot branch ─
 
 def test_server_passes_autopilot_true_to_run_context():
     """RunContext must be constructed with autopilot=True when mode==autopilot."""
@@ -49,7 +46,6 @@ def test_server_passes_autopilot_true_to_run_context():
     )
 
 
-# ── 4. Autopilot branch forces is_followup=False (one-shot, no resume) ──────
 
 def test_autopilot_forces_no_resume():
     """Autopilot run must force is_followup=False so it is a clean one-shot.
@@ -93,7 +89,6 @@ def test_autopilot_context_contains_no_resume():
     )
 
 
-# ── 5. Interactive (default) path is unchanged ───────────────────────────────
 
 def test_interactive_path_still_uses_wrap_console_prompt():
     """The interactive path must still call wrap_console_prompt (unchanged behavior)."""

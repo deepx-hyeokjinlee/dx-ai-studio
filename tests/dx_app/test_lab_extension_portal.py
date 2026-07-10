@@ -101,7 +101,6 @@ def test_add_model_wizard_uses_dom_safe_rendering():
     assert "innerHTML" not in js
 
 
-# ── i18n helpers ──
 
 def _entry_body(src, key):
     m = re.search(r"['\"]" + re.escape(key) + r"['\"]\s*:\s*\{([\s\S]*?)\}", src)
@@ -195,7 +194,6 @@ def test_add_model_wizard_retries_lab_post_after_session_expiry():
     assert "labEnsureSession" in js
 
 
-# ── Task Wizard contract tests (Task 3.3) ──
 
 
 def test_task_wizard_uses_task_and_generated_endpoints():
@@ -286,7 +284,6 @@ def test_task_wizard_does_not_break_add_model_selectors():
     assert "btn-apply" in js
 
 
-# ── Code quality fixes (Task 3.3 review) ──
 
 
 def test_lab_get_retries_on_expired_session():
@@ -355,7 +352,6 @@ def test_task_apply_guards_current_manifest_before_marking_applied():
     assert "_currentManifest.status = 'applied'" in fn_body
 
 
-# ── Experiment Pipeline contract tests (Task 4.3) ──
 
 
 def test_experiment_pipeline_uses_start_get_cancel_endpoints():
@@ -504,7 +500,6 @@ def test_experiment_i18n_entries():
         _assert_four_language_entry(src, key)
 
 
-# ── Task 4.3 review fixes — contract tests ──
 
 
 def test_lab_get_retry_path_awaits_json():
@@ -576,7 +571,6 @@ def test_refresh_experiment_run_uses_inflight_guard():
     assert "_experimentInFlight = false;" in fn_body
 
 
-# ── Safety Center contract tests (Task 5.1) ──────────────────────────────────
 
 
 def test_safety_card_renders_manifest_list():

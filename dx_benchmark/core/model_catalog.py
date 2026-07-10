@@ -28,7 +28,6 @@ class ModelEntry:
 # Pattern: yolo26{size}.dxnn  OR  yolo26{size}-{suffix}.dxnn
 _MODEL_RE = re.compile(r"^yolo26([nslmx])(?:-(.+))?\.dxnn$")
 
-# sort keys
 _SIZE_ORDER = {s: i for i, s in enumerate(SIZES)}
 _TASK_ORDER = {k: i for i, k in enumerate(TASK_MAP.keys())}
 

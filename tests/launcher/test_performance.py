@@ -17,7 +17,6 @@ from urllib.request import urlopen
 
 import pytest
 
-# ─── Helper: load launcher module via importlib ────────────────────
 LAUNCHER_PY = Path(__file__).resolve().parent.parent.parent / "launcher" / "launcher.py"
 
 
@@ -37,7 +36,6 @@ def start_server(handler_cls):
     return server, f"http://127.0.0.1:{port}"
 
 
-# ─── Expected health keys ──────────────────────────────────────────
 EXPECTED_MODULE_KEYS = sorted([
     "app", "benchmark", "compiler", "monitor",
     "planner", "stream", "zoo", "agent",
@@ -45,7 +43,6 @@ EXPECTED_MODULE_KEYS = sorted([
 EXPECTED_ITEM_KEYS = {"port", "alive"}
 
 
-# ─── Test 1: /api/health shape + TTL caching ──────────────────────
 def test_health_response_shape_and_ttl_caching():
     """Health endpoint must return stable keys and cache port probes for 2 s."""
     launcher = load_launcher_module()
@@ -115,7 +112,6 @@ def test_health_response_shape_and_ttl_caching():
             server.server_close()
 
 
-# ─── Test 2: proxy forwards gzip static headers ───────────────────
 def test_proxy_preserves_gzip_headers():
     """Proxy must forward Content-Encoding: gzip and body unchanged for static."""
     launcher = load_launcher_module()
@@ -166,7 +162,6 @@ def test_proxy_preserves_gzip_headers():
             backend.server_close()
 
 
-# ─── Test 3: HTML injection remains uncompressed ──────────────────
 def test_proxy_html_injection_uncompressed():
     """Widget injection into HTML must produce uncompressed output."""
     launcher = load_launcher_module()
@@ -269,7 +264,6 @@ def test_proxy_reloads_hw_widget_when_widget_file_changes(tmp_path):
             backend.server_close()
 
 
-# ─── Test 4: SSE timeout source assertion ─────────────────────────
 def test_sse_proxy_timeout_extended():
     """SSE proxy timeout must be 300 s, not the default 30 s."""
     source = LAUNCHER_PY.read_text(encoding="utf-8")

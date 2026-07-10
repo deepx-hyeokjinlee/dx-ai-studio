@@ -37,9 +37,6 @@ def _css_rule(source, selector):
     return re.sub(r"\s+", "", match.group(1))
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Task 3.1 — Breadcrumb / Selection / Search Summary helpers
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 class TestBreadcrumbAndSelectionContracts:
@@ -181,9 +178,6 @@ class TestSdkSelectionHighlightContracts:
         assert "box-shadow:" not in rule
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Task 3.3 — Retry and Search Summary contracts
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 class TestRetryContracts:
@@ -277,9 +271,6 @@ class TestSearchSummaryLocalization:
         assert "_t(" in body, "renderSearchSummary must use _t() for localization"
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Wave 4D — Release-visible console.log noise must be gated
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 @pytest.fixture()
@@ -316,9 +307,6 @@ class TestReleaseConsoleLogGating:
             )
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Task 2.2 — SDK Escape propagation contracts
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 class TestSdkEscapePropagation:
@@ -354,9 +342,6 @@ class TestSdkEscapePropagation:
         )
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Task 2.2 — SDK overlay state must be exposed for launcher isolation
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 class TestSdkOverlayStateExposed:

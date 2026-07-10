@@ -11,7 +11,6 @@ from dx_modelzoo.metadata._protocol import AdapterResult
 from dx_modelzoo.metadata.normalization import canonical_model_id, normalize_source_value
 
 
-# ── helpers ──
 
 
 def _utcnow_iso():
@@ -30,7 +29,6 @@ def _adapter_result(adapter, profile="default") -> AdapterResult:
     }
 
 
-# ── local runtime adapter ──
 
 
 def _find_example_dir(base, task_dir_name, model_dir_name):
@@ -73,7 +71,6 @@ def local_runtime_adapter(suite_root) -> AdapterResult:
     registry_path = suite_root / "dx-runtime" / "dx_app" / "config" / "model_registry.json"
     manifest_path = suite_root / "dx-runtime" / "dx_app" / "scripts" / "modelzoo_manifest.json"
 
-    # registry 로드
     try:
         registry = json.loads(registry_path.read_text(encoding="utf-8"))
     except Exception as exc:
@@ -81,7 +78,6 @@ def local_runtime_adapter(suite_root) -> AdapterResult:
         result["errors"].append(f"registry load failed: {exc}")
         return result
 
-    # manifest 로드 → name → entry 매핑
     manifest_by_name = {}
     try:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -119,7 +115,6 @@ def local_runtime_adapter(suite_root) -> AdapterResult:
             "technical.config": reg.get("config"),
         }
 
-        # manifest에서 artifact URL 매핑
         manifest_entry = (
             manifest_by_name.get(original_name)
             or manifest_by_name.get(model_name)
@@ -136,7 +131,6 @@ def local_runtime_adapter(suite_root) -> AdapterResult:
         if json_url:
             entry["artifacts.qlite_json.remote_url"] = json_url
 
-        # 로컬 dxnn 경로
         if dxnn_file:
             dxnn_rel = str(dxnn_file).lstrip("/\\")
             local_rel_path = Path("models") / dxnn_rel
@@ -144,7 +138,6 @@ def local_runtime_adapter(suite_root) -> AdapterResult:
             entry["artifacts.qlite_dxnn.local_path"] = local_rel_path.as_posix()
             entry["artifacts.qlite_dxnn.local_exists"] = local_path.exists()
 
-        # example 디렉토리
         example_dir = _task_to_example_dir(task)
         if example_dir:
             cpp_ex = _find_example_dir(cpp_example_root, example_dir, model_name)
@@ -159,7 +152,6 @@ def local_runtime_adapter(suite_root) -> AdapterResult:
     return result
 
 
-# ── internal table HTML parser (delegated to _html_parser) ──
 
 from dx_modelzoo.metadata._html_parser import (  # noqa: E402
     _ARTIFACT_JOIN_SCORES,
@@ -259,7 +251,6 @@ def public_modelzoo_adapter(suite_root, publish_url=_PUBLIC_MODELZOO_URL, fetch_
     return result
 
 
-# ── benchmark cache adapter ──
 
 
 def benchmark_cache_adapter(cache_path) -> AdapterResult:
@@ -303,7 +294,6 @@ def benchmark_cache_adapter(cache_path) -> AdapterResult:
     return result
 
 
-# ── local dx-modelzoo repo adapter ──
 
 # DatasetType enum → 사람이 읽을 수 있는 값 매핑
 _DATASET_TYPE_MAP = {
@@ -348,7 +338,6 @@ _RE_NAME_POSITIONAL = re.compile(
     r'name\s*=\s*"([^"]*)"'
 )
 
-# ModelInfo 시작 위치 탐지
 _RE_MODELINFO_START = re.compile(r"ModelInfo\s*\(")
 
 
@@ -423,12 +412,10 @@ def _parse_modelinfo_block(block):
     """ModelInfo(...) 내부 블록에서 필드 추출."""
     fields = {}
 
-    # name= 추출
     name_m = _RE_NAME_POSITIONAL.search(block)
     if name_m:
         fields["_name"] = name_m.group(1)
 
-    # 문자열 필드
     for m in _RE_FIELD_STR.finditer(block):
         key, val = m.group(1), m.group(2)
         if key == "name":
@@ -444,7 +431,6 @@ def _parse_modelinfo_block(block):
         elif key == "source":
             fields["legal.source_url"] = val
 
-    # None 필드 처리
     for m in _RE_FIELD_NONE.finditer(block):
         key = m.group(1)
         if key == "q_pro_performance":
@@ -454,7 +440,6 @@ def _parse_modelinfo_block(block):
         elif key == "source":
             fields.setdefault("legal.source_url", None)
 
-    # enum 필드
     for m in _RE_FIELD_ENUM.finditer(block):
         key, enum_cls, enum_val = m.group(1), m.group(2), m.group(3)
         if key == "dataset" and enum_cls == "DatasetType":

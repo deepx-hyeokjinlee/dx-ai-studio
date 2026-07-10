@@ -81,7 +81,6 @@ def _read_benchmark_file(relative: str) -> str:
     return (root / relative).read_text(encoding="utf-8")
 
 
-# ── Health ──
 
 def test_health(server):
     data = _get("/api/health")
@@ -93,21 +92,18 @@ def test_hb(server):
     assert data["ok"] is True
 
 
-# ── Dataset ──
 
 def test_dataset(server):
     data = _get("/api/dataset")
     assert "environments" in data
 
 
-# ── Results List ──
 
 def test_results_list(server):
     data = _get("/api/results")
     assert isinstance(data, list)
 
 
-# ── Config ──
 
 def test_config_get(server):
     data = _get("/api/config")
@@ -174,7 +170,6 @@ def test_config_get_includes_runtime_parameters(server):
 
 
 
-# ── Index Page ──
 
 def test_index_serves_html(server):
     body, status = _get_raw("/")
@@ -182,7 +177,6 @@ def test_index_serves_html(server):
     assert "<!DOCTYPE html>" in body or "<html" in body
 
 
-# ── 404 ──
 
 def test_unknown_path_404(server):
     with pytest.raises(urllib.error.HTTPError) as exc_info:
@@ -190,7 +184,6 @@ def test_unknown_path_404(server):
     assert exc_info.value.code == 404
 
 
-# ── Static Assets ──
 
 def test_local_css_served(server):
     body, status = _get_raw("/static/css/style.css")
@@ -212,7 +205,6 @@ def test_shared_font_served(server):
     assert "font" in content_type or content_type == "application/octet-stream"
 
 
-# ── Top-Level Tabs ──
 
 def test_benchmark_top_level_tabs_are_preserved(server):
     body, status = _get_raw("/")
@@ -226,7 +218,6 @@ def test_benchmark_top_level_tabs_are_preserved(server):
     assert 'data-tab="run"' not in body
 
 
-# ── Workspace Layout Contracts ──
 
 def test_benchmark_dashboard_workspace_contracts():
     dashboard_js = _read_benchmark_file("static/js/dashboard.js")
@@ -277,7 +268,6 @@ def test_benchmark_results_workspace_contracts():
     assert "_escHtml(JSON.stringify(data, null, 2))" in results_js
 
 
-# ── Legacy Results Fallback ──
 
 @pytest.fixture()
 def legacy_results_env(tmp_path):

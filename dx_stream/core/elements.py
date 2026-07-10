@@ -459,8 +459,6 @@ def _with_detail(element: dict) -> dict:
     detailed.update(_ELEMENT_DETAILS.get(element["name"], {}))
     return detailed
 
-# ── 연결 검증 규칙 ──
-
 CONNECTION_RULES = {
     "source":        {"has_input": False, "has_output": True,  "allowed_next": ["utility", "preprocess"]},
     "preprocess":    {"has_input": True,  "has_output": True,  "allowed_next": ["inference", "preprocess", "utility"]},

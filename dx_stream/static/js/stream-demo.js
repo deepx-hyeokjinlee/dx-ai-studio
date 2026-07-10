@@ -210,7 +210,6 @@ DXStream._startDemo = async function (id) {
                 // 영상 영역으로 자동 스크롤
                 videoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
-                // WebRTC fallback
                 var video = DXStream.$('webrtc-video');
                 if (video) DXStream.webrtc.connect(video);
             }

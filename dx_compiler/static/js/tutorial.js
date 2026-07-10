@@ -13,7 +13,6 @@
 (function () {
   'use strict';
 
-  // ─── 헬퍼: 위자드 열기 + 특정 스텝으로 이동 ───
   function openWizardStep(step) {
     var wiz = document.getElementById('config-wizard');
     if (wiz) wiz.style.display = 'flex';
@@ -50,7 +49,6 @@
     return function () { _scrollTo(sel); };
   }
 
-  // ─── Tutorial 1: Quick Start ─────────────────
   var quickStartSteps = [
     { target: '#header', position: 'bottom',
       title: { en: 'Welcome', ko: 'DX Compiler에 오신 걸 환영합니다', ja: 'ようこそ', 'zh-CN': '欢迎', 'zh-TW': '歡迎', es: 'Bienvenido' },
@@ -107,7 +105,6 @@
       content: { en: 'Ask the AI assistant for help.', ko: '궁금한 점은 AI 도우미에게 질문하세요.', ja: 'AIアシスタントに質問してください。', 'zh-CN': '向AI助手寻求帮助。', 'zh-TW': '向AI助手尋求協助。', es: 'Consulte al asistente de IA si necesita ayuda.' } },
   ];
 
-  // ─── Tutorial 2: Graph Viewer ────────────────
   var graphViewerSteps = [
     { target: '.viewer-panel', position: 'right', title: { en: 'Graph Viewer', ko: '그래프 뷰어', ja: 'グラフビューア', 'zh-CN': '图形查看器', 'zh-TW': '圖形檢視器', es: 'Visor de gráficos' }, content: { en: 'Visualize model graphs on the left panel.', ko: '좌측에서 모델 그래프를 시각화합니다.', ja: '左パネルでモデルグラフを視覚化します。', 'zh-CN': '在左侧面板中可视化模型图形。', 'zh-TW': '在左側面板中視覺化模型圖形。', es: 'Visualice los gráficos del modelo en el panel izquierdo.' } },
     { target: '.viewer-tab', position: 'bottom', title: { en: 'Phase Tabs', ko: '페이즈 탭', ja: 'フェーズタブ', 'zh-CN': '阶段选项卡', 'zh-TW': '階段標籤', es: 'Pestañas de fase' }, content: { en: 'Switch between Input/Prepared/Surgery/Partition/DXNN graphs and the Quant Diagnosis report tab.', ko: 'Input/Prepared/Surgery/Partition/DXNN 탭과 Quant Diagnosis 보고서 탭을 전환합니다.', ja: 'Input/Prepared/Surgery/Partition/DXNN グラフと量子化診断レポートタブを切り替えます。', 'zh-CN': '在 Input/Prepared/Surgery/Partition/DXNN 图形与量化诊断报告标签之间切换。', 'zh-TW': '在 Input/Prepared/Surgery/Partition/DXNN 圖形與量化診斷報告分頁之間切換。', es: 'Alterne entre los gráficos Input/Prepared/Surgery/Partition/DXNN y la pestaña de diagnóstico cuant.' } },
@@ -147,7 +144,6 @@
     { target: '#legend', position: 'left', title: { en: 'Legend', ko: '범례', ja: '凡例', 'zh-CN': '图例', 'zh-TW': '圖例', es: 'Leyenda' }, content: { en: 'Color legend for node types. Subgraphs can be individually toggled.', ko: '범례에서 노드 종류별 색상을 확인합니다. 서브그래프는 개별적으로 접기/펼치기할 수 있습니다.', ja: 'ノードタイプの色凡例です。サブグラフは個別に切り替えられます。', 'zh-CN': '节点类型的颜色图例。子图可以单独切换。', 'zh-TW': '節點類型的顏色圖例。子圖可以個別切換。', es: 'Leyenda de colores por tipo de nodo. Los subgrafos se pueden alternar individualmente.' } },
   ];
 
-  // ─── Tutorial 3: Config Wizard ───────────────
   var configWizardSteps = [
     { target: '#config_build_toggle', position: 'left',
       title: { en: 'Build Config', ko: '설정 생성', ja: '設定を生成', 'zh-CN': '生成配置', 'zh-TW': '產生設定', es: 'Build Config' },
@@ -197,7 +193,6 @@
       } },
   ];
 
-  // ─── Tutorial 4: Advanced ────────────────────
   var advancedSteps = [
     { target: '#opt_level', position: 'left', title: { en: 'Optimization', ko: '최적화 수준', ja: '最適化レベル', 'zh-CN': '优化级别', 'zh-TW': '最佳化等級', es: 'Optimización' }, content: { en: 'Choose Standard (0) or Advanced (1) optimization level.', ko: '최적화 수준을 Standard(0) 또는 Advanced(1)로 선택합니다.', ja: 'Standard(0)またはAdvanced(1)の最適化レベルを選択します。', 'zh-CN': '选择Standard(0)或Advanced(1)优化级别。', 'zh-TW': '選擇Standard(0)或Advanced(1)最佳化等級。', es: 'Elija el nivel de optimización Standard (0) o Advanced (1).' } },
     { target: '#aggressive_partitioning', position: 'left', title: { en: 'Partitioning', ko: '파티셔닝', ja: 'パーティショニング', 'zh-CN': '分区', 'zh-TW': '分區', es: 'Particionado' }, content: { en: 'Check to remove NPU task count limit.', ko: '체크하면 NPU 태스크 수 제한을 해제합니다.', ja: 'チェックするとNPUタスク数の制限が解除されます。', 'zh-CN': '勾选以移除NPU任务数量限制。', 'zh-TW': '勾選以移除NPU工作數量限制。', es: 'Marque para eliminar el límite de tareas NPU.' } },
@@ -244,7 +239,6 @@
       beforeStep: function () { openResumeCard(); } },
   ];
 
-  // ─── Tutorial 5: Agentic Auto Compile ────────
   var agenticAutoCompileSteps = [
     { target: '#agentic-agent-select', position: 'left',
       title: { ko: '에이전트 자동 컴파일', en: 'Agentic Auto Compile', ja: 'エージェント自動コンパイル', 'zh-CN': '智能体自动编译', 'zh-TW': '智能體自動編譯', es: 'Compilación con agente' },
@@ -257,7 +251,6 @@
       content: { ko: '에이전트가 각 단계마다 확인을 거치며 대화형으로 진행합니다. 세밀한 제어가 필요할 때 사용하세요.', en: 'The agent proceeds interactively, confirming at each step. Use this for finer control.', ja: 'エージェントが各ステップで確認しながら対話型で進みます。細かい制御が必要な場合に使用してください。', 'zh-CN': '智能体在每个步骤进行确认，以交互方式进行。需要精细控制时使用。', 'zh-TW': '智能體在每個步驟進行確認，以互動方式進行。需要精細控制時使用。', es: 'El agente avanza de forma interactiva, confirmando en cada paso. Úselo para un control más preciso.' } },
   ];
 
-  // ─── Tutorial 6: AI Assist ───────────────────
   var aiAssistSteps = [
     { target: '.dx-chat-fab', position: 'top',
       title: { en: 'AI Assistant', ko: 'AI 도우미', ja: 'AIアシスタント', 'zh-CN': 'AI 助手', 'zh-TW': 'AI 助手', es: 'Asistente de IA' },
@@ -271,7 +264,6 @@
       } },
   ];
 
-  // ─── DXTutorial.create() 호출 ───────────────
   function getLang() {
     return (window.DXI18n && DXI18n.lang) ? DXI18n.lang : (localStorage.getItem('dx-lang') || 'en');
   }

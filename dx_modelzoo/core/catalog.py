@@ -129,7 +129,6 @@ def _representative_input(model_id, category):
     return MODEL_IMAGE_OVERRIDE.get(model_id) or SAMPLE_IMAGES.get(category) or None
 
 
-# ── 생성된 카탈로그 경로 ──
 GENERATED_CATALOG_CACHE = DATA_DIR / "generated_catalog.cache.json"
 GENERATED_CATALOG_JSON = DATA_DIR / "generated_catalog.json"
 
@@ -525,7 +524,6 @@ def count_by_category(models):
     return dict(counts)
 
 
-# ── 글로벌 캐시 (서버 시작 시 로드) ──
 _catalog_cache = None
 _catalog_lock = threading.RLock()
 

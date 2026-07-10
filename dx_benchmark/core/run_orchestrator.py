@@ -146,7 +146,6 @@ def _backfill_from_raw_logs(results: list[dict], raw_dir: Path, category: str) -
     return patched
 
 
-# ── Backfill fps_std from raw run logs ───────────────────────────────────
 
 def _parse_run_log_filename(name: str) -> tuple[str, str, str, int | None] | None:
     """Extract (model, category, ort_tag, stream_count) from a .log filename.
@@ -266,7 +265,6 @@ def _backfill_fps_std(results: list[dict], raw_dir: Path, category: str) -> int:
     return patched
 
 
-# ── Backfill multi-stream sc=1 from single-stream results ───────────────
 
 # Fields to copy from single-stream results into sc=1 multi-stream entries
 _SC1_BACKFILL_FIELDS = [

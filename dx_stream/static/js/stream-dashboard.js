@@ -130,11 +130,9 @@ function _updatePerfTable(data) {
         if (DXStream._perfHistory.npu.length > _PERF_MAX_POINTS) DXStream._perfHistory.npu.shift();
     }
 
-    // averages & max
     _updatePerfAggregates('fps', DXStream._perfHistory.fps, '');
     _updatePerfAggregates('npu', DXStream._perfHistory.npu, '%');
 
-    // draw sparklines
     _drawSparkline('chart-fps', DXStream._perfHistory.fps, 0, 60, '#3FB950');
     _drawSparkline('chart-npu', DXStream._perfHistory.npu, 0, 100, '#8b5cf6');
 }
@@ -168,7 +166,6 @@ function _drawSparkline(canvasId, data, minVal, maxVal, color) {
 
     ctx.clearRect(0, 0, w, h);
 
-    // fill area
     ctx.beginPath();
     ctx.moveTo(0, h);
     for (var i = 0; i < data.length; i++) {
@@ -183,7 +180,6 @@ function _drawSparkline(canvasId, data, minVal, maxVal, color) {
     ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',0.12)';
     ctx.fill();
 
-    // line
     ctx.beginPath();
     for (var j = 0; j < data.length; j++) {
         var lx = j * step;

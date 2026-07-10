@@ -1,4 +1,3 @@
-# dx_agent_dev/core/adapters/mock.py
 """결정적 이벤트 시퀀스 — 폐쇄망 계약 검증용(기존 동작 보존)."""
 from core.adapters.base import AgentAdapter
 

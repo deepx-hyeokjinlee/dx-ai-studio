@@ -1011,7 +1011,6 @@
         });
     }
 
-    // ── Search ─────────────────────────────────────────────────────
 
     function setupSearch() {
         var input = document.getElementById('search-input');
@@ -1128,7 +1127,6 @@
             }
         }
 
-        // ── Tensor matches ──
         var tensorMatches = [];
         if (graphData) {
             var tensorInfo = graphData.tensor_info || {};
@@ -1303,7 +1301,6 @@
         }
     }
 
-    // ── Explorer ─────────────────────────────────────────────────
 
     function setupExplorer() {
         var toggleBtn = document.getElementById('explorer-toggle');
@@ -1456,7 +1453,6 @@
         }
     }
 
-    // ── Keyboard shortcuts ───────────────────────────────────────
 
     function setupKeyboardShortcuts() {
         document.addEventListener('keydown', function(e) {

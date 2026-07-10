@@ -20,14 +20,12 @@ os.environ.pop("DX_AUTH_STATE_FILE", None)
 import launcher.launcher as lmod
 
 
-# ── Helpers ────────────────────────────────────────────────────────
 
 def _get(base, path, headers=None):
     req = urllib.request.Request(f"{base}{path}", headers=headers or {})
     return urllib.request.urlopen(req, timeout=5)
 
 
-# ── Fixtures ───────────────────────────────────────────────────────
 
 @pytest.fixture()
 def live_server(monkeypatch):
@@ -48,7 +46,6 @@ def live_server(monkeypatch):
     srv.server_close()
 
 
-# ── Tests ──────────────────────────────────────────────────────────
 
 def test_proxy_preserves_reverse_proxy_forwarded_host(live_server, monkeypatch):
     observed = {}

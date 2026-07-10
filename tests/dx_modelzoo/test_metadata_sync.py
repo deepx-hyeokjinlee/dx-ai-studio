@@ -17,7 +17,6 @@ ROOT = Path(__file__).resolve().parents[2]
 SUITE_ROOT = ROOT.parent
 
 
-# ── Task 1.1: schema / normalization ──
 
 
 def test_metadata_status_enum_contains_required_states():
@@ -63,7 +62,6 @@ def test_normalize_source_value_preserves_real_values():
     assert normalize_source_value(0.0) is not None
 
 
-# ── Task 1.2: local runtime adapter ──
 
 
 from dx_modelzoo.metadata.adapters import local_runtime_adapter
@@ -156,7 +154,6 @@ def test_local_runtime_adapter_uses_dx_app_model_name_as_catalog_id(tmp_path):
     assert result["models"]["yolov7_w6"]["artifacts.qlite_dxnn.remote_url"].endswith("/YoloV7W6.dxnn")
 
 
-# ── Task 1.3: internal table & benchmark cache ──
 
 
 from dx_modelzoo.metadata.adapters import (
@@ -572,7 +569,6 @@ def test_benchmark_cache_adapter_reads_normalized_cache():
     assert yolo.get("performance.fps_per_watt") is None
 
 
-# ── Task 1.4: local modelzoo repo adapter ──
 
 
 from dx_modelzoo.metadata.adapters import (
@@ -690,7 +686,6 @@ def test_local_modelzoo_repo_adapter_reads_real_model_sources():
     )
 
 
-# ── Fix A: Balanced ModelInfo block extraction ──
 
 
 def test_modelinfo_with_parentheses_in_strings_extracts_all_fields():
@@ -730,7 +725,6 @@ class Broken:
     assert results == {}
 
 
-# ── Fix B: Stable parse_modelzoo_model_file API ──
 
 
 def test_parse_modelzoo_model_file_always_returns_dict_of_models():
@@ -772,7 +766,6 @@ class ModelB:
     assert results["modelbeta"]["specification.dataset"] == "COCO"
 
 
-# ── Fix C: Positive legal.source_url parser test ──
 
 
 def test_modelinfo_source_url_extraction():
@@ -793,7 +786,6 @@ class ResNet:
     assert results["resnet50"]["legal.source_url"] == "https://github.com/pytorch/vision"
 
 
-# ── Fix D: Empty canonical id guards ──
 
 
 def test_benchmark_cache_empty_model_id_is_skipped(tmp_path):
@@ -834,7 +826,6 @@ class Empty:
     assert len(results) == 0
 
 
-# ── Fix E: Error/warning path tests ──
 
 
 def test_benchmark_cache_adapter_missing_path(tmp_path):
@@ -868,7 +859,6 @@ def test_local_modelzoo_repo_adapter_missing_models_dir(tmp_path):
     assert len(result["errors"]) > 0
 
 
-# ── Fix I5: manifest entry missing name should not drop whole manifest tail ──
 
 
 def test_local_runtime_adapter_manifest_missing_name_skips_and_warns(tmp_path):
@@ -911,7 +901,6 @@ def test_local_runtime_adapter_manifest_missing_name_skips_and_warns(tmp_path):
     assert any("missing" in w and "name" in w for w in result["warnings"])
 
 
-# ── M1: explicit source=None path ──
 
 
 def test_modelinfo_source_none_yields_legal_source_url_none():
@@ -935,7 +924,6 @@ class NoSource:
     assert fields["legal.source_url"] is None
 
 
-# ── Task 2.1: merge engine tests ──
 
 
 from dx_modelzoo.metadata.merge import merge_adapter_results
@@ -986,7 +974,6 @@ def test_merge_generates_missing_status_and_editorial_text():
     assert model["content"]["use_case"]["en"]
 
 
-# ── Task 2.2: cache / profile / sync tests ──
 
 
 from dx_modelzoo.metadata.cache import atomic_write_json, load_catalog_cache
@@ -1101,7 +1088,6 @@ def test_offline_mode_skips_network_adapters():
     ]
 
 
-# ── C1: stale cache overwrites fresh local catalog ──
 
 
 def test_sync_network_failure_preserves_fresh_local_catalog(tmp_path):
@@ -1208,7 +1194,6 @@ def test_sync_all_adapters_fail_uses_stale_cache(tmp_path):
     assert model["performance"]["source_status"] == "stale_cache"
 
 
-# ── I2: _REQUIRED_PERF_FIELDS dead code → 활용 ──
 
 
 def test_missing_includes_fps_per_watt_when_absent():
@@ -1224,7 +1209,6 @@ def test_missing_includes_fps_per_watt_when_absent():
     assert "performance.fps_per_watt" in model["missing"]
 
 
-# ── I4 + m1: deterministic performance keys & artifact missing ──
 
 
 def test_merge_performance_defaults_to_none_when_absent():
@@ -1350,7 +1334,6 @@ def test_dash_placeholder_stripped_through_parse_and_merge():
     assert spec.get("input_width") == 0
 
 
-# ── Task 2: Quarantine suspicious Q-Lite accuracy values ──
 
 
 def test_modelinfo_block_quarantines_qlite_zero_accuracy():
@@ -1475,7 +1458,6 @@ def test_internal_table_quarantines_all_zero_accuracy_variants():
         assert model["evaluation.raw.suspect_value"] == zero_str, f"zero_str={zero_str}"
 
 
-# ── Task 3: coverage report and display metadata fields ──
 
 
 from dx_modelzoo.metadata.sync import run_sync
@@ -1551,7 +1533,6 @@ def test_display_fields_have_summary_and_category_label():
         assert model["display"]["category_label"], f"missing category_label for {model['id']}"
 
 
-# ── Task 4: config path alignment & TLS default ──
 
 
 def test_resolve_source_profile_reads_from_data_subdir(tmp_path):

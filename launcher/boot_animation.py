@@ -1,4 +1,3 @@
-# launcher/boot_animation.py
 """Terminal boot animation for DX AI Studio launcher.
 
 Provides ASCII art logo display and module boot progress bar.
@@ -9,7 +8,6 @@ import socket
 import sys
 import time
 
-# ANSI color codes
 _BLUE = '\033[38;5;69m'
 _BRIGHT_BLUE = '\033[38;5;111m'
 _CYAN = '\033[38;5;45m'

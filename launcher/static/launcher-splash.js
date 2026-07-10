@@ -1,9 +1,7 @@
-/* ─── DXLauncher Splash Module ────────────────────────── */
 
 (function() {
   var ns = window.DXLauncher;
 
-  /* ─── Module SVG Icons ─── */
   var _MODULE_ICONS = {
     app: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><circle cx="14" cy="10" r="1.5"/></svg>',
     stream: '<svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="5"/><circle cx="12" cy="10" r="2"/><path d="M4 18 Q8 14 12 16 Q16 18 20 14"/></svg>',
@@ -186,7 +184,6 @@
     initSplashV2();
   }
 
-  /* ─── Circuit Traces (SVG) ─── */
 
   function _createCircuitTraces() {
     var svg = document.getElementById('splashCircuits');
@@ -301,7 +298,6 @@
     collector.push({ path: path, delay: delay, d: d });
   }
 
-  /* ─── Particles ─── */
 
   function _createParticles(count) {
     var container = document.getElementById('splashParticles');
@@ -360,7 +356,6 @@
     };
   }
 
-  /* ─── Logo Assembly — Hologram Decode ─── */
 
   function _animateLogoGlitch() {
     var logo = document.getElementById('splashLogo');
@@ -429,7 +424,6 @@
     if (hud)  { hud.classList.add('locked'); }
   }
 
-  /* ─── Module Boot Sequence ─── */
 
   function _bootModule(mod, index) {
     var area = document.getElementById('splashModulesArea');
@@ -504,7 +498,6 @@
     }, 200));
   }
 
-  /* ─── Energy Gauge ─── */
 
   function _showEnergyGauge() {
     var ov = document.getElementById('splashOverlay');
@@ -539,7 +532,6 @@
     requestAnimationFrame(tick);
   }
 
-  /* ─── Core Activation + Energy Burst ─── */
 
   function _activateCore() {
     var gauge = document.querySelector('.energy-gauge');
@@ -631,7 +623,6 @@
     }, 1300));
   }
 
-  /* ─── Hero Splash ─── */
 
   function showHeroSplash() {
     var hero = document.getElementById('heroSplash');
@@ -657,7 +648,6 @@
     }
   }
 
-  // Exports
   ns.initSplashV2 = initSplashV2;
   ns.skipSplash = skipSplash;
   ns.replaySplash = replaySplash;

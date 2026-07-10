@@ -93,13 +93,11 @@ DXStream._pipeState = {
     _nextId: 1,
     _clipboard: [],      // 복사된 노드들
 
-    // interaction
     _drag: null,         // {nodeId, startX, startY, origX, origY} or {multi: true, startX, startY, origPositions: [{id, x, y}]}
     _pan: null,          // {startX, startY, origOX, origOY}
     _edge: null,         // {fromId, mx, my}  — drawing edge
     _connectable: null,  // {allow: [id], warn: [{id,reason}], block: [{id,reason}]}
 
-    // undo/redo
     _history: [],
     _historyIdx: -1,
 };

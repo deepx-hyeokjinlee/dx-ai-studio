@@ -10,7 +10,6 @@ MODULE_DIR = Path(__file__).resolve().parent.parent.parent / "dx_modelzoo"
 TEST_PORT = 18095
 
 
-# ── 단위 테스트: artifacts 모듈 ──
 
 
 def test_validate_artifact_id_accepts_known():
@@ -121,7 +120,6 @@ def test_validate_remote_url_rejects_non_https():
         raise AssertionError("expected ValueError")
 
 
-# ── 서버 엔드포인트 테스트 ──
 
 
 def _load_create_server():
@@ -154,7 +152,6 @@ def server():
     sys.modules.pop("server", None)
 
 
-# ── Issue 5: valid filenames containing '..' ──
 
 
 def test_safe_local_artifact_path_accepts_double_dot_in_filename(tmp_path):
@@ -168,7 +165,6 @@ def test_safe_local_artifact_path_accepts_double_dot_in_filename(tmp_path):
     assert result.name == "model..v2.dxnn"
 
 
-# ── Issue 2: internal URL must not be exposed via local profile ──
 
 
 def test_resolve_artifact_blocks_internal_host_even_with_local_profile():

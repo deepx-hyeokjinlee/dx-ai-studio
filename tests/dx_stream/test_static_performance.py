@@ -214,9 +214,7 @@ def test_webrtc_surfaces_stall_as_bus_error_state():
     assert "_clearError()" in stats_body
 
 
-# ═══════════════════════════════════════════════════════
 # Task 4.3: Stream Pipeline Split — 계약 테스트
-# ═══════════════════════════════════════════════════════
 
 def test_stream_pipeline_split_files_exist():
     """분할된 파이프라인 JS 파일이 모두 존재한다."""
@@ -335,9 +333,6 @@ def test_stream_pipeline_bootstrap_preserves_init_promise_chain():
     assert "await _origPipelineInit();" in body
 
 
-# ═══════════════════════════════════════════════════════
-# WebRTC-first output: frontend dual-mode contracts
-# ═══════════════════════════════════════════════════════
 
 
 def test_stream_demo_dispatches_webrtc_connect_for_webrtc_mode():
@@ -379,9 +374,7 @@ def test_stream_pipeline_api_dispatches_webrtc_for_webrtc_mode():
     assert "output_mode === 'webrtc'" in source or "output_mode === 'mjpeg'" in source
 
 
-# ═══════════════════════════════════════════════════════
 # Task 7: Setup UI — split download 옵션 제거 검증
-# ═══════════════════════════════════════════════════════
 
 
 def test_stream_setup_no_longer_sends_model_video_split_options():
@@ -398,9 +391,7 @@ def test_stream_setup_template_hides_split_download_options():
     assert 'id="setup-opt-videos"' not in html
 
 
-# ═══════════════════════════════════════════════════════
 # Task 9: Demo/Model filter & availability reason 검증
-# ═══════════════════════════════════════════════════════
 
 
 def test_stream_demo_filters_match_dev_runtime_surface():

@@ -1,4 +1,3 @@
-/* DX Monitor — Utility functions */
 const _cs = getComputedStyle(document.documentElement);
 const _cv = k => _cs.getPropertyValue(k).trim();
 const $ = id => document.getElementById(id);

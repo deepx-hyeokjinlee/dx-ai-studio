@@ -14,9 +14,6 @@ ROOT = Path(__file__).resolve().parents[2]
 from dx_planner.core.aggregator import aggregate_benchmarks
 
 
-# ---------------------------------------------------------------------------
-# helpers
-# ---------------------------------------------------------------------------
 
 def _make_environment(d: Path, npu_sku: str = "M1A", hostname: str = "test-host", npu_extra: dict | None = None):
     """환경 JSON 파일 생성."""
@@ -90,9 +87,6 @@ def _setup_platform(results_dir: Path, folder: str, run_name: str = "20250101_ru
     return run_dir
 
 
-# ---------------------------------------------------------------------------
-# tests
-# ---------------------------------------------------------------------------
 
 
 class TestAggregatorMissingDir:

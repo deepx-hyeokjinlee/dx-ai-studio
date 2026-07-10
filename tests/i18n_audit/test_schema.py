@@ -53,7 +53,6 @@ def test_coverage_state_tracks_locale_evidence():
     assert state.to_dict()["locales_checked"] == ["en", "ja", "ko", "es", "zh-CN", "zh-TW"]
 
 
-# --- Immutability & hashability tests ---
 
 def _make_record(**overrides):
     defaults = dict(

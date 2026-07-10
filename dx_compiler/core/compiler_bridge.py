@@ -18,11 +18,8 @@ import inspect
 from collections import deque
 from typing import Any, Dict, List, Optional, Set
 
-# ---------------------------------------------------------------------------
-# Internal registry — maps logical names to (encoded_module, attribute).
 # Module paths are stored as reversed dot-separated strings to avoid
 # appearing as greppable import paths in source or .pyc constant pools.
-# ---------------------------------------------------------------------------
 def _e(s: str) -> str:
     """Encode a module path (reverse characters)."""
     return s[::-1]
@@ -53,17 +50,13 @@ def _resolve(name: str) -> Any:
     return obj
 
 
-# ---------------------------------------------------------------------------
 # Hardcoded constants — previously imported from dx_com.phase.constant.Params
-# ---------------------------------------------------------------------------
 INPUT_NODES = "input_nodes"
 OUTPUT_NODES = "output_nodes"
 
 
-# ---------------------------------------------------------------------------
 # Compile-error masking: the web failure banner shows a fixed, user-safe
 # message instead of the raw compiler exception text.
-# ---------------------------------------------------------------------------
 MASKED_COMPILE_ERROR = "Error occurred during compilation. Please refer to the error log in the CLI window below."
 
 
@@ -72,11 +65,9 @@ def mask_compile_error(exc: BaseException) -> str:
     return MASKED_COMPILE_ERROR
 
 
-# ---------------------------------------------------------------------------
 # Hardcoded graph utilities — previously imported from dx_com.phase.utils
 # These operate on dx_com internal Node objects (with .inputs, .outputs,
 # .producer, .consumers attributes) received via the compile callback.
-# ---------------------------------------------------------------------------
 
 def validate_target_nodes(target_node_set: Set[str], node_map: Dict) -> Set[str]:
     """Validate target nodes exist in graph and return existing targets."""
@@ -129,9 +120,6 @@ def collect_upstream_nodes(existing_targets: Set[str], node_map: Dict) -> Set[st
     return visited
 
 
-# ---------------------------------------------------------------------------
-# Public API — thin wrappers that provide typed access.
-# ---------------------------------------------------------------------------
 
 def run_compile(
     *,

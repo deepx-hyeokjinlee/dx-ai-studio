@@ -1,7 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════
-   Launcher — Tutorial Integration
-   Tutorial Mode ON/OFF toggle + iframe messaging
-   ═══════════════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
@@ -57,7 +53,6 @@
       ] }
   ];
 
-  /* ── Tutorial Mode toggle ── */
   function toggleTutorialMode() {
     _tutorialMode = !_tutorialMode;
     localStorage.setItem('dx-tutorial-mode', _tutorialMode ? 'on' : 'off');
@@ -92,7 +87,6 @@
     }
   }
 
-  /* ── Build Tutorial Card in landing page ── */
   function buildTutorialCard() {
     // orbital 레이아웃: footer 위에 삽입
     const footer = document.querySelector('.landing-footer');
@@ -177,7 +171,6 @@
     }
   }
 
-  /* ── Add tutorial toggle to nav bar ── */
   function addNavTutorialBtn() {
     const topRight = document.querySelector('.top-bar-right');
     if (!topRight) return;
@@ -190,7 +183,6 @@
     topRight.insertBefore(btn, topRight.firstChild);
   }
 
-  /* ── When iframe loads an app, send tutorial state ── */
   function hookIframeLoad() {
     const iframe = document.getElementById('appIframe');
     if (!iframe) return;
@@ -254,7 +246,6 @@
     startWhenShellReady();
   }
 
-  /* ── Init ── */
   function init() {
     buildTutorialCard();
     // addNavTutorialBtn() — DXToolbar v2 handles this
@@ -269,7 +260,6 @@
     init();
   }
 
-  // Expose for external use
   window._dxTutorialMode = {
     toggle: toggleTutorialMode,
     isOn: () => _tutorialMode

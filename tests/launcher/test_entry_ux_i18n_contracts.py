@@ -20,7 +20,6 @@ STATIC = Path(__file__).resolve().parents[2] / "launcher" / "static"
 REQUIRED_LANGS = {"en", "ko", "ja", "zh-CN", "zh-TW", "es"}
 
 
-# ─── helpers ───────────────────────────────────────────────────────────────
 
 def assert_lang_map(value, path: str):
     """Assert value is a dict with all REQUIRED_LANGS as keys with non-empty values."""
@@ -58,7 +57,6 @@ def _read_js(filename: str) -> str:
     return (STATIC / filename).read_text(encoding="utf-8")
 
 
-# ─── sdk-library-data.json contracts ───────────────────────────────────────
 
 class TestSdkLibraryDataLangMaps:
     """Drawer and section labels must be complete 5-language maps."""
@@ -109,7 +107,6 @@ class TestSdkLibraryDataLangMaps:
                             f"drawers[{i}].sections[{j}].files[{k}] missing field '{key}'"
 
 
-# ─── about-data.json contracts ─────────────────────────────────────────────
 
 class TestAboutDataLangMaps:
     """Recursively check that any dict keyed by language codes is complete."""
@@ -131,7 +128,6 @@ class TestAboutDataLangMaps:
             assert_lang_map(stat["label"], f"about-data.hero.stats[{i}].label")
 
 
-# ─── launcher-app-frame.js contracts ───────────────────────────────────────
 
 class TestLauncherAppFrameContracts:
     @pytest.fixture(scope="class")
@@ -178,7 +174,6 @@ class TestLauncherAppFrameContracts:
             assert f'id="{label_id}"' in html, f"missing {label_id} in index.html"
 
 
-# ─── about-deepx.js contracts ──────────────────────────────────────────────
 
 class TestAboutDeepXContracts:
     @pytest.fixture(scope="class")
@@ -209,7 +204,6 @@ class TestAboutDeepXContracts:
         assert "about-news-link" in source
 
 
-# ─── sdk-library.js contracts ──────────────────────────────────────────────
 
 class TestSdkLibraryJsContracts:
     @pytest.fixture(scope="class")
@@ -253,7 +247,6 @@ class TestSdkLibraryJsContracts:
             "applyQuery must check parsed._malformedDoc to surface invalid doc paths"
 
 
-# ─── SDK Library History Policy Contracts ──────────────────────────────────
 
 class TestSdkLibraryHistoryPolicy:
     """SDK Library interactions must use correct push/replace semantics."""
@@ -318,7 +311,6 @@ class TestSdkLibraryHistoryPolicy:
         assert "DXI18n.onLangChange" in source
 
 
-# ─── SDK Library encoding & viewer close contracts ─────────────────────────
 
 class TestSdkLibraryEncodingContracts:
     """openBookViewer must NOT double-encode; _serializeSdkQuery encodes once."""
@@ -421,7 +413,6 @@ class TestSdkLibraryViewerCloseContracts:
             "Escape key in viewer must call closeBookViewer() without suppressing URL update"
 
 
-# ─── index.html contracts ──────────────────────────────────────────────────
 
 class TestIndexHtmlContracts:
     @pytest.fixture(scope="class")
@@ -454,7 +445,6 @@ class TestIndexHtmlContracts:
         ), "Language sync must use broadcastToModuleIframes or active appIframe"
 
 
-# ─── SDK Library Chrome i18n Contracts (Task 2.2) ──────────────────────────
 
 class TestSdkLibraryChromeI18n:
     """SDK-specific topbar titles and visible chrome must use _t() i18n wrapper.
@@ -581,7 +571,6 @@ class TestAboutDeepXChromeI18n:
             "Retry text must use T({ en: 'Retry' })"
 
 
-# ─── SDK Library Visible State Contracts (Task 2.3) ─────────────────────────
 
 class TestSdkLibraryVisibleStates:
     """SDK Library must have visible not-found, empty-search, and error states."""
@@ -704,7 +693,6 @@ class TestSdkLibraryVisibleStates:
         assert ".sdk-error" in css
 
 
-# ─── Shared toolbar handoff leak guard contracts ───────────────────────────
 
 class TestToolbarHandlerLeakGuard:
     """SDK must not keep legacy toolbar handlers after shared toolbar handoff."""
@@ -750,7 +738,6 @@ class TestToolbarHandlerLeakGuard:
         assert "stop" in sdk_tutorial_source
 
 
-# ─── Viewer close title refresh contracts ──────────────────────────────────
 
 class TestViewerCloseTitleRefresh:
     """Viewer close button title must be refreshed on language change via helper."""
@@ -800,7 +787,6 @@ class TestViewerCloseTitleRefresh:
             "initSdkLibrary must call _refreshViewerChrome"
 
 
-# ─── searchListView content card match tracking contracts ──────────────────
 
 class TestSearchListViewCardTracking:
     """searchListView must track content card matches separately from sidebar."""
@@ -850,9 +836,6 @@ class TestSearchListViewCardTracking:
             "Must not use a single anyMatch for both sidebar and content empty-state decision"
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Wave 2D — Release readiness: html lang, orbital a11y, SDK Spanish, splash Spanish
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 class TestWave2D_HtmlLangDefault:
@@ -993,7 +976,6 @@ class TestWave2D_SplashSpanishSpans:
         )
 
 
-# ─── Wave 3A: About subtitle localization ────────────────────────────────
 
 
 class TestAboutSubtitleLocalization:
@@ -1027,7 +1009,6 @@ class TestAboutSubtitleLocalization:
             )
 
 
-# ─── Wave 3A: No visible 'Coming Soon' placeholder ──────────────────────
 
 
 class TestNoComingSoonPlaceholder:
@@ -1056,7 +1037,6 @@ def _find_coming_soon(obj, path, errors):
             _find_coming_soon(item, f"{path}[{i}]", errors)
 
 
-# ─── Wave 3A: _aboutHasActivePanel must not be hardcoded false ───────────
 
 
 class TestAboutHasActivePanelNotHardcoded:
@@ -1095,12 +1075,8 @@ class TestAboutHasActivePanelNotHardcoded:
         )
 
 
-# ─── Wave 3A: Escape in About with active panel calls closeAboutPanel ────
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Task 2.2 — Keyboard accessibility contracts
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 class TestAboutBookCardKeyboardAccess:
@@ -1240,9 +1216,6 @@ class TestEscapeAboutActivePanel:
         )
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-# Launcher Escape must defer to SDK viewer/overlay before goHome
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 class TestLauncherEscapeDefersToSdk:

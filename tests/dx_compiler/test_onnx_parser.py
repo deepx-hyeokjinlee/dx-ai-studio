@@ -5,9 +5,6 @@ from onnx import AttributeProto, TensorProto, helper
 from dx_compiler.core.onnx_parser import parse_onnx_model
 
 
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
 
 def _make_model(nodes, inputs=None, outputs=None, name="test_graph"):
     inputs = inputs or [helper.make_tensor_value_info("X", TensorProto.FLOAT, [1, 3, 4, 4])]
@@ -27,9 +24,6 @@ def _edges_between(result, from_node, to_node):
     ]
 
 
-# ---------------------------------------------------------------------------
-# Identity bypass tests
-# ---------------------------------------------------------------------------
 
 class TestIdentityBypass:
     """Identity nodes with 1 non-empty input and 1 output should be bypassed."""
@@ -152,9 +146,6 @@ class TestIdentityBypass:
         assert "Identity" in _op_types(result)
 
 
-# ---------------------------------------------------------------------------
-# NodeGroup subgraph tests
-# ---------------------------------------------------------------------------
 
 def _make_nodegroup_model(subgraph_nodes, subgraph_inputs=None, subgraph_outputs=None):
     """Create a model with a NodeGroup_npu node containing a subgraph."""

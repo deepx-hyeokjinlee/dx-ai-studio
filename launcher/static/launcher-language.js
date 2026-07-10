@@ -1,4 +1,3 @@
-/* ─── DXLauncher Language Module ──────────────────────── */
 
 (function() {
   var ns = window.DXLauncher;
@@ -74,7 +73,6 @@
     selectLang(e.data.lang);
   });
 
-  // Exports
   ns._lt = _lt;
   ns.selectLang = selectLang;
   ns.syncLangFromStorage = syncLangFromStorage;

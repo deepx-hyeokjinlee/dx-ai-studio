@@ -11,13 +11,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-# ── Project root paths ─────────────────────────────────────────────────────
 # dx_benchmark/core/ → dx_benchmark/ → dx-ai-studio/ → dx-all-suite/
 _STUDIO_DIR = Path(__file__).resolve().parent.parent
 _SUITE_DIR = _STUDIO_DIR.parent
 ROOT_DIR = _SUITE_DIR / "dx-runtime"
 
-# ── Default paths ──────────────────────────────────────────────────────────
 MODEL_DIR = _STUDIO_DIR / "dx_benchmark" / "assets" / "models"
 VIDEO_DIR = _STUDIO_DIR / "dx_benchmark" / "assets" / "videos"
 CONFIG_DIR = ROOT_DIR / "dx_stream" / "configs"
@@ -29,7 +27,6 @@ THERMAL_MODE_STEADY = "steady"
 MULTI_STREAM_SEARCH_MODE = "single-stream-estimate-linear-boundary"
 STABLE_CAPACITY_RULE = "status_ok_and_all_runs_success_and_avg_per_channel_fps_ge_threshold"
 
-# ── Task definitions ──────────────────────────────────────────────────────
 # model suffix → task name mapping
 # Object detection models have no suffix (yolo26n.dxnn) → mapped as "od"
 TASK_MAP = {
@@ -72,7 +69,6 @@ TASK_GROUP_VIDEOS = {
 # Model sizes in canonical order
 SIZES = ["n", "s", "m", "l", "x"]
 
-# ── Model metadata ─────────────────────────────────────────────────────────
 # Static per-task metadata for the report model-info section.
 # input_size: (W, H) fed to the model after preprocessing
 # output: brief description of the model output
@@ -110,7 +106,6 @@ TASK_MODEL_META = {
     },
 }
 
-# ── Per-task pipeline configuration ───────────────────────────────────────
 # Common preprocess settings (YOLO26 uses 640x640 letterbox for most tasks)
 _COMMON_PREPROCESS = {
     "preprocess_id": 1,
@@ -191,31 +186,25 @@ def get_postprocess_config_path(task_suffix: str) -> Path:
 class BenchmarkConfig:
     """Runtime benchmark configuration."""
 
-    # ── Benchmark scope ───────────────────────────────────────────────
     task: str = "all"  # "all" runs every discovered task
     sizes: list = field(default_factory=lambda: list(SIZES))
     ort_modes: list = field(default_factory=lambda: [True, False])
 
-    # ── Model-level params ────────────────────────────────────────────
     model_time_sec: int = 30        # duration of each throughput measurement (seconds, -t)
     model_latency_loops: int = 300  # inference loops per latency measurement (-l; run_model -s ignores -t)
     model_warmup: int = 1           # warmup runs before measurement
     model_latency_runs: int = 1     # repeated measurements per latency benchmark
     model_throughput_runs: int = 3  # repeated measurements per throughput benchmark
 
-    # ── E2E pipeline params ───────────────────────────────────────────
     e2e_runs: int = 3               # repeated measurements per condition
     video: Optional[str] = None     # override video path (overrides per-task)
 
-    # ── Multi-stream params ───────────────────────────────────────────
     fps_threshold: float = 30.0     # per-channel FPS threshold
 
-    # ── NPU monitoring ────────────────────────────────────────────────
     npu_core_ids: list = field(default_factory=lambda: [0, 1, 2])
     npu_warmup_sec: float = 1.0
     npu_drain_sec: float = 0.5
 
-    # ── Thermal steady-state ──────────────────────────────────────────
     thermal_mode: str = "steady"
 
     thermal_cooldown_target_delta_c: float = 10.0  # target Δ from idle temp for cooldown
@@ -224,9 +213,7 @@ class BenchmarkConfig:
     thermal_cooldown_max_sec: float = 300.0   # max cooldown wait seconds
     thermal_idle_temp_c: Optional[float] = None  # measured at start; None = auto-detect
 
-    # ── Output ────────────────────────────────────────────────────────
     output_dir: Optional[str] = None
-    # ── Product info (optional, shown in report Environment) ───────
     product_name: Optional[str] = None
     
     def get_video(self, task: str | None = None) -> Path:

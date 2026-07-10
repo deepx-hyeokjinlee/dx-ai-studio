@@ -150,7 +150,6 @@ def used_i18n_keys() -> dict[str, set[str]]:
     return result
 
 
-# ── Existing tests ──────────────────────────────────────────────
 
 
 def test_modelzoo_dict_entry_parser_handles_compact_entries():
@@ -206,7 +205,6 @@ def test_modelzoo_technical_token_keys_keep_identity_when_present():
             assert re.search(pattern, entry), (key, lang)
 
 
-# ── Phase 2 Task 6.3 — Split contract tests ────────────────────
 
 
 def test_i18n_fragment_files_exist():

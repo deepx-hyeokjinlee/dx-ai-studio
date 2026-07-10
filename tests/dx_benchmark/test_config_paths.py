@@ -45,7 +45,6 @@ def test_iter_result_dirs_yields_legacy_only_if_exists(tmp_path):
         assert dirs == [fake_canonical, fake_legacy]
 
 
-# ── Aggregate merge tests ──
 
 def _make_dataset(*, environments=None, runs=None, history=None,
                   summaries=None, snapshots=None, meta=None):

@@ -130,9 +130,6 @@ def test_mjpeg_reader_preserves_specific_error_from_wait_until_ready(monkeypatch
     assert mjpeg.get_last_error() == "dxrt service is not running"
 
 
-# ═══════════════════════════════════════════════════════
-# WebRTC-first output: sink helper
-# ═══════════════════════════════════════════════════════
 
 
 def test_webrtc_sink_uses_detected_encoder_and_sendrecv_name():
@@ -242,9 +239,6 @@ def test_webrtc_start_uses_responsive_initial_error_window(monkeypatch):
     assert 0 < observed_timeouts[0] <= 0.3
 
 
-# ═══════════════════════════════════════════════════════
-# WebRTC-first output: demo start routing
-# ═══════════════════════════════════════════════════════
 
 
 def test_demo_start_uses_webrtc_pipeline_without_mjpeg_conversion(monkeypatch):
@@ -365,9 +359,6 @@ def test_demo_start_falls_back_to_mjpeg_when_webrtc_start_fails(monkeypatch):
     assert lock_depths and lock_depths[0] > 0
 
 
-# ═══════════════════════════════════════════════════════
-# WebRTC-first output: pipeline run routing
-# ═══════════════════════════════════════════════════════
 
 
 import pytest
@@ -541,9 +532,6 @@ def test_pipeline_run_logs_ineligible_sink_without_webrtc_unavailable(monkeypatc
     assert not any("WebRTC unavailable" in message for message in caplog.messages)
 
 
-# ═══════════════════════════════════════════════════════
-# WebRTC-first output: stop cleanup
-# ═══════════════════════════════════════════════════════
 
 
 def test_demo_stop_stops_webrtc_and_mjpeg_backends(monkeypatch):

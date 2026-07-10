@@ -75,7 +75,6 @@ def _resize_and_save(
     elif img.mode != "RGB":
         img = img.convert("RGB")
 
-    # 리사이즈 (max_width 초과 시에만)
     w, h = img.size
     if w > max_width:
         ratio = max_width / w
@@ -174,7 +173,6 @@ def optimize_images(
 
         report["images"].append(entry)
 
-    # 매니페스트 생성
     if write and report["written"] > 0:
         manifest = {
             "images": report["images"],

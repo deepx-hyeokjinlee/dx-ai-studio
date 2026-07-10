@@ -1,4 +1,3 @@
-/* ─── DXLauncher Platform Info Module ─────────────────── */
 
 (function() {
   var ns = window.DXLauncher;
@@ -81,7 +80,6 @@
     _unlockPlatformBodyScroll();
   }
 
-  // Close on Escape
   document.addEventListener('keydown', function(e) {
     var ov = document.getElementById('platformInfoOverlay');
     if (ov && ov.classList.contains('open') && e.key === 'Escape') {
@@ -107,7 +105,6 @@
     DXI18n.onLangChange(refreshPlatformInfoLanguage);
   }
 
-  // Exports
   ns.openPlatformInfo = openPlatformInfo;
   ns.closePlatformInfo = closePlatformInfo;
 })();

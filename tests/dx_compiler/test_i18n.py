@@ -73,7 +73,6 @@ def t_keys(path: Path) -> set[str]:
     return set(single + double)
 
 
-# --- Load-order and API tests ---
 
 
 def test_compiler_i18n_loads_before_shared_i18n():
@@ -87,7 +86,6 @@ def test_setup_panel_uses_apply_lang_not_missing_apply():
     assert "DXI18n.apply()" not in source
 
 
-# --- Dictionary coverage tests ---
 
 
 def test_compiler_t_keys_are_in_dictionary_or_allowlisted():
@@ -135,7 +133,6 @@ def test_compiler_i18n_defines_placeholder_dictionary():
         assert placeholder in source
 
 
-# --- Dynamic-refresh and setup-icon tests ---
 
 
 def test_compiler_dynamic_ui_registers_language_refresh_hooks():
@@ -258,7 +255,6 @@ def test_node_selection_capability_feedback_is_wired_to_feature_check_and_sse():
     assert "nodeSelection.checked = false" in viewer or "nodeSelection.checked=false" in viewer
 
 
-# --- Checkpoint removal contracts ---
 
 
 def test_checkpoint_resume_copy_removed_but_range_resume_copy_remains():

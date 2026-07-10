@@ -14,7 +14,6 @@ DXStream.pipelineInit = async function () {
     DXStream._elementOverrides = resp.element_overrides || {};
     DXStream._semanticWarnings = resp.semantic_warnings || [];
     DXStream._autoConverterRules = resp.auto_converter_rules || [];
-    // flatten grouped dict → flat array
     var flat = [];
     if (!Array.isArray(cats)) {
         Object.keys(cats).forEach(function (cat) {
@@ -116,7 +115,6 @@ DXStream.pipelineReset = function () {
     });
 };
 
-/* ── Validate / Run / Stop ── */
 DXStream.pipelineValidate = async function () {
     var st = DXStream._pipeState;
     var issues = [];
@@ -496,7 +494,6 @@ function _validateConnection(fromId, toId) {
         }
     }
 
-    // recommended_prev_elements
     var rec = toOv.recommended_prev_elements;
     if (rec && rec.indexOf(fromNode.type) === -1) {
         return { result: 'warn', reason: T('Warning: ') + T('Recommended: connect from ') + rec.join(', ') };

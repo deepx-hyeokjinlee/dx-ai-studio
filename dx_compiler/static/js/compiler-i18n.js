@@ -1,6 +1,5 @@
 /* DX Compiler — i18n Translation Dictionary */
 window._DX_I18N_DICT = {
-  // Header
   'DX Compiler': {
     ko: 'DX 컴파일러',
     ja: 'DX コンパイラ',
@@ -16,7 +15,6 @@ window._DX_I18N_DICT = {
     es: 'GUI del compilador ONNX',
   },
 
-  // Viewer tabs
   'Input': {
     ko: '입력',
     ja: '入力',
@@ -53,7 +51,6 @@ window._DX_I18N_DICT = {
     es: 'DXNN',
   },
 
-  // Explorer
   'Explorer': {
     ko: '탐색기',
     ja: 'エクスプローラー',
@@ -76,7 +73,6 @@ window._DX_I18N_DICT = {
     es: 'Cargue un modelo para visualizar',
   },
 
-  // Node details
   'Node Details': {
     ko: '노드 상세',
     ja: 'ノード詳細',
@@ -148,7 +144,6 @@ window._DX_I18N_DICT = {
     es: 'Otro',
   },
 
-  // Status bar
   'Nodes': {
     ko: '노드',
     ja: 'ノード',
@@ -192,7 +187,6 @@ window._DX_I18N_DICT = {
     es: 'Expandir todo',
   },
 
-  // Compile form
   'Compile ONNX Model': {
     ko: 'ONNX 모델 컴파일',
     ja: 'ONNX モデルのコンパイル',
@@ -439,7 +433,6 @@ window._DX_I18N_DICT = {
     es: '(ninguno — mantener observers existentes)',
   },
 
-  // Log panel
   'Compiler Log': {
     ko: '컴파일러 로그',
     ja: 'コンパイラログ',
@@ -448,7 +441,6 @@ window._DX_I18N_DICT = {
     es: 'Registro del compilador',
   },
 
-  // Config wizard
   'Config Builder': {
     ko: '설정 빌더',
     ja: '設定ビルダー',
@@ -576,7 +568,6 @@ window._DX_I18N_DICT = {
     es: 'Revise el JSON de configuración generado.',
   },
 
-  // Progress
   'Compiling...': {
     ko: '컴파일 중...',
     ja: 'コンパイル中...',
@@ -599,7 +590,6 @@ window._DX_I18N_DICT = {
     es: 'Inicializando...',
   },
 
-  // Result
   'Compilation successful': {
     ko: '컴파일 성공',
     ja: 'コンパイル成功',
@@ -629,7 +619,6 @@ window._DX_I18N_DICT = {
     es: 'Error de compilación:',
   },
 
-  // Node selection
   'Compile Range': {
     ko: '컴파일 범위',
     ja: 'コンパイル範囲',
@@ -854,7 +843,6 @@ window._DX_I18N_DICT = {
     es: 'La selección de nodos no está disponible en el modo de compilación de subproceso. La compilación continuará sin selección de rango.',
   },
 
-  // Help tips
   'Removes the NPU task count limit so that as many nodes as possible run on the NPU. FPS performance may degrade if there are frequent NPU–CPU transitions.': {
     ko: 'NPU 작업 수 제한을 제거하여 가능한 한 많은 노드가 NPU에서 실행됩니다. NPU-CPU 전환이 빈번하면 FPS 성능이 저하될 수 있습니다.',
     ja: 'NPU タスク数の制限を解除し、できるだけ多くのノードを NPU で実行します。NPU–CPU の切り替えが頻繁な場合は FPS パフォーマンスが低下することがあります。',
@@ -877,7 +865,6 @@ window._DX_I18N_DICT = {
     es: 'Especifique los nodos de entrada/salida en el gráfico visualizado en el Visor izquierdo para definir el rango de compilación. El rango final puede diferir de su selección debido al algoritmo interno de asignación de dispositivo. Actualmente no se admiten rangos múltiples.',
   },
 
-  // Setup Panel
   'Setup Status': {
     ko: '설정 상태',
     ja: 'セットアップ状態',
@@ -964,7 +951,6 @@ window._DX_I18N_DICT = {
   },
 
 
-  /* ─── Additional i18n entries ─── */
   'ONNX Compiler': { ko: 'ONNX 컴파일러', ja: 'ONNX コンパイラ', 'zh-CN': 'ONNX 编译器', 'zh-TW': 'ONNX 編譯器',es:'Compilador ONNX'},
   'Drag & drop .json config here, or type path below': {
     ko: '.json 설정 파일을 드래그하거나 아래에 경로를 입력하세요',
@@ -988,7 +974,6 @@ window._DX_I18N_DICT = {
     es: 'Lista de extensiones de archivo de imagen separadas por comas para incluir.',
   },
 
-  // Compile-form status strings
   'Preparing...': {
     ko: '준비 중...',
     ja: '準備中...',
@@ -1261,7 +1246,6 @@ window._DX_I18N_PLACEHOLDERS = {
 
 window._DX_I18N_SELECTORS = 'h2, h3, h4, label, .legend-item, .viewer-tab, .wizard-desc, .compile-btn, .summary-btn, .dxq-desc, .ns-toolbar-btn, .ns-list-header, .ns-empty, .ns-action-btn, .explorer-header span, .viewer-empty span, .explorer-placeholder, .prep-no-params, .phase-label, .dropzone-text';
 
-/* ─── Language bridge: refresh on launcher lang change ─── */
 // This callback is invoked by shared/i18n.js when the UI language changes.
 // It re-applies selector-based DOM translations defined in _DX_I18N_SELECTORS
 // via the shared DXI18n.applyLang() — not a redundant traversal but the

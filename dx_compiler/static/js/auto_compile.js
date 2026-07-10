@@ -13,19 +13,16 @@
 (function () {
   'use strict';
 
-  /* ── i18n helper ─────────────────────────────────────────── */
   function tr(key) {
     return (typeof T === 'function') ? T(key) : key;
   }
 
-  /* ── Module state ────────────────────────────────────────── */
   var conversationId = null;   // tracked across interactive follow-ups
   var _running = false;
   var _agents = [];            // live agent metadata from /agent/api/agent/status
 
   var _RECOMMENDED_MODEL = /(sonnet|opus)[ -]?4\.(6|7|8|9)|(sonnet|opus)[ -]?[5-9]/i;
 
-  /* ── Prompt builder ─────────────────────────────────────── */
   function buildPrompt(model) {
     return (
       "Compile the model '" + model + "' to a DXNN for the DEEPX DX-M1 NPU. " +
@@ -34,7 +31,6 @@
     );
   }
 
-  /* ── Log panel helpers ───────────────────────────────────── */
   function getLogPanel() { return document.getElementById('log-panel'); }
   function getLogContent() { return document.getElementById('log-content'); }
 
@@ -51,7 +47,6 @@
     el.scrollTop = el.scrollHeight;
   }
 
-  /* ── Button state helpers ────────────────────────────────── */
   function setButtonsDisabled(disabled) {
     var b1 = document.getElementById('auto-compile-noninteractive');
     var b2 = document.getElementById('auto-compile-interactive');
@@ -59,7 +54,6 @@
     if (b2) b2.disabled = disabled;
   }
 
-  /* ── Interactive follow-up UI ────────────────────────────── */
   function _removeReplyUI() {
     var existing = document.getElementById('agentic-reply-row');
     if (existing) existing.remove();
@@ -102,11 +96,9 @@
     row.appendChild(btn);
     container.appendChild(row);
 
-    // Focus the reply input
     setTimeout(function () { inp.focus(); }, 50);
   }
 
-  /* ── SSE stream consumer ─────────────────────────────────── */
   /**
    * POST to /agent/api/agent/run and consume the SSE stream.
    * @param {object} payload  - request body
@@ -286,7 +278,6 @@
     setButtonsDisabled(false);
   }
 
-  /* ── Load .dxnn into viewer ──────────────────────────────── */
   function loadDxnnFromSession(sessionDir) {
     fetch('/agentic/session-dxnn?dir=' + encodeURIComponent(sessionDir))
       .then(function (r) { return r.json(); })
@@ -421,7 +412,6 @@
     return s.value || null;
   }
 
-  /* ── Main run entry point ────────────────────────────────── */
   function runAgentic(mode) {
     if (_running) return;
 
@@ -452,7 +442,6 @@
     runStream(payload, mode);
   }
 
-  /* ── Agent picker — populate from /agent/api/agent/status ── */
   /**
    * Fetches the live agent status and populates #agentic-agent-select.
    * - Agents where authenticated !== true are added as disabled options
@@ -536,7 +525,6 @@
       });
   }
 
-  /* ── Button binding ──────────────────────────────────────── */
   function bindButtons() {
     var btnNonInteractive = document.getElementById('auto-compile-noninteractive');
     var btnInteractive    = document.getElementById('auto-compile-interactive');
@@ -554,7 +542,6 @@
     }
   }
 
-  /* ── Init ────────────────────────────────────────────────── */
   function init() {
     bindButtons();
     populateAgenticAgents();

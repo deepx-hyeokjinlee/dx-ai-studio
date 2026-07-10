@@ -1,4 +1,3 @@
-# tests/dx_stream/test_metadata.py
 """metadata.py 테스트 — parse_model 래퍼"""
 import sys
 from pathlib import Path

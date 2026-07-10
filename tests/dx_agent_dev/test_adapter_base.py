@@ -1,4 +1,3 @@
-# tests/dx_agent_dev/test_adapter_base.py
 """SubprocessAdapter 공통 동작(빌드명령 위임·cwd 결정·normalize 폴백·취소)."""
 import signal
 import sys

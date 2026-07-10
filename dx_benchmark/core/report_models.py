@@ -4,7 +4,6 @@ Extracted from reporter.py to reduce file size.
 """
 from __future__ import annotations
 
-# ── Ordering helpers ──────────────────────────────────────────────────────
 
 _SIZE_ORDER = {"n": 0, "s": 1, "m": 2, "l": 3, "x": 4}
 

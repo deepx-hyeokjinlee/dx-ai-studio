@@ -96,7 +96,6 @@ def test_benchmark_result_as_dict_returns_dict():
     assert "status" in d
 
 
-# ── Phase 2 Task 3.2: characterization tests for split modules ───────────
 
 
 def test_pipeline_sweeps_exports():
@@ -232,7 +231,6 @@ def test_backward_compat_reporter_imports():
     assert callable(_add_timing_section)
 
 
-# ── Phase 2 Task 3.2 CR: behavioral characterization tests ──────────────
 
 
 def test_format_runs_partial():
@@ -294,7 +292,6 @@ def test_build_legacy_timing_history_shared():
     assert _build_legacy_timing_history({}) == []
 
 
-# ── Wave 2B: dashboard.js UI contract tests ──────────────────────────────
 
 _JS_ROOT = Path(__file__).resolve().parents[2] / "dx_benchmark" / "static" / "js"
 
@@ -366,7 +363,6 @@ class TestDashboardNoLocalhostEdgeGuide:
         assert "currentPort > 1024" in body
 
 
-# ── Wave 3E: settings.js deployment-fixed contract tests ─────────────────
 
 
 class TestSettingsDeploymentFixed:

@@ -89,7 +89,6 @@ class PipelineResult:
         return d
 
 
-# ── Helpers ────────────────────────────────────────────────────────────────
 
 def _get_frame_count(video_path: str) -> int:
     """Count frames via ffprobe."""
@@ -249,7 +248,6 @@ def _extract_pipeline_caps(log: str) -> Optional[dict]:
     return caps if caps else None
 
 
-# ── Pipeline builder ──────────────────────────────────────────────────────
 
 def _build_single_pipeline(model_path: str, use_ort: bool, video_path: str,
                            postprocess_cfg: str,
@@ -501,7 +499,6 @@ def cleanup_after_timeout() -> bool:
     return recovered
 
 
-# ── Timeout incident data collection ─────────────────────────────────────
 
 # Module-level incident directory — set by callers (e.g. __main__.py)
 _incident_dir: Optional[Path] = None
@@ -651,7 +648,6 @@ def _save_pipeline_log(
             f.write(npu_log)
 
 
-# ── Thermal steady-state helpers ──────────────────────────────────────────
 
 _thermal_logger = logging.getLogger(__name__)
 
@@ -710,7 +706,6 @@ def wait_until_cool(cfg: BenchmarkConfig) -> float:
     )
 
 
-# ── Public runners ────────────────────────────────────────────────────────
 
 def run_single_stream(
     model: ModelEntry,

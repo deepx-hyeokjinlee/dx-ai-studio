@@ -92,7 +92,6 @@ POSTPROCESSORS={"object_detection":["yolov5","yolov7","yolov8","yolov9","yolov10
 for _cat in CATEGORIES:
     if _cat not in POSTPROCESSORS:
         POSTPROCESSORS[_cat]=[]
-# ── State ─────────────────────────────────────────────────────────────────────
 _running_proc=None; _proc_lock=threading.Lock()
 _recent_runs=collections.deque(maxlen=50); _history_lock=threading.Lock()
 _lab_sessions=collections.OrderedDict(); _lab_lock=threading.Lock()
@@ -100,7 +99,6 @@ _LAB_SESSION_MAX=256
 _LAB_SESSION_TTL_SECONDS=8*60*60
 _HEARTBEAT=time.time(); _HB_TIMEOUT=3600  # 1 hour — prevents premature shutdown during long sessions
 
-# ── External module roots (diagnostics / cross-module references) ─────────────
 DX_COMPILER_ROOT = Path(os.environ["DX_COMPILER_ROOT"]) if os.environ.get("DX_COMPILER_ROOT") \
     else _SUITE_ROOT / "dx-compiler"
 DX_COMPILER_VENV = DX_COMPILER_ROOT / "venv-dx-compiler-local"
@@ -120,7 +118,6 @@ _comp_done=False; _comp_exit_code=-1
 _comp_dxnn_path=""; _comp_output_dir=""
 _comp_stdin_proc=None  # process whose stdin we can write to
 
-# ── dx_engine (optional) ───────────────────────────────────────────────────────
 _DS=None; _dx_ok=False
 def _load_dx():
     global _DS,_dx_ok
@@ -147,7 +144,6 @@ _load_dx()
 from hardware import init_hw as _init_hw
 _init_hw(ds=_DS, dx_ok=_dx_ok, npu_stats_bin=_NPU_STATS_BIN, app_root=DX_APP_ROOT)
 
-# ── Runtime Python interpreter (numpy/cv2-capable > venv > system) ─────────────
 def _find_runtime_python():
     # python_example scripts hard-depend on numpy+cv2. venv-dx-runtime is frequently an
     # empty venv (dx_engine is injected via PYTHONPATH, not pip-installed), so probe each

@@ -495,7 +495,6 @@ class TestServerRoutes:
         assert isinstance(data, dict)
         assert "categories" in data
 
-    # ── Task 3.1: enriched catalog ──
 
     def test_api_catalog_exposes_enriched_fields_when_generated_catalog_exists(self, server):
         resp = urlopen(f"http://127.0.0.1:{TEST_PORT}/api/catalog")
@@ -507,7 +506,6 @@ class TestServerRoutes:
         assert "artifacts" in model or "model_file" in model
         assert "processor" in model
 
-    # ── Task 3.3: metadata sync endpoints ──
 
     def test_metadata_sync_status_endpoint_returns_source_and_last_sync(self, server):
         resp = urlopen(f"http://127.0.0.1:{TEST_PORT}/api/metadata/sync/status")
@@ -617,7 +615,6 @@ class TestServerRoutes:
         assert first_result.get("status") == 200
 
 
-# ── Issue 1: demo code path guard helper ──
 
 
 class TestDemoPathGuard:
@@ -704,7 +701,6 @@ class TestDemoPathGuard:
             sys.path.remove(str(MODULE_DIR))
 
 
-# ── Issue 3: POST sync updates live catalog ──
 
 
 class TestSyncUpdatesCatalog:

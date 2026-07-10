@@ -1,4 +1,3 @@
-/* ─── DeepX Launcher — Bootstrap & Legacy Globals ────── */
 /* Split modules loaded before this file:
  *   launcher-state.js    → window.DXLauncher namespace + shared state
  *   launcher-language.js → language selection, _lt, i18n sync
@@ -10,7 +9,6 @@
 (function() {
   var ns = window.DXLauncher;
 
-  // ─── Legacy global aliases (single registration point) ───
   window.initSplashV2 = ns.initSplashV2;
   window.skipSplash = ns.skipSplash;
   window.replaySplash = ns.replaySplash;
@@ -37,14 +35,12 @@
   window.setVisibleView = ns.setVisibleView;
   window._updateToggleActive = ns._updateToggleActive;
 
-  // ─── Browser back/forward ──────────────────────────────
   window.addEventListener('popstate', function() {
     ns.ensureStudioReady().then(function() {
       ns.queueRouteRestore(window.location, { source: 'popstate' });
     });
   });
 
-  // ─── Keyboard shortcuts ────────────────────────────────
   document.addEventListener('keydown', function(e) {
     var ov = document.getElementById('splashOverlay');
     if (ov) {
@@ -84,7 +80,6 @@
     if (e.altKey && e.key === '7') { ns.launch('dx_monitor'); e.preventDefault(); }
   });
 
-  // ─── Init ──────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function() {
     ns.SUPPORTED_LANGS.forEach(function(l) { document.body.classList.remove('lang-' + l); });
     document.body.classList.add('lang-' + ns._lang);

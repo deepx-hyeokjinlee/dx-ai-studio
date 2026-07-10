@@ -80,10 +80,6 @@ def record_integrity_issues(record: AuditRecord) -> list[str]:
     return issues
 
 
-# ---------------------------------------------------------------------------
-# Gate helpers for CLI strict flags
-# ---------------------------------------------------------------------------
-
 def check_integrity_gate(records: list[AuditRecord]) -> list[str]:
     """Return all integrity issues across records (empty list = pass)."""
     all_issues: list[str] = []
@@ -105,10 +101,6 @@ def check_findings_gate(findings: list[Any]) -> str | None:
         return f"{count} missing-language findings"
     return None
 
-
-# ---------------------------------------------------------------------------
-# T( callsite inventory — conservative literal parser
-# ---------------------------------------------------------------------------
 
 # Matches T('...', '...') or T("...", "...") with literal string args only.
 # Handles escaped quotes inside strings.

@@ -1,7 +1,3 @@
-/* ═══════════════════════════════════════════════════════
-   SDK Library — Technical Archive (File Cabinet)
-   Drawer-based layout with tile grid files
-   ═══════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
@@ -32,7 +28,6 @@
   let _languageHookRegistered = false;
   let _keydownBound = false;
 
-  // ── Route State ──
   var _currentQueryState = { view: 'list', q: '', doc: '' };
   var _pendingQuery = null;
   var _applyingQuery = false;
@@ -105,11 +100,9 @@
     try {
       var parsed = parseSdkQuery(rawQueryString);
       _currentQueryState = parsed;
-      // Apply view
       if (parsed.view !== _viewMode) {
         switchView(parsed.view, { silentUrl: true });
       }
-      // Apply search
       var searchInput = document.getElementById('sdkLibSearch');
       if (searchInput && parsed.q !== undefined) {
         searchInput.value = parsed.q;
@@ -122,7 +115,6 @@
           else searchListView('');
         }
       }
-      // Apply doc
       if (parsed._malformedDoc) {
         _renderDocNotFound(_t('(malformed path)', '(잘못된 경로)', '(不正なパス)', '(格式错误的路径)', '(格式錯誤的路徑)', '(ruta mal formada)'));
       } else if (parsed.doc) {
@@ -186,7 +178,6 @@
   let _selectedDrawer = null;
   let _selectedSection = null;
 
-  // ── Module Header (matches other modules like Model Zoo) ──
   function buildModuleHeader() {
     const header = document.createElement('header');
     header.className = 'sdk-topbar';
@@ -208,7 +199,6 @@
         </div>
         <button class="sdk-topbar-btn" id="sdkArchBtn" title="${_t('Architecture', '아키텍처', 'アーキテクチャ', '架构', '架構', 'Arquitectura')}">🏗️</button>
       </div>`;
-    // Toggle events
     header.querySelectorAll('.sdk-toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const mode = btn.dataset.mode;
@@ -263,12 +253,10 @@
     }
     setupSearch();
 
-    // File count
     const totalFiles = data.drawers.reduce((t, d) => t + d.sections.reduce((s, sec) => s + sec.files.length, 0), 0);
     const countEl = document.getElementById('sdkDocCount');
     if (countEl) countEl.textContent = totalFiles + _t(' docs', '개 문서', ' ドキュメント', ' 个文档', ' 個文件', ' docs');
 
-    // Bind arch button
     const archBtn = document.getElementById('sdkArchBtn');
     if (archBtn) archBtn.addEventListener('click', toggleArchOverlay);
     const archOverlay = document.getElementById('sdkArchOverlay');
@@ -277,7 +265,6 @@
       archOverlay._bound = true;
     }
 
-    // Init Chat Widget
     if (typeof DXChat !== 'undefined') {
       DXChat.init({ appName: 'sdk_library' });
     }
@@ -287,7 +274,6 @@
     window.dispatchEvent(new CustomEvent('sdk-library-ready'));
   }
 
-  // ── Cabinet Rendering ──
   function renderCabinet(data, container) {
     const frame = document.createElement('div');
     frame.className = 'cabinet-frame';
@@ -315,12 +301,10 @@
     renderListContent(data, drawer, section);
   }
 
-  // ── List View Rendering ──
   function renderListView(data, container) {
     const layout = document.createElement('div');
     layout.className = 'sdk-list-layout';
 
-    // Sidebar
     const sidebar = document.createElement('div');
     sidebar.className = 'sdk-list-sidebar';
     for (const drawer of data.drawers) {
@@ -373,7 +357,6 @@
       sidebar.appendChild(group);
     }
 
-    // Content panel
     const content = document.createElement('div');
     content.className = 'sdk-list-content';
     content.id = 'sdkListContent';
@@ -494,12 +477,10 @@
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
 
-  // ── Drawer Toggle (accordion) ──
   function toggleDrawer(unit) {
     if (_isSearchActive) return;
     const wasOpen = unit.classList.contains('open');
 
-    // Close all open drawers
     document.querySelectorAll('.drawer-unit.open').forEach(d => {
       closeDrawer(d);
     });
@@ -531,7 +512,6 @@
     });
   }
 
-  // ── Search ──
   var _searchUrlTimeout = null;
   function setupSearch() {
     const input = document.getElementById('sdkLibSearch');
@@ -607,11 +587,9 @@
         g.querySelectorAll('.sdk-sidebar-section').forEach(s => s.classList.remove('search-hidden'));
         g.classList.remove('expanded');
       });
-      // Also filter content panel
       document.querySelectorAll('.sdk-list-files-grid .file-card').forEach(c => c.classList.remove('search-hidden'));
       return;
     }
-    // Filter sidebar sections by label
     let matchCount = 0;
     groups.forEach(g => {
       let groupHasMatch = false;
@@ -647,7 +625,6 @@
     return d.innerHTML;
   }
 
-  // ── Markdown → HTML ──
   // Resolve a doc-relative path ("img/a.png", "../x.png") against the doc's
   // directory into a suite-root-relative path for /api/sdk-doc-image.
   function _resolveDocRel(docPath, src) {
@@ -743,7 +720,6 @@
         out.push(`<table><thead><tr>${ths}</tr></thead><tbody>${trs.join('')}</tbody></table>`);
         continue;
       }
-      // Blockquote
       if (bqRe.test(line)) {
         const buf = [];
         while (i < lines.length && bqRe.test(lines[i])) { buf.push(lines[i].replace(bqRe, '')); i++; }
@@ -785,7 +761,6 @@
     return html;
   }
 
-  // ── Color map for drawer categories ──
   const DRAWER_COLORS = {
     gold:  { accent: '#d4a853', bg: 'rgba(212,168,83,0.06)', border: 'rgba(212,168,83,0.25)' },
     red:   { accent: '#f47067', bg: 'rgba(244,112,103,0.06)', border: 'rgba(244,112,103,0.25)' },
@@ -794,7 +769,6 @@
     amber: { accent: '#d29922', bg: 'rgba(210,153,34,0.06)', border: 'rgba(210,153,34,0.25)' },
   };
 
-  // ── Breadcrumb / Selection State ──
   function buildDocumentTrail(book) {
     if (!_libData || !_libData.drawers) return null;
     for (var d = 0; d < _libData.drawers.length; d++) {
@@ -845,12 +819,10 @@
   }
 
   function updateSelectedDocumentState(book, trailOverride) {
-    // Clear previous selections
     clearSelectedDocumentState();
     if (!book || !_libData) return;
     var trail = trailOverride || buildDocumentTrail(book);
     if (!trail) return;
-    // Select drawer
     var drawerEl = document.querySelector('[data-drawer-id="' + CSS.escape(trail.drawer.id) + '"]');
     if (drawerEl) drawerEl.classList.add('sdk-selected');
     // Select section (or flat drawer head when no nested section UI)
@@ -866,7 +838,6 @@
         flatHead.classList.add('selected');
       }
     }
-    // Select file card by path
     var cards = document.querySelectorAll('.file-card');
     cards.forEach(function(c) {
       if (c.dataset.path === (book.path || '').toLowerCase()) {
@@ -881,7 +852,6 @@
     });
   }
 
-  // ── Search Summary ──
   function renderSearchSummary(query, count) {
     var container = document.querySelector('.sdk-search-summary');
     if (!container) {
@@ -916,7 +886,6 @@
     }
   }
 
-  // ── Retry Actions ──
   function retryLoadSdkData() {
     _libData = null;
     _sdkInitialized = false;
@@ -960,7 +929,6 @@
     renderSdkRetryAction(body.querySelector('.sdk-doc-error'), function() { retryLoadDocument(book); });
   }
 
-  // ── Book Viewer ──
   async function openBookViewer(book, drawerColor, options) {
     var opts = options || {};
     const viewer = document.getElementById('sdkBookViewer');
@@ -973,7 +941,6 @@
     if (pathEl) pathEl.textContent = book.path;
     if (body) body.innerHTML = '<p class="sdk-viewer-loading">' + _t('Loading…', '로딩 중…', '読み込み中…', '加载中…', '載入中…', 'Cargando…') + '</p>';
 
-    // Apply drawer color accent to viewer
     const colors = DRAWER_COLORS[drawerColor] || DRAWER_COLORS.blue;
     const container = viewer.querySelector('.sdk-viewer-container');
     if (container) {
@@ -982,12 +949,10 @@
       container.style.setProperty('--viewer-accent-border', colors.border);
     }
 
-    // Render breadcrumb and selection state
     var trail = buildDocumentTrail(book);
     renderDocumentTrail(book, trail);
     updateSelectedDocumentState(book, trail);
 
-    // Clear search
     const searchInput = document.getElementById('sdkViewerSearch');
     const searchInfo = document.getElementById('sdkViewerSearchInfo');
     if (searchInput) searchInput.value = '';
@@ -1056,7 +1021,6 @@
       }
       clearSelectedDocumentState();
     }
-    // Clear search
     const searchInput = document.getElementById('sdkViewerSearch');
     if (searchInput) searchInput.value = '';
     const searchInfo = document.getElementById('sdkViewerSearchInfo');
@@ -1066,7 +1030,6 @@
     }
   }
 
-  // ── Document Search (Ctrl+F style) ──
   let _searchMatches = [];
   let _searchIdx = -1;
 
@@ -1170,17 +1133,14 @@
     if (info) info.textContent = (_searchIdx + 1) + '/' + _searchMatches.length;
   }
 
-  // ── Architecture Overlay ──
   function toggleArchOverlay() {
     const overlay = document.getElementById('sdkArchOverlay');
     if (overlay) overlay.classList.toggle('open');
   }
 
-  // ── Keyboard ──
   function handleKeydown(e) {
     const viewer = document.getElementById('sdkBookViewer');
     if (viewer && viewer.classList.contains('open')) {
-      // Ctrl+F → focus search
       if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
         e.preventDefault();
         const searchInput = document.getElementById('sdkViewerSearch');
@@ -1220,7 +1180,6 @@
     }
   }
 
-  // ── Init / Show / Close ──
   function _refreshViewerChrome() {
     var closeBtn = document.querySelector('.sdk-viewer-close');
     if (closeBtn) closeBtn.title = _t('Close', '닫기', '閉じる', '关闭', '關閉', 'Cerrar');
@@ -1245,7 +1204,6 @@
     if (typeof DXI18n !== 'undefined' && typeof DXI18n.onLangChange === 'function') {
       DXI18n.onLangChange(function () {
         _refreshViewerChrome();
-        // Re-render breadcrumb if viewer is open
         var viewer = document.getElementById('sdkBookViewer');
         if (viewer && viewer.classList.contains('open') && _currentQueryState.doc) {
           var book = findBookByPath(_currentQueryState.doc);

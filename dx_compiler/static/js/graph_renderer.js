@@ -19,7 +19,6 @@
     // Stored zoom/pan cleanup function for removal on re-init
     let _zoomPanCleanup = null;
 
-    // ── Layout constants (configurable) ──────────────────────────
     const LAYOUT = {
         nodeWidth: 160,
         nodeHeight: 50,
@@ -30,7 +29,6 @@
         maxLabelLength: 20,
     };
 
-    // ── Category visual config ───────────────────────────────────
     const CATEGORY_CONFIG = {
         compute:       { color: '#4f46e5', bg: '#eef2ff', shape: 'roundrect', label: 'Compute' },
         memory:        { color: '#64748b', bg: '#f1f5f9', shape: 'parallelogram', label: 'Memory' },
@@ -42,21 +40,18 @@
         other:         { color: '#6b7280', bg: '#f9fafb', shape: 'rect', label: 'Other' },
     };
 
-    // ── Edge styling ─────────────────────────────────────────────
     const EDGE_STYLE = {
         stroke: '#cbd5e1',
         strokeHighlight: '#3b82f6',
         strokeWidth: 1.5,
     };
 
-    // ── Partitioned layout constants ─────────────────────────────
     const BOX_PADDING = 40;
     const LABEL_SPACE = 25;
     const IO_NODE_W = 140;
     const IO_NODE_H = 28;
     const ARROW_LEN = 8;
 
-    // ── Node width by category (for dagre dimensions) ────────────
     function getNodeWidth(node) {
         if (!node) return LAYOUT.nodeWidth;
         const cat = node.category || 'other';
@@ -65,7 +60,6 @@
         return LAYOUT.nodeWidth;
     }
 
-    // ── dagre-based layout ───────────────────────────────────────
     function dagreLayout(nodes, edges) {
         const g = new dagre.graphlib.Graph();
         g.setGraph({
@@ -119,7 +113,6 @@
         return { positions: positions, edgePaths: edgePaths };
     }
 
-    // ── Convert dagre edge points to SVG path string ─────────────
     function edgePointsToPath(points, arrowOffset) {
         if (!points || points.length < 2) return '';
         var last = points[points.length - 1];
@@ -151,9 +144,6 @@
         return d;
     }
 
-    // ====================================================================
-    // Part 2: SVG Rendering
-    // ====================================================================
 
     /** Create an SVG element in the SVG namespace. */
     function svgEl(tag, attrs) {
@@ -183,7 +173,6 @@
         return '';
     }
 
-    // ── Node shape renderers ─────────────────────────────────────
 
     function renderRoundRect(g, x, y, w, h, cfg) {
         const rect = svgEl('rect', {
@@ -373,7 +362,6 @@
         // In partitioned models, the partition box already indicates device.
     }
 
-    // ── Edge rendering ───────────────────────────────────────────
 
     /**
      * Render a single edge as a cubic bezier path with an optional tensor label.
@@ -556,7 +544,6 @@
         return path;
     }
 
-    // ── Interaction handlers ─────────────────────────────────────
 
 
     /**
@@ -856,9 +843,6 @@
         }
     }
 
-    // ====================================================================
-    // Part 3: Zoom / Pan
-    // ====================================================================
 
     /**
      * Set up zoom and pan controls on the SVG via mouse wheel and drag.
@@ -1112,11 +1096,7 @@
         };
     }
 
-    // ====================================================================
-    // Part 4: Hierarchical Partitioned Layout
-    // ====================================================================
 
-    // ── Partitioned layout subfunctions ─────────────────────────
 
     /** Group nodes/edges by subgraph; identify cross-edges and graph I/O edges. */
     function _groupBySubgraph(nodes, edges, subgraphsList, graphData) {
@@ -1902,9 +1882,6 @@
         };
     }
 
-    // ====================================================================
-    // Main API
-    // ====================================================================
 
     /**
      * Render the full graph into the SVG element.
@@ -2098,7 +2075,6 @@
         }
     }
 
-    // ── Export ────────────────────────────────────────────────────
     window.GraphRenderer = {
         renderGraph: renderGraph,
         clearGraph: clearGraph,

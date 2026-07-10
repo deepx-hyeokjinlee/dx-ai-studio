@@ -50,7 +50,6 @@ function _bindPaletteDrag() {
 
     var dragEnterCount = 0;
 
-    // drag start on palette items
     palette.addEventListener('dragstart', function (e) {
         var item = e.target.closest('.palette-item');
         if (!item) return;
@@ -103,7 +102,6 @@ function _addNode(elementName, x, y) {
     var elDef = st.elementFlat.find(function (e) { return e.name === elementName; });
     if (!elDef) return;
 
-    // build default properties dict from element definition
     var props = {};
     if (elDef.properties && Array.isArray(elDef.properties)) {
         elDef.properties.forEach(function (p) {
@@ -161,16 +159,13 @@ function _initCanvas() {
 
     window.addEventListener('resize', scheduleResize);
 
-    // mouse interactions
     canvas.addEventListener('mousedown', _canvasMouseDown);
     canvas.addEventListener('mousemove', _canvasMouseMove);
     canvas.addEventListener('mouseup', _canvasMouseUp);
     canvas.addEventListener('dblclick', _canvasDblClick);
     canvas.addEventListener('wheel', _canvasWheel, { passive: false });
-    // prevent context menu on canvas
     canvas.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 
-    // tooltip overlay for connection validation
     var existing = document.getElementById('pipeline-tooltip');
     if (!existing) {
         var tip = document.createElement('div');
@@ -270,20 +265,17 @@ function _distToBezierSq(px, py, x1, y1, x2, y2) {
     return minD2;
 }
 
-/* ── mousedown ── */
 function _canvasMouseDown(e) {
     var canvas = e.target;
     var w = _screenToWorld(e, canvas);
     var st = DXStream._pipeState;
 
-    // right-click or middle-click → pan
     if (e.button === 1 || e.button === 2) {
         st._pan = { startX: e.clientX, startY: e.clientY, origOX: st.offsetX, origOY: st.offsetY };
         canvas.style.cursor = 'grabbing';
         return;
     }
 
-    // left-click: check output port first (edge start)
     var portNode = _hitOutputPort(w.x, w.y);
     if (portNode) {
         if (!_canStartEdge(portNode.id)) {
@@ -296,7 +288,6 @@ function _canvasMouseDown(e) {
         return;
     }
 
-    // left-click: node drag
     var hit = _hitNode(w.x, w.y);
     if (hit) {
         st.selectedEdge = null;
@@ -324,7 +315,6 @@ function _canvasMouseDown(e) {
         return;
     }
 
-    // left-click: edge select
     var hitEd = _hitEdge(w.x, w.y);
     if (hitEd) {
         st.selectedEdge = hitEd.id;
@@ -335,7 +325,6 @@ function _canvasMouseDown(e) {
         return;
     }
 
-    // empty area left-click → deselect all + start pan
     st.selectedNode = null;
     st.selectedNodes = [];
     st.selectedEdge = null;
@@ -345,13 +334,11 @@ function _canvasMouseDown(e) {
     canvas.style.cursor = 'grabbing';
 }
 
-/* ── mousemove ── */
 function _canvasMouseMove(e) {
     var canvas = DXStream.$('pipeline-canvas');
     if (!canvas) return;
     var st = DXStream._pipeState;
 
-    // panning
     if (st._pan) {
         st.offsetX = st._pan.origOX + (e.clientX - st._pan.startX);
         st.offsetY = st._pan.origOY + (e.clientY - st._pan.startY);
@@ -359,7 +346,6 @@ function _canvasMouseMove(e) {
         return;
     }
 
-    // node drag
     if (st._drag) {
         var w = _screenToWorld(e, canvas);
         if (st._drag.multi) {
@@ -381,13 +367,11 @@ function _canvasMouseMove(e) {
         return;
     }
 
-    // edge drawing
     if (st._edge) {
         var w2 = _screenToWorld(e, canvas);
         st._edge.mx = w2.x;
         st._edge.my = w2.y;
 
-        // tooltip on blocked/warned nodes during edge drag
         var tip = document.getElementById('pipeline-tooltip');
         if (tip && st._connectable) {
             var hovered = _hitNode(w2.x, w2.y);
@@ -416,10 +400,8 @@ function _canvasMouseMove(e) {
         return;
     }
 
-    // cursor hints
     var w3 = _screenToWorld(e, canvas);
 
-    // tooltip on warn edges (non-drag mode)
     var tip = document.getElementById('pipeline-tooltip');
     if (tip && !st._edge) {
         var hoveredEdge = null;
@@ -456,20 +438,17 @@ function _canvasMouseMove(e) {
     }
 }
 
-/* ── mouseup ── */
 function _canvasMouseUp(e) {
     var canvas = DXStream.$('pipeline-canvas');
     if (!canvas) return;
     var st = DXStream._pipeState;
 
-    // end pan
     if (st._pan) {
         st._pan = null;
         canvas.style.cursor = 'default';
         return;
     }
 
-    // end node drag
     if (st._drag) {
         if (st._drag.multi) {
             // 멀티 노드 드래그: 모든 선택 노드 그리드 스냅
@@ -495,12 +474,10 @@ function _canvasMouseUp(e) {
         return;
     }
 
-    // end edge drawing → connect if dropped on input port
     if (st._edge) {
         var w = _screenToWorld(e, canvas);
         var target = _hitInputPort(w.x, w.y);
         if (target && target.id !== st._edge.fromId) {
-            // duplicate edge check
             var dup = st.edges.some(function (ed) {
                 return ed.from === st._edge.fromId && ed.to === target.id;
             });
@@ -554,7 +531,6 @@ function _canvasMouseUp(e) {
     }
 }
 
-/* ── dblclick: delete node (with confirm modal) ── */
 function _canvasDblClick(e) {
     var canvas = e.target;
     var w = _screenToWorld(e, canvas);
@@ -581,7 +557,6 @@ function _canvasDblClick(e) {
         return;
     }
 
-    // dblclick on edge → delete edge
     var edgeHit = _hitEdge(w.x, w.y);
     if (edgeHit) {
         st.edges = st.edges.filter(function (ed) { return ed.id !== edgeHit.id; });
@@ -593,7 +568,6 @@ function _canvasDblClick(e) {
     }
 }
 
-/* ── wheel: zoom ── */
 function _canvasWheel(e) {
     e.preventDefault();
     var st = DXStream._pipeState;
@@ -611,12 +585,10 @@ function _refreshCanvas() {
     var st = DXStream._pipeState;
     var nodeMap = _getPipelineNodeMap(st);
 
-    // 1. background
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = _themeColor('bg0') || '#0f0f1a';
     ctx.fillRect(0, 0, w, h);
 
-    // 2. grid
     var step = 20 * st.zoom;
     ctx.strokeStyle = 'rgba(255,255,255,0.06)';
     ctx.lineWidth = 1;
@@ -629,7 +601,6 @@ function _refreshCanvas() {
     }
     ctx.stroke();
 
-    // guide text when empty
     if (st.nodes.length === 0) {
         ctx.fillStyle = 'rgba(255,255,255,0.2)';
         ctx.font = '14px sans-serif';
@@ -642,7 +613,6 @@ function _refreshCanvas() {
     ctx.translate(st.offsetX, st.offsetY);
     ctx.scale(st.zoom, st.zoom);
 
-    // 3. edges
     st.edges.forEach(function (ed) {
         var fromNode = nodeMap[ed.from];
         var toNode = nodeMap[ed.to];
@@ -655,7 +625,6 @@ function _refreshCanvas() {
             ed.status === 'warn');
     });
 
-    // in-progress edge
     if (st._edge) {
         var fromNode = nodeMap[st._edge.fromId];
         if (fromNode) {
@@ -665,7 +634,6 @@ function _refreshCanvas() {
         }
     }
 
-    // 4. nodes
     st.nodes.forEach(function (n) {
         var connStatus = undefined;
         if (st._edge && st._connectable) {
@@ -682,7 +650,6 @@ function _refreshCanvas() {
 
     ctx.restore();
 
-    // 5. minimap
     _drawMinimap(st, w, h);
 }
 
@@ -698,10 +665,8 @@ function _drawNode(ctx, node, selected, connStatus) {
     var color = _catColor(node.category);
     var icon = _catIcon(node.category);
 
-    // parse color to rgb for alpha variants
     var r = parseInt(color.slice(1,3),16), g = parseInt(color.slice(3,5),16), b = parseInt(color.slice(5,7),16);
 
-    // shadow
     ctx.save();
     if (connStatus === 'allow') {
         ctx.shadowColor = _cv('--success');
@@ -719,7 +684,6 @@ function _drawNode(ctx, node, selected, connStatus) {
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = connStatus ? 0 : 4;
 
-    // body gradient fill
     var bodyGrad = ctx.createLinearGradient(x, y, x + _NODE_W, y + _NODE_H);
     bodyGrad.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',' + (selected ? 0.20 : 0.10) + ')');
     bodyGrad.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',' + (selected ? 0.08 : 0.03) + ')');
@@ -728,13 +692,11 @@ function _drawNode(ctx, node, selected, connStatus) {
     ctx.fill();
     ctx.restore();
 
-    // border
     ctx.strokeStyle = selected ? '#fff' : 'rgba(' + r + ',' + g + ',' + b + ',0.6)';
     ctx.lineWidth = selected ? 2 : 1;
     _roundRect(ctx, x, y, _NODE_W, _NODE_H, 10);
     ctx.stroke();
 
-    // category color bar (left, thicker + glow)
     ctx.save();
     ctx.shadowColor = 'rgba(' + r + ',' + g + ',' + b + ',0.5)';
     ctx.shadowBlur = 6;
@@ -751,21 +713,18 @@ function _drawNode(ctx, node, selected, connStatus) {
     ctx.fill();
     ctx.restore();
 
-    // category icon
     ctx.fillStyle = color;
     ctx.font = '13px sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     ctx.fillText(icon, x + 10, y + _NODE_H / 2);
 
-    // name label
     ctx.fillStyle = '#E2E8F0';
     ctx.font = 'bold 11px sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     ctx.fillText(_truncate(node.name, 16), x + 26, y + _NODE_H / 2 - 8);
 
-    // category sublabel
     ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',0.7)';
     ctx.font = '9px sans-serif';
     ctx.fillText(_catLabel(node.category), x + 26, y + _NODE_H / 2 + 8);
@@ -785,7 +744,6 @@ function _drawNode(ctx, node, selected, connStatus) {
         ctx.stroke();
     }
 
-    // output port (right) — glow ring
     ctx.beginPath();
     ctx.arc(x + _NODE_W, y + _NODE_H / 2, _PORT_R + 1, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',0.15)';
@@ -839,7 +797,6 @@ function _drawEdge(ctx, x1, y1, x2, y2, dashed, selected, fromColor, toColor, wa
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // arrow head at target
     if (!dashed) {
         var angle = Math.atan2(y2 - y1, x2 - x1);
         ctx.save();
@@ -855,7 +812,6 @@ function _drawEdge(ctx, x1, y1, x2, y2, dashed, selected, fromColor, toColor, wa
         ctx.restore();
     }
 
-    // warn icon at edge midpoint
     if (warnEdge) {
         var mx = (x1 + x2) / 2;
         var my = (y1 + y2) / 2;
@@ -1044,7 +1000,6 @@ function _drawMinimap(st, canvasW, canvasH) {
     var mw = mmCanvas.width, mh = mmCanvas.height;
     var nodeMap = _getPipelineNodeMap(st);
 
-    // bounding box of all nodes
     var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     st.nodes.forEach(function (n) {
         if (n.x < minX) minX = n.x;
@@ -1061,7 +1016,6 @@ function _drawMinimap(st, canvasW, canvasH) {
     mmCtx.fillStyle = 'rgba(0,0,0,0.5)';
     mmCtx.fillRect(0, 0, mw, mh);
 
-    // draw edges
     mmCtx.strokeStyle = 'rgba(255,255,255,0.25)';
     mmCtx.lineWidth = 1;
     st.edges.forEach(function (ed) {
@@ -1074,7 +1028,6 @@ function _drawMinimap(st, canvasW, canvasH) {
         mmCtx.stroke();
     });
 
-    // draw nodes
     st.nodes.forEach(function (n) {
         var nx = (n.x - minX + pad) * scale;
         var ny = (n.y - minY + pad) * scale;
@@ -1086,7 +1039,6 @@ function _drawMinimap(st, canvasW, canvasH) {
         mmCtx.globalAlpha = 1.0;
     });
 
-    // viewport rect
     var vpLeft = (-st.offsetX / st.zoom - minX + pad) * scale;
     var vpTop = (-st.offsetY / st.zoom - minY + pad) * scale;
     var vpW = (canvasW / st.zoom) * scale;

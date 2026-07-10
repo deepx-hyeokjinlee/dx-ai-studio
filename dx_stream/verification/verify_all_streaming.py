@@ -66,7 +66,6 @@ def _ensure_display():
                 os.environ["XAUTHORITY"] = cand
                 break
 
-# ── model -> (postproc, task, input_size) ────────────────────────────────────
 # postproc is either ("lib", "<lib_basename>", "<func>") or ("config", "<dir>", None)
 # Keys are the actual sample-model file names from model_list.json v2_4_0
 # (<name>_640x640.dxnn; efficientnet is 256x256). PPU models keep their names.
@@ -95,7 +94,6 @@ VIDS = sorted(f"file://{p}" for p in VIDEOS_DIR.rglob("*.mp4")) or [
 V0 = VIDS[0]
 
 
-# ── builder-JSON helpers (mirror the GUI Pipeline Builder node/edge shape) ────
 def _nodes_edges(seq):
     nodes, edges = [], []
     for i, (t, p) in enumerate(seq):
@@ -127,7 +125,6 @@ def _infer_block(model):
     ], task
 
 
-# ── structure builders: each returns builder-JSON {nodes, edges} ─────────────
 def s_linear(model, tail=None, head=None):
     # head = elements placed in the PREPROCESS position (after decode, before dxpreprocess).
     # DxScale/DxConvert are HW-accelerated preprocess elements and MUST go here — placing
@@ -214,14 +211,12 @@ def build_matrix(full):
     return combos
 
 
-# ── runner ───────────────────────────────────────────────────────────────────
 def restart_service():
     try:
         subprocess.run(["sudo", "-n", "systemctl", "restart", "dxrt.service"],
                        check=False, capture_output=True, timeout=30)
     except Exception:
         return False
-    # wait for active
     for _ in range(20):
         r = subprocess.run(["systemctl", "is-active", "dxrt.service"],
                            capture_output=True, text=True)
@@ -276,7 +271,6 @@ def main():
         results.append((label, status, detail))
         print(f"    {status} — {detail}", flush=True)
 
-    # report
     stamp = time.strftime("%Y%m%d-%H%M%S")
     md = HERE / f"report-{stamp}.md"
     csv = HERE / f"report-{stamp}.csv"

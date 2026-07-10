@@ -500,7 +500,6 @@ def main() -> int:
         json.dump(translations, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
-    # Verify output
     with OUT_PATH.open(encoding="utf-8") as f:
         loaded = json.load(f)
     assert len(loaded) == 430, f"Expected 430 entries, got {len(loaded)}"

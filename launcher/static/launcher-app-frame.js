@@ -1,4 +1,3 @@
-/* ─── DXLauncher App Frame Module ─────────────────────── */
 
 (function() {
   var ns = window.DXLauncher;
@@ -189,7 +188,6 @@
     return ns._studioReadyPromise;
   }
 
-  // ── Route helpers ──────────────────────────────────────
   function appFromPath(pathname) {
     for (var key in ns.APP_PATHS) {
       var prefix = ns.APP_PATHS[key].replace(/\/$/, '');
@@ -419,7 +417,6 @@
     }
   }
 
-  // ── LauncherRouter ─────────────────────────────────────
   var LauncherRouter = (function() {
 
     function _commitHistory(method, state, url) {
@@ -632,7 +629,6 @@
     };
   })();
 
-  // ── Navigation ────────────────────────────────────────
   function goHome() { LauncherRouter.navigate('home'); }
   function showAboutView() { LauncherRouter.navigate('about'); }
   function showSdkLibrary() { LauncherRouter.navigate('sdk-library'); }
@@ -842,7 +838,6 @@
     updateActiveModuleCards();
   }
 
-  // ── Module entry constants ─────────────────────────────
   // 8s was too tight for remote access (many head resources over a higher-latency link
   // proxied through the launcher) → spurious "Load timeout". 20s gives headroom; the
   // Retry button still covers genuine transients.
@@ -850,7 +845,6 @@
   var MODULE_HEALTH_STALE_MS = 6000;
   var _moduleLoadTimer = null;
 
-  // ── Module entry auto-retry (self-heal for early access) ──────────
   // When the studio is opened the instant the launcher port starts listening (e.g. VS
   // Code "open in browser"), a module server may still be spawning — its first health
   // probe / iframe load fails. Rather than dropping the user on a manual "unavailable"
@@ -879,7 +873,6 @@
     renderModuleUnavailable(appKey, reason, manualRetryFn);
   }
 
-  // ── Health polling ────────────────────────────────────
   function _maybeReloadForLauncherBoot(data) {
     if (!data || !data.launcher_boot) return false;
     // Never reload mid-navigation — that aborts About / iframe module entry.
@@ -1044,7 +1037,6 @@
     });
   }
 
-  // ── Module health resolution ──────────────────────────
   function resolveModuleHealth(appKey, opts) {
     var force = opts && opts.forceHealth;
     var healthKey = appKey === 'dx_monitor' ? 'monitor' : appKey;
@@ -1082,7 +1074,6 @@
     });
   }
 
-  // ── Module entry state renderers ──────────────────────
   function moduleDisplayName(appKey) {
     var names = {
       app: 'DX App', stream: 'DX Stream',
@@ -1188,14 +1179,12 @@
     }
   }
 
-  // ── Active module card helpers ────────────────────────
   function updateActiveModuleCards() {
     document.querySelectorAll('.orbital-card[data-app]').forEach(function(card) {
       card.classList.toggle('active-module-card', card.dataset.app === ns.currentApp);
     });
   }
 
-  // ── Route recovery notice ─────────────────────────────
   function renderRouteRecoveryNotice(pathname) {
     var notice = document.createElement('div');
     notice.className = 'route-recovery-notice';
@@ -1232,14 +1221,12 @@
     if (el && el.className !== targetClass) el.className = targetClass;
   }
 
-  /* ─── Orbital Layout ─────────────────────────────────── */
 
   function scheduleOrbitalLayout() {
     if (ns._orbitalResizeTimer) clearTimeout(ns._orbitalResizeTimer);
     ns._orbitalResizeTimer = setTimeout(initOrbital, 120);
   }
 
-  // ── Shared keyboard activation helper ──
   function activateOnEnterOrSpace(el, action) {
     if (el.dataset.keyboardBound === '1') return;
     el.addEventListener('keydown', function(e) {
@@ -1251,7 +1238,6 @@
     el.dataset.keyboardBound = '1';
   }
 
-  // ── Orbital card accessibility: role=button + Enter/Space activation ──
   function initOrbitalAccessibility() {
     document.querySelectorAll('.orbital-card[data-app]').forEach(function(card) {
       if (!card.getAttribute('role')) {
@@ -1260,7 +1246,6 @@
       activateOnEnterOrSpace(card, function() { card.click(); });
     });
 
-    // about-book-card keyboard activation
     document.querySelectorAll('.about-book-card').forEach(function(card) {
       activateOnEnterOrSpace(card, function() { card.click(); });
     });
@@ -1525,7 +1510,6 @@
   ns.tryCompleteLauncherBoot = tryCompleteLauncherBoot;
   ns.completeLauncherBoot = completeLauncherBoot;
 
-  // Exports
   ns.LauncherRouter = LauncherRouter;
   ns.goHome = goHome;
   ns.showAboutView = showAboutView;

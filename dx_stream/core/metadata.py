@@ -1,4 +1,3 @@
-# dx_stream/core/metadata.py
 """모델 메타데이터 추출 — dx_rt의 parse_model 래퍼.
 
 .dxnn 모델 파일에서 그래프 정보, 입출력 텐서, 컴파일 옵션 등을 추출한다.

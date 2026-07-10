@@ -14,8 +14,6 @@ _VALID_CATS = {"ask_deepx", "community"}
 _VALID_SORT = {"latest", "likes", "comments"}
 
 
-# ── Persistence ────────────────────────────────────────────────────────────────
-
 def _load():
     if _FORUM_FILE.exists():
         try:
@@ -31,8 +29,6 @@ def _save(data):
         encoding="utf-8"
     )
 
-
-# ── Public API ─────────────────────────────────────────────────────────────────
 
 def forum_list(sort="latest", category=None, q=None):
     """Return post list (summary view — no full body)."""

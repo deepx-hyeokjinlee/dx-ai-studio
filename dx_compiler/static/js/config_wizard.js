@@ -37,7 +37,6 @@
         slice: {channel: 3},
     };
 
-    // --- Wizard Open/Close ---
     window.openWizard = function() {
         document.getElementById('config-wizard').style.display = 'flex';
     };
@@ -46,7 +45,6 @@
     };
     window.addInputRow = addInputRow;
 
-    // --- Step Navigation ---
     function wizGoTo(step) {
         const loaderMode = document.querySelector('input[name="loader_mode"]:checked');
         const isDummy = loaderMode && loaderMode.value === 'dummy';
@@ -82,7 +80,6 @@
         }
     }
 
-    // --- Auto Detect ---
     // Message constants (centralized for i18n later)
     const MESSAGES = {
         EMPTY_PATH: 'Auto-detect did not run: ONNX file path is empty. Please provide a model path or add input shapes manually.',
@@ -153,7 +150,6 @@
             });
     }
 
-    // --- Input Shape Rows ---
     function addInputRow(name, shape) {
         name = name || '';
         shape = shape || [1, 3, 224, 224];
@@ -185,7 +181,6 @@
         list.appendChild(row);
     }
 
-    // --- Preprocessing Pipeline ---
     function createParamField(key, val) {
         const lbl = document.createElement('label');
         lbl.textContent = key + ' ';
@@ -297,7 +292,6 @@
         document.getElementById('prep-select').value = '';
     }
 
-    // --- Build Config JSON ---
     function buildConfigJson() {
         const config = {};
 
@@ -374,7 +368,6 @@
         return config;
     }
 
-    // --- JSON Preview ---
     function updateJsonPreview() {
         const config = buildConfigJson();
         // Build the final config structure (like the server does)
@@ -391,7 +384,6 @@
         document.getElementById('wiz-json-preview').textContent = JSON.stringify(preview, null, 2);
     }
 
-    // --- Generate Config & Close ---
     function generateConfig() {
         const config = buildConfigJson();
         const nextBtn = document.getElementById('wiz-next');
@@ -423,7 +415,6 @@
         });
     }
 
-    // --- Loader mode card selection visual ---
     function updateModeCards() {
         document.querySelectorAll('.mode-card').forEach(card => {
             const radio = card.querySelector('input[type="radio"]');
@@ -431,7 +422,6 @@
         });
     }
 
-    // --- Event Listeners ---
     document.addEventListener('DOMContentLoaded', function() {
         const prevBtn = document.getElementById('wiz-prev');
         const nextBtn = document.getElementById('wiz-next');

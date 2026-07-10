@@ -231,7 +231,6 @@ def _compile_fields(fast_config: Path, output_dir: Path, **extra: str) -> dict[s
     return fields
 
 
-# --- Capability / setup ---
 
 
 def test_live_setup_status_and_samples(live_server, dx_com_info):
@@ -282,7 +281,6 @@ def test_live_config_generate(live_server):
     assert Path(data["path"]).is_file()
 
 
-# --- Compile flows (2.3-compatible) ---
 
 
 def test_live_compile_produces_dxnn(live_server, fast_config, tmp_path):
@@ -360,7 +358,6 @@ def test_live_summary_after_compile(live_server, fast_config, tmp_path, dx_com_i
     assert "MobileNetV2" in html or "summary" in html.lower()
 
 
-# --- 2.4-only paths: verify graceful failure / validation ---
 
 
 def test_live_summary_unavailable_returns_clear_error(live_server, fast_config, tmp_path, dx_com_info):

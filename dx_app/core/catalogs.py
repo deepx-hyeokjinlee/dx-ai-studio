@@ -7,9 +7,7 @@ _PREPROC_CAT = [
 ]
 
 _POSTPROC_CAT = [
-    # ── Classification ──
     {"name": "ClassificationPostprocessor", "label": "Classification (Softmax/Top-K)", "cats": ["classification"]},
-    # ── Object Detection ──
     {"name": "YOLOv5Postprocessor", "label": "YOLOv5 Detection", "cats": ["object_detection"]},
     {"name": "YOLOv8Postprocessor", "label": "YOLOv8 Detection", "cats": ["object_detection"]},
     {"name": "YOLOXPostprocessor", "label": "YOLOX Detection", "cats": ["object_detection"]},
@@ -20,31 +18,24 @@ _POSTPROC_CAT = [
     {"name": "TFLiteDetectionPostprocessor", "label": "TFLite Detection", "cats": ["object_detection"]},
     {"name": "YOLOv5PPUPostprocessor", "label": "YOLOv5 PPU Detection", "cats": ["object_detection"]},
     {"name": "YOLOv7PPUPostprocessor", "label": "YOLOv7 PPU Detection", "cats": ["object_detection"]},
-    # ── Face Detection ──
     {"name": "SCRFDPostprocessor", "label": "SCRFD Face Detection", "cats": ["face_detection"]},
     {"name": "ULFGPostprocessor", "label": "ULFG Face Detection", "cats": ["face_detection"]},
     {"name": "SCRFDPPUPostprocessor", "label": "SCRFD PPU Face Detection", "cats": ["face_detection"]},
     {"name": "PalmDetectionPostprocessor", "label": "Palm Detection", "cats": ["face_detection", "hand_landmark"]},
-    # ── Segmentation ──
     {"name": "SemanticSegmentationPostprocessor", "label": "Semantic Segmentation", "cats": ["semantic_segmentation"]},
     {"name": "SegFormerPostprocessor", "label": "SegFormer Segmentation", "cats": ["semantic_segmentation"]},
     {"name": "InstanceSegPostprocessor", "label": "Instance Segmentation", "cats": ["instance_segmentation"]},
     {"name": "YOLOv8InstanceSegPostprocessor", "label": "YOLOv8 Instance Seg", "cats": ["instance_segmentation"]},
     {"name": "YOLOv5InstanceSegPostprocessor", "label": "YOLOv5 Instance Seg", "cats": ["instance_segmentation"]},
-    # ── Pose Estimation ──
     {"name": "YOLOv5PosePostprocessor", "label": "YOLOv5 Pose", "cats": ["pose_estimation"]},
     {"name": "YOLOv8PosePostprocessor", "label": "YOLOv8 Pose", "cats": ["pose_estimation"]},
     {"name": "YOLOv5PosePPUPostprocessor", "label": "YOLOv5 Pose PPU", "cats": ["pose_estimation"]},
-    # ── Hand Landmark ──
     {"name": "HandLandmarkPostprocessor", "label": "Hand Landmark", "cats": ["hand_landmark"]},
-    # ── OBB / Depth ──
     {"name": "OBBPostprocessor", "label": "OBB Detection", "cats": ["obb_detection"]},
     {"name": "DepthEstimationPostprocessor", "label": "Depth Estimation", "cats": ["depth_estimation"]},
-    # ── Restoration / Enhancement ──
     {"name": "ESPCNPostprocessor", "label": "ESPCN Super Resolution", "cats": ["super_resolution"]},
     {"name": "DnCNNPostprocessor", "label": "DnCNN Denoising", "cats": ["image_denoising"]},
     {"name": "ZeroDCEPostprocessor", "label": "Zero-DCE Enhancement", "cats": ["image_enhancement"]},
-    # ── Embedding ──
     {"name": "GenericEmbeddingPostprocessor", "label": "Generic Embedding", "cats": ["embedding"]},
 ]
 
@@ -65,7 +56,6 @@ _VIS_CAT = [
     {"name": "FaceAlignmentVisualizer", "label": "Face Alignment", "cats": ["face_alignment"]},
 ]
 
-# postprocessor → recommended visualizer mapping
 _POST_TO_VIS = {
     "ClassificationPostprocessor": "ClassificationVisualizer",
     "YOLOv5Postprocessor": "DetectionVisualizer",
@@ -105,7 +95,6 @@ _POST_CTOR = {}  # default: (w, h, config)
 # For factory code generation: visualizers that don't need ()
 _VIS_CTOR = {}  # default: ()
 
-# Recommended pipeline combos by category (pre, post, vis)
 _CAT_RECOMMEND = {
     "classification":         {"pre": "SimpleResizePreprocessor",      "post": "ClassificationPostprocessor",        "vis": "ClassificationVisualizer"},
     "object_detection":       {"pre": "LetterboxPreprocessor",         "post": "YOLOv8Postprocessor",                "vis": "DetectionVisualizer"},

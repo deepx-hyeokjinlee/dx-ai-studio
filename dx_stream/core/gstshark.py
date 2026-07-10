@@ -63,7 +63,6 @@ def install(sudo_password: str = None):
                  "epstool", "babeltrace"],
                 ["mkdir", "-p", str(util_dir)],
             ]
-            # git clone only if not exists
             if not shark_dir.exists():
                 cmds.append(
                     ["git", "clone",

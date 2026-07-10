@@ -1,8 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════
-   DX Stream — Tutorial Definitions (v2 audit-patched)
-   10 sections, ~68 steps, 6-language support (ko/en/ja/zh-CN/zh-TW/es)
-   Fixes: conditional existence guards, missing step coverage, chat z-index
-   ═══════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
@@ -228,7 +223,6 @@
 
   var sections = [
 
-    // ── 1. Dashboard ──
     { id: 'dashboard', icon: '📊',
       title: { ko: '📊 대시보드', en: '📊 Dashboard', ja: '📊 ダッシュボード', 'zh-CN': '📊 仪表板', 'zh-TW': '📊 儀表板', es: '📊 Panel de control' },
       description: { ko: '시스템 상태 및 성능 모니터링', en: 'System status and performance monitoring', ja: 'システム状態とパフォーマンス監視', 'zh-CN': '系统状态和性能监控', 'zh-TW': '系統狀態和效能監控', es: 'Estado del sistema y monitorización del rendimiento' },
@@ -262,7 +256,6 @@
       ]
     },
 
-    // ── 3. Demo Launcher ──
     { id: 'demo', icon: '🎬',
       title: { ko: '🎬 데모 런처', en: '🎬 Demo Launcher', ja: '🎬 デモランチャー', 'zh-CN': '🎬 演示启动器', 'zh-TW': '🎬 示範啟動器', es: '🎬 Lanzador de demos' },
       description: { ko: 'AI 데모 실행 및 실시간 영상', en: 'Run AI demos and view real-time video', ja: 'AIデモの実行とリアルタイム映像', 'zh-CN': '运行AI演示并查看实时视频', 'zh-TW': '執行AI示範並查看即時影像', es: 'Ejecute demos de IA y vea vídeo en tiempo real' },
@@ -332,7 +325,6 @@
       ]
     },
 
-    // ── 4. Pipeline Builder ──
     { id: 'pipeline', icon: '🔧',
       title: { ko: '🔧 파이프라인 빌더', en: '🔧 Pipeline Builder', ja: '🔧 パイプラインビルダー', 'zh-CN': '🔧 管道构建器', 'zh-TW': '🔧 管道建構器', es: '🔧 Constructor de pipelines' },
       description: { ko: 'GStreamer 파이프라인 시각적 구성', en: 'Visual GStreamer pipeline builder', ja: 'GStreamerパイプラインのビジュアル構成', 'zh-CN': '可视化GStreamer管道构建', 'zh-TW': '視覺化GStreamer管道建構', es: 'Constructor visual de pipelines GStreamer' },
@@ -384,7 +376,6 @@
       ]
     },
 
-    // ── 5. Models ──
     { id: 'models', icon: '📦',
       title: { ko: '📦 모델 카탈로그', en: '📦 Model Catalog', ja: '📦 モデルカタログ', 'zh-CN': '📦 模型目录', 'zh-TW': '📦 模型目錄', es: '📦 Catálogo de modelos' },
       description: { ko: '설치된 모델 검색 및 상세 보기', en: 'Search installed models and view details', ja: 'インストール済みモデルの検索と詳細表示', 'zh-CN': '搜索已安装的模型并查看详情', 'zh-TW': '搜尋已安裝的模型並查看詳細資訊', es: 'Busque modelos instalados y consulte detalles' },
@@ -431,7 +422,6 @@
       ]
     },
 
-    // ── 6. Elements ──
     { id: 'elements', icon: '🧩',
       title: { ko: '🧩 요소 레퍼런스', en: '🧩 Element Reference', ja: '🧩 エレメントリファレンス', 'zh-CN': '🧩 元素参考', 'zh-TW': '🧩 元素參考', es: '🧩 Referencia de elementos' },
       description: { ko: 'GStreamer 요소 검색 및 상세', en: 'Search and view GStreamer elements', ja: 'GStreamerエレメントの検索と表示', 'zh-CN': '搜索并查看GStreamer元素', 'zh-TW': '搜尋並查看GStreamer元素', es: 'Busque y consulte elementos GStreamer' },
@@ -457,7 +447,6 @@
       ]
     },
 
-    // ── 7. Setup ──
     { id: 'setup', icon: '⚙️',
       title: { ko: '⚙️ 설정 & 설치', en: '⚙️ Setup & Install', ja: '⚙️ 設定 & インストール', 'zh-CN': '⚙️ 设置 & 安装', 'zh-TW': '⚙️ 設定 & 安裝', es: '⚙️ Configuración e instalación' },
       description: { ko: '시스템 설정 및 종속성 설치', en: 'System setup and dependency installation', ja: 'システム設定と依存関係のインストール', 'zh-CN': '系统设置和依赖安装', 'zh-TW': '系統設定和相依性安裝', es: 'Configuración del sistema e instalación de dependencias' },
@@ -531,7 +520,6 @@
       ]
     },
 
-    // ── 8. Custom Library ──
     { id: 'custom', icon: '🔩',
       title: { ko: '🔩 커스텀 라이브러리', en: '🔩 Custom Library', ja: '🔩 カスタムライブラリ', 'zh-CN': '🔩 自定义库', 'zh-TW': '🔩 自定義函式庫', es: '🔩 Biblioteca personalizada' },
       description: { ko: '커스텀 후처리 .so 빌드 및 관리', en: 'Build and manage custom postprocess .so files', ja: 'カスタム後処理.soのビルドと管理', 'zh-CN': '构建和管理自定义后处理.so文件', 'zh-TW': '建構和管理自定義後處理.so檔案', es: 'Compile y gestione archivos .so de postprocesado personalizados' },
@@ -559,7 +547,6 @@
       ]
     },
 
-    // ── 9. Global ──
     { id: 'global', icon: '🌐',
       title: { ko: '🌐 전역 기능', en: '🌐 Global Features', ja: '🌐 グローバル機能', 'zh-CN': '🌐 全局功能', 'zh-TW': '🌐 全域功能', es: '🌐 Funciones globales' },
       description: { ko: '사이드바, 상단 바, 공유 툴바, 토스트 알림', en: 'Sidebar, top bar, shared toolbar, toast notifications', ja: 'サイドバー、トップバー、共通ツールバー、トースト通知', 'zh-CN': '侧边栏、顶部栏、共享工具栏、Toast通知', 'zh-TW': '側邊欄、頂部欄、共用工具列、Toast通知', es: 'Barra lateral, barra superior, barra compartida y notificaciones toast' },
@@ -595,7 +582,6 @@
       ]
     },
 
-    // ── 10. Chat ──
     { id: 'chat', icon: '💬',
       title: { ko: '💬 AI 챗봇', en: '💬 AI Chatbot', ja: '💬 AIチャットボット', 'zh-CN': '💬 AI聊天机器人', 'zh-TW': '💬 AI聊天機器人', es: '💬 Chatbot de IA' },
       description: { ko: 'AI 어시스턴트와 대화', en: 'Chat with AI assistant', ja: 'AIアシスタントとのチャット', 'zh-CN': '与AI助手聊天', 'zh-TW': '與AI助手對話', es: 'Converse con el asistente de IA' },
@@ -623,11 +609,8 @@
       ]
     },
 
-  ]; // end sections
+  ];
 
-  /* ════════════════════════════════════════════════════════════
-     INITIALIZATION
-     ════════════════════════════════════════════════════════════ */
   _orderGlobalFirst(sections);
 
   window.DXTutorial.create({

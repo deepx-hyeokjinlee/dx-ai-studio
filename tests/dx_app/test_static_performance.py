@@ -156,7 +156,6 @@ def test_inference_error_hints_use_i18n_not_korean_literals():
     assert "T('Inference timed out" in source
 
 
-# ── Wave 3B: benchmark error hidden ──
 def test_benchmark_error_badge_shown_regardless_of_exit_code():
     """res.error must produce ERROR badge even when exit_code is non-null."""
     source = _read(JS_DIR / "benchmark.js")
@@ -184,7 +183,6 @@ def test_benchmark_error_badge_shown_regardless_of_exit_code():
     )
 
 
-# ── Wave 3B: compare click listener leak ──
 def test_compare_set_ab_cols_no_document_click_listener_leak():
     """setABCols must not leak anonymous document click listeners on every call."""
     source = _read(JS_DIR / "compare.js")
@@ -203,7 +201,6 @@ def test_compare_set_ab_cols_no_document_click_listener_leak():
     )
 
 
-# ── Wave 3B: continuous processing misleading ──
 def test_continuous_processing_state_set_per_slot_not_pre_marked():
     """Processing class must only be set inside the sequential loop,
     not pre-applied to all slots before the loop starts."""
@@ -230,7 +227,6 @@ def test_continuous_processing_state_set_per_slot_not_pre_marked():
     )
 
 
-# ── Wave 3B: run media cache stale ──
 def test_run_media_cache_has_ttl_or_invalidation():
     """_runMediaCache must have TTL metadata or an invalidation function."""
     source = _read(JS_DIR / "inference.js")
@@ -246,7 +242,6 @@ def test_run_media_cache_has_ttl_or_invalidation():
     )
 
 
-# ── Wave 3B: initCmpSlider document listener leak ──
 def test_initCmpSlider_no_anonymous_document_listener_leak():
     """initCmpSlider must store handler refs and remove them on drag stop."""
     source = _read(JS_DIR / "inference.js")
@@ -281,7 +276,6 @@ def test_initCmpSlider_no_anonymous_document_listener_leak():
     )
 
 
-# ── Wave 3B: _invalidateRunMediaCache never called ──
 def test_invalidateRunMediaCache_called_outside_own_definition():
     """_invalidateRunMediaCache must be called somewhere other than its definition."""
     source = _read(JS_DIR / "inference.js")
@@ -296,7 +290,6 @@ def test_invalidateRunMediaCache_called_outside_own_definition():
     )
 
 
-# ── Wave 4A: doRun double-click race guard ──
 def test_doRun_has_inflight_guard_before_await():
     """doRun must set an in-flight guard or disable r-run-btn before awaiting postJ."""
     source = _read(JS_DIR / "inference.js")
@@ -335,7 +328,6 @@ def test_doRun_has_inflight_guard_before_await():
     )
 
 
-# ── Wave 4A: Run All button duplicate spans ──
 def test_setup_run_all_button_has_exactly_one_span_per_language():
     """setup-run-all button must have exactly one span per language."""
     html = (ROOT / "dx_app/templates/index.html").read_text(encoding="utf-8")

@@ -1,6 +1,4 @@
-/* DX Stream — i18n Translation Dictionary */
 window._DX_I18N_DICT = {
-    /* Setup */
     'started': { ko: '시작됨', ja: '開始済み', 'zh-CN': '已开始', 'zh-TW': '已開始',es:'iniciado'},
     'completed': { ko: '완료', ja: '完了', 'zh-CN': '已完成', 'zh-TW': '已完成',es:'completado'},
     'Build': { ko: '빌드', ja: 'ビルド', 'zh-CN': '构建', 'zh-TW': '建置',es:'Compilar'},
@@ -11,12 +9,10 @@ window._DX_I18N_DICT = {
     'Failed': { ko: '실패', ja: '失敗', 'zh-CN': '失败', 'zh-TW': '失敗',es:'Fallido'},
     'Install': { ko: '설치', ja: 'インストール', 'zh-CN': '安装', 'zh-TW': '安裝',es:'Instalar'},
 
-    /* Setup — actions */
     'Another task is already running': { ko: '다른 작업이 이미 실행 중입니다', ja: '別のタスクがすでに実行中です', 'zh-CN': '另一个任务正在运行', 'zh-TW': '另一個任務正在執行中',es:'Ya se está ejecutando otra tarea'},
     'Preparing…': { ko: '준비 중…', ja: '準備中…', 'zh-CN': '准备中…', 'zh-TW': '準備中…',es:'Preparando…'},
     'Run failed: ': { ko: '실행 실패: ', ja: '実行失敗: ', 'zh-CN': '运行失败: ', 'zh-TW': '執行失敗: ',es:'Error en la ejecución: '},
 
-    /* Dashboard */
     'device(s)': { ko: '디바이스', ja: 'デバイス', 'zh-CN': '设备', 'zh-TW': '裝置',es:'dispositivo(s)'},
     'Not detected': { ko: '미감지', ja: '未検出', 'zh-CN': '未检测', 'zh-TW': '未偵測',es:'No detectado'},
     'Plugin OK': { ko: '플러그인 정상', ja: 'プラグイン正常', 'zh-CN': '插件正常', 'zh-TW': '外掛程式正常', es: 'Plugin correcto'},
@@ -27,13 +23,11 @@ window._DX_I18N_DICT = {
     'Not built': { ko: '미빌드', ja: '未ビルド', 'zh-CN': '未构建', 'zh-TW': '未建置',es:'No compilado'},
     'Status check failed': { ko: '상태 확인 실패', ja: 'ステータス確認失敗', 'zh-CN': '状态检查失败', 'zh-TW': '狀態檢查失敗',es:'Error en la verificación del estado'},
 
-    /* Demo */
     'Demo stopped': { ko: '데모 중지됨', ja: 'デモ停止済み', 'zh-CN': '演示已停止', 'zh-TW': '示範已停止',es:'Demo detenido'},
     'Demo start already in progress': { ko: '데모 시작이 이미 진행 중입니다', ja: 'デモの開始がすでに進行中です', 'zh-CN': '演示启动已在进行中', 'zh-TW': '示範啟動已在進行中',es:'El inicio del demo ya está en curso'},
     'Starting demo…': { ko: '데모 시작 중…', ja: 'デモを開始中…', 'zh-CN': '正在启动演示…', 'zh-TW': '正在啟動示範…',es:'Iniciando demo…'},
     'Demo start timed out. Retry or check the runtime.': { ko: '데모 시작 시간이 초과되었습니다. 다시 시도하거나 런타임을 확인하세요.', ja: 'デモの開始がタイムアウトしました。再試行するかランタイムを確認してください。', 'zh-CN': '演示启动超时。请重试或检查运行时。', 'zh-TW': '示範啟動逾時。請重試或檢查執行階段。',es:'El inicio del demo agotó el tiempo. Reintente o revise el runtime.'},
 
-    /* Pipeline */
     'Pipeline valid: ': { ko: '파이프라인 유효: ', ja: 'パイプライン有効: ', 'zh-CN': '管道有效: ', 'zh-TW': '管線有效: ',es:'Pipeline válido: '},
     'Pipeline started': { ko: '파이프라인 시작됨', ja: 'パイプライン開始済み', 'zh-CN': '管道已启动', 'zh-TW': '管線已啟動',es:'Pipeline iniciado'},
     'Pipeline stopped': { ko: '파이프라인 중지됨', ja: 'パイプライン停止済み', 'zh-CN': '管道已停止', 'zh-TW': '管線已停止',es:'Pipeline detenido'},
@@ -41,12 +35,10 @@ window._DX_I18N_DICT = {
     'Pipeline exported': { ko: '파이프라인 내보내기 완료', ja: 'パイプラインのエクスポート完了', 'zh-CN': '管道导出完成', 'zh-TW': '管線匯出完成',es:'Pipeline exportado'},
     'Pipeline imported': { ko: '파이프라인 가져오기 완료', ja: 'パイプラインのインポート完了', 'zh-CN': '管道导入完成', 'zh-TW': '管線匯入完成',es:'Pipeline importado'},
 
-    /* Elements */
     'Failed to load elements': { ko: '요소를 불러올 수 없습니다', ja: 'エレメントの読み込みに失敗しました', 'zh-CN': '加载元素失败', 'zh-TW': '載入元素失敗',es:'Error al cargar elementos'},
     'No matching elements': { ko: '일치하는 요소가 없습니다', ja: '一致するエレメントがありません', 'zh-CN': '没有匹配的元素', 'zh-TW': '無符合的元素',es:'Sin elementos coincidentes'},
     'properties': { ko: '속성', ja: 'プロパティ', 'zh-CN': '属性', 'zh-TW': '屬性',es:'propiedades'},
 
-    /* Models */
     'No models found': { ko: '모델이 없습니다', ja: 'モデルが見つかりません', 'zh-CN': '未找到模型', 'zh-TW': '找不到模型',es:'No se encontraron modelos'},
     'Search models...': { ko: '모델 검색...', ja: 'モデルを検索...', es: 'Buscar modelos...', 'zh-CN': '搜索模型...', 'zh-TW': '搜尋模型...' },
     'Search documentation...': { ko: '문서 검색...', ja: 'ドキュメントを検索...', es: 'Buscar documentación...', 'zh-CN': '搜索文档...', 'zh-TW': '搜尋文件...' },
@@ -57,18 +49,15 @@ window._DX_I18N_DICT = {
     'Installed': { ko: '설치됨', ja: 'インストール済み', 'zh-CN': '已安装', 'zh-TW': '已安裝',es:'Instalado'},
     'Downloading...': { ko: '다운로드 중...', ja: 'ダウンロード中...', 'zh-CN': '下载中...', 'zh-TW': '下載中...',es:'Descargando...'},
 
-    /* GstShark */
     'Performance Analysis': { ko: '성능 분석', ja: 'パフォーマンス分析', 'zh-CN': '性能分析', 'zh-TW': '效能分析',es:'Análisis de rendimiento'},
     'Installing...': { ko: '설치 중...', ja: 'インストール中...', 'zh-CN': '安装中...', 'zh-TW': '安裝中...',es:'Instalando...'},
 
-    /* Pipeline — new (Fix 6~10) */
     'Cannot connect: would create a cycle': { ko: '연결 불가: 순환이 발생합니다', ja: '接続不可: 循環が発生します', 'zh-CN': '无法连接: 会产生循环', 'zh-TW': '無法連接: 將產生循環',es:'No se puede conectar: crearía un ciclo'},
     'Failed to load presets': { ko: '프리셋을 불러올 수 없습니다', ja: 'プリセットの読み込みに失敗しました', 'zh-CN': '加载预设失败', 'zh-TW': '載入預設失敗',es:'Error al cargar presets'},
     'Preset not found': { ko: '프리셋을 찾을 수 없습니다', ja: 'プリセットが見つかりません', 'zh-CN': '未找到预设', 'zh-TW': '找不到預設',es:'Preset no encontrado'},
     'Preset loaded: ': { ko: '프리셋 로드: ', ja: 'プリセット読み込み: ', 'zh-CN': '预设已加载: ', 'zh-TW': '預設已載入: ',es:'Preset cargado: '},
     'Properties': { ko: '속성', ja: 'プロパティ', 'zh-CN': '属性', 'zh-TW': '屬性',es:'Propiedades'},
 
-    /* WebRTC */
     'WebRTC connection lost': { ko: 'WebRTC 연결 끊김', ja: 'WebRTC 接続が切断されました', 'zh-CN': 'WebRTC 连接断开', 'zh-TW': 'WebRTC 連線中斷',es:'Conexión WebRTC perdida'},
     'WebRTC connection failed: ': { ko: 'WebRTC 연결 실패: ', ja: 'WebRTC 接続失敗: ', 'zh-CN': 'WebRTC 连接失败: ', 'zh-TW': 'WebRTC 連線失敗: ',es:'Error de conexión WebRTC: '},
     'WebRTC error: ': { ko: 'WebRTC 오류: ', ja: 'WebRTC エラー: ', 'zh-CN': 'WebRTC 错误: ', 'zh-TW': 'WebRTC 錯誤: ',es:'Error de WebRTC: '},
@@ -76,47 +65,38 @@ window._DX_I18N_DICT = {
     'WebRTC connection failed after retries. Click retry to try again.': { ko: 'WebRTC 연결 재시도 실패. 다시 시도하려면 재연결 버튼을 클릭하세요.', ja: 'WebRTC 接続の再試行に失敗しました。再試行するには再接続ボタンをクリックしてください。', 'zh-CN': 'WebRTC 连接重试失败。请点击重试按钮重新尝试。', 'zh-TW': 'WebRTC 連線重試失敗。請點擊重試按鈕再次嘗試。',es:'La conexión WebRTC falló después de reintentos. Haga clic en reintentar para intentar de nuevo.'},
     'Retry': { ko: '재연결', ja: '再接続', 'zh-CN': '重试', 'zh-TW': '重試',es:'Reintentar'},
 
-    /* Undo/Redo */
     'Undo': { ko: '실행 취소', ja: '元に戻す', 'zh-CN': '撤销', 'zh-TW': '復原',es:'Deshacer'},
     'Redo': { ko: '다시 실행', ja: 'やり直し', 'zh-CN': '重做', 'zh-TW': '重做',es:'Rehacer'},
 
-    /* Edge */
     'Edge deleted': { ko: '연결 삭제됨', ja: '接続が削除されました', 'zh-CN': '连接已删除', 'zh-TW': '連線已刪除',es:'Arista eliminada'},
 
-    /* Confirm Modal */
     'Delete Node': { ko: '노드 삭제', ja: 'ノード削除', 'zh-CN': '删除节点', 'zh-TW': '刪除節點',es:'Eliminar nodo'},
     'Reset Pipeline': { ko: '파이프라인 초기화', ja: 'パイプラインのリセット', 'zh-CN': '重置管道', 'zh-TW': '重置管線',es:'Restablecer pipeline'},
     'Reset pipeline? All nodes and connections will be removed.': { ko: '파이프라인을 초기화하시겠습니까? 모든 노드와 연결이 제거됩니다.', ja: 'パイプラインをリセットしますか？すべてのノードと接続が削除されます。', 'zh-CN': '重置管道？所有节点和连接将被删除。', 'zh-TW': '重置管線？所有節點和連線將被刪除。',es:'¿Restablecer pipeline? Se eliminarán todos los nodos y conexiones.'},
     'Import Pipeline': { ko: '파이프라인 가져오기', ja: 'パイプラインのインポート', 'zh-CN': '导入管道', 'zh-TW': '匯入管線',es:'Importar pipeline'},
     'Current pipeline will be replaced. Continue?': { ko: '현재 파이프라인이 대체됩니다. 계속하시겠습니까?', ja: '現在のパイプラインが置き換えられます。続行しますか？', 'zh-CN': '当前管道将被替换。继续？', 'zh-TW': '目前管線將被取代。是否繼續？',es:'¿Se reemplazará el pipeline actual. ¿Continuar?'},
 
-    /* Demo */
     'No demos found': { ko: '해당하는 데모가 없습니다', ja: '該当するデモがありません', 'zh-CN': '未找到演示', 'zh-TW': '找不到示範',es:'No se encontraron demos'},
     'Failed to load demos': { ko: '데모를 불러올 수 없습니다', ja: 'デモの読み込みに失敗しました', 'zh-CN': '加载演示失败', 'zh-TW': '載入示範失敗',es:'Error al cargar demos'},
 
-    /* Environment check */
     'Environment check complete': { ko: '환경 점검 완료', ja: '環境チェック完了', 'zh-CN': '环境检查完成', 'zh-TW': '環境檢查完成',es:'Verificación del entorno completa'},
     'Environment check failed': { ko: '환경 점검 실패', ja: '環境チェック失敗', 'zh-CN': '环境检查失败', 'zh-TW': '環境檢查失敗',es:'Falló la verificación del entorno'},
     'Checking environment…': { ko: '환경 점검 중…', ja: '環境を確認中…', 'zh-CN': '正在检查环境…', 'zh-TW': '正在檢查環境…',es:'Verificando entorno…'},
     'checks passed': { ko: '검사 통과', ja: '検査通過', 'zh-CN': '检查通过', 'zh-TW': '檢查通過',es:'verificaciones aprobadas'},
     'Re-checking…': { ko: '재점검 중…', ja: '再確認中…', 'zh-CN': '重新检查中…', 'zh-TW': '重新檢查中…',es:'Re-verificando…'},
 
-    /* General */
     'Error: ': { ko: '오류: ', ja: 'エラー: ', 'zh-CN': '错误: ', 'zh-TW': '錯誤: ',es:'Error: '},
     'Loading…': { ko: '로드 중…', ja: '読み込み中…', 'zh-CN': '加载中…', 'zh-TW': '載入中…',es:'Cargando…'},
 
-    /* Demo categories */
     'Classification': { ko: '이미지 분류', ja: '画像分類', 'zh-CN': '图像分类', 'zh-TW': '影像分類',es:'Clasificación'},
     'Secondary Inference': { ko: '2차 추론', ja: '二次推論', 'zh-CN': '二次推理', 'zh-TW': '二次推論',es:'Inferencia secundaria'},
     'Image classification with EfficientNet Lite0': { ko: 'EfficientNet Lite0 이미지 분류', ja: 'EfficientNet Lite0 による画像分類', 'zh-CN': '使用 EfficientNet Lite0 的图像分类', 'zh-TW': '使用 EfficientNet Lite0 的影像分類',es:'Clasificación de imágenes con EfficientNet Lite0'},
     'Primary detection + secondary classification/face recognition': { ko: '1차 감지 후 2차 분류 및 얼굴 인식', ja: '一次検出 + 二次分類/顔認識', 'zh-CN': '主检测 + 二次分类/人脸识别', 'zh-TW': '主偵測 + 二次分類/人臉辨識',es:'Detección primaria + clasificación/reconocimiento facial secundario'},
 
-    /* Metadata viewer */
     'Metadata': { ko: '메타데이터', ja: 'メタデータ', 'zh-CN': '元数据', 'zh-TW': '中繼資料',es:'Metadatos'},
     'Graph Info': { ko: '그래프 정보', ja: 'グラフ情報', 'zh-CN': '图表信息', 'zh-TW': '圖表資訊',es:'Información del gráfico'},
     'Failed to load metadata': { ko: '메타데이터 로드 실패', ja: 'メタデータの読み込みに失敗しました', 'zh-CN': '加载元数据失败', 'zh-TW': '載入中繼資料失敗',es:'Error al cargar metadatos'},
 
-    /* Custom Library */
     'Custom Library': { ko: '커스텀 라이브러리', ja: 'カスタムライブラリ', 'zh-CN': '自定义库', 'zh-TW': '自訂函式庫',es:'Biblioteca personalizada'},
     'Existing Libraries': { ko: '기존 라이브러리', ja: '既存のライブラリ', 'zh-CN': '现有库', 'zh-TW': '現有函式庫',es:'Bibliotecas existentes'},
     'Upload New Library': { ko: '새 라이브러리 업로드', ja: '新しいライブラリをアップロード', 'zh-CN': '上传新库', 'zh-TW': '上傳新函式庫',es:'Subir nueva biblioteca'},
@@ -128,7 +108,6 @@ window._DX_I18N_DICT = {
     'Enter name and select files': { ko: '이름을 입력하고 파일을 선택하세요', ja: '名前を入力してファイルを選択してください', 'zh-CN': '输入名称并选择文件', 'zh-TW': '輸入名稱並選擇檔案',es:'Introduzca nombre y seleccione archivos'},
 
 
-  /* ─── Additional i18n entries ─── */
   'Real-time Vision AI': { ko: '실시간 비전 AI', ja: 'リアルタイム ビジョン AI', 'zh-CN': '实时视觉 AI', 'zh-TW': '即時視覺 AI',es:'IA de visión en tiempo real'},
   'Setup': { ko: '설정', ja: 'セットアップ', 'zh-CN': '设置', 'zh-TW': '設定',es:'Configuración'},
   'Dashboard': { ko: '대시보드', ja: 'ダッシュボード', 'zh-CN': '仪表板', 'zh-TW': '儀表板',es:'Panel de control'},
@@ -281,7 +260,6 @@ window._DX_I18N_DICT = {
     es: 'Seleccionar archivos (fuente C + meson.build)',
   },
 
-  /* ── Connection Validation: Block reasons ── */
   'Connection blocked: ': { ko: '연결 차단: ', ja: '接続ブロック: ', 'zh-CN': '连接被阻止: ', 'zh-TW': '連接被阻止: ',es:'Conexión bloqueada: '},
   'No output pad': { ko: '출력 패드 없음', ja: '出力パッドなし', 'zh-CN': '无输出端口', 'zh-TW': '無輸出連接埠',es:'Sin pad de salida'},
   'No input pad': { ko: '입력 패드 없음', ja: '入力パッドなし', 'zh-CN': '无输入端口', 'zh-TW': '無輸入連接埠',es:'Sin pad de entrada'},
@@ -291,7 +269,6 @@ window._DX_I18N_DICT = {
   'Duplicate connection': { ko: '중복 연결', ja: '重複接続', 'zh-CN': '重复连接', 'zh-TW': '重複連接',es:'Conexión duplicada'},
   'Cannot start edge from this node': { ko: '이 노드에서 출력 연결을 시작할 수 없습니다', ja: 'このノードから出力接続を開始できません', 'zh-CN': '无法从此节点开始输出连接', 'zh-TW': '無法從此節點開始輸出連接',es:'No se puede iniciar arista desde este nodo'},
 
-  /* ── Connection Validation: Warnings ── */
   'Warning: ': { ko: '경고: ', ja: '警告: ', 'zh-CN': '警告: ', 'zh-TW': '警告: ',es:'Advertencia: '},
   'Recommended: connect from ': { ko: '권장: 다음에서 연결하세요 ', ja: '推奨: 次から接続してください ', 'zh-CN': '推荐: 请从以下连接 ', 'zh-TW': '建議: 請從以下連接 ',es:'Recomendado: conectar desde '},
   'Consider adding postprocess between inference nodes': { ko: '추론 노드 사이에 후처리 추가를 권장합니다', ja: '推論ノード間に後処理の追加を推奨します', 'zh-CN': '建议在推理节点之间添加后处理', 'zh-TW': '建議在推理節點之間新增後處理',es:'Considere agregar postprocesamiento entre nodos de inferencia'},
@@ -300,24 +277,20 @@ window._DX_I18N_DICT = {
   'Only one branch': { ko: '분기가 1개뿐입니다', ja: '分岐が1つだけです', 'zh-CN': '仅有一个分支', 'zh-TW': '僅有一個分支',es:'Solo una rama'},
   'Only one merge input': { ko: '합류 입력이 1개뿐입니다', ja: '合流入力が1つだけです', 'zh-CN': '仅有一个合并输入', 'zh-TW': '僅有一個合併輸入',es:'Solo una entrada de fusión'},
 
-  /* ── Connection Validation: Auto-converter ── */
   'Insert Converter': { ko: '컨버터 삽입', ja: 'コンバーター挿入', 'zh-CN': '插入转换器', 'zh-TW': '插入轉換器',es:'Insertar convertidor'},
   'Insert converter between nodes?': { ko: '노드 사이에 컨버터를 삽입하시겠습니까?', ja: 'ノード間にコンバーターを挿入しますか？', 'zh-CN': '在节点之间插入转换器吗？', 'zh-TW': '在節點之間插入轉換器嗎？',es:'¿Insertar conversor entre nodos?'},
   'Auto-insert videoconvert?': { ko: 'videoconvert를 자동 삽입할까요?', ja: 'videoconvertを自動挿入しますか？', 'zh-CN': '自动插入 videoconvert？', 'zh-TW': '自動插入 videoconvert？',es:'¿Auto-insertar videoconvert?'},
   'Converter inserted: ': { ko: '컨버터 삽입 완료: ', ja: 'コンバーター挿入完了: ', 'zh-CN': '转换器已插入: ', 'zh-TW': '轉換器已插入: ',es:'Conversor insertado: '},
 
-  /* ── Connection Validation: Tooltips ── */
   'This node cannot receive input': { ko: '이 노드는 입력을 받을 수 없습니다', ja: 'このノードは入力を受け付けません', 'zh-CN': '此节点无法接收输入', 'zh-TW': '此節點無法接收輸入',es:'Este nodo no puede recibir entrada'},
   'This node has no output': { ko: '이 노드는 출력이 없습니다', ja: 'このノードには出力がありません', 'zh-CN': '此节点没有输出', 'zh-TW': '此節點沒有輸出',es:'Este nodo no tiene salida'},
 
-  /* ── Connection Validation: Pipeline validate ── */
   'Validate Pipeline': { ko: '파이프라인 검증', ja: 'パイプラインの検証', 'zh-CN': '验证管道', 'zh-TW': '驗證管線',es:'Validar pipeline'},
   'Pipeline is valid': { ko: '파이프라인이 유효합니다', ja: 'パイプラインは有効です', 'zh-CN': '管道有效', 'zh-TW': '管線有效',es:'El pipeline es válido'},
   'Pipeline has issues: ': { ko: '파이프라인에 문제가 있습니다: ', ja: 'パイプラインに問題があります: ', 'zh-CN': '管道存在问题: ', 'zh-TW': '管線存在問題: ', es: 'El pipeline tiene problemas: ' },
   'Isolated node found': { ko: '연결되지 않은 고립 노드가 있습니다', ja: '接続されていない孤立ノードがあります', 'zh-CN': '发现未连接的孤立节点', 'zh-TW': '發現未連接的孤立節點',es:'Nodo aislado encontrado'},
   'Pipeline has no source': { ko: '파이프라인에 소스가 없습니다', ja: 'パイプラインにソースがありません', 'zh-CN': '管道没有源', 'zh-TW': '管線沒有來源',es:'El pipeline no tiene fuente'},
 
-  /* ── Input Modal ── */
   '🔒 sudo 인증': { ko: '🔒 sudo 인증', en: '🔒 sudo Authentication', ja: '🔒 sudo 認証', 'zh-CN': '🔒 sudo 认证', 'zh-TW': '🔒 sudo 認證', es: '🔒 Autenticación sudo' },
   '이 작업은 관리자 권한이 필요합니다.': { ko: '이 작업은 관리자 권한이 필요합니다.', en: 'This action requires administrator privileges.', ja: 'この操作には管理者権限が必要です。', 'zh-CN': '此操作需要管理员权限。', 'zh-TW': '此操作需要管理員權限。', es: 'Esta acción requiere privilegios de administrador.' },
   'GstShark 설치에 관리자 권한이 필요합니다.': { ko: 'GstShark 설치에 관리자 권한이 필요합니다.', en: 'GstShark installation requires administrator privileges.', ja: 'GstSharkのインストールには管理者権限が必要です。', 'zh-CN': 'GstShark安装需要管理员权限。', 'zh-TW': 'GstShark安裝需要管理員權限。', es: 'La instalación de GstShark requiere privilegios de administrador.' },
@@ -329,7 +302,6 @@ window._DX_I18N_DICT = {
   '🗑️ 파이프라인 삭제': { ko: '🗑️ 파이프라인 삭제', en: '🗑️ Delete Pipeline', ja: '🗑️ パイプライン削除', 'zh-CN': '🗑️ 删除管道', 'zh-TW': '🗑️ 刪除管線', es: '🗑️ Eliminar pipeline' },
   '삭제할 파이프라인 이름': { ko: '삭제할 파이프라인 이름', en: 'Pipeline name to delete', ja: '削除するパイプライン名', 'zh-CN': '要删除的管道名称', 'zh-TW': '要刪除的管線名稱', es: 'Nombre del pipeline a eliminar' },
 
-  /* ── General Actions ── */
   'Cancelled': { ko: '취소됨', ja: 'キャンセル済み', 'zh-CN': '已取消', 'zh-TW': '已取消',es:'Cancelado'},
   'Running': { ko: '실행 중', ja: '実行中', 'zh-CN': '运行中', 'zh-TW': '執行中',es:'Ejecutando'},
   'Custom Pipeline': { ko: '커스텀 파이프라인', ja: 'カスタムパイプライン', 'zh-CN': '自定义管道', 'zh-TW': '自訂管線',es:'Pipeline personalizado'},
@@ -342,7 +314,6 @@ window._DX_I18N_DICT = {
   'Not checked': { ko: '미확인', ja: '未確認', 'zh-CN': '未检查', 'zh-TW': '未檢查',es:'No verificado'},
   'gstreamer1.0-nice not installed': { ko: 'gstreamer1.0-nice 미설치', ja: 'gstreamer1.0-nice 未インストール', 'zh-CN': 'gstreamer1.0-nice 未安装', 'zh-TW': 'gstreamer1.0-nice 未安裝',es:'gstreamer1.0-nice no instalado'},
 
-  /* ── Pipeline Canvas Actions ── */
   'Select All': { ko: '전체 선택', ja: 'すべて選択', 'zh-CN': '全选', 'zh-TW': '全選',es:'Seleccionar todo'},
   'Clear All': { ko: '전체 삭제', ja: 'すべてクリア', 'zh-CN': '清除全部', 'zh-TW': '清除全部',es:'Limpiar todo'},
   'Copy': { ko: '복사', ja: 'コピー', 'zh-CN': '复制', 'zh-TW': '複製',es:'Copiar'},
@@ -356,7 +327,6 @@ window._DX_I18N_DICT = {
   'Pasted ': { ko: '붙여넣기 완료 ', ja: '貼り付け済み ', 'zh-CN': '已粘贴 ', 'zh-TW': '已貼上 ',es:'Pegado '},
   'Delete ': { ko: '삭제 ', ja: '削除 ', 'zh-CN': '删除 ', 'zh-TW': '刪除 ',es:'Eliminar '},
 
-  /* Attribute i18n */
   '📋 Preset': { ko: '📋 프리셋', ja: '📋 プリセット', 'zh-CN': '📋 预设', 'zh-TW': '📋 預設',es:'📋 Preajuste'},
   'Demo 0 — Object Detection': { ko: '데모 0 — 객체 탐지', ja: 'デモ 0 — 物体検出', 'zh-CN': '演示 0 — 目标检测', 'zh-TW': '示範 0 — 物件偵測',es:'Demo 0 — Detección de objetos'},
   'Demo 1 — OD (PPU)': { ko: '데모 1 — 객체 탐지 (PPU)', ja: 'デモ 1 — 物体検出 (PPU)', 'zh-CN': '演示 1 — 目标检测 (PPU)', 'zh-TW': '示範 1 — 物件偵測 (PPU)',es:'Demo 1 — OD (PPU)'},

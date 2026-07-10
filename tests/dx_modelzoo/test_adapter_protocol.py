@@ -18,7 +18,6 @@ from dx_modelzoo.metadata.adapters import (
     _adapter_result,
 )
 
-# ── 필수 키 / 타입 매핑 ──
 
 _EXPECTED_TYPES = {
     "adapter": str,
@@ -31,7 +30,6 @@ _EXPECTED_TYPES = {
 }
 
 
-# ── 헬퍼 ──
 
 
 def _assert_adapter_result_shape(result: dict, *, label: str = ""):
@@ -46,7 +44,6 @@ def _assert_adapter_result_shape(result: dict, *, label: str = ""):
         )
 
 
-# ── AdapterResult TypedDict 정의 자체 테스트 ──
 
 
 class TestAdapterResultDefinition:
@@ -63,7 +60,6 @@ class TestAdapterResultDefinition:
             assert key in annotations, f"AdapterResult missing annotation for '{key}'"
 
 
-# ── _adapter_result 헬퍼 ──
 
 
 class TestAdapterResultHelper:
@@ -90,7 +86,6 @@ class TestAdapterResultHelper:
         assert r["profile"] == "internal"
 
 
-# ── local_runtime_adapter ──
 
 
 class TestLocalRuntimeAdapterContract:
@@ -108,7 +103,6 @@ class TestLocalRuntimeAdapterContract:
         assert result["adapter"] == "local_runtime"
 
 
-# ── benchmark_cache_adapter ──
 
 
 class TestBenchmarkCacheAdapterContract:
@@ -148,7 +142,6 @@ class TestBenchmarkCacheAdapterContract:
         assert result["adapter"] == "benchmark_cache"
 
 
-# ── local_modelzoo_repo_adapter ──
 
 
 class TestLocalModelzooRepoAdapterContract:
@@ -165,7 +158,6 @@ class TestLocalModelzooRepoAdapterContract:
         assert result["adapter"] == "local_modelzoo_repo"
 
 
-# ── internal_modelzoo_adapter ──
 
 
 class TestInternalModelzooAdapterContract:
@@ -190,7 +182,6 @@ class TestInternalModelzooAdapterContract:
         assert result["adapter"] == "internal_modelzoo"
 
 
-# ── sync.py _stub_network_adapter 검증 ──
 
 
 class TestStubNetworkAdapterContract:
@@ -203,7 +194,6 @@ class TestStubNetworkAdapterContract:
         _assert_adapter_result_shape(result, label="public_modelzoo stub")
 
 
-# ── run_sync 집계 동작 ──
 
 
 class TestSyncAggregationContract:

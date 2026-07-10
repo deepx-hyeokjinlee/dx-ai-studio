@@ -11,7 +11,6 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
-# ── Unit tests: ModelZooGateway delegates to injected adapter ──────────────────
 
 class FakeModelZooAdapter:
     """Minimal fake implementing the modelzoo adapter protocol."""
@@ -81,7 +80,6 @@ def test_gateway_delegates_stop():
     assert "stop" in adapter.calls
 
 
-# ── Source contract tests: server.py routes through gateway ────────────────────
 
 def test_server_imports_modelzoo_gateway():
     source = read_text(APP / "server.py")

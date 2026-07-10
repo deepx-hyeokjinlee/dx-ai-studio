@@ -317,7 +317,6 @@ def aggregate_benchmarks(
                 stacklevel=2,
             )
 
-        # Aggregate model results
         latency_map: dict = {}
         throughput_map: dict = {}
 
@@ -355,7 +354,6 @@ def aggregate_benchmarks(
                 "throughput_ms": round(thr["ms"], 2) if "ms" in thr else None,
             })
 
-        # Aggregate multi-stream results
         multi_stream = []
         for entry in multi_stream_results:
             total_fps = entry.get("avg_e2e_fps")

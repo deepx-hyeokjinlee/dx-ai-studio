@@ -18,9 +18,6 @@ from onnx import AttributeProto, TensorProto, numpy_helper, shape_inference
 
 __all__ = ["categorize_op", "parse_onnx_model"]
 
-# ---------------------------------------------------------------------------
-# Op-type → category mapping
-# ---------------------------------------------------------------------------
 
 _CATEGORY_MAP: Dict[str, str] = {}
 
@@ -95,9 +92,6 @@ def categorize_op(op_type: str) -> str:
     return _CATEGORY_MAP.get(op_type, "other")
 
 
-# ---------------------------------------------------------------------------
-# ONNX dtype helpers
-# ---------------------------------------------------------------------------
 
 _DTYPE_MAP: Dict[int, str] = {
     TensorProto.FLOAT: "float32",
@@ -137,9 +131,6 @@ def _dtype_size(dtype_name: str) -> int:
     return _DTYPE_BYTES.get(dtype_name, 0)
 
 
-# ---------------------------------------------------------------------------
-# Shape / value-info helpers
-# ---------------------------------------------------------------------------
 
 def _extract_shape(type_proto) -> Optional[List[int]]:
     """Extract shape from a TypeProto, mapping symbolic dims to -1."""
@@ -163,9 +154,6 @@ def _value_info_dict(vi) -> Dict[str, Any]:
     return {"name": vi.name, "shape": shape, "dtype": dtype}
 
 
-# ---------------------------------------------------------------------------
-# Attribute extraction
-# ---------------------------------------------------------------------------
 
 def _extract_attr(attr: AttributeProto) -> Any:
     """Convert an ONNX AttributeProto to a plain Python value."""
@@ -190,9 +178,6 @@ def _extract_attr(attr: AttributeProto) -> Any:
     return None
 
 
-# ---------------------------------------------------------------------------
-# Main parser
-# ---------------------------------------------------------------------------
 
 def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
     """Parse an ONNX model into a JSON-serializable graph dict.
@@ -249,7 +234,6 @@ def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
     for vi in list(graph.value_info) + list(graph.input) + list(graph.output):
         tensor_info[vi.name] = _value_info_dict(vi)
 
-    # -- Nodes --
     node_list: List[Dict[str, Any]] = []
     used_ids: set = set()
     output_to_node: Dict[str, str] = {}  # tensor_name → producing node id
@@ -259,7 +243,6 @@ def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
     constant_params: list = []  # Constant op outputs treated as params
 
     for idx, node in enumerate(graph.node):
-        # --- NodeGroup subgraph flattening ---
         if node.op_type.startswith("NodeGroup_"):
             sg_attr = None
             for attr in node.attribute:
@@ -352,7 +335,6 @@ def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
             })
             continue
 
-        # --- Regular (non-NodeGroup) node ---
 
         # Constant nodes are treated as parameters (like Netron).
         # Their outputs are added to initializer_names so downstream
@@ -408,7 +390,6 @@ def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
         for out_name in node.output:
             output_to_node[out_name] = node_id
 
-    # -- Edges (data / activation only — skip initializers) --
     # Detect implicit parameters: tensor names consumed by nodes but not
     # produced by any node and not declared as graph inputs.  This handles
     # NPU subgraphs where weights are baked into the binary and don't
@@ -433,7 +414,6 @@ def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
                 initializer_names.add(inp)
                 implicit_param_names.add(inp)
 
-    # -- Hide param-only nodes (transitive closure) --
     # Nodes whose ALL non-empty inputs come from initializers/constants
     # are param-processing ops (Identity, Reshape, Unsqueeze on weights).
     # Like Netron, remove them from the graph and treat their outputs as
@@ -475,7 +455,6 @@ def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
             1 for nd in node_list if nd.get("subgraph_id") == sg["id"]
         )
 
-    # -- Identity bypass --
     # Remove Identity nodes with exactly 1 non-empty input and 1 non-empty output,
     # rewiring downstream consumers to the original source tensor.
     # Accumulate alias map across iterations so chained graph-output identities
@@ -548,14 +527,12 @@ def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
             }
             edges.append(edge)
 
-    # -- Graph inputs (exclude initializers) --
     inputs = [
         _value_info_dict(vi)
         for vi in graph.input
         if vi.name not in initializer_names
     ]
 
-    # -- Graph outputs --
     outputs = [_value_info_dict(vi) for vi in graph.output]
 
     # Resolve accumulated Identity aliases for graph outputs with cycle protection
@@ -588,7 +565,6 @@ def parse_onnx_model(source: Union[str, onnx.ModelProto]) -> Dict[str, Any]:
                         output_to_node[vi.name] = n["id"]
                         break
 
-    # -- Parameters (initializers from root graph + subgraphs + implicit) --
     params: List[Dict[str, Any]] = []
     seen_param_names: set = set()
     for init in list(graph.initializer) + subgraph_initializers:

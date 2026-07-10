@@ -1,4 +1,3 @@
-# tests/test_boot_animation.py
 """Tests for launcher/boot_animation.py."""
 import io
 import re

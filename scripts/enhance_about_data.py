@@ -134,7 +134,6 @@ data["technology"]["sdk"]["startHere"] = {
 }
 data["technology"]["sdk"]["release"] = data["developer"]["sdkRelease"]
 
-# Where to buy + partner groups
 data["distribution"] = {
     "title": L("Where to Buy", "구매 채널", "購入チャネル", "购买渠道", "購買渠道", "Dónde comprar"),
     "channels": [
@@ -167,7 +166,6 @@ data["partners"]["ecosystem"] = [
     "Ultralytics", "AAEON", "Renesas", "Raspberry Pi", "Naver Cloud",
 ]
 
-# news split
 old_events = data["news"].get("events", [])
 data["news"]["upcoming"] = [
     {

@@ -1,4 +1,3 @@
-# dx_agent_dev/core/adapters/base.py
 """어댑터 베이스: AgentAdapter(ABC) + SubprocessAdapter 공통 구동."""
 from __future__ import annotations
 

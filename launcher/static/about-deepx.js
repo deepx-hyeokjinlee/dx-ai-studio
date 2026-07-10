@@ -1,4 +1,3 @@
-/* ─── About DEEPX — Corporate Landing Page ─── */
 (function() {
   'use strict';
 
@@ -491,7 +490,6 @@
 
     sections.forEach(s => _scrollSpyObserver.observe(s));
 
-    // Tab click + keyboard
     tabs.forEach(tab => {
       if (!tab.dataset.clickBound) {
         tab.addEventListener('click', () => {
@@ -689,7 +687,6 @@
     }
   });
 
-  // Public API
   window.AboutDeepX = {
     init: initAboutView,
     onShown: onAboutViewShown,

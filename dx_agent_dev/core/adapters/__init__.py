@@ -1,4 +1,3 @@
-# dx_agent_dev/core/adapters/__init__.py
 """에이전트 어댑터 레지스트리.
 
 AGENT_REGISTRY는 도구명→어댑터 클래스. 신규 어댑터는 자신의 모듈에서 import 후

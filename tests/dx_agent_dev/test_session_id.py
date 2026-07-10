@@ -1,4 +1,3 @@
-# tests/dx_agent_dev/test_session_id.py
 """구조화 session_id: agent 지정 시 YYYYMMDD-HHMMSS_<agent>_<model>_default_chat, 미지정 uuid 폴백."""
 import re
 import sys

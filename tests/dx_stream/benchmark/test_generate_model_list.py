@@ -47,9 +47,6 @@ def gml():
     return _load_module()
 
 
-# ---------------------------------------------------------------------------
-# extract_family()
-# ---------------------------------------------------------------------------
 
 class TestExtractFamily:
     def test_yolov8(self, gml):
@@ -78,9 +75,6 @@ class TestExtractFamily:
         assert gml.extract_family("YoloV8n".lower()) == "yolov8"
 
 
-# ---------------------------------------------------------------------------
-# extract_size()
-# ---------------------------------------------------------------------------
 
 class TestExtractSize:
     def test_n_suffix(self, gml):
@@ -114,9 +108,7 @@ class TestExtractSize:
         assert result == ""
 
 
-# ---------------------------------------------------------------------------
 # convert_test_models_conf() — 기본 변환
-# ---------------------------------------------------------------------------
 
 SAMPLE_CONF = """\
 # 주석은 무시
@@ -204,9 +196,7 @@ class TestConvertTestModelsConf:
         assert model["size"] == "n"
 
 
-# ---------------------------------------------------------------------------
 # 실제 test_models.conf 전체 변환 테스트
-# ---------------------------------------------------------------------------
 
 @pytest.mark.skipif(not _CONF_PATH.exists(), reason="test_models.conf not found")
 class TestFullConversion:

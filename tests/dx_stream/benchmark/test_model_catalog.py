@@ -25,7 +25,6 @@ if BENCHMARK_DIR.is_dir():
     )
 
 
-# ── Fixtures ───────────────────────────────────────────────────────────────
 
 @pytest.fixture
 def manifest_dir(tmp_path):
@@ -82,7 +81,6 @@ def manifest_dir(tmp_path):
     return model_dir, tmp_path / "model_list.json"
 
 
-# ── TestDiscoverModelsV2 ────────────────────────────────────────────────────
 
 class TestDiscoverModelsV2:
     def test_returns_four_entries_skipping_missing(self, manifest_dir):
@@ -138,7 +136,6 @@ class TestDiscoverModelsV2:
         assert "size=" in s
 
 
-# ── TestFilterModelsV2 ─────────────────────────────────────────────────────
 
 class TestFilterModelsV2:
     @pytest.fixture
@@ -181,7 +178,6 @@ class TestFilterModelsV2:
         assert all(e.task == "object_detection" and e.size == "n" for e in result)
 
 
-# ── TestBackwardCompat ──────────────────────────────────────────────────────
 
 class TestBackwardCompat:
     def test_model_entry_exists(self):
@@ -208,7 +204,6 @@ class TestBackwardCompat:
         assert e.size == "n"
 
 
-# ── TestLegacyStringManifest ───────────────────────────────────────────────
 
 class TestLegacyStringManifest:
     """discover_models_v2 handles legacy manifests where models is a string list."""
@@ -270,7 +265,6 @@ class TestLegacyStringManifest:
         assert len(entries) == 0
 
 
-# ── TestMalformedDictEntries ──────────────────────────────────────────────
 
 class TestMalformedDictEntries:
     """discover_models_v2 skips malformed dict entries without crashing."""

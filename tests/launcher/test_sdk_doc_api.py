@@ -147,7 +147,6 @@ class TestSdkDocApiSafety:
         assert self._get(launcher_server, "launcher/launcher.py") == 404
 
 
-# ─── Cache contract ──────────────────────────────────────────────────
 
 def test_sdk_doc_allowlist_loader_is_cached():
     module = _load_launcher_module()

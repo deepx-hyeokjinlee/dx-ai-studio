@@ -677,9 +677,6 @@ def test_unknown_routes_return_json_404(server, method, body):
     assert data["error"] == "Not found"
 
 
-# ---------------------------------------------------------------------------
-# Chunk 3.5: upload allowlist and bounded multipart tests
-# ---------------------------------------------------------------------------
 
 
 @pytest.mark.parametrize("filename", ["model.onnx", "compile_config.json"])
@@ -733,9 +730,6 @@ def test_compiler_upload_oversized_multipart_rejected_before_body_read(monkeypat
     assert exc.value.status_code == 413
 
 
-# ---------------------------------------------------------------------------
-# Chunk 2: Checkpoint removal tests
-# ---------------------------------------------------------------------------
 
 
 def test_find_fresh_dxnn_ignores_optimized_ckpt(tmp_path, monkeypatch):

@@ -9,9 +9,7 @@ function setModelZooStatusHtml(el, html) {
   el.innerHTML = html;
 }
 
-// ---------------------------------------------------------------------------
 // 최적화 이미지 헬퍼 (catalog.js의 ModelZooImages와 동일 정책)
-// ---------------------------------------------------------------------------
 
 function _detailOptimizedCandidates(originalPath) {
   if (!originalPath) return [];
@@ -765,7 +763,6 @@ function _buildModelCardHtml(m, imgDataUrl) {
   ].filter(function (r) { return _hasValue(r[1]); })
     .map(function (r) { return '<tr><th>' + e(r[0]) + '</th><td>' + v(r[1]) + '</td></tr>'; }).join('');
 
-  // Compile guide
   const cg = m.compile_guide || {};
   const cgNote = _localText(cg.notes);
   const cgRows = [
@@ -775,7 +772,6 @@ function _buildModelCardHtml(m, imgDataUrl) {
     ['ONNX', (arts.onnx && arts.onnx.remote_url) ? ('<a href="' + e(arts.onnx.remote_url) + '">' + e(arts.onnx.remote_url) + '</a>') : '—'],
   ].map(function (r) { return '<tr><th>' + e(r[0]) + '</th><td>' + (r[0] === 'ONNX' ? r[1] : v(r[1])) + '</td></tr>'; }).join('');
 
-  // Legal (complete)
   const metaSrc = (typeof _metadataSource === 'function') ? _metadataSource(m) : {};
   const lastSync = (typeof _lastMetadataSync === 'function') ? _lastMetadataSync(m) : '';
   const legalRows = [

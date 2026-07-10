@@ -8,7 +8,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import config
 from config import DX_APP_ROOT, ASSETS_DIR, SCRIPTS_DIR, CONFIG_FILE
 
-# ── Constants ──────────────────────────────────────────────────────────────────
 DEVELOPER_PORTAL = "https://developer.deepx.ai"
 SDK_BASE = "https://sdk.deepx.ai"
 
@@ -24,7 +23,6 @@ SOURCE_URLS = {
 MODELS_DIR = ASSETS_DIR / "models"
 QPRO_DIR = MODELS_DIR / "q-pro"
 
-# ── Download State ─────────────────────────────────────────────────────────────
 _dl_lock = threading.Lock()
 _dl_state = {
     "running": False,
@@ -44,7 +42,6 @@ def _reset_dl_state():
     })
 
 
-# ── Page Parsing ───────────────────────────────────────────────────────────────
 def _get_session(source):
     import requests
     s = requests.Session()
@@ -105,7 +102,6 @@ def _parse_models(html):
                 t = child.get_text(strip=True)
                 if t:
                     parts.append(t)
-        # Collapse consecutive newlines and strip edges
         return "\n".join(p for p in "\n".join(parts).split("\n") if p.strip()).strip()
 
     models = []
@@ -161,29 +157,24 @@ def _parse_models(html):
                 metric = _cell_text(cells[cstart + 6])
                 raw_acc = _cell_text(cells[cstart + 8])
 
-                # ONNX
                 onnx_a = cells[cstart + 9].find("a", href=True)
                 onnx_url = _abs(onnx_a["href"]) if onnx_a else None
 
-                # Q-Lite
                 ql_acc = _cell_text(cells[cstart + 10])
                 ql_dxnn_a = cells[cstart + 11].find("a", href=True)
                 ql_json_a = cells[cstart + 12].find("a", href=True)
                 ql_dxnn = _abs(ql_dxnn_a["href"]) if ql_dxnn_a else None
                 ql_json = _abs(ql_json_a["href"]) if ql_json_a else None
 
-                # Q-Pro
                 qp_acc = _cell_text(cells[cstart + 13])
                 qp_dxnn_a = cells[cstart + 14].find("a", href=True)
                 qp_json_a = cells[cstart + 15].find("a", href=True)
                 qp_dxnn = _abs(qp_dxnn_a["href"]) if qp_dxnn_a else None
                 qp_json = _abs(qp_json_a["href"]) if qp_json_a else None
 
-                # FPS
                 fps = cells[cstart + 16].get_text(strip=True) if len(cells) > cstart + 16 else ""
                 fps_watt = cells[cstart + 17].get_text(strip=True) if len(cells) > cstart + 17 else ""
 
-                # Check if files already exist
                 ql_fname = Path(urlparse(ql_dxnn).path).name if ql_dxnn else None
                 qp_fname = Path(urlparse(qp_dxnn).path).name if qp_dxnn else None
                 ql_exists = bool(ql_fname and (MODELS_DIR / ql_fname).exists())
@@ -286,7 +277,6 @@ def _parse_models(html):
     return models
 
 
-# ── Public API ─────────────────────────────────────────────────────────────────
 _cache = {"models": None, "source": None, "ts": 0}
 _cache_lock = threading.Lock()
 _CACHE_TTL = 300  # 5 minutes
@@ -297,7 +287,6 @@ def modelzoo_list(source="internal"):
     now = time.time()
     with _cache_lock:
         if _cache["models"] and _cache["source"] == source and now - _cache["ts"] < _CACHE_TTL:
-            # Refresh exists flags from disk
             _refresh_exists(_cache["models"])
             return {"ok": True, "models": _cache["models"], "cached": True}
 
@@ -337,7 +326,6 @@ def modelzoo_download(items, source="internal"):
         if _dl_state["running"]:
             return {"ok": False, "error": "Download already in progress"}
 
-    # Build download task list
     tasks = []
     for item in items:
         chip = item.get("chip", "qlite")
@@ -368,7 +356,6 @@ def modelzoo_download(items, source="internal"):
         _dl_state["total"] = len(tasks)
         _dl_state["finished"] = False
 
-    # Start background thread
     threading.Thread(
         target=_download_worker, args=(tasks, source), daemon=True
     ).start()
@@ -423,7 +410,6 @@ def _download_worker(tasks, source):
         _dl_state["finished"] = True
         _dl_state["current"] = ""
 
-    # Post-download: auto-register models
     _auto_register()
 
     # Invalidate cache so next list refreshes exists flags
@@ -453,13 +439,11 @@ def modelzoo_stop():
         return {"ok": False, "status": "not_running"}
 
 
-# ── Auto-Registration ──────────────────────────────────────────────────────────
 def _auto_register():
     """After download, update test_models.conf for newly downloaded models."""
     try:
         from models import _reload_reg
 
-        # Load model_registry.json for metadata
         reg_file = DX_APP_ROOT / "config" / "model_registry.json"
         registry = {}
         if reg_file.exists():
@@ -469,7 +453,6 @@ def _auto_register():
             except Exception:
                 pass
 
-        # Read existing test_models.conf entries
         existing = set()
         if CONFIG_FILE.exists():
             for line in CONFIG_FILE.read_text().splitlines():
@@ -480,7 +463,6 @@ def _auto_register():
                 if len(parts) >= 3:
                     existing.add(parts[2].strip())  # model_file path
 
-        # Check recently downloaded dxnn files
         new_entries = []
         with _dl_lock:
             for res in _dl_state["results"]:
@@ -496,7 +478,6 @@ def _auto_register():
                 if rel_path in existing:
                     continue
 
-                # Look up in registry
                 reg_entry = registry.get(fname.lower(), {})
                 model_name = reg_entry.get("model_name", Path(fname).stem.lower())
                 category = reg_entry.get("add_model_task", "object_detection")
@@ -511,7 +492,6 @@ def _auto_register():
                     f.write(entry + "\n")
             print(f"[MODELZOO] Registered {len(new_entries)} new model(s) in test_models.conf")
 
-            # Reload registry
             _reload_reg()
 
     except Exception as e:

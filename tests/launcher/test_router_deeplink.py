@@ -55,7 +55,6 @@ def _start_launcher_server(handler_cls):
     return server, f"http://127.0.0.1:{server.server_address[1]}"
 
 
-# ─── Helpers ─────────────────────────────────────────────────────────
 
 _BROWSER_NAV_HEADERS = {
     "Accept": "text/html,application/xhtml+xml",
@@ -75,7 +74,6 @@ def _assert_launcher_shell(body):
     )
 
 
-# ─── Task 1.1 Step 1: Top-level sub-app HTML navigation ─────────────
 
 @pytest.mark.parametrize("subapp_path", [
     "/stream/",
@@ -105,7 +103,6 @@ def test_top_level_subapp_html_navigation_serves_launcher_index(monkeypatch, sub
         server.server_close()
 
 
-# ─── Task 1.1 Step 2: Iframe / resource proxy preservation ──────────
 
 def test_iframe_document_request_stays_proxied(monkeypatch):
     module = _load_launcher_module()
@@ -208,9 +205,7 @@ def test_post_api_request_stays_proxied(monkeypatch):
         server.server_close()
 
 
-# ─── Task 1.1 Step 3: Unknown top-level URL ─────────────────────────
 
-# ─── Task: Subapp referer guard ──────────────────────────────────────
 
 def test_subapp_referer_navigation_stays_proxied(monkeypatch):
     """GET /stream/ with browser-nav headers + subapp Referer must proxy, not shell."""
@@ -238,9 +233,7 @@ def test_subapp_referer_navigation_stays_proxied(monkeypatch):
         server.server_close()
 
 
-# ─── Task 1.1 Step 3: Unknown top-level URL ─────────────────────────
 
-# ─── Task 3.1: SDK direct-entry with query params ────────────────────
 
 def test_sdk_library_with_query_params_serves_launcher_shell(monkeypatch):
     """Top-level browser nav to /sdk-library?doc=<encoded>&q=<encoded>&view=list
@@ -263,7 +256,6 @@ def test_sdk_library_with_query_params_serves_launcher_shell(monkeypatch):
         server.server_close()
 
 
-# ─── Task 1.1 Step 3: Unknown top-level URL ─────────────────────────
 
 def test_unknown_top_level_html_navigation_serves_launcher_shell(monkeypatch):
     module = _load_launcher_module()

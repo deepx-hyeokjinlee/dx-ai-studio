@@ -6,7 +6,6 @@ import textwrap
 import pytest
 
 
-# ── 모듈 존재 확인 ──
 
 
 class TestModuleExists:
@@ -17,7 +16,6 @@ class TestModuleExists:
         from dx_modelzoo.metadata import _yaml_parser  # noqa: F401
 
 
-# ── HTML parser 테스트 ──
 
 
 class TestHtmlParser:
@@ -111,7 +109,6 @@ class TestHtmlParser:
         assert html_span("abc") == 1
 
 
-# ── YAML parser 테스트 ──
 
 
 class TestYamlParser:
@@ -203,7 +200,6 @@ class TestYamlParser:
         assert fields["specification.input_resolution"] == "224x224"
 
 
-# ── adapters.py 호환성 유지 테스트 ──
 
 
 class TestAdaptersCompatibility:

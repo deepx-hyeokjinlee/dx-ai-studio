@@ -12,7 +12,6 @@ def _find_dxcom():
     """Find dxcom binary, checking venv first, then PATH."""
     venv_dxcom=DX_COMPILER_VENV/"bin"/"dxcom"
     if venv_dxcom.exists():return str(venv_dxcom)
-    # Try pip-installed dxcom in venv python
     venv_py=DX_COMPILER_VENV/"bin"/"python3"
     if venv_py.exists():
         try:
@@ -21,7 +20,6 @@ def _find_dxcom():
             p=r.stdout.strip()
             if p and os.path.exists(p):return p
         except:pass
-    # System PATH
     p=shutil.which("dxcom")
     if p:return p
     return None
@@ -37,7 +35,6 @@ def _dxcom_version():
             if m:return m.group(1)
             return out[:50] if out else None
         except:pass
-    # Fallback: read release.ver
     rv=DX_COMPILER_ROOT/"release.ver"
     if rv.exists():return rv.read_text().strip().lstrip("v")
     return None
@@ -192,24 +189,20 @@ def _keep_sudo_alive(stop_event):
 def setup_status():
     """Return dict of {step_id: {ok, detail}} for all setup steps."""
     r={}
-    # dx-app-deps
     cmake_ok=bool(shutil.which("cmake"))
     gcc_ok=bool(shutil.which("gcc") or shutil.which("gcc-12") or shutil.which("g++"))
     ninja_ok=bool(shutil.which("ninja") or shutil.which("ninja-build"))
     r["dx-app-deps"]={"ok":cmake_ok and gcc_ok,
         "detail":"cmake "+("✅" if cmake_ok else "❌")+"  gcc "+("✅" if gcc_ok else "❌")+"  ninja "+("✅" if ninja_ok else "❌")}
-    # dx-app-build
     bdir=DX_APP_ROOT/"build_x86_64"
     bins=list(bdir.rglob("*_sync"))[:1] if bdir.exists() else []
     r["dx-app-build"]={"ok":bool(bins),
         "detail":f"build_x86_64/ {'✅ found' if bdir.exists() else '❌ not found'}"}
-    # dx-app-setup
     mdir=ASSETS_DIR/"models";vdir=ASSETS_DIR/"videos"
     nm=len(list(mdir.glob("*.dxnn"))) if mdir.exists() else 0
     nv=len([f for f in vdir.iterdir() if f.is_file()]) if vdir.exists() else 0
     r["dx-app-setup"]={"ok":nm>0 and nv>0,
         "detail":f"{nm} model(s), {nv} video(s)"}
-    # dx-rt-deps
     rv=DX_RT_ROOT/"release.ver"
     rt_ver=rv.read_text().strip() if rv.exists() else None
     r["dx-rt-deps"]={"ok":rv.exists(),
@@ -218,7 +211,6 @@ def setup_status():
     devs=(sorted(Path("/dev").glob("dxrt*"))+sorted(Path("/dev").glob("deepx*"))) if Path("/dev").exists() else []
     r["dx-driver"]={"ok":bool(devs),
         "detail":", ".join(d.name for d in devs) if devs else "/dev/dxrt* or /dev/deepx* not found"}
-    # dx-compiler
     dxcom=_find_dxcom();ver=_dxcom_version()
     r["dx-compiler"]={"ok":dxcom is not None,
         "detail":f"v{ver}" if ver else ("Install required" if not (DX_COMPILER_ROOT/"install.sh").exists() else "install.sh ✅"),
@@ -234,7 +226,6 @@ def setup_status():
     return r
 
 
-# ── Deep Diagnostics ───────────────────────────────────────────────────────────
 def deep_diagnostics():
     """Run 12 deep diagnostic checks (Python-native, no shell dependency)."""
     checks=[]
@@ -425,7 +416,6 @@ def setup_run(step,params=None):
                 if rlist:
                     chunk=_os.read(fd,4096)
                     if not chunk:break
-                    # decode and accumulate; flush partial lines immediately
                     text=chunk.decode("utf-8","replace")
                     partial+=text
                     # split on newlines but keep trailing partial line
@@ -444,7 +434,6 @@ def setup_run(step,params=None):
                             config._comp_log="".join(buf)+partial
                     if proc.poll() is not None:
                         break
-            # flush remaining partial
             if partial:
                 buf.append(partial)
                 print(f"[SETUP:{step}] {partial}")

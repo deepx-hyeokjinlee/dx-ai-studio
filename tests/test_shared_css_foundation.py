@@ -1188,9 +1188,6 @@ def test_sdk_library_shell_uses_deepx_tokens_not_github_palette():
         assert token in shell_blocks
 
 
-# ---------------------------------------------------------------------------
-# Unified depth system – TDD RED tests
-# ---------------------------------------------------------------------------
 
 
 def _css_rule(css: str, selector: str) -> str:

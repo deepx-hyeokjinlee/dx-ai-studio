@@ -89,7 +89,6 @@ def test_monitor_language_menu_parent_stacks_above_monitor_content():
     assert "z-index" not in monitor_main
 
 
-# ── Wave 3D: SSE reconnect gap + chart rebuild jank ──────────
 
 
 def test_sse_reconnect_delay_not_30s():
@@ -134,7 +133,6 @@ def test_draw_single_mode_does_not_replace_inner_html_every_tick():
     )
 
 
-# ── Wave 3D: SSE timeout reconnect + layout key mock awareness ──
 
 
 def test_sse_timeout_callback_schedules_reconnect():
@@ -174,7 +172,6 @@ def test_layout_key_includes_mock_flag_all():
     )
 
 
-# ── Wave 4C: double-fetch, z-index conflicts, mock banner ────
 
 
 def test_events_no_duplicate_initial_fetch():

@@ -72,7 +72,6 @@ def write_markdown(payload: dict[str, Any], path: Path) -> None:
     lines.append(f"- **Languages:** {', '.join(summary['languages'])}")
     lines.append("")
 
-    # Findings by Severity
     lines.append("## Findings by Severity\n")
     sev_counts = summary.get("severity_counts", {})
     for sev in ("Critical", "High", "Medium", "Low"):
@@ -80,7 +79,6 @@ def write_markdown(payload: dict[str, Any], path: Path) -> None:
         lines.append(f"- **{sev}:** {count}")
     lines.append("")
 
-    # Findings by Module
     lines.append("## Findings by Module\n")
     module_findings: dict[str, int] = Counter()
     for f in payload["findings"]:
@@ -92,13 +90,11 @@ def write_markdown(payload: dict[str, Any], path: Path) -> None:
         lines.append("No findings.")
     lines.append("")
 
-    # Terminology Allowlist
     lines.append("## Terminology Allowlist\n")
     for term in payload.get("brand_terms", []):
         lines.append(f"- {term}")
     lines.append("")
 
-    # Browser Coverage Matrix
     lines.append("## Browser Coverage Matrix\n")
     coverage = payload.get("coverage_states", [])
     if coverage:
@@ -120,7 +116,6 @@ def write_markdown(payload: dict[str, Any], path: Path) -> None:
         lines.append("No browser evidence collected yet.")
     lines.append("")
 
-    # Findings detail sections by severity
     findings = payload["findings"]
     for sev in ("Critical", "High", "Medium", "Low"):
         lines.append(f"## {sev} Findings\n")
@@ -137,7 +132,6 @@ def write_markdown(payload: dict[str, Any], path: Path) -> None:
         else:
             lines.append("No findings at this severity level.\n")
 
-    # Next Implementation Scope
     lines.append("## Next Implementation Scope\n")
     lines.append("1. Fill missing locale values for High-severity findings.")
     lines.append("2. Run browser evidence collection for runtime validation.")

@@ -225,7 +225,6 @@ def test_304_includes_cache_headers_but_no_content_length(static_server):
         conn.close()
 
 
-# ── Asset content hash tests ──────────────────────────────────────
 
 
 def test_serve_template_rewrites_local_assets_with_content_hash(tmp_path):

@@ -44,7 +44,6 @@ def list_outputs():
         if not f.is_file():continue
         ext=f.suffix.lower()
         name=f.name
-        # Determine file type
         if ext in _IMG_EXT:ftype="image"
         elif ext in _VID_EXT:ftype="video"
         elif any(name.endswith(a) for a in _ARC_EXT):ftype="archive"
@@ -57,7 +56,6 @@ def list_outputs():
             m=re.match(r'result_([^_]+)_',name)
             if m:
                 from config import CAT_IMAGE
-                # Find model to cat mapping
                 model_hint=m.group(1)
                 for cat,img in CAT_IMAGE.items():
                     if model_hint.lower() in cat.lower():

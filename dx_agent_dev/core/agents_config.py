@@ -1,4 +1,3 @@
-# dx_agent_dev/core/agents_config.py
 """에이전트별 CLI/모델 설정 테이블.
 
 모델 목록·플래그는 폐쇄망에서 실 CLI로 확정 불가 → 합리적 초기값(provisional).

@@ -47,14 +47,12 @@ def resize_copy(src: Path, dst: Path, max_width: int):
         print(f'  ❌ {src.name}: {e}')
         shutil.copy2(src, dst)
 
-# Individual file copies
 COPY_MAP = [
     ('our-story/DEEPX-DX-M1-칩다이-Xray-아트렌더링.jpg', 'dx-m1-die.jpg', 600),
     ('our-story/DEEPX-DX-M2-칩다이-아트렌더링.jpg', 'dx-m2-die.jpg', 600),
     ('our-story/DEEPX-Intelligented-by-DEEPX-핵심마케팅-포스터.png', 'marketing/intelligented.png', 800),
 ]
 
-# Directory-level copies
 DIR_MAP = [
     ('awards', 'awards', 400),
     ('partners', 'partners', 9999),  # SVG originals kept

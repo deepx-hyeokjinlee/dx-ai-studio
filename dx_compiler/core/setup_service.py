@@ -39,7 +39,6 @@ class SetupService:
     def __init__(self):
         self._props = self._load_properties()
 
-    # ─── 상태 확인 ──────────────────────────────────
 
     def check_status(self) -> dict:
         """전체 셋업 상태 반환 (/setup/status 응답)"""
@@ -79,7 +78,6 @@ class SetupService:
             })
         return result
 
-    # ─── SDK 설치 ───────────────────────────────────
 
     def install_sdk(self) -> Generator[dict, None, None]:
         """dx_com 설치/재설치. venv가 있으면 pip으로 직접 설치, 없으면 install.sh 안내"""
@@ -137,7 +135,6 @@ class SetupService:
         except Exception as e:
             yield {"type": "error", "message": str(e)}
 
-    # ─── 샘플 다운로드 ──────────────────────────────
 
     def download_samples(self) -> Generator[dict, None, None]:
         """샘플 모델 + 캘리브레이션 데이터 다운로드"""
@@ -174,7 +171,6 @@ class SetupService:
 
         yield {"type": "complete", "progress": 100, "message": "All downloads complete"}
 
-    # ─── 내부 메서드 ────────────────────────────────
 
     def _find_venv(self) -> Optional[Path]:
         for name in VENV_CANDIDATES:

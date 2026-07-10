@@ -1,4 +1,3 @@
-# tests/dx_agent_dev/test_detect_agents.py
 """설치된 CLI 어댑터 감지 — 드롭다운 동적 노출용(기존 detect_environment와 별개)."""
 import sys
 from pathlib import Path

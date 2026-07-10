@@ -403,7 +403,6 @@
         return html;
     }
 
-    // ── Shared pure utilities ──────────────────────────────────────
 
     function truncateId(id) {
         if (!id) return '';
@@ -419,7 +418,6 @@
         return null;
     }
 
-    // ── Shared interaction helpers ──────────────────────────────────
 
     /**
      * Generate HTML for the tensor detail popup panel.
@@ -585,7 +583,6 @@
         }
     }
 
-    // ── Detail panel helpers ────────────────────────────────────────
 
     /**
      * Show the detail section with given HTML content.
