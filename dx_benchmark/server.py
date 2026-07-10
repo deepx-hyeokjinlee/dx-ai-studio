@@ -97,7 +97,10 @@ def _aggregate_all_result_dirs():
                 if key not in seen_runs:
                     merged["runs"].append(r)
                     seen_runs.add(key)
-        # history: dict of lists, canonical-first via setdefault
+        # history: dict of lists, concatenated (no dedup). Safe because legacy
+        # is a frozen tracked dataset and canonical only ever accrues fresh
+        # run_ids post-repoint, so canonical/legacy history entries are
+        # assumed disjoint (no overlapping keys to double-count).
         if "history" in merged and "history" in extra:
             for k, v in extra["history"].items():
                 if k in merged["history"]:
