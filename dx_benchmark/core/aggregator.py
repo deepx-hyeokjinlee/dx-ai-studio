@@ -92,11 +92,24 @@ def _build_environment_summary(env_id: str, run_id: str, fingerprint: dict) -> d
     }
 
 
+_STUDIO_ROOT = Path(__file__).resolve().parents[2]
+
+
+def _rel_path(result_dir: Path) -> str:
+    """Store the result dir relative to the studio root so committed dataset.json
+    is portable (no machine-specific absolute paths). Falls back to the dir name
+    if it lives outside the studio tree."""
+    try:
+        return str(result_dir.resolve().relative_to(_STUDIO_ROOT))
+    except ValueError:
+        return result_dir.name
+
+
 def _normalize_run(run_id: str, env_id: str, result_dir: Path, fingerprint: dict) -> dict:
     return {
         "run_id": run_id,
         "env_id": env_id,
-        "path": str(result_dir),
+        "path": _rel_path(result_dir),
         "timestamp": fingerprint.get("timestamp"),
         "protocol": fingerprint.get("protocol", {}),
         "benchmark_params": fingerprint.get("benchmark_params", {}),
