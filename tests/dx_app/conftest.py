@@ -31,7 +31,7 @@ _APP_CORE = str(Path(__file__).resolve().parent.parent.parent / "dx_app/core")
 # (setdefault, once) to the persistent dx_app.core.<name> singleton so it
 # shares identity/state with what dx_app's qualified source sees.
 _CORE_MODULES = (
-    "dx_app_security", "filesystem", "assets", "catalogs",
+    "dx_app_security", "filesystem", "assets",
     "performance", "run_config", "models", "modelzoo", "modelzoo_gateway",
     "forum", "developer", "lab_portal", "setup_steps", "inference",
 )
