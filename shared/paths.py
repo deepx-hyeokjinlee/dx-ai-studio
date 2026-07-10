@@ -14,6 +14,18 @@ DX_RUNTIME_ROOT = _root("DX_RUNTIME_ROOT", "dx-runtime")
 DX_APP_ROOT = _root("DX_APP_ROOT", "dx-runtime", "dx_app")
 DX_COMPILER_ROOT = _root("DX_COMPILER_ROOT", "dx-compiler")
 
+def outputs_dir(app: str | None = None) -> Path:
+    """User-viewable results root (STUDIO_ROOT/outputs[/app]); created on demand."""
+    d = STUDIO_ROOT / "outputs" / app if app else STUDIO_ROOT / "outputs"
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
+def var_dir(app: str, kind: str) -> Path:
+    """Internal transient dir (STUDIO_ROOT/var/<app>/<kind>); created on demand."""
+    d = STUDIO_ROOT / "var" / app / kind
+    d.mkdir(parents=True, exist_ok=True)
+    return d
+
 def is_safe_path(target, roots) -> bool:
     try:
         rt = Path(target).resolve()

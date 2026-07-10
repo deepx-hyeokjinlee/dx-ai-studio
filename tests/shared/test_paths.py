@@ -18,3 +18,14 @@ def test_is_safe_path(tmp_path):
     inside = tmp_path / "a" / "b.txt"; inside.parent.mkdir(parents=True); inside.write_text("x")
     assert p.is_safe_path(inside, [tmp_path]) is True
     assert p.is_safe_path(Path("/etc/passwd"), [tmp_path]) is False
+
+def test_outputs_dir(tmp_path, monkeypatch):
+    import shared.paths as p
+    d = p.outputs_dir("dx_app")
+    assert d == p.STUDIO_ROOT / "outputs" / "dx_app" and d.is_dir()
+    assert p.outputs_dir() == p.STUDIO_ROOT / "outputs"
+
+def test_var_dir():
+    import shared.paths as p
+    d = p.var_dir("compiler", "uploads")
+    assert d == p.STUDIO_ROOT / "var" / "compiler" / "uploads" and d.is_dir()
