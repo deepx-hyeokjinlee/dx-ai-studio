@@ -1,6 +1,5 @@
 dc_dx_studio
 launcher/.launcher_pids
-dx_app/outputs/
 CHECKLIST.html
 dx_modelzoo/data/generated_catalog.json
 dx_modelzoo/data/generated_catalog.cache.json
@@ -9,7 +8,6 @@ dx_modelzoo/data/metadata_sync_config.json
 audit-output/
 
 # Generated build artifacts (regenerable; not source)
-dx_app/compiler_output/
 **/__pycache__/
 *.pyc
 .pytest_cache/
@@ -21,10 +19,16 @@ dx_app/compiler_output/
 .superpowers/**/.server.pid
 .launcher-url
 .launcher-port
-dx_compiler/compiler_uploads/
-dx_compiler/compiler_output/
 launcher/.ports/
 logs/
+
+# Runtime artifacts (P2-2-D): user-viewable results + internal transient
+# state, consolidated per-app under these two top-level trees via
+# shared/paths.py (outputs_dir/var_dir). dx_benchmark/results/ is a
+# pre-existing tracked reference dataset (legacy fallback), not runtime
+# output, and stays tracked.
+/outputs/
+/var/
 
 # Local virtualenvs (machine-specific, ~700MB — never commit)
 .venv/
@@ -44,6 +48,10 @@ docs/.venv-docs/
 
 # Internal / non-shippable (agent-driven-dev output, agent working data, dev artifacts)
 dx-agent-dev/
+# workspace/: pre-P2-2-D dx_agent_dev state (agent-conversations/, agent-sessions/).
+# New writes go to var/dx_agent_dev/{conversations,sessions}/ (see /var/ above); this
+# old dir is kept ignored rather than migrated/deleted per the "don't touch existing
+# result files" rule -- it holds real prior session history, not a fresh empty dir.
 workspace/
 .coverage
 PROJECT_CONTEXT.md
