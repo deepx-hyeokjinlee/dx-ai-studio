@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 """DX Model Zoo 웹 서버 — 포트 8094."""
-import json, sys
+import json
 import threading
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
 from shared.dx_server import DXBaseHandler, DXServer
 from shared.chat import ChatEngine
-from core.config import (DEFAULT_PORT, STATIC_DIR, TEMPLATES_DIR, DATA_DIR,
+from dx_modelzoo.core.config import (DEFAULT_PORT, STATIC_DIR, TEMPLATES_DIR, DATA_DIR,
                          DX_APP_ROOT, CPP_DIR, PY_DIR, SERVER_NAME,
                          SAMPLE_IMG_DIR, SAMPLE_IMAGES, MODEL_IMAGE_OVERRIDE)
-from core.catalog import (
+from dx_modelzoo.core.catalog import (
     get_catalog,
     reload_catalog,
     filter_models,
@@ -23,7 +20,7 @@ from core.catalog import (
     apply_generated_catalog,
     build_catalog_view_payload,
 )
-from core.proxy import proxy_request, is_dx_app_alive, is_safe_model_id
+from dx_modelzoo.core.proxy import proxy_request, is_dx_app_alive, is_safe_model_id
 from dx_modelzoo.metadata.sanitize import sanitize_browser_model
 
 

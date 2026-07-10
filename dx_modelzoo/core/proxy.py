@@ -3,7 +3,7 @@ import re
 import json
 import http.client
 import socket
-from core.config import DX_APP_PORT
+from dx_modelzoo.core.config import DX_APP_PORT
 
 _SAFE_ID_RE = re.compile(r"^[a-zA-Z0-9][a-zA-Z0-9._\-]{0,127}$")
 
