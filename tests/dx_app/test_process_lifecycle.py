@@ -39,9 +39,16 @@ class _FakeProc:
 
 
 def _reset_state(inference):
+    import camera
+
     inference._live_procs.clear()
     inference._xvfb_procs.clear()
-    inference._cam_mux_proc = None
+    # _cam_mux_proc is owned by dx_app.core.camera (P2-2-A inference.py split) —
+    # it is a plain rebound scalar (not a dict/lock), so poking it via the
+    # `inference` re-export name would only shadow a local attribute on the
+    # `inference` module and never reach the real state camera.py's functions
+    # read/write. Must go through the owning module directly.
+    camera._cam_mux_proc = None
     with inference.config._proc_lock:
         inference.config._running_proc = None
 
@@ -49,6 +56,7 @@ def _reset_state(inference):
 
 def test_shutdown_terminates_live_xvfb_and_ffmpeg(monkeypatch):
     import inference
+    import camera
 
     _reset_state(inference)
     monkeypatch.setattr(inference, "os", inference.os)  # keep os intact
@@ -60,7 +68,7 @@ def test_shutdown_terminates_live_xvfb_and_ffmpeg(monkeypatch):
     inference._live_procs[0] = live0
     inference._live_procs[1] = live1
     inference._xvfb_procs[0] = xvfb0
-    inference._cam_mux_proc = cam
+    camera._cam_mux_proc = cam
 
     assert hasattr(inference, "shutdown_live_processes"), \
         "inference must expose shutdown_live_processes() for shutdown/watchdog cleanup"
@@ -71,7 +79,7 @@ def test_shutdown_terminates_live_xvfb_and_ffmpeg(monkeypatch):
     assert xvfb0.terminated, "Xvfb child not terminated"
     assert cam.terminated, "ffmpeg cam-mux child not terminated"
     # cam-mux handle must be cleared so a later start does not double-handle it
-    assert inference._cam_mux_proc is None
+    assert camera._cam_mux_proc is None
 
     _reset_state(inference)
 

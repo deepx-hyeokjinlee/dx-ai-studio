@@ -34,6 +34,7 @@ _CORE_MODULES = (
     "dx_app_security", "filesystem", "assets",
     "performance", "run_config", "models", "modelzoo", "modelzoo_gateway",
     "forum", "developer", "lab_portal", "setup_steps", "inference",
+    "inference_exec", "camera", "live",
 )
 
 
