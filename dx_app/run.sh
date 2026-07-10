@@ -28,4 +28,8 @@ echo "  URL:  http://localhost:$PORT"
 echo "═══════════════════════════════════════════"
 echo ""
 
-python3 "$SCRIPT_DIR/server.py" --port "$PORT"
+# Prefer the studio venv (Python 3.12) over system python3 (may be 3.10) — some
+# studio modules use 3.12-only syntax. Fall back to python3 if the venv is absent.
+PY="$SCRIPT_DIR/../.venv/bin/python"
+[ -x "$PY" ] || PY="python3"
+"$PY" "$SCRIPT_DIR/server.py" --port "$PORT"

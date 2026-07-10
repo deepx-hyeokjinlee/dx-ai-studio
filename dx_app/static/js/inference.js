@@ -347,7 +347,7 @@ function initRTSPStreams(selId){
 }
 
 function buildRTSPUrl(ipId,streamId){
-  var ip=$(ipId)?$(ipId).value:'192.168.30.100:8554';
+  var ip=$(ipId)?$(ipId).value:'';
   var stream=$(streamId)?$(streamId).value:'stream1';
   return 'rtsp://'+ip+'/'+stream;
 }

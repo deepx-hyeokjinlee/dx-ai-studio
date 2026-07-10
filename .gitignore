@@ -53,6 +53,11 @@ RELEASE_NOTES_MATERIAL.md
 # runtime-unused; embeds absolute dev worktree paths — must never ship)
 dx_modelzoo/data/optimized/manifest.json
 
+# Dev artifacts pulled into the tree (extracted archives, checked-in doc venv)
+dx_app-dev.zip
+*.zip
+docs/.venv-docs/
+
 # dx_stream verify run outputs (transient)
 dx_stream/verification/report-*.csv
 dx_stream/verification/report-*.md

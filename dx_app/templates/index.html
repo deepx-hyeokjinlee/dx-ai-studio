@@ -294,7 +294,7 @@
           </div>
         </div>
         <div id="c-rtsp-pick" class="hidden">
-          <div class="fg"><label for="c-rtsp-ip"><span class="ko">RTSP 서버</span><span class="en">RTSP Server</span><span class="es">Servidor RTSP</span><span class="ja">RTSP サーバー</span><span class="zh-CN">RTSP 服务器</span><span class="zh-TW">RTSP 伺服器</span></label><input type="text" id="c-rtsp-ip" class="input" value="192.168.30.100:8554" data-i18n-placeholder="IP:Port"></div>
+          <div class="fg"><label for="c-rtsp-ip"><span class="ko">RTSP 서버</span><span class="en">RTSP Server</span><span class="es">Servidor RTSP</span><span class="ja">RTSP サーバー</span><span class="zh-CN">RTSP 服务器</span><span class="zh-TW">RTSP 伺服器</span></label><input type="text" id="c-rtsp-ip" class="input" value="" data-i18n-placeholder="IP:Port"></div>
           <div class="fg"><label for="c-rtsp-stream"><span class="ko">스트림</span><span class="en">Stream</span><span class="es">Flujo</span><span class="ja">ストリーム</span><span class="zh-CN">流</span><span class="zh-TW">串流</span></label><select id="c-rtsp-stream" class="input"></select></div>
         </div>
         <div class="grid2" style="gap:10px">
@@ -363,7 +363,7 @@
           </div>
         </div>
         <div id="b-input-rtsp" style="margin-bottom:8px;display:none">
-          <div class="fg" style="margin:0"><label><span class="ko">RTSP 서버</span><span class="en">RTSP Server</span><span class="es">Servidor RTSP</span><span class="ja">RTSP サーバー</span><span class="zh-CN">RTSP 服务器</span><span class="zh-TW">RTSP 伺服器</span></label><input type="text" id="b-rtsp-ip" class="input" value="192.168.30.100:8554" data-i18n-placeholder="IP:Port"></div>
+          <div class="fg" style="margin:0"><label><span class="ko">RTSP 서버</span><span class="en">RTSP Server</span><span class="es">Servidor RTSP</span><span class="ja">RTSP サーバー</span><span class="zh-CN">RTSP 服务器</span><span class="zh-TW">RTSP 伺服器</span></label><input type="text" id="b-rtsp-ip" class="input" value="" data-i18n-placeholder="IP:Port"></div>
           <div class="fg" style="margin:0;margin-top:6px"><label><span class="ko">스트림</span><span class="en">Stream</span><span class="es">Flujo</span><span class="ja">ストリーム</span><span class="zh-CN">流</span><span class="zh-TW">串流</span></label><select id="b-rtsp-stream" class="input"></select></div>
         </div>
         <div class="fg" style="margin:0 0 12px"><label for="b-loop" id="b-loop-label"><span class="ko">반복 횟수</span><span class="en">Loop Count</span><span class="es">Conteo de bucles</span><span class="ja">ループ回数</span><span class="zh-CN">循环次数</span><span class="zh-TW">迴圈次數</span></label><input type="number" id="b-loop" class="input" value="100" min="1" max="10000" style="width:100%"></div>
@@ -423,7 +423,7 @@
         <div class="flex gap8 items-c"><select id="ab-camera" class="input" style="font-size:12px"><option value="0">/dev/video0</option></select><button class="btn btn-ghost btn-sm" onclick="loadCameras()" title="Refresh" data-i18n-title="Refresh" style="padding:2px 6px">🔄</button></div>
       </div>
       <div id="ab-rtsp-pick" class="hidden" style="display:flex;gap:8px;align-items:end">
-        <div class="fg" style="margin:0;width:160px"><label><span class="ko">RTSP 서버</span><span class="en">RTSP Server</span><span class="es">Servidor RTSP</span><span class="ja">RTSP サーバー</span><span class="zh-CN">RTSP 服务器</span><span class="zh-TW">RTSP 伺服器</span></label><input type="text" id="ab-rtsp-ip" class="input" value="192.168.30.100:8554" style="font-size:12px"></div>
+        <div class="fg" style="margin:0;width:160px"><label><span class="ko">RTSP 서버</span><span class="en">RTSP Server</span><span class="es">Servidor RTSP</span><span class="ja">RTSP サーバー</span><span class="zh-CN">RTSP 服务器</span><span class="zh-TW">RTSP 伺服器</span></label><input type="text" id="ab-rtsp-ip" class="input" value="" style="font-size:12px"></div>
         <div class="fg" style="margin:0;width:100px"><label><span class="ko">스트림</span><span class="en">Stream</span><span class="es">Flujo</span><span class="ja">ストリーム</span><span class="zh-CN">流</span><span class="zh-TW">串流</span></label><select id="ab-rtsp-stream" class="input" style="font-size:12px"></select></div>
       </div>
       <div class="fg" style="margin:0;width:90px" id="ab-frames-pick" class="hidden"><label><span class="ko">프레임</span><span class="en">Frames</span><span class="es">Cuadros</span><span class="ja">フレーム</span><span class="zh-CN">帧</span><span class="zh-TW">影格</span></label><input type="number" id="ab-frames" class="input" value="30" min="1" max="10000" style="width:80px;font-size:12px"></div>
