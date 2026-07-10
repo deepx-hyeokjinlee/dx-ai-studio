@@ -18,7 +18,6 @@
   var _tutorialInstance = null;
   var _tutorialClickHandler = null;
 
-  /* ── Language ── */
   function _getLang() {
     return (typeof DXI18n !== 'undefined') ? DXI18n.lang : (localStorage.getItem('dx-lang') || 'en');
   }
@@ -50,7 +49,6 @@
     });
   }
 
-  /* ── Build toolbar ── */
   function _makeLangDropdown() {
     var LABELS = (typeof DXI18n !== 'undefined') ? DXI18n.LANG_LABELS :
       { en: 'English', ja: '日本語', ko: '한국어', es: 'Español', 'zh-CN': '简体中文', 'zh-TW': '繁體中文' };

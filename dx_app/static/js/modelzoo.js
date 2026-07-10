@@ -1,7 +1,5 @@
-// DX-APP — ModelZoo
 // Browse DEEPX ModelZoo, add to cart, download Q-Lite / Q-Pro models
 
-// ── State ──────────────────────────────────────────────────────────────────────
 const MZ = {
   models: [],
   cart: {},           // { "AlexNet-1": { qlite: true, qpro: false } }
@@ -27,7 +25,6 @@ function mzUpdateHomepageLink() {
   a.href = MZ_SITE_URLS[src] || MZ_SITE_URLS.public;
 }
 
-// ── Init ───────────────────────────────────────────────────────────────────────
 async function initModelZoo() {
   mzUpdateHomepageLink();
   if (!MZ.models.length) await mzLoadModels();
@@ -36,7 +33,6 @@ async function initModelZoo() {
   mzRenderCart();
 }
 
-// ── API ────────────────────────────────────────────────────────────────────────
 async function mzLoadModels() {
   MZ.loading = true;
   mzRenderLoading();
@@ -59,7 +55,6 @@ function mzSwitchSource() {
   initModelZoo();
 }
 
-// ── Task Chips ─────────────────────────────────────────────────────────────────
 function mzRenderTaskChips() {
   var tasks = {};
   MZ.models.forEach(function(m) {
@@ -82,7 +77,6 @@ function mzFilterTask(task) {
   mzRenderTable();
 }
 
-// ── Filtered Models ────────────────────────────────────────────────────────────
 function mzFiltered() {
   var s = MZ.filter.search.toLowerCase();
   return MZ.models.filter(function(m) {
@@ -92,7 +86,6 @@ function mzFiltered() {
   });
 }
 
-// ── Table ──────────────────────────────────────────────────────────────────────
 function mzRenderLoading() {
   var tb = $('mz-tbody');
   if (tb) tb.innerHTML = '<tr><td colspan="22" style="text-align:center;padding:40px"><div class="mz-spinner"></div><div class="txt-dim mt8">' + T('Loading ModelZoo page…') + '</div></td></tr>';
@@ -116,15 +109,12 @@ function mzRenderTable() {
     var qlInCart = cart && cart.qlite;
     var qpInCart = cart && cart.qpro;
 
-    // Q-Lite availability
     var hasQL = m.qlite && m.qlite.dxnn_url;
     var qlExists = hasQL && m.qlite.exists;
 
-    // Q-Pro availability
     var hasQP = m.qpro && m.qpro.dxnn_url;
     var qpExists = hasQP && m.qpro.exists;
 
-    // Q-Lite cells
     var qlAcc = hasQL ? mzNl2br(esc(m.qlite.accuracy || '–')) : '–';
     var qlDxnn = hasQL ? '<a href="' + esc(m.qlite.dxnn_url) + '" target="_blank" class="txt-link txt-xs">📦 dxnn</a>' : '–';
     var qlJson = (hasQL && m.qlite.json_url) ? '<a href="' + esc(m.qlite.json_url) + '" target="_blank" class="txt-link txt-xs">📄 json</a>' : '–';
@@ -139,7 +129,6 @@ function mzRenderTable() {
       qlDL = '–';
     }
 
-    // Q-Pro cells
     var qpAcc = hasQP ? mzNl2br(esc(m.qpro.accuracy || '–')) : '–';
     var qpDxnn = hasQP ? '<a href="' + esc(m.qpro.dxnn_url) + '" target="_blank" class="txt-link txt-xs">📦 dxnn</a>' : '–';
     var qpJson = (hasQP && m.qpro.json_url) ? '<a href="' + esc(m.qpro.json_url) + '" target="_blank" class="txt-link txt-xs">📄 json</a>' : '–';
@@ -154,7 +143,6 @@ function mzRenderTable() {
       qpDL = '–';
     }
 
-    // ONNX link
     var onnxLink = m.onnx_url ? '<a href="' + esc(m.onnx_url) + '" target="_blank" class="txt-link txt-xs">📦 onnx</a>' : '–';
 
     var rowCls = (qlInCart || qpInCart) ? 'mz-row-selected' : '';
@@ -191,18 +179,15 @@ function mzRenderTable() {
   $('mz-count').textContent = list.length + ' / ' + MZ.models.length + ' models';
 }
 
-// ── Search ─────────────────────────────────────────────────────────────────────
 function mzSearch() {
   var el = $('mz-search');
   MZ.filter.search = el ? el.value : '';
   mzRenderTable();
 }
 
-// ── Cart Operations ────────────────────────────────────────────────────────────
 function mzToggleChip(name, chip) {
   // Toggle a single Q-Lite or Q-Pro chip directly from the table DL column
   if (!MZ.cart[name]) {
-    // Create cart entry with only this chip enabled
     MZ.cart[name] = { qlite: chip === 'qlite', qpro: chip === 'qpro' };
   } else {
     MZ.cart[name][chip] = !MZ.cart[name][chip];
@@ -316,7 +301,6 @@ function mzToggleCartPanel() {
   mzRenderCart();
 }
 
-// ── Cart Count ─────────────────────────────────────────────────────────────────
 function mzCartFileCount() {
   var count = 0;
   Object.keys(MZ.cart).forEach(function(name) {
@@ -327,7 +311,6 @@ function mzCartFileCount() {
   return count;
 }
 
-// ── Cart Render ────────────────────────────────────────────────────────────────
 function mzRenderCart() {
   var cartEl = $('mz-cart');
   if (!cartEl) return;
@@ -341,7 +324,6 @@ function mzRenderCart() {
   }
   cartEl.style.display = '';
 
-  // Summary bar
   var summaryHtml = '<div class="mz-cart-summary">'
     + '<div class="mz-cart-left">'
     + '<span class="mz-cart-icon">🛒</span> '
@@ -354,7 +336,6 @@ function mzRenderCart() {
     + '<button class="btn btn-acc btn-sm" onclick="mzStartDownload()" ' + (MZ.downloading ? 'disabled' : '') + '>📥 ' + T('Download All') + ' (' + fileCount + ')</button>'
     + '</div></div>';
 
-  // Detail list (if open)
   var detailHtml = '';
   if (MZ.cartOpen) {
     detailHtml = '<div class="mz-cart-detail">';
@@ -393,7 +374,6 @@ function mzRenderCart() {
   cartEl.innerHTML = summaryHtml + detailHtml;
 }
 
-// ── Download ───────────────────────────────────────────────────────────────────
 async function mzStartDownload() {
   if (MZ.downloading) return;
 
@@ -429,7 +409,6 @@ async function mzStartDownload() {
     return;
   }
 
-  // Start polling
   if (MZ.pollTimer) clearInterval(MZ.pollTimer);
   MZ.pollTimer = setInterval(mzPollProgress, 1500);
 }
@@ -470,7 +449,6 @@ async function mzStopDownload() {
   toast(T('Cancelling download…'), 'info');
 }
 
-// ── Progress Render ────────────────────────────────────────────────────────────
 function mzRenderProgress(st) {
   var el = $('mz-progress');
   if (!el) return;
@@ -490,7 +468,6 @@ function mzRenderProgress(st) {
     html += '<div class="mz-prog-current">⏳ ' + esc(st.current) + '</div>';
   }
 
-  // Result log
   if (st.results && st.results.length) {
     html += '<div class="mz-prog-log">';
     st.results.forEach(function(r) {
@@ -520,7 +497,6 @@ function mzNl2br(s) {
   return s.replace(/\n/g, '<br>');
 }
 
-// ── Refresh (re-fetch from server) ─────────────────────────────────────────────
 async function mzRefresh() {
   MZ.models = [];
   await initModelZoo();

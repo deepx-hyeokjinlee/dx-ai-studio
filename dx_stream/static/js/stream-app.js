@@ -20,7 +20,6 @@ const DXStream = (() => {
         body: JSON.stringify(body)
     });
 
-    /* ── 페이지 전환 시 이전 페이지 타이머 정리 ── */
     function _cleanupTimers() {
         if (DXStream._statusTimer) { clearInterval(DXStream._statusTimer); DXStream._statusTimer = null; }
         if (DXStream._setupPollTimer) { clearInterval(DXStream._setupPollTimer); DXStream._setupPollTimer = null; }
@@ -94,7 +93,6 @@ const DXStream = (() => {
         setTimeout(() => el.remove(), 4000);
     }
 
-    /* ── 커스텀 확인 모달 ── */
     function confirmModal(title, message) {
         return new Promise(resolve => {
             var overlay = $('confirm-modal-overlay');
@@ -128,7 +126,6 @@ const DXStream = (() => {
         });
     }
 
-    /* ── 키보드 단축키 ── */
     window.addEventListener('keydown', e => {
         // input/textarea 내부에서 Delete/Backspace 는 무시
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;

@@ -1,8 +1,4 @@
-// DX-APP — Pipeline
-// Auto-generated from dx_gui.html refactoring
 
-// Pipeline
-// ══════════════════════════════════════════════
 var pipeStepId=0;
 function addPipeStep(){
   pipeStepId++;
@@ -28,7 +24,6 @@ function initPipeImages(){
     var list=Array.isArray(vids)?vids:[];
     var el=$('pipe-vid');if(el)el.innerHTML=list.map(function(p){return '<option value="'+p+'">'+p.split('/').pop()+'</option>'}).join('');
   });
-  // Mode description update
   var modeEl=$('pipe-mode');
   if(modeEl)modeEl.addEventListener('change',function(){
     var m=this.value;
@@ -60,7 +55,6 @@ async function doPipeRun(){
     $('ps-status-'+id).textContent=T('⏳ Queued');
   });
   if(!steps.length){toast(T('Add pipeline steps'),'warn');return}
-  // Disable run button
   var runBtn=$('pipe-run-btn');runBtn.disabled=true;runBtn.textContent=T('⏳ Running...');
   const res=await postJ('/api/run_pipeline',{input_path:inputPath,steps:steps,input_type:inputType,mode:mode});
   runBtn.disabled=false;runBtn.textContent=T('▶ Run Pipeline');
@@ -96,7 +90,6 @@ async function doPipeRun(){
     if(r.cascade_note)h+='<p class="txt-dim txt-sm">ℹ '+esc(r.cascade_note)+'</p>';
     h+='</div>';
     $('pipe-results').innerHTML+=h;
-    // Update step status
     var allSteps=document.querySelectorAll('.pipe-step');
     if(allSteps[i]){
       var sid=allSteps[i].id.replace('ps-','');
@@ -106,7 +99,6 @@ async function doPipeRun(){
   });
 }
 
-// ══════════════════════════════════════════════
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshPipelineLanguage() {
     if (typeof DXI18n !== 'undefined' && DXI18n.applyLang) DXI18n.applyLang(document.querySelector('#page-run') || document);

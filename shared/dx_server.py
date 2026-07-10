@@ -51,7 +51,6 @@ from pathlib import Path
 from urllib.parse import urlparse, parse_qs, parse_qsl, unquote, urlencode, urlunsplit, urlsplit
 
 
-# ── Corporate TLS trust bridge ────────────────────────────────────────────────
 # Behind a TLS-inspecting proxy (e.g. FortiGate) the OS trust store holds the
 # inspection root CA, but Python's `requests`/certifi bundle does not — so HTTPS
 # downloads (ModelZoo .dxnn models, pip, etc.) fail with CERTIFICATE_VERIFY_FAILED
@@ -100,16 +99,12 @@ class RequestBodyError(Exception):
         self.message = message
 
 
-# ══════════════════════════════════════════════════════════════════════
-#  DXBaseHandler
-# ══════════════════════════════════════════════════════════════════════
 
 class DXBaseHandler(SimpleHTTPRequestHandler):
     """HTTP 요청 핸들러 베이스 — 응답 헬퍼, SSE, 캐시, 보안, 라우팅 통합."""
 
     protocol_version = "HTTP/1.1"
 
-    # ── 서브클래스 설정 (오버라이드 가능) ──────────────────────
 
     server_name: str = "DXServer"
     static_dir: Path | None = None
@@ -145,7 +140,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
             self.close_connection = True
 
-    # ── 요청 파싱 ─────────────────────────────────────────────
 
     def _parse_request_url(self):
         """URL 파싱 → self.parsed, self.url_path, self.query 설정."""
@@ -242,7 +236,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
 
         return fields, files
 
-    # ── 응답 헬퍼 ─────────────────────────────────────────────
 
     def send_json(self, data, code: int = 200):
         """JSON 응답 + CORS + charset + Content-Length."""
@@ -325,7 +318,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
             else:
                 cache_control = "public, max-age=3600, must-revalidate"
 
-        # gzip 적격 여부
         gzip_eligible = False
         if base_ct not in ("text/html", "text/event-stream"):
             if base_ct.startswith("text/") or base_ct in self._GZIP_MIME_TYPES:
@@ -361,7 +353,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
             except Exception:
                 pass
 
-        # Accept-Encoding 확인
         accept_enc = self.headers.get("Accept-Encoding", "")
         use_gzip = gzip_eligible and "gzip" in accept_enc
 
@@ -446,7 +437,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         html = self.render_html_with_asset_hashes(html, asset_scope=asset_scope)
         self.send_html_no_cache(html)
 
-    # ── 에셋 콘텐츠 해시 ──────────────────────────────────────
 
     @staticmethod
     def _path_is_within(path: Path, root: Path) -> bool:
@@ -540,7 +530,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
             return
         self.wfile.write(data)
 
-    # ── SSE 스트리밍 ──────────────────────────────────────────
 
     def start_sse(self):
         """SSE 응답 헤더 전송. 이후 send_sse()로 이벤트 전송."""
@@ -608,7 +597,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         except (BrokenPipeError, ConnectionResetError):
             return False
 
-    # ── 캐시 시스템 (opt-in) ──────────────────────────────────
 
     def cache_get(self, prefix: str, data: dict):
         """SHA256 해시 키로 캐시 조회. TTL 만료 시 None."""
@@ -667,7 +655,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         raw = json.dumps(data, sort_keys=True, ensure_ascii=False)
         return prefix + ":" + hashlib.sha256(raw.encode()).hexdigest()[:16]
 
-    # ── 보안 ──────────────────────────────────────────────────
 
     @staticmethod
     def is_safe_path(path: str, allowed_dir: str | Path | None = None) -> bool:
@@ -693,7 +680,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
             return value
         return None
 
-    # ── CORS ──────────────────────────────────────────────────
 
     _CHAT_ROUTES = frozenset((
         "/api/chat",
@@ -799,7 +785,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         self.send_error_json(401, "Unauthorized")
         return True
 
-    # ── 라우팅 ────────────────────────────────────────────────
 
     def _dispatch_request(self):
         """URL 파싱 후 route() 호출."""
@@ -870,9 +855,7 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         self.send_error(404)
         return True
 
-    # ── 채팅 라우트 헬퍼 ──────────────────────────────────────
 
-    # shared/chat/static/ 디렉토리
     _shared_chat_static = Path(__file__).parent / "chat" / "static"
     _shared_static = Path(__file__).parent / "static"
 
@@ -917,7 +900,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         """
         method = self.command
 
-        # GET /static/shared/*
         if method == "GET" and self.url_path.startswith("/static/shared/"):
             rel = self.url_path[len("/static/shared/"):]
             self.serve_shared_static(rel)
@@ -929,7 +911,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
                 self.send_error_json(403, "Cross-origin chat requests are not allowed")
                 return True
 
-        # GET /api/chat/config
         if method == "GET" and self.url_path == "/api/chat/config":
             self.send_json(chat_engine.get_config_status())
             return True
@@ -953,7 +934,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
             self.send_json({"models": models, "available": bool(models)})
             return True
 
-        # POST /api/chat
         if method == "POST" and self.url_path == "/api/chat":
             data = self.read_json_body()
             message = data.get("message", "").strip()
@@ -981,7 +961,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
                 fields = "provider, model" + (", api_key" if key_required else "")
                 self.send_error_json(400, f"{fields} are required")
                 return True
-            # Temperature validation
             try:
                 temperature = float(data.get("temperature", 0.7))
             except (TypeError, ValueError):
@@ -1035,7 +1014,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
 
         return False
 
-    # ── 로깅 ──────────────────────────────────────────────────
 
     def log_message(self, fmt, *args):
         if self.log_silent:
@@ -1047,9 +1025,6 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         print(f"[{self.server_name}] {msg}")
 
 
-# ══════════════════════════════════════════════════════════════════════
-#  DXServer — 서버 래퍼
-# ══════════════════════════════════════════════════════════════════════
 
 class _DualStackHTTPServer(ThreadingHTTPServer):
     """IPv4 + IPv6 dual-stack 서버 (localhost에서 ::1, 127.0.0.1 모두 동작)."""

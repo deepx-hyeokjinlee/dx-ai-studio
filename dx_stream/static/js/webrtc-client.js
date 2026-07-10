@@ -239,7 +239,6 @@ DXStream.webrtc = (function() {
         }
     }
 
-    /* ── FPS / Jitter / PacketLoss 통계 수집 ── */
     function _startStatsPoll() {
         if (_statsTimer) clearInterval(_statsTimer);
         DXStream._statsTimer = _statsTimer = setInterval(function() {

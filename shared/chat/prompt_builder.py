@@ -85,31 +85,24 @@ def match_sections(
         all_section_kws.extend(sec["keywords"])
     all_section_kws = list(set(all_section_kws))
 
-    # Score each section
     scores: dict[int, int] = {i: 0 for i in range(len(sections))}
     for ukw in user_kws:
-        # Resolve canonical keyword via synonym reverse lookup
         canonical = _SYNONYM_REVERSE.get(ukw)
 
         for i, sec in enumerate(sections):
             sec_kws_lower = [k.lower() for k in sec["keywords"]]
-            # Exact match
             if ukw in sec_kws_lower:
                 scores[i] += 1
                 continue
-            # Synonym match: canonical keyword matches a section keyword
             if canonical and canonical in sec_kws_lower:
                 scores[i] += 1
                 continue
-            # Fuzzy match against this section's keywords
             close = difflib.get_close_matches(ukw, sec_kws_lower, n=1, cutoff=0.7)
             if close:
                 scores[i] += 1
 
-    # Sort by score descending
     ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 
-    # Check if any section actually matched
     has_match = ranked[0][1] > 0 if ranked else False
 
     if not has_match:
@@ -124,7 +117,6 @@ def match_sections(
                 result.append(sec)
         return result[:max_sections]
 
-    # Collect matched sections (score > 0), up to max_sections
     matched = [sections[i] for i, score in ranked if score > 0]
 
     # Always include overview if available and not already present
@@ -149,12 +141,10 @@ def build_system_prompt(
     """Assemble a system prompt from knowledge docs and runtime context."""
     parts: list[str] = []
 
-    # 1. Always inject base.md
     base_path = knowledge_dir / "base.md"
     if base_path.exists():
         parts.append(base_path.read_text(encoding="utf-8").strip())
 
-    # 2. App-specific knowledge (section-matched)
     app_path = knowledge_dir / f"{app_name}.md"
     if app_path.exists():
         app_md = app_path.read_text(encoding="utf-8")
@@ -173,7 +163,6 @@ def build_system_prompt(
         for sec in match_sections(sdk_sections, user_message, max_sections=3):
             parts.append(f"## {sec['title']}\n{sec['content']}")
 
-    # 3. Runtime context
     if runtime_context:
         lines = [f"- {k}: {v}" for k, v in runtime_context.items()]
         parts.append("## 현재 상태\n" + "\n".join(lines))

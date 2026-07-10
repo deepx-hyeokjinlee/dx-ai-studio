@@ -68,7 +68,6 @@
     if (SUPPORTED_LANGS.indexOf(lang) === -1) return;
     _lang = lang;
     localStorage.setItem(STORAGE_KEY, lang);
-    // Dynamic body class
     SUPPORTED_LANGS.forEach(function (l) {
       document.body.classList.remove('lang-' + l);
     });
@@ -100,14 +99,12 @@
 
   function _applyDOM(root) {
     var scope = root || document;
-    // 1. Selector-based text translation
     if (_selectors) {
       _queryAll(scope, _selectors).forEach(function (el) {
         _translateEl(el);
       });
     }
 
-    // 2. [data-i18n] attribute translation
     _queryAll(scope, '[data-i18n]').forEach(function (el) {
       var key = el.getAttribute('data-i18n');
       var translated = _lookup(key);
@@ -118,7 +115,6 @@
       }
     });
 
-    // 3. [data-i18n-html] — HTML content translation
     _queryAll(scope, '[data-i18n-html]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-html');
       var e = _dict[key];
@@ -128,7 +124,6 @@
       else if (_lang === 'en') el.innerHTML = key;
     });
 
-    // 4. Placeholder translation
     for (var enPh in _placeholders) {
       if (!_placeholders.hasOwnProperty(enPh)) continue;
       var phEntry = _placeholders[enPh];
@@ -152,7 +147,6 @@
       });
     }
 
-    // 4b. Explicit attribute translation
     _queryAll(scope, '[data-i18n-placeholder]').forEach(function (el) {
       var key = el.getAttribute('data-i18n-placeholder');
       if (!key) return;
@@ -174,7 +168,6 @@
       el.setAttribute('aria-label', translated !== null ? translated : key);
     });
 
-    // 5. Span visibility toggle (supports .ko, .en, .ja, .es, .zh-CN, .zh-TW)
     SUPPORTED_LANGS.forEach(function (l) {
       _queryAll(scope, 'span.' + l + ', small .' + l).forEach(function (el) {
         el.style.display = l === _lang ? '' : 'none';
@@ -192,7 +185,6 @@
         if (!_par) continue;
         var _koSp = _par.querySelector('span.ko');
         if (!_koSp) continue;
-        // Check if target lang span already exists
         var _hasTarget = false;
         for (var _ci = 0; _ci < _par.children.length; _ci++) {
           if (_par.children[_ci].classList && _par.children[_ci].classList.contains(_lang)) {
@@ -201,7 +193,6 @@
           }
         }
         if (_hasTarget) continue;
-        // Look up translation by English text
         var _enKey = _enSp.textContent.trim();
         var _tr = _lookup(_enKey);
         if (_tr !== null) {
@@ -216,10 +207,8 @@
       }
     }
 
-    // 6. Language dropdown/toggle sync
     var langEl = document.querySelector('#langToggle');
     if (langEl) {
-      // Dropdown: update button text + active item
       var langCodeEl = langEl.querySelector('.dx-lang-code');
       if (langCodeEl) {
         langCodeEl.textContent = LANG_SHORT[_lang] || _lang.toUpperCase();
@@ -268,7 +257,6 @@
     }
   });
 
-  // Auto-apply on DOM ready
   function _init() {
     SUPPORTED_LANGS.forEach(function (l) {
       document.body.classList.remove('lang-' + l);
@@ -284,7 +272,6 @@
     _init();
   }
 
-  // Public API
   window.DXI18n = {
     T: T,
     get lang() { return _lang; },

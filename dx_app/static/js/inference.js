@@ -1,8 +1,4 @@
-// DX-APP — Inference
-// Auto-generated from dx_gui.html refactoring
 
-// Run Inference
-// ══════════════════════════════════════════════
 var _runMediaCache={};
 var _runMediaPending={};
 var _runMediaCacheTTL=60000; // 60s TTL
@@ -207,7 +203,6 @@ function updateRunParams(cat){
     embedding:T('Embedding: select a face pair folder (2+ images). The first image becomes the reference; later images are compared via cosine similarity.'),
     reid:T('ReID: select a person pair folder (2+ images). The first image becomes the reference; later images are compared via cosine similarity.')
   };
-  // Hide all param sections
   $('r-params-detect').classList.add('hidden');
   $('r-params-classify').classList.add('hidden');
   $('r-params-seg').classList.add('hidden');
@@ -341,7 +336,6 @@ function initRTSPStreams(selId){
   var opts='';
   for(var i=1;i<=16;i++)opts+='<option value="stream'+i+'">Stream '+i+'</option>';
   el.innerHTML=opts;
-  // Also init all other RTSP stream selectors
   ['c-rtsp-stream','b-rtsp-stream','ab-rtsp-stream'].forEach(function(id){
     var s=$(id);if(s&&s.options.length<=1)s.innerHTML=opts;
   });
@@ -357,7 +351,6 @@ async function doRun(){
   if(_runInFlight){toast(T('Run already in progress'),'warn');return}
   const model=$('r-model').value;if(!model){toast(T('Select a model'),'warn');return}
   const m=findModel(model);if(!m){toast(T('Model not found'),'err');return}
-  // Pre-run validation with clear error messages
   if(!m.model_file){toast(T('⚠ Model file not configured for ')+model,'err');$('r-result').innerHTML='<p style="color:var(--error)">\u274c '+T('Model file not configured.')+'<br><span class="txt-dim">'+T('Please configure model file in Developer mode.')+'</span></p>';return}
   if(m.model_exists===false){toast(T('⚠ Model file missing: ')+m.model_file,'err');$('r-result').innerHTML='<p style="color:var(--error)">\u274c '+T('Model file not found')+'<br><code style="font-size:11px;color:var(--text-3)">'+esc(m.model_file)+'</code><br><span class="txt-dim">'+T('Model file (.dxnn) does not exist. Please compile and try again.')+'</span></p>';return}
   const lang=$('r-lang').value;
@@ -402,7 +395,6 @@ function renderRunResult(r){
   var h='';
   var isVideo=!$('r-input-img').checked;
   var cat=$('r-cat').value;
-  // Visualization description per task
   var VIS_HINTS={
     classification:T('📊 Classification Result: overlays Top-K predicted classes and probabilities as text on the image.'),
     attribute_recognition:T('🏷️ Attribute Result: overlays predicted person/face attributes and confidence scores on the image.'),
@@ -535,9 +527,6 @@ async function doExportFromRun(){
   }
 }
 
-// ══════════════════════════════════════════════
-// Continuous Inference
-// ══════════════════════════════════════════════
 var CONT={slots:[{cat:'',model:''}],running:false,timerInt:null,startTime:0};
 
 function toggleRunTab(tab){
@@ -626,12 +615,10 @@ function contRenderGrid(){
 }
 
 async function contStart(){
-  // Validate all slots
   var valid=CONT.slots.every(function(sl){return sl.cat&&sl.model});
   if(!valid){toast(T('Please select Category and Model for all slots'),'warn');return}
   var cInputType=$('c-input-type')?$('c-input-type').value:'video';
   if(cInputType==='video'&&!$('c-video').value){toast(T('Please select a video'),'warn');return}
-  // Validate model files
   for(var i=0;i<CONT.slots.length;i++){
     var m=findModel(CONT.slots[i].model);
     if(!m){toast(T('Model not found: ')+CONT.slots[i].model,'err');return}
@@ -641,10 +628,8 @@ async function contStart(){
   CONT.running=true;
   $('c-start-btn').classList.add('hidden');
   $('c-stop-btn').classList.remove('hidden');
-  // Disable config during run
   document.querySelectorAll('#run-cont-tab select, #c-add-btn').forEach(function(el){el.disabled=true});
   document.querySelectorAll('.cont-x').forEach(function(el){el.disabled=true});
-  // Start timer
   CONT.startTime=Date.now();
   $('c-timer').classList.add('active');
   CONT.timerInt=setInterval(function(){
@@ -657,7 +642,6 @@ async function contStart(){
     return contStartLive(cInputType);
   }
 
-  // Render grid with processing state
   contRenderGrid();
   // Run inferences sequentially
   var allResults=[];
@@ -682,7 +666,6 @@ async function contStart(){
     var res=await postJ('/api/run',body);
     allResults.push(res);
     if(!CONT.running)break;
-    // Update slot with result
     contShowResult(i,res,sl.model);
   }
   contFinish(allResults);
@@ -703,7 +686,6 @@ function contShowResult(idx,res,modelName){
   slot.className='cont-slot done';
   setTextIfChanged(statusEl,T('✅ Done'));
   if(res.fps)setTextIfChanged(fpsEl,res.fps+' FPS');
-  // Show result video or image
   var content='';
   if(res.result_video_url){
     content='<video src="'+res.result_video_url+'" autoplay loop muted playsinline style="width:100%;display:block;border-radius:var(--radius)"></video>';
@@ -716,7 +698,6 @@ function contShowResult(idx,res,modelName){
   var overlay=slot.querySelector('.cont-overlay');
   slot.innerHTML=content;
   if(overlay)slot.insertBefore(overlay,slot.firstChild);
-  // Re-create overlay refs
   var ov=slot.querySelector('.cont-overlay');
   if(!ov){
     ov=document.createElement('div');ov.className='cont-overlay';
@@ -731,12 +712,10 @@ function contFinish(results){
   $('c-timer').classList.remove('active');
   $('c-start-btn').classList.remove('hidden');
   $('c-stop-btn').classList.add('hidden');
-  // Re-enable config
   document.querySelectorAll('#run-cont-tab select, #c-add-btn').forEach(function(el){el.disabled=false});
   document.querySelectorAll('.cont-x').forEach(function(el){el.disabled=false});
   $('c-add-btn').disabled=CONT.slots.length>=8;
   if(typeof refreshOutputsIfVisible === 'function')refreshOutputsIfVisible();
-  // Show summary
   if(results&&results.length>0){
     var h='<div class="perf-grid">';
     results.forEach(function(r,i){
@@ -781,9 +760,7 @@ async function contStop(){
   document.querySelectorAll('#run-cont-tab select, #c-add-btn').forEach(function(el){el.disabled=false});
   document.querySelectorAll('.cont-x').forEach(function(el){el.disabled=false});
   $('c-add-btn').disabled=CONT.slots.length>=8;
-  // Pause all playing videos
   document.querySelectorAll('#c-grid video').forEach(function(v){v.pause()});
-  // Update status badges
   CONT.slots.forEach(function(sl,i){
     var statusEl=$('c-status-'+i);
     if(statusEl&&(statusEl.textContent==='⏳ Processing...'||statusEl.textContent==='⏳ 처리 중...'))statusEl.textContent=T('⏹ Stopped');
@@ -793,9 +770,7 @@ async function contStop(){
   toast(T('Continuous inference stopped'),'info');
 }
 
-// ══════════════════════════════════════════════
 // Live Inference (Camera/RTSP → per-slot Xvfb → MJPEG)
-// ══════════════════════════════════════════════
 var LIVE={slots:[]};
 
 function _makeLiveSlotEl(slotIdx,modelName){
@@ -852,7 +827,6 @@ async function contStartLive(cInputType){
     if(res.error){toast(T('Slot ')+(i+1)+': '+translatedError(res),'err');continue;}
     var lslot={slotIdx:i,jobId:res.job_id,pollInt:null,lastFrames:0,lastPollTime:0,confHistory:[],result:null,done:false,finishing:false};
     LIVE.slots.push(lslot);
-    // Start MJPEG stream
     document.getElementById('c-ls-img-'+i).src='/api/live_frame?slot='+i+'&t='+Date.now();
     // Start polling (IIFE closure over lslot)
     (function(ls){
@@ -1069,14 +1043,11 @@ function contResetUI(){
   document.querySelectorAll('#run-cont-tab select, #c-add-btn').forEach(function(el){el.disabled=false;});
   document.querySelectorAll('.cont-x').forEach(function(el){el.disabled=false;});
   $('c-add-btn').disabled=CONT.slots.length>=8;
-  // Restore grid / hide live view
   $('c-grid').classList.remove('hidden');
   $('c-live-view').classList.add('hidden');
-  // Clear live slots state
   LIVE.slots=[];
 }
 
-// ══════════════════════════════════════════════
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshInferenceLanguage() {
     if (!document.querySelector('#page-run.active')) return;

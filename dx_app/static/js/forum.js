@@ -280,7 +280,6 @@ function openNewPost() {
       </div>`;
     document.body.appendChild(d);
   }
-  // Clear fields on open
   ['fnp-nick','fnp-title','fnp-body','fnp-tags'].forEach(id => {
     const el = $(id); if (el) el.value = '';
   });

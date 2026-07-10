@@ -3,7 +3,6 @@
  * 팔레트, 캔버스 초기화, 히트테스트, 마우스/터치 이벤트, 노드/엣지 드로잉, 속성 패널, 미니맵
  */
 
-/* ── 팔레트 렌더링 (카테고리별 그룹) ── */
 function _renderPalette(grouped) {
     var palette = DXStream.$('palette-list');
     if (!palette) return;
@@ -37,7 +36,6 @@ function _renderPalette(grouped) {
     }).join('');
 }
 
-/* ── 팔레트 → 캔버스 드래그앤드롭 바인딩 ── */
 function _bindPaletteDrag() {
     var palette = DXStream.$('palette-list');
     var container = document.querySelector('.canvas-container');
@@ -96,7 +94,6 @@ function _bindPaletteDrag() {
     });
 }
 
-/* ── 노드 추가 ── */
 function _addNode(elementName, x, y) {
     var st = DXStream._pipeState;
     var elDef = st.elementFlat.find(function (e) { return e.name === elementName; });
@@ -134,7 +131,6 @@ function _updateElementCount() {
     if (en) en.textContent = 'Elements: ' + n;
 }
 
-/* ── Canvas 초기화 ── */
 function _initCanvas() {
     var canvas = DXStream.$('pipeline-canvas');
     if (!canvas) return;
@@ -176,7 +172,6 @@ function _initCanvas() {
     }
 }
 
-/* ── Canvas → world 좌표 변환 ── */
 function _screenToWorld(e, canvas) {
     var rect = canvas.getBoundingClientRect();
     var st = DXStream._pipeState;
@@ -186,7 +181,6 @@ function _screenToWorld(e, canvas) {
     };
 }
 
-/* ── 히트테스트: world 좌표로 노드 찾기 ── */
 function _hitNode(wx, wy) {
     var st = DXStream._pipeState;
     for (var i = st.nodes.length - 1; i >= 0; i--) {
@@ -196,7 +190,6 @@ function _hitNode(wx, wy) {
     return null;
 }
 
-/* ── 히트테스트: output port (노드 오른쪽 중앙) ── */
 function _hitOutputPort(wx, wy) {
     var st = DXStream._pipeState;
     for (var i = st.nodes.length - 1; i >= 0; i--) {
@@ -207,7 +200,6 @@ function _hitOutputPort(wx, wy) {
     return null;
 }
 
-/* ── 히트테스트: input port (노드 왼쪽 중앙) ── */
 function _hitInputPort(wx, wy) {
     var st = DXStream._pipeState;
     for (var i = st.nodes.length - 1; i >= 0; i--) {
@@ -218,7 +210,6 @@ function _hitInputPort(wx, wy) {
     return null;
 }
 
-/* ── 히트테스트: 엣지 (bezier 근접도 검사) ── */
 function _getPipelineNodeMap(st) {
     var nodeMap = {};
     st.nodes.forEach(function (n) { nodeMap[n.id] = n; });
@@ -576,7 +567,6 @@ function _canvasWheel(e) {
     _scheduleCanvasRefresh();
 }
 
-/* ── 전체 캔버스 다시 그리기 ── */
 function _refreshCanvas() {
     var canvas = DXStream.$('pipeline-canvas');
     if (!canvas) return;
@@ -653,7 +643,6 @@ function _refreshCanvas() {
     _drawMinimap(st, w, h);
 }
 
-/* ── 노드 그리기 ── */
 function _drawNode(ctx, node, selected, connStatus) {
     // outer save — connStatus에 따른 전체 노드 globalAlpha 제어
     ctx.save();
@@ -769,7 +758,6 @@ function _drawNode(ctx, node, selected, connStatus) {
     ctx.restore();
 }
 
-/* ── 엣지 그리기 (Bezier) ── */
 function _drawEdge(ctx, x1, y1, x2, y2, dashed, selected, fromColor, toColor, warnEdge) {
     var cpOff = Math.min(Math.abs(x2 - x1) * 0.5, 80);
     ctx.beginPath();
@@ -839,7 +827,6 @@ function _truncate(s, max) {
     return s.length > max ? s.slice(0, max - 1) + '\u2026' : s;
 }
 
-/* ── 속성 패널 ── */
 function _hidePropertyPanel() {
     var panel = DXStream.$('property-panel');
     var content = DXStream.$('prop-content');
@@ -972,9 +959,6 @@ DXStream._updateNodeProp = function (nodeId, key, value) {
     }
 };
 
-/* ══════════════════════════════════════════════════════
-   Fix 10: 미니맵
-   ══════════════════════════════════════════════════════ */
 function _ensureMinimapCanvasSize(mmCanvas, container) {
     var nextW = container.clientWidth || 160;
     var nextH = container.clientHeight || 120;
@@ -1048,9 +1032,6 @@ function _drawMinimap(st, canvasW, canvasH) {
     mmCtx.strokeRect(vpLeft, vpTop, vpW, vpH);
 }
 
-/* ══════════════════════════════════════════════════════
-   컨텍스트 메뉴
-   ══════════════════════════════════════════════════════ */
 function _showContextMenu(e) {
     e.preventDefault();
     _hideContextMenu();
@@ -1126,9 +1107,6 @@ function _hideContextMenu() {
     if (old) old.remove();
 }
 
-/* ══════════════════════════════════════════════════════
-   터치 이벤트 지원
-   ══════════════════════════════════════════════════════ */
 function _touchToMouse(type, e) {
     if (e.touches.length > 1) return;
     var touch = e.touches[0] || e.changedTouches[0];

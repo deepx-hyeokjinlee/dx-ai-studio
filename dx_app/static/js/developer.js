@@ -1,8 +1,5 @@
-// DX-APP — Developer (Lab)
 // Lab mode — no password gate, uses X-Lab-Token header via postJ (utils.js)
 
-// Lab Session Management
-// ══════════════════════════════════════════════
 async function labEnsureSession(){
   if(S.labToken)return S.labToken;
   var res=await api('/api/lab/session');
@@ -32,7 +29,6 @@ function _devInitSelects(){
   var catOpts='<option value="">All Categories</option>'+cats.map(function(c){return'<option value="'+c+'">'+c+'</option>'}).join('');
   if($('dd-cat'))$('dd-cat').innerHTML=catOpts;
   if($('de-cat'))$('de-cat').innerHTML=catOpts;
-  // Initial populate
   filterDelModels();
   filterExtModels();
 }
@@ -165,7 +161,6 @@ async function devNewTask(){
   }
 }
 
-// ══════════════════════════════════════════════
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshDeveloperLanguage() {
     if (typeof DXI18n !== 'undefined' && DXI18n.applyLang) DXI18n.applyLang(document);

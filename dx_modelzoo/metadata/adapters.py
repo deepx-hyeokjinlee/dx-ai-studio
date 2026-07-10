@@ -382,8 +382,6 @@ def parse_modelzoo_model_file(file_path):
     return _extract_all_model_infos(text)
 
 
-# ── YAML parser (delegated to _yaml_parser) ──
-
 from dx_modelzoo.metadata._yaml_parser import (  # noqa: E402
     yaml_scalar as _yaml_scalar,
     yaml_top_level_value as _yaml_top_level_value,

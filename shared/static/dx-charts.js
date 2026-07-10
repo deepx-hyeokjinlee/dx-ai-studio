@@ -99,7 +99,6 @@ function drawLineChart(canvas,datasets,opts){
     ctx.stroke();
     ctx.strokeStyle=ds.color||_dxChartCssColor('--app-accent','#22d3ee');ctx.globalAlpha=0.15;ctx.lineWidth=4;ctx.stroke();ctx.globalAlpha=1;ctx.lineWidth=1.5;
   });
-  // Threshold lines
   if(opts.thresholds&&hasData){
     opts.thresholds.forEach(function(th){
       if(th.value==null||th.value<mn||th.value>mx)return;

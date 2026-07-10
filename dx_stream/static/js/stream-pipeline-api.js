@@ -3,7 +3,6 @@
  * 서버 API 호출, 파이프라인 제어, 연결 규칙 검증, 팔레트 하이라이트
  */
 
-/* ── 페이지 초기화 ── */
 DXStream.pipelineInit = async function () {
     var resp = await DXStream.api('/api/pipeline/elements');
     if (resp.error) return;
@@ -58,7 +57,6 @@ DXStream._pipelineRefreshLang = function () {
     _updateElementCount();
 };
 
-/* ── 줌/핏/리셋 ── */
 DXStream.pipelineZoomIn = function () {
     DXStream._pipeState.zoom = Math.min(DXStream._pipeState.zoom + 0.1, 3.0);
     _refreshCanvas();
@@ -409,9 +407,6 @@ DXStream.importPipeline = function () {
     input.click();
 };
 
-/* ══════════════════════════════════════════════════════
-   Fix 6: 순환 참조 방지 — BFS 도달 검사
-   ══════════════════════════════════════════════════════ */
 function _hasCycle(fromId, toId, edges) {
     // toId → fromId에 도달 가능하면 순환
     var visited = {};
@@ -428,7 +423,6 @@ function _hasCycle(fromId, toId, edges) {
     return false;
 }
 
-/* ── 연결 검증 ── */
 function _canStartEdge(nodeId) {
     var node = DXStream._pipeState.nodes.find(function (n) { return n.id === nodeId; });
     if (!node) return false;

@@ -1,5 +1,3 @@
-// DX-APP — Filebrowser
-// Auto-generated from dx_gui.html refactoring
 
 var FB={target:null,mode:'file',filter:null,curPath:null,selected:null};
 function fileBrowse(targetId,mode,filter){
@@ -25,7 +23,6 @@ function fbLoadDir(path){
     if(FB.mode==='dir'||!cur||cur==='/'){
       $('fb-cur-path').value=r.path+(r.path.endsWith('/')?'':'/');
     }
-    // Breadcrumb
     var parts=r.path.split('/').filter(Boolean);
     var bc=$('fb-breadcrumb');
     var bhtml='<span onclick="fbLoadDir(\'/\')">🏠 /</span>';
@@ -36,7 +33,6 @@ function fbLoadDir(path){
       bhtml+='&nbsp;›&nbsp;<span onclick="fbLoadDir(\''+(cp.replace(/'/g,'\\"'))+'\')">'+p+'</span>';
     });
     bc.innerHTML=bhtml;
-    // List
     var list=$('fb-list');list.innerHTML='';
     if(r.parent){
       var el=document.createElement('div');
@@ -112,7 +108,6 @@ function fbAcApply(i,navigate){
     // Refresh list (user can keep typing)
     fbLoadDir(e.type==='dir'?e.path:(e.path.substring(0,e.path.lastIndexOf('/'))||'/'));
   }
-  // Keep focus
   setTimeout(function(){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length);},10);
 }
 function fbPathKeydown(ev){
@@ -141,7 +136,6 @@ function fbPathKeydown(ev){
     ev.preventDefault();
     // If no dropdown items, fetch AC immediately
     if(!_fbAcItems.length){
-      // Fetch and complete immediately
       var val=$('fb-cur-path').value;
       if(!val)return;
       var slash=val.lastIndexOf('/');
@@ -180,7 +174,6 @@ function fbPathKeydown(ev){
 function _fbTabComplete(){
   if(!_fbAcItems.length)return;
   if(_fbAcItems.length===1){fbAcApply(0,true);return;}
-  // Compute common prefix
   var names=_fbAcItems.map(function(e){return e.name;});
   var common=names[0];
   for(var k=1;k<names.length;k++){
@@ -233,7 +226,6 @@ function fbClose(){closeModal('modal-fb');}
 // ── Nav cleanup: stop polling when leaving compiler page ──
 var _origNav=typeof nav==='function'?nav:null;
 
-// ── Compiler Test Wizard (CT) ──
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshFileBrowserLanguage() {
     if (typeof DXI18n !== 'undefined' && DXI18n.applyLang) DXI18n.applyLang(document);

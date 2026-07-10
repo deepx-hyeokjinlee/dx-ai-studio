@@ -1,11 +1,6 @@
-// DX-APP — Utils
 // State, utilities, navigation, helpers
 
-/* ═══════════════════════════════════════════════════════════
-   DX-APP GUI v2.0 — Pure JS (zero dependencies)
-   ═══════════════════════════════════════════════════════════ */
 
-// ── State ──
 const S={
   models:[],images:[],videos:[],cats:[],
   selImg:'',chartMode:'temp',
@@ -30,14 +25,12 @@ const _cv=k=>_cs.getPropertyValue(k).trim();
 const WF_COLORS=[_cv('--info'),_cv('--app-accent'),_cv('--warning'),_cv('--error'),_cv('--npu')];
 const WF_STEPS=['Read','Preprocess','Inference','Postprocess','Display'];
 
-// ── Utils ──
 const $=id=>document.getElementById(id);
 const esc=s=>{const d=document.createElement('div');d.textContent=s;return d.innerHTML};
 function api(url,opts){return fetch(url,opts).then(r=>r.json()).catch(e=>({error:e.message}))}
 function findModel(name){return S.models.find(function(m){return m.name===name})}
 function postJ(url,body){return api(url,{method:'POST',headers:{'Content-Type':'application/json','X-Lab-Token':S.labToken||S.devToken||''},body:JSON.stringify(body)})}
 
-// ── Toast / Notification System ──
 const _toastIcons={ok:'✅',err:'❌',info:'ℹ️',warn:'⚠️'};
 const _toastHistory=[];
 const _TOAST_HIST_MAX=100;
@@ -47,12 +40,10 @@ function toast(msg,type='info',opts){
   if(!opts)opts={};
   const tc=type==='ok'?'ok':type==='err'?'err':type==='warn'?'warn':'info';
   const icon=_toastIcons[tc]||'ℹ️';
-  // History
   _toastHistory.unshift({msg,type:tc,time:Date.now(),icon,actionLabel:opts.action?opts.action.label:null,actionUrl:opts.action&&opts.action.url?opts.action.url:null});
   if(_toastHistory.length>_TOAST_HIST_MAX)_toastHistory.pop();
   _toastUnread++;
   _updateNotifBadge();
-  // DOM
   const t=document.createElement('div');
   t.className='toast toast-'+tc;
   t.innerHTML='<span class="toast-icon">'+icon+'</span><span class="toast-msg">'+esc(msg)+'</span>';
@@ -138,7 +129,6 @@ function fmtTime(ts){const d=new Date(ts*1000);return d.toLocaleString(getLocale
 function fmtClock(epochMs){const d=new Date(epochMs);return d.toLocaleTimeString(getLocale(),{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'})}
 function tempColor(t){return t<40?_cv('--success'):t<55?_cv('--warning'):_cv('--error')}
 
-// ── Navigation ──
 const PAGES=['setup','models','run','bench','compare','modelzoo','lab','outputs','reference'];
 const PAGE_TITLES={setup:'⚙️ Setup & Install',models:'Models',run:'Run Inference',bench:'Benchmark',compare:'A/B Compare',modelzoo:'📥 ModelZoo',lab:'🧪 Lab',outputs:'Outputs',reference:'📖 Reference'};
 function _applyLangToActivePage(){
@@ -167,10 +157,7 @@ function nav(page){
 }
 // openDev is defined in developer.js (with auth logic)
 
-// ── Canvas Chart Helpers ──
 
-// Sidebar Collapse
-// ══════════════════════════════════════════════
 function toggleSidebar(){
   const sb=document.querySelector('.sidebar');
   const ml=document.querySelector('.main');
@@ -180,13 +167,9 @@ function toggleSidebar(){
 
 
 
-// ══════════════════════════════════════════════
 
-// Slider labels
-// ══════════════════════════════════════════════
 function updateSlider(id,val){$(id).textContent=val}
 
-// ── Language Change Dispatcher ──
 function refreshActivePageLanguage(){
   _applyLangToActivePage();
   const active=document.querySelector('.page.active');
@@ -212,18 +195,15 @@ function refreshRunLanguage(){
 }
 
 function refreshBenchLanguage(){
-  // Re-translate category placeholder
   var catSel=$('b-cat');
   if(catSel&&catSel.options.length&&catSel.options[0].value==='')
     catSel.options[0].textContent=T('All Categories');
-  // Re-translate default built-in option labels
   var imgSel=$('b-img-sel');
   if(imgSel&&imgSel.options.length&&imgSel.options[0].value==='')
     imgSel.options[0].textContent=T('Default (built-in)');
   var vidSel=$('b-vid-sel');
   if(vidSel&&vidSel.options.length&&vidSel.options[0].value==='')
     vidSel.options[0].textContent=T('Default (built-in)');
-  // Re-translate loop/frame label
   var lbl=$('b-loop-label');
   if(lbl){
     var t=$('b-input-type')?$('b-input-type').value:'image';
@@ -248,4 +228,3 @@ function refreshCompareLanguage(){
 
 // Language changes handled by lang-refresh.js (refreshDxAppModuleLanguage)
 
-// ══════════════════════════════════════════════

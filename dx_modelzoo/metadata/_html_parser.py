@@ -12,8 +12,6 @@ from pathlib import Path
 from dx_modelzoo.metadata.normalization import canonical_model_id, normalize_source_value
 
 
-# ── 헤더→필드 매핑 및 상수 (adapters.py 에서 이동) ──
-
 _TABLE_FIELD_MAP = {
     "Task": "display.task",
     "Name": "display.name",
@@ -72,9 +70,6 @@ _ARTIFACT_JOIN_SCORES = {
 }
 
 
-# ── 유틸리티 ──
-
-
 def html_span(value):
     """rowspan/colspan 속성값을 int 로 파싱. 최솟값 1."""
     try:
@@ -121,9 +116,6 @@ def expand_table_headers(header_rows):
                 parts.append(text)
         headers.append(clean_cell_text(" ".join(parts)))
     return headers
-
-
-# ── TableParser ──
 
 
 class _TableParser(HTMLParser):
@@ -199,9 +191,6 @@ class _TableParser(HTMLParser):
     def handle_data(self, data):
         if self._current_cell is not None:
             self._current_cell["text"] += data
-
-
-# ── 셀/모델 ID 헬퍼 ──
 
 
 def _table_cell_value(cell, field):
@@ -302,9 +291,6 @@ def _parse_internal_table_rows(rows, headers):
                 models[cid] = dict(entry)
                 model_scores[cid] = score
     return models
-
-
-# ── public API ──
 
 
 def parse_internal_table_models(html):

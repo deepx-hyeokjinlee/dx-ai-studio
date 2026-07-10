@@ -1,5 +1,3 @@
-// DX-APP — Outputs Gallery & Comparison View
-// ══════════════════════════════════════════════
 
 let _outFiles=[];
 let _outView='grid';   // 'grid' | 'table'
@@ -8,7 +6,6 @@ let _outFilter='all';  // 'all' | 'image' | 'video' | 'archive' | 'other'
 const _TYPE_ICON={image:'🖼️',video:'🎬',archive:'📦',other:'📄'};
 const _TYPE_LABEL={all:T('All'),image:T('Images'),video:T('Videos'),archive:T('Archives'),other:T('Other')};
 
-// ── Load & render ───────────────────────────
 async function loadOutputs(){
   const data=await api('/api/outputs');
   _outFiles=Array.isArray(data)?data:[];
@@ -27,7 +24,6 @@ function setOutFilter(f){_outFilter=f;_renderOutputs();
 
 function _filtered(){return _outFilter==='all'?_outFiles:_outFiles.filter(f=>f.type===_outFilter);}
 
-// ── Filter chips ────────────────────────────
 function _renderFilterChips(){
   const counts={all:_outFiles.length,image:0,video:0,archive:0,other:0};
   _outFiles.forEach(f=>counts[f.type]=(counts[f.type]||0)+1);
@@ -39,7 +35,6 @@ function _renderFilterChips(){
   ).join('');
 }
 
-// ── Main render ─────────────────────────────
 function _renderOutputs(){
   const files=_filtered();
   const empty=$('out-empty');
@@ -64,7 +59,6 @@ function _renderOutputs(){
     }).join('')||'<tr><td colspan="4" class="txt-dim">No files</td></tr>';
   }
 
-  // Grid (gallery) view
   const grid=$('out-gallery');
   if(grid)grid.style.display=_outView==='grid'?'':'none';
   if(_outView==='grid'&&grid){
@@ -91,7 +85,6 @@ function _renderOutputs(){
   }
 }
 
-// ── Lightbox ────────────────────────────────
 function openLightbox(name){
   const f=_outFiles.find(x=>x.name===name);if(!f)return;
   const dlg=$('gallery-lightbox');if(!dlg)return;
@@ -105,7 +98,6 @@ function openLightbox(name){
   }
   $('lb-title').textContent=f.name;
   $('lb-download').href=f.url;$('lb-download').download=f.name;
-  // Compare button visibility
   const cmpBtn=$('lb-compare');
   if(cmpBtn)cmpBtn.style.display=(f.type==='image'&&f.src_image)?'':'none';
   if(cmpBtn)cmpBtn.onclick=()=>{dlg.close();openCompare(name);};
@@ -113,7 +105,6 @@ function openLightbox(name){
 }
 function closeLightbox(){const d=$('gallery-lightbox');if(d)d.close();}
 
-// ── Before/After Comparison ─────────────────
 function openCompare(name){
   const f=_outFiles.find(x=>x.name===name);
   if(!f||!f.src_image)return toast(T('No source image for comparison'),'warn');
@@ -132,7 +123,6 @@ function _updateCompareSlider(v){
   wrap.style.setProperty('--split',pct+'%');
 }
 
-// ── Delete ──────────────────────────────────
 async function deleteOutput(name){
   if(!confirm(T('Delete ')+name+'?'))return;
   const r=await postJ('/api/outputs/delete',{name});
@@ -141,7 +131,6 @@ async function deleteOutput(name){
   loadOutputs();
 }
 
-// ══════════════════════════════════════════════
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshOutputsLanguage() {
     if (document.querySelector('#page-outputs.active') && typeof loadOutputs === 'function') loadOutputs();

@@ -627,39 +627,32 @@ def check_demo_available(demo_id: int) -> dict:
     demo = DEMOS[demo_id]
     reason_items = []
 
-    # 모델 파일 확인
     model_files = demo.get("models", [demo["model"]] if "model" in demo else [])
     for mf in model_files:
         if not (MODELS_DIR / _model_file(mf)).exists():
             reason_items.append({"code": "missing_model", "path": mf})
 
-    # 설정 디렉토리 확인
     for config_dir in demo.get("required_configs", []):
         for cfg in ("preprocess_config.json", "inference_config.json", "postprocess_config.json"):
             if not (CONFIGS_DIR / config_dir / cfg).exists():
                 reason_items.append({"code": "missing_config_file", "path": f"{config_dir}/{cfg}"})
 
-    # 개별 설정 파일 확인
     for rel in demo.get("required_files", []):
         if not (CONFIGS_DIR / rel).exists():
             reason_items.append({"code": "missing_config_file", "path": rel})
 
-    # 런타임 스크립트 확인
     script = demo.get("runtime_script")
     if script:
         if not (PIPELINES_DIR / script).exists():
             reason_items.append({"code": "missing_runtime_script", "path": script})
 
-    # 샘플 비디오 확인
     for video in demo.get("required_videos", []):
         if not _video_path(video):
             reason_items.append({"code": "missing_sample_video", "path": video})
 
-    # NPU 장치 확인
     if not _npu_exists():
         reason_items.append({"code": "missing_npu_device"})
 
-    # GStreamer DxStream 플러그인 확인
     if not _plugin_exists():
         reason_items.append({"code": "missing_dxstream_plugin"})
 

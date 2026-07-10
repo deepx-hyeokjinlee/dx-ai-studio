@@ -1,8 +1,4 @@
-// DX-APP — Benchmark
-// Auto-generated from dx_gui.html refactoring
 
-// Benchmark
-// ══════════════════════════════════════════════
 var _benchRunning=false; // true while doBench is executing
 
 function _benchErrorMessage(res){
@@ -22,7 +18,6 @@ function initBenchPage(){
   var skipRebuild=_benchRunning; // don't wipe results during a running benchmark
   var cats=[...new Set(S.models.map(function(m){return m.category}))].sort();
   $('b-cat').innerHTML='<option value="">'+T('All Categories')+'</option>'+cats.map(function(c){return '<option>'+c+'</option>'}).join('');
-  // populate image/video selectors from API
   api('/api/images').then(function(imgs){
     var list=Array.isArray(imgs)?imgs:[];
     $('b-img-sel').innerHTML='<option value="">'+T('Default (built-in)')+'</option>'+list.map(function(f){return '<option value="'+esc(f)+'">'+esc(f.split('/').pop())+'</option>'}).join('');
@@ -140,7 +135,6 @@ async function doBench(){
 function showBenchDetail(name){
   var r=S.benchRes[name];if(!r){toast(T('No data — run benchmark first'),'warn');return}
   var h='';
-  // Error banner
   if(r.error){
     var errMsg=_benchErrorMessage(r);
     h+='<div style="background:rgba(248,81,73,.12);border:1px solid rgba(248,81,73,.4);border-radius:6px;padding:10px 14px;margin-bottom:12px;color:#F85149">'
@@ -151,7 +145,6 @@ function showBenchDetail(name){
   h+='<span class="badge" style="background:var(--bg-3);color:var(--text-1)">'+(r.lang||'cpp')+'</span>';
   if(r.elapsed_s)h+='<span class="txt-dim txt-sm">'+T('elapsed: ')+r.elapsed_s+'s</span>';
   h+='</div>';
-  // Original + Result side by side
   var hasOrig=(r._inputType==='image'&&r._imgPath)||(r._inputType==='video'&&r._vidPath);
   var hasResult=!!r.result_image||!!r.result_video_url;
   if(hasOrig||hasResult){
@@ -198,7 +191,6 @@ function showBenchDetail(name){
   openModal('modal-detail');
 }
 
-// ── Benchmark Report Generator ──
 function benchExportReport(){
   if(!S.benchRes||!Object.keys(S.benchRes).length){toast(T('No benchmark results to export'),'warn');return;}
   var models=Object.keys(S.benchRes);
@@ -207,7 +199,6 @@ function benchExportReport(){
   var inputType=models.length?S.benchRes[models[0]]._inputType||'image':'image';
   var loopCount=$('b-loop')?$('b-loop').value:'100';
 
-  // Collect stats
   var passed=0, failed=0, errors=0, totalFps=0, fpsCount=0;
   var rows=[];
   models.forEach(function(name){
@@ -227,10 +218,8 @@ function benchExportReport(){
   });
   var avgFps=fpsCount?(totalFps/fpsCount).toFixed(1):'-';
 
-  // Sort by FPS descending
   var ranked=rows.slice().sort(function(a,b){return (parseFloat(b.fps)||0)-(parseFloat(a.fps)||0);});
 
-  // Build HTML report
   var h='<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+T('DX-APP Benchmark Report')+'</title>';
   h+='<style>';
   h+='*{margin:0;padding:0;box-sizing:border-box}';
@@ -256,11 +245,9 @@ function benchExportReport(){
   h+='@media print{body{background:#fff;color:#1f2937} .rpt-card{border-color:#e5e7eb;background:#f9fafb} th{background:#f3f4f6;color:#6b7280} td{border-color:#e5e7eb} tr:hover{background:transparent}}';
   h+='</style></head><body><div class="rpt">';
 
-  // Header
   h+='<h1>'+T('📊 DX-APP Benchmark Report')+'</h1>';
   h+='<div class="rpt-meta">'+T('Generated: ')+esc(ts)+' | '+T('Language: ')+esc(lang)+' | '+T('Input: ')+esc(inputType)+' | '+T('Loop: ')+esc(loopCount)+'</div>';
 
-  // Summary cards
   h+='<div class="rpt-summary">';
   h+='<div class="rpt-card"><div class="val blue">'+models.length+'</div><div class="lbl">'+T('Total Models')+'</div></div>';
   h+='<div class="rpt-card"><div class="val green">'+passed+'</div><div class="lbl">'+T('Passed')+'</div></div>';
@@ -269,7 +256,6 @@ function benchExportReport(){
   h+='<div class="rpt-card"><div class="val acc">'+avgFps+'</div><div class="lbl">'+T('Avg FPS')+'</div></div>';
   h+='</div>';
 
-  // Ranking table
   h+='<h2>'+T('🏆 Performance Ranking')+'</h2>';
   h+='<table><thead><tr><th>#</th><th>'+T('Model')+'</th><th>'+T('Category')+'</th><th>'+T('Status')+'</th><th>FPS</th><th>'+T('Latency')+'</th><th>'+T('Elapsed')+'</th><th>'+T('FPS Bar')+'</th></tr></thead><tbody>';
   var maxFps=ranked.length?Math.max.apply(null,ranked.map(function(r){return parseFloat(r.fps)||0})):1;
@@ -287,7 +273,6 @@ function benchExportReport(){
   });
   h+='</tbody></table>';
 
-  // Category breakdown
   var cats={};
   rows.forEach(function(r){
     if(!cats[r.category])cats[r.category]={count:0,fps:0,fpsN:0,passed:0,failed:0,errors:0};
@@ -308,7 +293,6 @@ function benchExportReport(){
   });
   h+='</tbody></table>';
 
-  // ── Latency Statistics ──
   var latVals=[], fpsVals=[];
   models.forEach(function(name){
     var r=S.benchRes[name];
@@ -335,7 +319,6 @@ function benchExportReport(){
     h+='</div>';
   }
 
-  // ── FPS vs Latency Scatter Plot (SVG) ──
   if(fpsVals.length>1&&latVals.length>1){
     var svgW=800,svgH=320,pad=50;
     var allFps=models.map(function(n){return parseFloat(S.benchRes[n].fps)||0}).filter(function(v){return v>0});
@@ -345,12 +328,10 @@ function benchExportReport(){
       var latMin2=Math.min.apply(null,allLat)*0.9, latMax2=Math.max.apply(null,allLat)*1.1;
       h+='<h2>'+T('📈 FPS vs Latency')+'</h2>';
       h+='<div style="overflow-x:auto"><svg width="'+svgW+'" height="'+svgH+'" style="background:#111827;border-radius:8px;border:1px solid #1e293b">';
-      // Axes
       h+='<line x1="'+pad+'" y1="'+(svgH-pad)+'" x2="'+(svgW-20)+'" y2="'+(svgH-pad)+'" stroke="#1e293b" stroke-width="1"/>';
       h+='<line x1="'+pad+'" y1="20" x2="'+pad+'" y2="'+(svgH-pad)+'" stroke="#1e293b" stroke-width="1"/>';
       h+='<text x="'+(svgW/2)+'" y="'+(svgH-8)+'" text-anchor="middle" fill="#94a3b8" font-size="11">FPS →</text>';
       h+='<text x="14" y="'+(svgH/2)+'" text-anchor="middle" fill="#94a3b8" font-size="11" transform="rotate(-90,14,'+(svgH/2)+')">Latency (ms) →</text>';
-      // Grid lines
       for(var gi=0;gi<=4;gi++){
         var gy=svgH-pad-(gi/4)*(svgH-pad-20);
         var gx=pad+(gi/4)*(svgW-pad-20);
@@ -358,7 +339,6 @@ function benchExportReport(){
         h+='<text x="'+(pad-4)+'" y="'+(gy+4)+'" text-anchor="end" fill="#484f58" font-size="9">'+(latMin2+(latMax2-latMin2)*gi/4).toFixed(0)+'</text>';
         h+='<text x="'+gx+'" y="'+(svgH-pad+14)+'" text-anchor="middle" fill="#484f58" font-size="9">'+(fpsMin2+(fpsMax2-fpsMin2)*gi/4).toFixed(0)+'</text>';
       }
-      // Points
       var colors=['#638CFF','#58A6FF','#fb923c','#bc8cff','#ff7b72','#79c0ff','#56d364','#e3b341','#ffa657','#d2a8ff'];
       models.forEach(function(name,mi){
         var r=S.benchRes[name];
@@ -374,7 +354,6 @@ function benchExportReport(){
     }
   }
 
-  // ── Hardware Resource Summary ──
   var hwData=[];
   models.forEach(function(name){
     var r=S.benchRes[name];
@@ -410,7 +389,6 @@ function benchExportReport(){
       if(d.temp!=null){tempSum+=d.temp;tempN++;}
       if(d.power!=null){powerSum+=d.power;powerN++;}
     });
-    // Average row
     h+='<tr style="font-weight:700;border-top:2px solid #1e293b"><td>'+T('Average')+'</td>';
     h+='<td style="color:#58A6FF">'+(cpuN?(cpuSum/cpuN).toFixed(1)+'%':'-')+'</td>';
     h+='<td style="color:#58A6FF">'+(memN?(memSum/memN).toFixed(1)+'%':'-')+'</td>';
@@ -446,7 +424,6 @@ function benchExportReport(){
     }
   }
 
-  // ── Result Image Gallery ──
   var imgModels=models.filter(function(n){return S.benchRes[n].result_image});
   if(imgModels.length){
     h+='<h2>'+T('🖼️ Result Gallery')+'</h2>';
@@ -463,7 +440,6 @@ function benchExportReport(){
     h+='</div>';
   }
 
-  // ── Error Details ──
   var errModels=models.filter(function(n){var r=S.benchRes[n];return !!r.error});
   if(errModels.length){
     h+='<h2>'+T('❌ Runtime Errors')+'</h2>';
@@ -498,7 +474,6 @@ function benchExportReport(){
     });
   }
 
-  // Environment info
   h+='<h2>'+T('🖥️ Environment')+'</h2>';
   h+='<table><tbody>';
   h+='<tr><td>'+T('Language')+'</td><td>'+esc(lang)+'</td></tr>';
@@ -510,7 +485,6 @@ function benchExportReport(){
   h+='<div class="footer">'+T('DX-APP Benchmark Report — Generated automatically by DX-APP GUI')+'</div>';
   h+='</div></body></html>';
 
-  // Download as HTML
   var blob=new Blob([h],{type:'text/html;charset=utf-8'});
   var a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
@@ -519,7 +493,6 @@ function benchExportReport(){
   toast('📄 '+T('Benchmark report downloaded'),'ok');
 }
 
-// ══════════════════════════════════════════════
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshBenchmarkPageLanguage() {
     if (document.querySelector('#page-bench.active') && typeof refreshBenchLanguage === 'function') refreshBenchLanguage();

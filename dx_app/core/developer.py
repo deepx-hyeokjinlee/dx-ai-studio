@@ -292,7 +292,6 @@ def build_task_file_plan(task_name, lang="both", scaffold_type="full", cpp_dir=N
     cpp_base = cpp_dir / "common"
     py_base = py_dir / "common"
 
-    # C++ templates
     cpp_templates = {}
     if scaffold_type == "full":
         cpp_templates = {
@@ -440,7 +439,6 @@ protected:
 """,
         }
 
-    # Python templates
     task_camel = "".join(w.capitalize() for w in task_name.split("_"))
     py_templates = {}
     if scaffold_type == "full":

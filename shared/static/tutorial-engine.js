@@ -1,11 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════
-   DX Tutorial Engine v2.0
-   Interactive highlight-tour + progress tracking
-   Fixed: TOC outside-click, topbar buttons
-   ═══════════════════════════════════════════════════════════════ */
-
 class DXTutorialEngine {
-  /* ── Multi-language lookup for tutorial UI strings ── */
   static _UI = {
     'Tutorial Guide': { ko: '튜토리얼 가이드', ja: 'チュートリアルガイド', 'zh-CN': '教程指南', 'zh-TW': '教學指南',es:'Guía tutorial'},
     'Complete': { ko: '완료', ja: '完了', 'zh-CN': '完成', 'zh-TW': '完成',es:'Completo'},
@@ -121,14 +114,12 @@ class DXTutorialEngine {
     return null;
   }
 
-  /* ─── Text helper ─── */
   _t(obj) {
     if (!obj) return '';
     if (typeof obj === 'string') return obj;
     return obj[this.getLang()] || obj.en || obj.ko || '';
   }
 
-  /* ─── Progress persistence ─── */
   _loadProgress() {
     try {
       const raw = localStorage.getItem(this._STORAGE_KEY);
@@ -171,7 +162,6 @@ class DXTutorialEngine {
     this._saveProgress();
   }
 
-  /* ─── Prerequisite check ─── */
   _checkPrereq(section) {
     if (!section.prerequisite) return null;
     const prereqs = Array.isArray(section.prerequisite) ? section.prerequisite : [section.prerequisite];
@@ -263,7 +253,6 @@ class DXTutorialEngine {
     }
   }
 
-  /* ─── Build DOM (once) ─── */
   _buildDOM() {
     if (this._built) {
       if (this._overlay && document.documentElement.contains(this._overlay)) return;
@@ -273,18 +262,15 @@ class DXTutorialEngine {
 
     var root = this._overlayRoot();
 
-    // Overlay (click = stop tour)
     this._overlay = document.createElement('div');
     this._overlay.className = 'dxt-overlay';
     this._overlay.addEventListener('click', () => this.stop());
     root.appendChild(this._overlay);
 
-    // Spotlight
     this._spotlight = document.createElement('div');
     this._spotlight.className = 'dxt-spotlight';
     root.appendChild(this._spotlight);
 
-    // Tooltip
     this._tooltip = document.createElement('div');
     this._tooltip.className = 'dxt-tooltip';
     root.appendChild(this._tooltip);
@@ -295,12 +281,10 @@ class DXTutorialEngine {
     this._tocBackdrop.addEventListener('click', () => this.hideTOC());
     root.appendChild(this._tocBackdrop);
 
-    // TOC panel
     this._tocEl = document.createElement('div');
     this._tocEl.className = 'dxt-toc';
     root.appendChild(this._tocEl);
 
-    // Refresh highlight on scroll (persistent listeners)
     const _onScroll = () => { if (this._curSection) this._refreshHighlight(); };
     window.addEventListener('scroll', _onScroll, { passive: true });
     ['main-content', 'main-area'].forEach(id => {
@@ -312,7 +296,6 @@ class DXTutorialEngine {
     });
   }
 
-  /* ─── TOC (Table of Contents) ─── */
   showTOC(retryCount) {
     if (retryCount === undefined) retryCount = 0;
     if (window.DXLauncher &&
@@ -379,7 +362,6 @@ class DXTutorialEngine {
     this._tocEl.innerHTML = html;
   }
 
-  /* ─── Start Tour ─── */
   startAll() {
     this.hideTOC();
     var tutSecs = this.sections.filter(s => !s.helpOnly);
@@ -422,7 +404,6 @@ class DXTutorialEngine {
     setTimeout(() => this._showStep(), 400);
   }
 
-  /* ─── Step rendering ─── */
   async _showStep() {
     if (!this._curSection) return;
     var token = ++this._stepToken; // 각 호출마다 고유 토큰 — 이전 폴링 중단용
@@ -662,7 +643,6 @@ class DXTutorialEngine {
     }
   }
 
-  /* ─── Navigation ─── */
   _hideStepChrome() {
     if (this._spotlight) this._spotlight.classList.remove('active');
     if (this._tooltip) {
@@ -902,7 +882,6 @@ class DXTutorialEngine {
     }
   }
 
-  /* ─── Keyboard (FIXED: Escape closes help mode, idempotent) ─── */
   enableKeyboard() {
     if (this._keyHandler) return;
     var self = this;
@@ -934,7 +913,6 @@ class DXTutorialEngine {
     document.addEventListener('keydown', this._keyHandler);
   }
 
-  /* ─── Button creation ─── */
   createToggleBtn(container) {
     if (this._toggleBtnEl) return this._toggleBtnEl;
     var btn = document.createElement('button');
@@ -949,7 +927,6 @@ class DXTutorialEngine {
   }
 
 
-  /* ─── PostMessage listener (idempotent) ─── */
   listenForMessages() {
     if (this._messageHandler) return;
     var self = this;
@@ -966,25 +943,18 @@ class DXTutorialEngine {
     window.addEventListener('message', this._messageHandler);
   }
 
-  /* ─── Full cleanup ─── */
   destroy() {
-    // Deactivate help mode (also cleans observer/sync handler)
-    // Stop active tutorial
     this.stop();
-    // Remove keyboard listener
     if (this._keyHandler) {
       document.removeEventListener('keydown', this._keyHandler);
       this._keyHandler = null;
     }
-    // Remove message listener
     if (this._messageHandler) {
       window.removeEventListener('message', this._messageHandler);
       this._messageHandler = null;
     }
-    // Remove scroll/resize listeners
     window.removeEventListener('resize', this._resizeHandler);
     window.removeEventListener('scroll', this._scrollHandler, true);
-    // Remove tutorial/help DOM overlays
     [this._overlay, this._spotlight, this._tooltip, this._tocBackdrop, this._tocEl].forEach(function(el) {
       if (el && el.parentNode) el.parentNode.removeChild(el);
     });

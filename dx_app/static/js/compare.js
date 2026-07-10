@@ -1,8 +1,5 @@
-// DX-APP — Compare
-// Auto-generated from dx_gui.html refactoring
 
 // A/B Model Compare  (2×2 grid, up to 8 slots, video support, original+result)
-// ══════════════════════════════════════════════
 function filterABModels(i){
   var catSel=$('ab-cat-'+i);var searchEl=$('ab-search-'+i);var modelSel=$('ab-model-'+i);
   if(!modelSel)return;
@@ -133,9 +130,7 @@ async function doABRun(){
     var si=slotMap[ri];
     if(!r){$('ab-res-'+si).innerHTML='<p class="txt-dim">'+T('No result')+'</p>';return}
     var h='<div class="ab-result-pair">';
-    // Original input
     h+='<div class="ab-orig"><div class="ab-label">'+T('Original')+'</div>'+origHtml+'</div>';
-    // Result
     h+='<div class="ab-output"><div class="ab-label">'+T('Result')+'</div>';
     if(inputType==='video'&&r.result_video_url){
       h+='<video src="'+r.result_video_url+'" controls class="res-img mb8" style="max-width:100%;border-radius:6px"></video>';
@@ -154,7 +149,6 @@ async function doABRun(){
     if(r.output)h+='<details class="mt8"><summary class="clickable txt-dim txt-sm">\ud83d\udccb Full Output</summary><div class="code mt4" style="max-height:200px;overflow:auto;font-size:10px">'+esc(r.output)+'</div></details>';
     $('ab-res-'+si).innerHTML=h;
   });
-  // Comparison table
   $('ab-compare-card').classList.remove('hidden');
   var ct='<table class="tbl mt8"><thead><tr><th>'+T('Slot')+'</th><th>'+T('Model')+'</th><th>FPS</th><th>Latency</th></tr></thead><tbody>';
   results.forEach(function(r,ri){
@@ -173,7 +167,6 @@ async function doABRun(){
   }
 }
 
-// ══════════════════════════════════════════════
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshComparePageLanguage() {
     if (document.querySelector('#page-compare.active') && typeof refreshCompareLanguage === 'function') refreshCompareLanguage();

@@ -1,4 +1,3 @@
-/* shared/lang-refresh.js — utilities for language-switch DOM refresh */
 (function () {
   'use strict';
 

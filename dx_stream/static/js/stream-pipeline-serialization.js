@@ -3,9 +3,6 @@
  * gst-launch 미리보기, 프리셋 로드, 히스토리(undo/redo), 노드 조작(복사/붙여넣기/삭제)
  */
 
-/* ══════════════════════════════════════════════════════
-   Fix 8: gst-launch 미리보기
-   ══════════════════════════════════════════════════════ */
 function _updateCommandPreview() {
     var el = DXStream.$('pipeline-command-output');
     if (!el) return;
@@ -79,9 +76,6 @@ function _updateCommandPreview() {
     _setCommandPreviewText(el, cmd, false);
 }
 
-/* ══════════════════════════════════════════════════════
-   Fix 9: 프리셋 로드
-   ══════════════════════════════════════════════════════ */
 DXStream.loadPreset = async function (demoId) {
     var demos = await DXStream.api('/api/demos');
     if (demos.error || !Array.isArray(demos)) {
@@ -304,9 +298,6 @@ function _demoSecondaryNodes(demo) {
     };
 }
 
-/* ══════════════════════════════════════════════════════
-   Undo / Redo — 상태 스냅샷 기반
-   ══════════════════════════════════════════════════════ */
 function _pushHistory() {
     var st = DXStream._pipeState;
     var snap = JSON.stringify({ nodes: st.nodes, edges: st.edges, _nextId: st._nextId });
@@ -350,9 +341,6 @@ DXStream._redo = function () {
     DXStream.toast(T('Redo'), 'info');
 };
 
-/* ══════════════════════════════════════════════════════
-   키보드 단축키용 헬퍼
-   ══════════════════════════════════════════════════════ */
 DXStream._deleteSelectedNode = function () {
     var st = DXStream._pipeState;
     if (st.selectedNodes.length === 0 && !st.selectedNode) return;
@@ -403,7 +391,6 @@ DXStream._deleteSelectedEdge = function () {
     DXStream.toast(T('Edge deleted'), 'info');
 };
 
-/* ── 노드 복사/붙여넣기 ── */
 DXStream._copyNodes = function () {
     var st = DXStream._pipeState;
     if (st.selectedNodes.length === 0) {

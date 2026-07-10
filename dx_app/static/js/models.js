@@ -1,8 +1,4 @@
-// DX-APP — Models
-// Auto-generated from dx_gui.html refactoring
 
-// Models Page
-// ══════════════════════════════════════════════
 function renderModelsPage(){
   var cats=[...new Set(S.models.map(function(m){return m.category}))].sort();
   var html='<button class="chip active" data-cat="" onclick="chipFilter(this)">'+T('All')+'</button>';
@@ -75,7 +71,6 @@ async function showDetail(name){
   var info=await api('/api/model_info?name='+encodeURIComponent(name));
   $('md-title').textContent='🔍 '+name;
   var cfg=info.config||{};
-  // Postprocessor description map
   var PP_DESC={
     yolov5:T('YOLOv5-based object detection. Anchor-based with NMS post-processing.'),
     yolov7:T('YOLOv7-based object detection. E-ELAN architecture with NMS post-processing.'),
@@ -118,7 +113,6 @@ async function showDetail(name){
     yolov5_ppu:T('YOLOv5 PPU pipeline. Integrated pre/post-processing.'),
     yolov7_ppu:T('YOLOv7 PPU pipeline. Integrated pre/post-processing.')
   };
-  // Task visualization description
   var VIS_DESC={
     object_detection:T('Draws bounding boxes with class labels and confidence scores.'),
     face_detection:T('Draws face bounding boxes and landmark points.'),
@@ -142,7 +136,6 @@ async function showDetail(name){
     '3d_object_detection':T('Renders 3D bounding boxes on the LiDAR bird\'s-eye-view.')
   };
   var h='';
-  // Basic Info card  
   h+='<div class="detail-info-card"><h3>'+T('📋 Basic Info')+'</h3><table class="detail-tbl">';
   h+='<tr><td>'+T('Category')+'</td><td><span class="badge b-cat">'+(info.category||'').replace(/_/g,' ')+'</span></td></tr>';
   h+='<tr><td>'+T('Model File')+'</td><td>'+(info.model_exists?'✅':'❌')+' <span class="txt-sm" style="color:var(--text-1)">'+(info.model_file||'N/A')+'</span>'
@@ -157,13 +150,11 @@ async function showDetail(name){
   if(cfg.nms_threshold!=null)h+='<tr><td>'+T('NMS Thresh')+'</td><td>'+cfg.nms_threshold+'</td></tr>';
   if(cfg.obj_threshold!=null)h+='<tr><td>'+T('Obj Thresh')+'</td><td>'+cfg.obj_threshold+'</td></tr>';
   h+='</table></div>';
-  // Visualization info
   var cat=info.category||'';
   if(VIS_DESC[cat]){
     h+='<div class="detail-info-card"><h3>'+T('👁️ Visualization')+'</h3>';
     h+='<p style="font-size:12px;line-height:1.5;color:var(--text-1);margin:0">'+VIS_DESC[cat]+'</p></div>';
   }
-  // Postprocessors
   var pps=info.postprocessors||{};
   if(Object.keys(pps).length){
     h+='<div class="detail-info-card"><h3>'+T('⚙️ Postprocessors')+'</h3>';
@@ -181,7 +172,6 @@ async function showDetail(name){
     });
     h+='</div></div>';
   }
-  // Preprocessing info from config
   if(cfg.preprocess||cfg.PREPROCESS||cfg.mean||cfg.std||cfg.resize||cfg.pad||cfg.normalize!=null){
     h+='<div class="detail-info-card"><h3>'+T('🔧 Preprocessing')+'</h3><table class="detail-tbl">';
     if(cfg.mean)h+='<tr><td>Mean</td><td style="font-family:var(--mono);font-size:11px">'+JSON.stringify(cfg.mean)+'</td></tr>';
@@ -192,12 +182,10 @@ async function showDetail(name){
     if(cfg.normalize!=null)h+='<tr><td>Normalize</td><td>'+cfg.normalize+'</td></tr>';
     h+='</table></div>';
   }
-  // Config JSON (collapsible)
   if(cfg&&Object.keys(cfg).length){
     h+='<details class="detail-info-card" style="cursor:pointer"><summary style="font-size:13px;font-weight:600;color:var(--accent)">'+T('📄 Full Config (config.json)')+'</summary>';
     h+='<div class="code mt8" style="max-height:200px;font-size:11px">'+esc(JSON.stringify(cfg,null,2))+'</div></details>';
   }
-  // Files (collapsible)
   var fls=info.files||{};
   Object.keys(fls).forEach(function(lang){
     var files=fls[lang];
@@ -224,7 +212,6 @@ async function viewCode(path){
   }else{toast(T('File not found'),'err')}
 }
 
-// ══════════════════════════════════════════════
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshModelsLanguage() {
     if (document.querySelector('#page-models.active') && typeof renderModelsPage === 'function') renderModelsPage();

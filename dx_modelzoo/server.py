@@ -98,7 +98,6 @@ class ModelZooHandler(DXBaseHandler):
         qs = self.query
 
         if self.command == "GET":
-            # API: 카탈로그
             if path == "/api/catalog":
                 cat = get_catalog()
                 category = qs.get("category", [None])[0]
@@ -111,7 +110,6 @@ class ModelZooHandler(DXBaseHandler):
                                        "variant_count": stats["variant_count"],
                                        "unique_model_count": stats["unique_model_count"]})
 
-            # API: 카테고리
             if path == "/api/categories":
                 cat = get_catalog()
                 counts = count_by_category(cat["models"])
@@ -120,11 +118,9 @@ class ModelZooHandler(DXBaseHandler):
                     cats.append({"id": cid, **cinfo, "count": counts.get(cid, 0)})
                 return self.send_json({"ok": True, "categories": cats})
 
-            # API: dx_app 헬스체크
             if path == "/api/health":
                 return self.send_json({"ok": True, "dx_app_alive": is_dx_app_alive()})
 
-            # API: 샘플 이미지 목록
             if path == "/api/sample-images":
                 category = qs.get("category", [None])[0]
                 model_id = qs.get("model_id", [None])[0]
@@ -153,7 +149,6 @@ class ModelZooHandler(DXBaseHandler):
                 return self.send_json({"ok": True, "images": images,
                                        "default": default_image, "sample_dir": sample_dir})
 
-            # API: 샘플 이미지 서빙
             if path.startswith("/api/sample-image/"):
                 filename = path[len("/api/sample-image/"):]
                 if not filename:
@@ -233,11 +228,9 @@ class ModelZooHandler(DXBaseHandler):
             if path.startswith("/api/catalog/") and "/artifacts/" in path:
                 return self._handle_artifact_request(path)
 
-            # API: 메타데이터 동기화 상태
             if path == "/api/metadata/sync/status":
                 return self._handle_sync_status()
 
-            # API: 메타데이터 동기화 리포트
             if path == "/api/metadata/sync/report":
                 return self._handle_sync_report()
 
@@ -252,12 +245,10 @@ class ModelZooHandler(DXBaseHandler):
                     return self.send_json({"ok": False, "error": f"Model '{model_id}' not found", "code": "MODEL_NOT_FOUND"}, 404)
                 return self.send_json({"ok": True, "model": sanitize_browser_model(model)})
 
-            # API: 데모 코드
             if path.startswith("/api/demo/code/"):
                 model_id = path[len("/api/demo/code/"):]
                 return self._serve_demo_code(model_id)
 
-            # Proxy: dx_app inference/modelzoo
             if path.startswith("/api/proxy/"):
                 return self._handle_proxy("GET", path, self.parsed.query)
 
@@ -265,7 +256,6 @@ class ModelZooHandler(DXBaseHandler):
                 return self.serve_static(path[6:], DATA_DIR)
 
         if self.command == "POST":
-            # API: 메타데이터 동기화 실행
             if path == "/api/metadata/sync":
                 return self._handle_sync_post()
 
@@ -321,7 +311,6 @@ class ModelZooHandler(DXBaseHandler):
         """GET /api/catalog/<model_id>/artifacts/<artifact_id>"""
         from dx_modelzoo.metadata.artifacts import validate_artifact_id, resolve_artifact
 
-        # /api/catalog/<model_id>/artifacts/<artifact_id> 파싱
         remainder = path[len("/api/catalog/"):]
         parts = remainder.split("/artifacts/", 1)
         if len(parts) != 2:

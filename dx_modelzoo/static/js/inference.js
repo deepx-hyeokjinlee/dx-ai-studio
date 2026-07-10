@@ -50,9 +50,6 @@ function _currentExecPath() {
   return { lang: lang || 'cpp', variant: rest.join('|') || 'sync' };
 }
 
-/* -----------------------------------------------------------------------
- * renderInferencePanel — Upload / Sample Image 탭이 있는 inference UI
- * ---------------------------------------------------------------------- */
 function renderInferencePanel(model) {
   const container = document.getElementById('inferencePanel');
   if (!container) return;
@@ -189,9 +186,6 @@ function runSampleInferenceFromButton(btn) {
   runSampleInference(d.modelId, d.category, d.modelFile);
 }
 
-/* -----------------------------------------------------------------------
- * switchInferenceTab — Upload / Sample 탭 전환
- * ---------------------------------------------------------------------- */
 function switchInferenceTab(tab, modelId, category, modelFile) {
   const tabUpload = document.getElementById('tabUpload');
   const tabSample = document.getElementById('tabSample');
@@ -213,9 +207,6 @@ function switchInferenceTab(tab, modelId, category, modelFile) {
   }
 }
 
-/* -----------------------------------------------------------------------
- * loadSampleImages — /api/sample-images 호출 → 썸네일 그리드 렌더링
- * ---------------------------------------------------------------------- */
 async function loadSampleImages(modelId, category, modelFile) {
   const grid = document.getElementById('sampleImageGrid');
   if (!grid) return;
@@ -262,9 +253,6 @@ async function loadSampleImages(modelId, category, modelFile) {
   }
 }
 
-/* -----------------------------------------------------------------------
- * _selectSampleThumb — 썸네일 선택 처리 (내부)
- * ---------------------------------------------------------------------- */
 function _selectSampleThumb(thumb) {
   thumb.closest('.mz-sample-grid')?.querySelectorAll('.mz-sample-thumb').forEach(t => {
     t.classList.remove('selected');
@@ -288,9 +276,6 @@ function onSampleThumbClick(thumb) {
   _selectSampleThumb(thumb);
 }
 
-/* -----------------------------------------------------------------------
- * runSampleInference — 선택된 샘플 이미지로 inference 실행
- * ---------------------------------------------------------------------- */
 async function runSampleInference(modelId, category, modelFile) {
   const selected = document.querySelector('.mz-sample-thumb.selected');
   if (!selected) return;
@@ -300,9 +285,6 @@ async function runSampleInference(modelId, category, modelFile) {
   await runInference(modelId, category, modelFile, `${sampleDir}/${filename}`, null, true);
 }
 
-/* -----------------------------------------------------------------------
- * onInferenceFileSelected / runDefaultInference — 기존 upload/default 흐름
- * ---------------------------------------------------------------------- */
 async function onInferenceFileSelected(input, modelId, category, modelFile) {
   const file = input.files[0];
   if (!file) return;
@@ -320,9 +302,6 @@ async function runDefaultInference(modelId, category, modelFile, demoInput) {
   await runInference(modelId, category, modelFile, demoInput || null, null, false);
 }
 
-/* -----------------------------------------------------------------------
- * clearInferenceResults — 이전 결과를 모두 지운다
- * ---------------------------------------------------------------------- */
 function clearInferenceResults() {
   const r1 = document.getElementById('inferenceResult');
   const r2 = document.getElementById('inferenceResultUpload');

@@ -23,9 +23,6 @@ class ChatAPIError(Exception):
         super().__init__(message)
 
 
-# ---------------------------------------------------------------------------
-# SSE Line Parsers (pure functions)
-# ---------------------------------------------------------------------------
 
 
 def parse_openai_sse_line(line: str) -> str | None:
@@ -82,9 +79,6 @@ def parse_google_sse_line(line: str) -> str:
     return ""
 
 
-# ---------------------------------------------------------------------------
-# Request Builders (pure functions)
-# ---------------------------------------------------------------------------
 
 
 def build_openai_request(
@@ -182,9 +176,6 @@ def build_google_request(
     return {"url": url, "headers": headers, "body": json.dumps(body_dict)}
 
 
-# ---------------------------------------------------------------------------
-# Local / self-hosted LLM helpers (generic OpenAI-compatible runtimes)
-# ---------------------------------------------------------------------------
 
 _DEFAULT_LOCAL_BASE = "http://localhost:11434"  # Ollama default; user-overridable
 
@@ -210,7 +201,6 @@ def discover_local_models(base: str | None) -> list[str]:
     Returns [] if neither is reachable (runtime-agnostic; no API key assumed).
     """
     root = _local_base_root(base)
-    # 1) OpenAI-compatible /v1/models
     try:
         req = urllib.request.Request(root + "/v1/models")
         with urllib.request.urlopen(req, timeout=5) as resp:
@@ -220,7 +210,6 @@ def discover_local_models(base: str | None) -> list[str]:
             return ids
     except (urllib.error.URLError, OSError, ValueError, TimeoutError):
         pass
-    # 2) Ollama /api/tags fallback
     try:
         req = urllib.request.Request(root + "/api/tags")
         with urllib.request.urlopen(req, timeout=5) as resp:
@@ -230,10 +219,8 @@ def discover_local_models(base: str | None) -> list[str]:
         return []
 
 
-# ---------------------------------------------------------------------------
 # CLI-backed provider — route chat through an authenticated coding-agent CLI
 # (one CLI login powers both the chatbot and dx_agent_dev). No API key needed.
-# ---------------------------------------------------------------------------
 
 # agent -> (binary name, argv-tail builder(prompt, model, effort)). Self-contained
 # (no dependency on dx_agent_dev) to respect the shared-infra layering.
@@ -295,9 +282,6 @@ def stream_agent_cli(
         yield out
 
 
-# ---------------------------------------------------------------------------
-# HTTP Streaming (internal)
-# ---------------------------------------------------------------------------
 
 
 def _http_stream(
@@ -341,9 +325,6 @@ def _http_stream(
         resp.close()
 
 
-# ---------------------------------------------------------------------------
-# Main Entry Point
-# ---------------------------------------------------------------------------
 
 # GitHub Models uses Azure AI Inference at this fixed endpoint (OpenAI-compatible)
 _GITHUB_MODELS_ENDPOINT = "https://models.inference.ai.azure.com/chat/completions"

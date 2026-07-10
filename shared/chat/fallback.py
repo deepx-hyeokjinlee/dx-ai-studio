@@ -126,7 +126,6 @@ class FallbackEngine:
         """Returns {"reply": str, "is_fallback": True, "suggestions": list[str]}."""
         lower = message.lower()
 
-        # Check app_rules first
         for keywords, response in self._app_rules:
             if any(_keyword_matches(kw, lower) for kw in keywords):
                 if isinstance(response, dict):
@@ -141,7 +140,6 @@ class FallbackEngine:
                     "suggestions": self._suggestions(lang),
                 }
 
-        # Check COMMON_RULES
         for keywords, response in COMMON_RULES:
             if any(_keyword_matches(kw, lower) for kw in keywords):
                 resp_text = response.get(lang) or response.get("en") or next(iter(response.values()), "")
@@ -154,7 +152,6 @@ class FallbackEngine:
                     "suggestions": suggestions,
                 }
 
-        # No match — default
         banner = SETUP_BANNER.get(lang, SETUP_BANNER["en"])
         default = DEFAULT_RESPONSE.get(lang, DEFAULT_RESPONSE["en"])
         reply = f"{banner}\n\n---\n\n{default}"

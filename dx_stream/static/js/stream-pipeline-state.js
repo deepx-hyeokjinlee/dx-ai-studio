@@ -3,11 +3,9 @@
  * 네임스페이스, 공유 상태, 테마 헬퍼, 스케줄링 유틸리티, 카테고리 정보
  */
 
-/* ── 네임스페이스 ── */
 window.DXStreamPipeline = window.DXStreamPipeline || {};
 window.DXStreamPipeline.publicApi = DXStream;
 
-/* ── CSS 변수 헬퍼 (테마 대응) ── */
 var _pipelineThemeColors = null;
 var _canvasRefreshRaf = null;
 var _commandPreviewRaf = null;
@@ -76,7 +74,6 @@ function _scheduleDraftSave(snap) {
 }
 
 
-/* ── 노드 레이아웃 상수 ── */
 var _NODE_W = 160, _NODE_H = 56, _PORT_R = 6, _PORT_HIT = 12;
 
 DXStream._pipeState = {

@@ -47,20 +47,17 @@ class ChatEngine:
         # 0. Lazily sync SDK knowledge from the live .deepx warehouse (opt-in via env so
         #    tests/imports stay side-effect-free; the launcher sets DX_CHAT_KNOWLEDGE_SYNC=1).
         _maybe_sync_knowledge()
-        # 1. Load config
         config = load_config()
         if config is None:
             yield from self._fallback_response(message, lang=lang)
             return
 
-        # 2. Build runtime context
         if runtime_context is None and self.context_callback is not None:
             try:
                 runtime_context = self.context_callback()
             except Exception:
                 runtime_context = None
 
-        # 3. Build system prompt
         system_prompt = build_system_prompt(
             knowledge_dir=self._knowledge_dir,
             app_name=self.app_name,
@@ -68,13 +65,11 @@ class ChatEngine:
             runtime_context=runtime_context,
         )
 
-        # 4. Assemble messages
         messages = [{"role": "system", "content": system_prompt}]
         if history:
             messages.extend(history)
         messages.append({"role": "user", "content": message})
 
-        # 5. Call provider
         try:
             yield from stream_chat(
                 provider=config["provider"],

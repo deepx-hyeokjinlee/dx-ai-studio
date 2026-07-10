@@ -424,7 +424,6 @@ def validate_lab_manifest_id(manifest_id):
     return None
 
 
-# ── Task scaffold helpers ────────────────────────────────────────────────────
 
 
 def plan_task_scaffold(tok, payload):

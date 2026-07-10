@@ -87,7 +87,6 @@ if (typeof document !== 'undefined') {
     });
 }
 
-/* ── 대시보드 → 데모 빠른 실행 ── */
 DXStream.quickLaunchDemo = function (demoId) {
     DXStream.nav('demo');
     // 데모 페이지 초기화 후 자동 시작
@@ -98,9 +97,6 @@ DXStream.quickLaunchDemo = function (demoId) {
     }, 400);
 };
 
-/* ══════════════════════════════════════════════════════
-   실시간 성능 스파크라인 차트
-   ══════════════════════════════════════════════════════ */
 DXStream._perfHistory = { fps: [], npu: [] };
 var _PERF_MAX_POINTS = 60;
 

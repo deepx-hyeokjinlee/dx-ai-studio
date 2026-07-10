@@ -582,7 +582,6 @@ def validate_connection(from_elem: str, to_elem: str) -> dict:
             return {"result": "warn", "reason_en": sw["msg_en"],
                     "reason_ko": "추론 노드 사이에 후처리 추가를 권장합니다"}
 
-    # recommended_prev_elements 체크
     rec = to_override.get("recommended_prev_elements")
     if rec and from_elem not in rec:
         return {"result": "warn",

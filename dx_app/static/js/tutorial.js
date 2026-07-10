@@ -139,7 +139,6 @@
      ════════════════════════════════════════════════════════════ */
   var sections = [
 
-    // ── 1. Setup & Install ──
     { id:'setup', icon:'⚙️',
       title:{ ko: '⚙️ Setup & Install', en: '⚙️ Setup & Install', ja: '⚙️ セットアップ & インストール', 'zh-CN': '⚙️ 设置与安装', 'zh-TW': '⚙️ 設定與安裝', es: '⚙️ Configuración e instalación' },
       description:{ ko: '의존성 설치부터 NPU 드라이버까지 5단계 설치 과정 (DX-COM은 Launcher Compiler 모듈)', en: '5-step installation through NPU driver (DX-COM lives in the Launcher Compiler module)', ja: '依存関係からNPUドライバーまでの5ステップ（DX-COMはLauncher Compilerモジュール）', 'zh-CN': '从依赖项到NPU驱动的5步安装（DX-COM在 Launcher Compiler 模块）', 'zh-TW': '從依賴項到NPU驅動的5步安裝（DX-COM在 Launcher Compiler 模組）', es: 'Instalación en 5 pasos hasta el controlador NPU (DX-COM está en el módulo Compiler del Launcher)' },
@@ -172,7 +171,6 @@
       ]
     },
 
-    // ── 2. Models ──
     { id:'models', icon:'📦',
       title:{ ko: '📦 Models', en: '📦 Models', ja: '📦 モデル一覧', 'zh-CN': '📦 模型列表', 'zh-TW': '📦 模型列表', es: '📦 Modelos' },
       description:{ ko: '설치된 AI 모델 목록 확인 및 필터링', en: 'View and filter installed AI models', ja: 'インストール済みAIモデルの一覧とフィルタリング', 'zh-CN': '查看和筛选已安装的AI模型', 'zh-TW': '檢視和篩選已安裝的AI模型', es: 'Ver y filtrar modelos de IA instalados' },
@@ -192,7 +190,6 @@
       ]
     },
 
-    // ── 4. Run Inference (Single) ──
     { id:'run-single', icon:'▶️',
       title:{ ko: '▶️ Run Inference (Single)', en: '▶️ Run Inference (Single)', ja: '▶️ 推論実行（シングル）', 'zh-CN': '▶️ 运行推理（单次）', 'zh-TW': '▶️ 執行推論（單次）', es: '▶️ Run Inference (Single)' },
       description:{ ko: '단일 이미지/비디오에 대한 AI 추론 실행', en: 'Run AI inference on a single image or video', ja: '単一の画像/ビデオに対するAI推論の実行', 'zh-CN': '对单张图片或视频运行AI推理', 'zh-TW': '對單張圖片或影片執行AI推論', es: 'Ejecutar inferencia de IA en una sola imagen o video' },
@@ -267,7 +264,6 @@
       ]
     },
 
-    // ── 5. Run Inference (Continuous) ──
     { id:'run-cont', icon:'🔄',
       title:{ ko: '🔄 Run Inference (Continuous)', en: '🔄 Run Inference (Continuous)', ja: '🔄 推論実行（連続）', 'zh-CN': '🔄 运行推理（连续）', 'zh-TW': '🔄 執行推論（連續）', es: '🔄 Run Inference (Continuous)' },
       description:{ ko: '비디오/카메라/RTSP 스트림 연속 추론', en: 'Continuous inference on video/camera/RTSP streams', ja: 'ビデオ/カメラ/RTSPストリームの連続推論', 'zh-CN': '视频/摄像头/RTSP流的连续推理', 'zh-TW': '影片/攝影機/RTSP串流的連續推論', es: 'Inferencia continua en flujos de video/cámara/RTSP' },
@@ -317,7 +313,6 @@
       ]
     },
 
-    // ── 6. Benchmark ──
     { id:'bench', icon:'⏱️',
       title:{ ko: '⏱️ Benchmark', en: '⏱️ Benchmark', ja: '⏱️ ベンチマーク', 'zh-CN': '⏱️ 基准测试', 'zh-TW': '⏱️ 基準測試', es: '⏱️ Benchmark' },
       description:{ ko: '다중 모델 FPS 성능 비교', en: 'Multi-model FPS performance comparison', ja: '複数モデルのFPS性能比較', 'zh-CN': '多模型FPS性能对比', 'zh-TW': '多模型FPS效能對比', es: 'Comparación de rendimiento FPS con varios modelos' },
@@ -357,7 +352,6 @@
       ]
     },
 
-    // ── 7. A/B Compare ──
     { id:'compare', icon:'🔀',
       title:{ ko: '🔀 A/B Compare', en: '🔀 A/B Compare', ja: '🔀 A/B 比較', 'zh-CN': '🔀 A/B 对比', 'zh-TW': '🔀 A/B 對比', es: '🔀 A/B Compare' },
       description:{ ko: '2~8개 모델 동시 비교 실행', en: 'Run 2-8 models side by side', ja: '2〜8モデルの並列比較実行', 'zh-CN': '2-8个模型并排运行', 'zh-TW': '2-8個模型並排執行', es: 'Ejecute de 2 a 8 modelos en paralelo' },
@@ -384,7 +378,6 @@
       ]
     },
 
-    // ── 8. ModelZoo ──
     { id:'modelzoo', icon:'📥',
       title:{ ko: '📥 ModelZoo', en: '📥 ModelZoo', ja: '📥 ModelZoo', 'zh-CN': '📥 ModelZoo', 'zh-TW': '📥 ModelZoo', es: '📥 ModelZoo' },
       description:{ ko: 'AI 모델 검색 및 다운로드', en: 'Browse and download AI models', ja: 'AIモデルの検索とダウンロード', 'zh-CN': '浏览和下载AI模型', 'zh-TW': '瀏覽和下載AI模型', es: 'Explore y descargue modelos de IA' },
@@ -410,7 +403,6 @@
       ]
     },
 
-    // ── 9. Compiler (DX Compiler module) ──
     { id:'compiler', icon:'🛠️',
       title:{ ko: '🛠️ Compiler', en: '🛠️ Compiler', ja: '🛠️ Compiler', 'zh-CN': '🛠️ Compiler', 'zh-TW': '🛠️ Compiler', es: '🛠️ Compiler' },
       description:{ ko: 'Launcher의 Compiler 모듈에서 ONNX→DXNN 변환', en: 'Convert ONNX→DXNN in the Launcher Compiler module', ja: 'LauncherのCompilerモジュールでONNX→DXNN変換', 'zh-CN': '在 Launcher 的 Compiler 模块中转换 ONNX→DXNN', 'zh-TW': '在 Launcher 的 Compiler 模組中轉換 ONNX→DXNN', es: 'Convierta ONNX→DXNN en el módulo Compiler del Launcher' },
@@ -427,7 +419,6 @@
       ]
     },
 
-    // ── 10. Outputs ──
     { id:'outputs', icon:'📁',
       title:{ ko: '📁 Outputs', en: '📁 Outputs', ja: '📁 出力ファイル', 'zh-CN': '📁 输出文件', 'zh-TW': '📁 輸出檔案', es: '📁 Outputs' },
       description:{ ko: '추론 결과 파일 확인 및 다운로드', en: 'View and download inference output files', ja: '推論出力ファイルの確認とダウンロード', 'zh-CN': '查看和下载推理输出文件', 'zh-TW': '檢視和下載推論輸出檔案', es: 'Ver y descargar archivos de salida de inferencia' },
@@ -454,7 +445,6 @@
       ]
     },
 
-    // ── 10. DX Chat ──
     { id:'chat', icon:'💬',
       title:{ ko: '💬 DX Chat (AI 챗봇)', en: '💬 DX Chat (AI Chatbot)', ja: '💬 DX Chat（AIチャットボット）', 'zh-CN': '💬 DX Chat（AI聊天机器人）', 'zh-TW': '💬 DX Chat（AI聊天機器人）', es: '💬 DX Chat (AI Chatbot)' },
       description:{ ko: 'AI 챗봇에게 모델, SDK, 컴파일에 대해 질문', en: 'Ask AI chatbot about models, SDK, and compilation', ja: 'AIチャットボットにモデル・SDK・コンパイルについて質問', 'zh-CN': '向AI聊天机器人询问模型、SDK和编译相关问题', 'zh-TW': '向AI聊天機器人詢問模型、SDK和編譯相關問題', es: 'Consulte al chatbot de IA sobre modelos, SDK y compilación' },
@@ -478,7 +468,6 @@
       ]
     },
 
-    // ── 11. Global UI ──
     { id:'global', icon:'🌐',
       title:{ ko: '🌐 글로벌 UI 요소', en: '🌐 Global UI Elements', ja: '🌐 グローバルUI要素', 'zh-CN': '🌐 全局UI元素', 'zh-TW': '🌐 全域UI元素', es: '🌐 Elementos globales de la interfaz' },
       description:{ ko: '사이드바, 상단 바, 알림, NPU 모니터 등', en: 'Sidebar, top bar, notifications, NPU monitor', ja: 'サイドバー、トップバー、通知、NPUモニター', 'zh-CN': '侧边栏、顶部栏、通知、NPU监控', 'zh-TW': '側邊欄、頂部列、通知、NPU監控', es: 'Barra lateral, barra superior, notificaciones, monitor NPU' },
@@ -518,7 +507,6 @@
       ]
     },
 
-    // ── Lab ──
     { id:'lab', icon:'🧪',
       title:{ ko: '🧪 Lab', en: '🧪 Lab', ja: '🧪 ラボ', 'zh-CN': '🧪 实验室', 'zh-TW': '🧪 實驗室', es: '🧪 Laboratorio' },
       description:{ ko: '모델·작업 확장, 실험, 안전한 변경 미리보기', en: 'Model/task extensions, experiments, and safe change previews', ja: 'モデル・タスク拡張、実験、安全な変更プレビュー', 'zh-CN': '模型/任务扩展、实验与安全变更预览', 'zh-TW': '模型/任務擴充、實驗與安全變更預覽', es: 'Extensiones de modelos/tareas, experimentos y vistas previas seguras' },
@@ -539,7 +527,6 @@
       ]
     },
 
-    // ── helpOnly: Developer ──
     { id:'developer', icon:'🔧', helpOnly:true,
       title:{ ko: '🔧 Developer Mode', en: '🔧 Developer Mode', ja: '🔧 開発者モード', 'zh-CN': '🔧 开发者模式', 'zh-TW': '🔧 開發者模式', es: '🔧 Modo desarrollador' },
       steps:[] },

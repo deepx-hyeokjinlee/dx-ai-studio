@@ -3195,7 +3195,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: 'Compilación detenida',
   },
 
-  // ==================== Benchmark ====================
   'Average': {
     ko: '평균', ja: '平均',
     'zh-CN': '平均值', 'zh-TW': '平均值',
@@ -3347,7 +3346,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: '🖼️ Galería de resultados',
   },
 
-  // ==================== Compare ====================
   'All Tasks': {
     ko: '전체 태스크', ja: '全タスク',
     'zh-CN': '所有任务', 'zh-TW': '所有任務',
@@ -3384,7 +3382,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: '— Seleccionar modelo —',
   },
 
-  // ==================== Compiler ====================
   ' step(s)': {
     ko: ' 단계', ja: ' ステップ',
     'zh-CN': ' 步', 'zh-TW': ' 步',
@@ -3496,7 +3493,6 @@ window._DX_I18N_PLACEHOLDERS = {
     'zh-CN': '📊 正在导航到基准测试 — "', 'zh-TW': '📊 正在導航到基準測試 — "'
   },
 
-  // ==================== Developer ====================
   'Authenticated': {
     ko: '인증됨', ja: '認証済み',
     'zh-CN': '已认证', 'zh-TW': '已認證',
@@ -3578,7 +3574,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: 'Contraseña incorrecta',
   },
 
-  // ==================== Forum / Notifications ====================
   '(Anonymous if empty)': {
     ko: '(미입력 시 Anonymous)', ja: '(空欄の場合は Anonymous)',
     'zh-CN': '(留空则为 Anonymous)', 'zh-TW': '(留空則為 Anonymous)',
@@ -3680,7 +3675,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: '💬 Comentarios',
   },
 
-  // ==================== Run / Inference ====================
   ' (unavailable)': {
     ko: ' (사용 불가)', ja: ' (利用不可)',
     'zh-CN': ' (不可用)', 'zh-TW': ' (不可用)',
@@ -3952,7 +3946,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: '🤚 Puntos de referencia de mano: dibuja 21 puntos de referencia y conexiones de la mano.',
   },
 
-  // ==================== Models ====================
   ' models': {
     ko: ' 모델', ja: ' モデル',
     'zh-CN': ' 个模型', 'zh-TW': ' 個模型',
@@ -4299,7 +4292,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: '🔧 Pre-procesamiento',
   },
 
-  // ==================== ModelZoo ====================
   'Add Q-Lite to cart': {
     ko: 'Q-Lite 장바구니에 추가', ja: 'Q-Lite をカートに追加',
     'zh-CN': '将 Q-Lite 加入购物车', 'zh-TW': '將 Q-Lite 加入購物車',
@@ -4406,7 +4398,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: '✅ ¡Todo listo!',
   },
 
-  // ==================== Outputs ====================
   'Archives': {
     ko: '아카이브', ja: 'アーカイブ',
     'zh-CN': '归档文件', 'zh-TW': '封存檔案',
@@ -4438,7 +4429,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: 'Vídeos',
   },
 
-  // ==================== Pipeline / File Browser ====================
   ' detected region(s)': {
     ko: '개 검출 영역', ja: ' 件の検出領域',
     'zh-CN': ' 个检测区域', 'zh-TW': ' 個偵測區域',
@@ -4490,7 +4480,6 @@ window._DX_I18N_PLACEHOLDERS = {
     es: '⏳ Ejecutando…',
   },
 
-  // ==================== Profiler ====================
   'CPU compute — operations running on the CPU': {
     ko: 'CPU 연산 — CPU에서 실행되는 연산', ja: 'CPU 演算 — CPU上で実行される演算',
     'zh-CN': 'CPU 计算 — 在 CPU 上运行的操作', 'zh-TW': 'CPU 運算 — 在 CPU 上執行的操作',

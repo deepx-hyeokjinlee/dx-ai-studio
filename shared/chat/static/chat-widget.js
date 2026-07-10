@@ -163,7 +163,6 @@ const DXChat = (() => {
     return en;
   }
 
-  // ── Init ─────────────────────────────────────────────
 
   function init(opts) {
     _appName = (opts && opts.appName) || 'dx_app';
@@ -180,10 +179,8 @@ const DXChat = (() => {
     _checkConfig();
   }
 
-  // ── DOM Construction ─────────────────────────────────
 
   function _buildDOM() {
-    // FAB
     const fab = document.createElement('button');
     fab.className = 'dx-chat-fab';
     fab.setAttribute('aria-label', 'Chat');
@@ -192,7 +189,6 @@ const DXChat = (() => {
     document.body.appendChild(fab);
     _els.fab = fab;
 
-    // Window
     const win = document.createElement('div');
     win.className = 'dx-chat-window';
     win.innerHTML = [
@@ -282,7 +278,6 @@ const DXChat = (() => {
       }
     }
 
-    // Events
     _els.sendBtn.addEventListener('click', () => _send());
     _els.input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
@@ -307,7 +302,6 @@ const DXChat = (() => {
       _els.settingsTempVal.textContent = _els.settingsTemp.value;
     });
 
-    // Update translatable text on language change
     if (typeof DXI18n !== 'undefined') {
       DXI18n.onLangChange(function() {
         if (_els.input) _els.input.placeholder = _t('Ask a question...', '질문을 입력하세요...');
@@ -327,12 +321,10 @@ const DXChat = (() => {
       });
     }
 
-    // Render existing history
     _history.forEach(m => _renderMessage(m.role, m.content, false));
     _scrollBottom();
   }
 
-  // ── Toggle ───────────────────────────────────────────
 
   function toggle() {
     _open = !_open;
@@ -344,7 +336,6 @@ const DXChat = (() => {
     }
   }
 
-  // ── Send Message ─────────────────────────────────────
 
   function _send() {
     const text = _els.input.value.trim();
@@ -354,16 +345,13 @@ const DXChat = (() => {
     _els.sendBtn.disabled = true;
     _els.suggestions.style.display = 'none';
 
-    // User message
     _history.push({ role: 'user', content: text });
     _renderMessage('user', text, false);
     _els.input.value = '';
     _autoResize();
 
-    // AI typing indicator
     const aiEl = _renderMessage('ai', '', true);
 
-    // SSE stream via fetch
     _streamChat(text, aiEl).finally(() => {
       _sending = false;
       _els.sendBtn.disabled = false;
@@ -438,7 +426,6 @@ const DXChat = (() => {
     }
   }
 
-  // ── Message Rendering ────────────────────────────────
 
   function _renderMessage(role, content, isStreaming) {
     const el = document.createElement('div');
@@ -466,7 +453,6 @@ const DXChat = (() => {
     _scrollBottom();
   }
 
-  // ── Markdown Renderer ────────────────────────────────
 
   function _renderMarkdown(text) {
     if (!text) return '';
@@ -527,7 +513,6 @@ const DXChat = (() => {
     return div.innerHTML;
   }
 
-  // ── Config Check ─────────────────────────────────────
 
   function _renderConfigBanner() {
     if (!_els.banner) return;
@@ -556,7 +541,6 @@ const DXChat = (() => {
       });
   }
 
-  // ── Settings Panel ───────────────────────────────────
 
   function _openSettingsPanel() {
     if (!_els.settingsPanel) return;
@@ -788,7 +772,6 @@ const DXChat = (() => {
     _els.settingsStatus.className = 'dx-chat-settings-status' + (cls ? ' ' + cls : '');
   }
 
-  // ── Suggestions ──────────────────────────────────────
 
   function showSuggestions(suggestions) {
     if (!_els.suggestions || !Array.isArray(suggestions) || !suggestions.length) {
@@ -809,7 +792,6 @@ const DXChat = (() => {
     _els.suggestions.style.display = 'flex';
   }
 
-  // ── History ──────────────────────────────────────────
 
   function _loadHistory() {
     try {
@@ -835,7 +817,6 @@ const DXChat = (() => {
     _els.suggestions.style.display = 'none';
   }
 
-  // ── Utilities ────────────────────────────────────────
 
   function _scrollBottom() {
     if (_els.messages) {
@@ -858,7 +839,6 @@ const DXChat = (() => {
     if (opts.autoSend) _send();
   }
 
-  // ── Public API ───────────────────────────────────────
 
   return {
     init,

@@ -1,5 +1,3 @@
-// DX-APP — Setup
-// Auto-generated from dx_gui.html refactoring
 
 var SETUP={running:false,pollTimer:null,activeStep:null,_stdinManual:false,completedSteps:{}};
 var SETUP_SUDO_STEPS={'dx-app-deps':true,'dx-rt-deps':true,'dx-driver':true};
@@ -196,7 +194,6 @@ function setupHideStdin(){
   SETUP._stdinManual=false;
 }
 
-// ── Deep Diagnostics ──
 async function runDiagnostics(){
   var btn=$('diag-run-btn');btn.disabled=true;btn.textContent=_T5('⏳ 실행 중...','⏳ Running...','⏳ 実行中...','⏳ 运行中...','⏳ 執行中...');
   $('diag-results').innerHTML='<p class="txt-dim">'+_T5('진단 실행 중…','Running diagnostics…','診断実行中…','诊断运行中…','診斷執行中…')+'</p>';
@@ -204,12 +201,10 @@ async function runDiagnostics(){
     var r=await api('/api/setup/diagnostics');
     btn.disabled=false;btn.textContent=_T5('▶ 진단 실행','▶ Run Diagnostics','▶ 診断実行','▶ 运行诊断','▶ 執行診斷');
     if(r.error){toast(r.error,'err');return;}
-    // Summary
     var sum=$('diag-summary');
     sum.style.display='';
     var allOk=r.all_ok;
     sum.innerHTML='<div class="diag-summary-bar '+(allOk?'diag-pass':'diag-fail')+'">'+(allOk?'✅':'\u26a0\ufe0f')+' <strong>'+r.passed+'/'+r.total+'</strong> '+_T5('검사 통과','checks passed','検査合格','检查通过','檢查通過')+'</div>';
-    // Cards
     $('diag-results').innerHTML=(r.checks||[]).map(function(c){
       var cls=c.ok?'diag-card-ok':'diag-card-fail';
       var icon=c.ok?'✅':'❌';
@@ -293,7 +288,6 @@ async function setupLoadVersions() {
   }catch(e){}
 }
 
-// ── File Browser ──
 if (typeof registerLangRefresher === 'function') {
   registerLangRefresher(function refreshSetupLanguage() {
     if (document.querySelector('#page-setup.active') && typeof setupInit === 'function') setupInit();

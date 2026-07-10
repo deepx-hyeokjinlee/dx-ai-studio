@@ -12,7 +12,6 @@ import sys
 import threading
 from pathlib import Path
 
-# dx_stream/ 및 shared/ 임포트 경로 추가
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -470,7 +469,6 @@ class DXStreamHandler(DXBaseHandler):
             with _playback_lock:
                 _stop_all_playback()
 
-                # WebRTC 시도
                 pid = _try_start_webrtc_pipeline(pipeline_str, extra_env=extra_env)
                 if pid is not None:
                     return self.send_json({
@@ -640,7 +638,6 @@ class DXStreamHandler(DXBaseHandler):
             with _playback_lock:
                 _stop_all_playback()
 
-                # WebRTC 시도
                 if webrtc_pipeline is not None:
                     pid = _try_start_webrtc_pipeline(webrtc_pipeline, extra_env=extra_env)
                     if pid is not None:

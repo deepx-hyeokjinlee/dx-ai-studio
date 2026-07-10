@@ -2,7 +2,6 @@
 import os, sys, re, json, time, subprocess, platform, threading, math, shutil
 from pathlib import Path
 
-# ── Module-level state (set by init_hw) ──
 _DS = None
 _dx_ok = False
 _NPU_STATS_BIN = Path("/dev/null")

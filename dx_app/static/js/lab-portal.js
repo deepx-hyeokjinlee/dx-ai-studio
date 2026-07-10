@@ -319,7 +319,6 @@ window.LabPortal = (function () {
     root.appendChild(dryBtn);
   }
 
-  // ── Task Wizard: button sync ──
 
   function _syncTaskButtons() {
     var dryBtn = document.querySelector('.btn-task-dry-run');
@@ -329,7 +328,6 @@ window.LabPortal = (function () {
     if (applyBtn) applyBtn.disabled = busy || !canApplyManifest(_currentManifest);
   }
 
-  // ── Task Wizard: generated file preview ──
 
   function renderGeneratedFiles(files) {
     var root = document.getElementById('lab-generated-preview');
@@ -379,7 +377,6 @@ window.LabPortal = (function () {
     }
   }
 
-  // ── Task Wizard: dry run & apply ──
 
   async function runTaskDryRun() {
     if (_dryRunInFlight) return;
@@ -457,7 +454,6 @@ window.LabPortal = (function () {
     }
   }
 
-  // ── Task Wizard renderer ──
 
   function renderTaskWizard() {
     var root = document.getElementById('lab-flow-root');
@@ -489,7 +485,6 @@ window.LabPortal = (function () {
     root.appendChild(dryBtn);
   }
 
-  // ── Experiment Pipeline state ──
 
   var _currentExperimentRun = null;
   var _experimentInFlight = false;
@@ -535,7 +530,6 @@ window.LabPortal = (function () {
     stepEl.textContent = run.current_step || '';
     root.appendChild(stepEl);
 
-    // Stepper
     if (run.steps && run.steps.length) {
       var stepperUl = document.createElement('ul');
       stepperUl.className = 'exp-stepper';
@@ -549,7 +543,6 @@ window.LabPortal = (function () {
       root.appendChild(stepperUl);
     }
 
-    // Log block container
     var logBlock = document.createElement('div');
     logBlock.id = 'exp-log-block';
     root.appendChild(logBlock);
@@ -672,7 +665,6 @@ window.LabPortal = (function () {
     }
   }
 
-  // ── Safety Center ──
 
   async function renderSafetyCenter() {
     var root = document.getElementById('lab-flow-root');
@@ -681,7 +673,6 @@ window.LabPortal = (function () {
 
     _appendText(root, 'h2', 'safety-title', _text('Safety Center', '안전 센터'));
 
-    // Manifest list
     var listDiv = document.createElement('div');
     listDiv.className = 'safety-manifests';
     _appendText(listDiv, 'h3', 'safety-manifests-title', _text('Pending Manifests', '대기 중 매니페스트'));
@@ -711,14 +702,12 @@ window.LabPortal = (function () {
             li.appendChild(summaryDiv);
           }
 
-          // Rollback button
           var rollbackBtn = document.createElement('button');
           rollbackBtn.className = 'btn btn-safety-rollback';
           rollbackBtn.textContent = _text('Rollback', '롤백');
           rollbackBtn.addEventListener('click', function () { requestRollback(m.id); });
           li.appendChild(rollbackBtn);
 
-          // Scoped git plan button
           var gitBtn = document.createElement('button');
           gitBtn.className = 'btn btn-safety-git-plan';
           gitBtn.textContent = _text('Git Plan (scoped)', 'Git 계획 (범위 지정)');
@@ -733,7 +722,6 @@ window.LabPortal = (function () {
       _appendText(listDiv, 'p', 'safety-error', _text('Failed to load manifests', '매니페스트 로드 실패'));
     }
 
-    // Rollback/git plan output area
     var outputDiv = document.createElement('div');
     outputDiv.id = 'safety-output';
     root.appendChild(outputDiv);
@@ -781,7 +769,6 @@ window.LabPortal = (function () {
     }
   }
 
-  // ── Card binding ──
 
   function _bindCards() {
     if (_cardsBound) return;
