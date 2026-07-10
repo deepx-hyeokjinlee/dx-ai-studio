@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor,as_completed
 
 SCRIPT_DIR  = Path(__file__).resolve().parent.parent   # dx_app/ (one level above core/)
 _NPU_STATS_BIN = SCRIPT_DIR / "dx_npu_stats"
-from shared.paths import SUITE_ROOT as _SUITE_ROOT, DX_APP_ROOT, DX_COMPILER_ROOT, DX_RUNTIME_ROOT
+from shared.paths import SUITE_ROOT as _SUITE_ROOT, DX_APP_ROOT, DX_COMPILER_ROOT, DX_RUNTIME_ROOT, outputs_dir
 import shared.runtime as _runtime
 CPP_DIR     = DX_APP_ROOT/"src"/"cpp_example"
 PY_DIR      = DX_APP_ROOT/"src"/"python_example"
@@ -21,8 +21,7 @@ SCRIPTS_DIR = DX_APP_ROOT/"scripts"
 SERVER_NAME = "DX App"
 STATIC_DIR  = SCRIPT_DIR/"static"
 TEMPLATES_DIR = SCRIPT_DIR/"templates"
-OUTPUTS_DIR = SCRIPT_DIR/"outputs"
-OUTPUTS_DIR.mkdir(parents=True,exist_ok=True)
+OUTPUTS_DIR = outputs_dir("dx_app")
 
 SKIP_CAT={"common","build","sample","__pycache__","utils","factory"}
 _HARDCODED_CATEGORIES=["object_detection","face_detection","pose_estimation","obb_detection",
