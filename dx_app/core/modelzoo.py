@@ -7,6 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from dx_app.core import config
 from dx_app.core.config import DX_APP_ROOT, ASSETS_DIR, SCRIPTS_DIR, CONFIG_FILE
+from shared.catalog_sources import parse_test_models_conf as _shared_parse_test_models_conf
 
 DEVELOPER_PORTAL = "https://developer.deepx.ai"
 SDK_BASE = "https://sdk.deepx.ai"
@@ -453,15 +454,7 @@ def _auto_register():
             except Exception:
                 pass
 
-        existing = set()
-        if CONFIG_FILE.exists():
-            for line in CONFIG_FILE.read_text().splitlines():
-                line = line.strip()
-                if not line or line.startswith("#"):
-                    continue
-                parts = line.split("\t")
-                if len(parts) >= 3:
-                    existing.add(parts[2].strip())  # model_file path
+        existing = {m["model_file"] for m in _shared_parse_test_models_conf(CONFIG_FILE)}
 
         new_entries = []
         with _dl_lock:

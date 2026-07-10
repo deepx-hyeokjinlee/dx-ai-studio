@@ -9,6 +9,7 @@ from collections import defaultdict
 from dx_modelzoo.core.config import (CATALOG_FILE, CONFIG_FILE, CATEGORIES, EXAMPLE_TYPES,
                          DX_APP_ROOT, MODELS_DIR, CPP_DIR, PY_DIR, BUILD_DIR, DATA_DIR,
                          SAMPLE_IMAGES, MODEL_IMAGE_OVERRIDE, SAMPLE_IMG_DIR)
+from shared.catalog_sources import parse_test_models_conf as _shared_parse_test_models_conf
 
 
 def _resolve_sample(model_id, category):
@@ -134,27 +135,17 @@ GENERATED_CATALOG_JSON = DATA_DIR / "generated_catalog.json"
 
 
 def parse_test_models_conf(conf_path=None):
-    """test_models.conf 파싱 → [{id, name, category, model_file}, ...]"""
+    """test_models.conf 파싱 → [{id, name, category, model_file}, ...].
+
+    Thin wrapper over the shared parser (shared/catalog_sources.py) — kept
+    here so existing callers/imports (`from core.catalog import
+    parse_test_models_conf` / `dx_modelzoo.core.catalog.parse_test_models_conf`)
+    keep working, and so the missing-file warning stays dx_modelzoo-specific.
+    """
     conf_path = Path(conf_path or CONFIG_FILE)
     if not conf_path.exists():
         print(f"[WARNING] test_models.conf not found: {conf_path}")
-        return []
-    models = []
-    for line in conf_path.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        parts = line.split("\t")
-        if len(parts) < 3:
-            continue
-        model_name, category, model_file = parts[0], parts[1], parts[2]
-        models.append({
-            "id": model_name,
-            "name": model_name,
-            "category": category,
-            "model_file": model_file,
-        })
-    return models
+    return _shared_parse_test_models_conf(conf_path)
 
 
 def load_catalog_json(catalog_path=None):

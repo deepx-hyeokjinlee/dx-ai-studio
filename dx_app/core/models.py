@@ -5,6 +5,7 @@ from pathlib import Path
 from dx_app.core.config import (CPP_DIR, PY_DIR, ASSETS_DIR, CONFIG_FILE, SAMPLE_DIR,
                     SKIP_CAT, CATEGORIES, CAT_LABEL, CAT_IMAGE, CAT_VIDEO,
                     TASK_TYPES, POSTPROCESSORS, DX_APP_ROOT)
+from shared.catalog_sources import parse_test_models_conf as _shared_parse_test_models_conf
 
 _BUNDLED_MODEL_CATALOG = Path(__file__).resolve().parents[2] / "dx_modelzoo" / "data" / "model_catalog.json"
 _CATALOG_ALIASES = {
@@ -67,12 +68,8 @@ def _load_catalog_reg():
 
 def _load_reg():
     r=_load_catalog_reg()
-    if not CONFIG_FILE.exists():return r
-    for line in CONFIG_FILE.read_text().splitlines():
-        line=line.strip()
-        if not line or line.startswith("#"):continue
-        p=line.split("\t")
-        if len(p)>=3:r[p[0].strip()]={"category":p[1].strip(),"file":p[2].strip()}
+    for m in _shared_parse_test_models_conf(CONFIG_FILE):
+        r[m["id"]]={"category":m["category"],"file":m["model_file"]}
     return r
 _REG=_load_reg()
 
