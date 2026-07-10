@@ -30,7 +30,6 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from shared.dx_server import DXBaseHandler
 from shared.auth_policy import map_launcher_proxy
 from shared.chat import ChatEngine
