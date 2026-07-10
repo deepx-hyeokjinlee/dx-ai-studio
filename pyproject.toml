@@ -22,4 +22,4 @@ packages = [
 ]
 
 [tool.setuptools.package-data]
-"*" = ["templates/*", "static/**/*", "knowledge/*.md", "*.json"]
+"*" = ["templates/*", "templates/**/*", "static/**/*", "knowledge/*.md", "*.json"]
