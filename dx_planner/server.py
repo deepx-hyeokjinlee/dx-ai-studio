@@ -5,12 +5,7 @@ DX EdgeGuide — Edge AI 제품 추천 가이드.
 DXBaseHandler 기반.
 """
 
-import sys
 from pathlib import Path
-
-# dx_planner/ 및 shared/ 임포트 경로 추가
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from shared.dx_server import DXBaseHandler, DXServer
 from shared.chat import ChatEngine
