@@ -10,10 +10,6 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent.parent          # dx_monitor/
 STUDIO_DIR = SCRIPT_DIR.parent                               # dx-ai-studio/
 
-# shared/ 경로 추가
-sys.path.insert(0, str(STUDIO_DIR / "shared"))
-sys.path.insert(0, str(STUDIO_DIR))
-
 from shared.paths import SUITE_ROOT
 
 # DX App 경로 (release.ver 등 참조용)

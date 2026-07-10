@@ -7,21 +7,18 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-sys.path.insert(0, str(SCRIPT_DIR.parent / "shared"))
-sys.path.insert(0, str(SCRIPT_DIR.parent))
-sys.path.insert(0, str(SCRIPT_DIR))
 
-from core.config import DEFAULT_PORT, STATIC_DIR, TEMPLATES_DIR, SERVER_NAME, DX_APP_ROOT
-from core import hardware_init, events
+from dx_monitor.core.config import DEFAULT_PORT, STATIC_DIR, TEMPLATES_DIR, SERVER_NAME, DX_APP_ROOT
+from dx_monitor.core import hardware_init, events
 
 if os.environ.get("DX_MONITOR_SKIP_HARDWARE_INIT") == "1":
-    from hardware import init_hw
+    from shared.hardware import init_hw
     init_hw(ds=None, dx_ok=False, app_root=DX_APP_ROOT)
 else:
     hardware_init.init()
     events.init()
 
-from hardware import get_hw, get_sysinfo
+from shared.hardware import get_hw, get_sysinfo
 from shared.dx_server import DXBaseHandler
 from shared.chat import ChatEngine
 
