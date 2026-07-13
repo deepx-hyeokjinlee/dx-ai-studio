@@ -56,12 +56,15 @@ def _get_session(source):
 
 def _fetch_page(source):
     url = SOURCE_URLS.get(source, SOURCE_URLS[SOURCE_INTERNAL])
-    session = _get_session(source)
     try:
+        session = _get_session(source)
         resp = session.get(url, timeout=30)
         if resp.status_code != 200:
             return None, f"HTTP {resp.status_code}"
         return resp.text, None
+    except ImportError:
+        # requests is a [modelzoo] extra; absent on air-gapped installs.
+        return None, "ModelZoo browsing needs the [modelzoo] extras (pip install -e '.[modelzoo]')"
     except Exception as e:
         return None, str(e)
 
@@ -295,7 +298,11 @@ def modelzoo_list(source="internal"):
     if err:
         return {"ok": False, "error": err, "models": []}
 
-    models = _parse_models(html)
+    try:
+        models = _parse_models(html)
+    except ImportError:
+        # beautifulsoup4 is a [modelzoo] extra; absent on air-gapped installs.
+        return {"ok": False, "error": "ModelZoo browsing needs the [modelzoo] extras (pip install -e '.[modelzoo]')", "models": []}
     if not models:
         return {"ok": False, "error": "No models found — page structure may have changed", "models": []}
 

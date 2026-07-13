@@ -11,5 +11,6 @@ pytest>=8.0
 numpy>=1.24             # dx_app / dx_modelzoo / dx_compiler test data
 onnx>=1.16              # dx_compiler onnx parser/surgery tests
 beautifulsoup4>=4.12    # dx_modelzoo public/html metadata parser tests
+requests>=2.31          # dx_app modelzoo tab ([modelzoo] extra) tests
 opencv-python>=4.8      # dx_app image/preprocess tests
 playwright>=1.40        # browser zoom/i18n/tutorial UI-audit suites (run via scripts/run_ci.sh --browser)

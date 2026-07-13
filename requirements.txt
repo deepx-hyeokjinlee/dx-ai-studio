@@ -1,4 +1,6 @@
-# DX AI Studio runtime dependencies are declared in pyproject.toml and installed
-# by `pip install -e .` (currently: beautifulsoup4 + requests, used only by the
-# dx_app ModelZoo tab). Everything else runs on the Python standard library alone
-# (Python 3.12+). Test/CI extras live in requirements-ci.txt.
+# DX AI Studio core has NO third-party runtime dependencies — it runs on the
+# Python standard library alone (Python 3.12+), so air-gapped boards can
+# `pip install -e .` with no PyPI access. The dx_app ModelZoo tab optionally
+# needs the [modelzoo] extras (beautifulsoup4 + requests):
+#   pip install -e ".[modelzoo]"     # general-net boards only
+# Test/CI extras live in requirements-ci.txt.
