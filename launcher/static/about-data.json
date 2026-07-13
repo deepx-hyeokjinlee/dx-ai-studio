@@ -220,12 +220,12 @@
       {
         "year": "2026",
         "event": {
-          "en": "CES 2026 Innovation Awards — Double Honoree; DX-M2 roadmap unveiled; repositioned as a Physical AI Infrastructure Company; Hyundai Robotics LAB partnership; Samsung Foundry 2nm DX-M2 agreement",
-          "ko": "CES 2026 Innovation Awards — Double Honoree; DX-M2 로드맵 공개; 'Physical AI 인프라 기업'으로 리포지셔닝; 현대차 로보틱스 LAB 협력; 삼성 파운드리 2nm DX-M2 계약",
-          "ja": "CES 2026 Innovation Awards — Double Honoree；DX-M2ロードマップ公開; 「Physical AIインフラ企業」へのリポジショニング; 現代自動車Robotics LABとの提携; Samsungファウンドリ2nm DX-M2契約",
-          "zh-CN": "CES 2026 Innovation Awards — Double Honoree；DX-M2路线图发布；重新定位为“物理AI基础设施公司”；现代汽车Robotics LAB合作；三星代工2nm DX-M2协议",
-          "zh-TW": "CES 2026 Innovation Awards — Double Honoree；DX-M2路線圖發佈；重新定位為「實體AI基礎設施公司」；現代汽車Robotics LAB合作；三星晶圓代工2nm DX-M2協議",
-          "es": "CES 2026 Innovation Awards — Double Honoree; hoja de ruta DX-M2; reposicionada como empresa de infraestructura de IA física; alianza con Hyundai Robotics LAB; acuerdo de 2nm con Samsung Foundry para DX-M2"
+          "en": "CES 2026 Innovation Awards — Double Honoree; DX-M2 roadmap unveiled; repositioned as a Physical AI Infrastructure Company; Hyundai Robotics LAB partnership; Samsung Foundry 2nm DX-M2 agreement; DX-M1 volume production & on-device SLM support; Koshida Tech Japan partnership",
+          "ko": "CES 2026 Innovation Awards — Double Honoree; DX-M2 로드맵 공개; 'Physical AI 인프라 기업'으로 리포지셔닝; 현대차 로보틱스 LAB 협력; 삼성 파운드리 2nm DX-M2 계약; DX-M1 양산 및 온디바이스 SLM 지원; 고시다텍 일본 파트너십",
+          "ja": "CES 2026 Innovation Awards — Double Honoree；DX-M2ロードマップ公開; 「Physical AIインフラ企業」へのリポジショニング; 現代自動車Robotics LABとの提携; Samsungファウンドリ2nm DX-M2契約; DX-M1量産・オンデバイスSLM対応; コシダテック日本パートナーシップ",
+          "zh-CN": "CES 2026 Innovation Awards — Double Honoree；DX-M2路线图发布；重新定位为“物理AI基础设施公司”；现代汽车Robotics LAB合作；三星代工2nm DX-M2协议；DX-M1量产及端侧SLM支持；Koshida Tech日本合作",
+          "zh-TW": "CES 2026 Innovation Awards — Double Honoree；DX-M2路線圖發佈；重新定位為「實體AI基礎設施公司」；現代汽車Robotics LAB合作；三星晶圓代工2nm DX-M2協議；DX-M1量產及端側SLM支援；Koshida Tech日本合作",
+          "es": "CES 2026 Innovation Awards — Double Honoree; hoja de ruta DX-M2; reposicionada como empresa de infraestructura de IA física; alianza con Hyundai Robotics LAB; acuerdo de 2nm con Samsung Foundry para DX-M2; producción en volumen del DX-M1 y soporte SLM en dispositivo; alianza con Koshida Tech en Japón"
         }
       }
     ],
@@ -1446,6 +1446,32 @@
     "past": [
       {
         "title": {
+          "en": "DX-M1 now runs SLMs fully on-device",
+          "ko": "DX-M1, 온디바이스 SLM 실행 지원",
+          "ja": "DX-M1、SLMを完全オンデバイスで実行",
+          "zh-CN": "DX-M1 实现端侧完整运行 SLM",
+          "zh-TW": "DX-M1 實現端側完整執行 SLM",
+          "es": "DX-M1 ya ejecuta SLMs totalmente en el dispositivo"
+        },
+        "date": "2026.07",
+        "type": "news",
+        "url": "https://deepx.ai/dx-m1-now-runs-slms-fully-on-device/"
+      },
+      {
+        "title": {
+          "en": "DEEPX × Koshida Tech — strategic partnership for Japan's Physical AI market",
+          "ko": "DEEPX × 고시다텍 — 일본 Physical AI 시장 전략적 파트너십",
+          "ja": "DEEPX × コシダテック — 日本Physical AI市場での戦略的パートナーシップ",
+          "zh-CN": "DEEPX × Koshida Tech — 面向日本Physical AI市场的战略合作",
+          "zh-TW": "DEEPX × Koshida Tech — 面向日本Physical AI市場的戰略合作",
+          "es": "DEEPX × Koshida Tech — alianza estratégica para el mercado Physical AI de Japón"
+        },
+        "date": "2026.07",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-strategic-partnership-physical-ai-japan/"
+      },
+      {
+        "title": {
           "en": "DEEPX signs 2nm process agreement with Samsung Foundry for DX-M2",
           "ko": "DEEPX, DX-M2 위해 삼성 파운드리와 2nm 공정 계약 체결",
           "ja": "DEEPX、DX-M2向けにSamsungファウンドリと2nmプロセス契約を締結",
@@ -1658,7 +1684,7 @@
     ]
   },
   "meta": {
-    "lastVerified": "2026-06-22",
+    "lastVerified": "2026-07-13",
     "updateCadence": "quarterly",
     "sources": [
       "https://deepx.ai",
@@ -1877,7 +1903,7 @@
     },
     "modelZooSnapshot": {
       "count": "271",
-      "asOf": "2026-04-21"
+      "asOf": "2026-07-13"
     },
     "ctas": [
       {

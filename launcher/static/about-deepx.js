@@ -460,12 +460,13 @@
     container.appendChild(el);
 
     const meta = data.meta || {};
-    const verified = meta.lastVerified ? T({en:'Verified', ko:'검증', ja:'確認', 'zh-CN':'验证', 'zh-TW':'驗證', es:'Verificado'}) + ' ' + meta.lastVerified : '';
+    const verified = meta.lastVerified ? T({en:'Data as of', ko:'기준일', ja:'基準日', 'zh-CN':'数据截至', 'zh-TW':'資料截至', es:'Datos a'}) + ' ' + meta.lastVerified : '';
+    const nextUpdate = meta.lastVerified ? T({en:'refreshed with each release', ko:'다음 릴리즈에서 업데이트됩니다', ja:'次のリリースで更新されます', 'zh-CN':'将在下个版本更新', 'zh-TW':'將在下個版本更新', es:'se actualiza con cada versión'}) : '';
     const footer = document.createElement('div');
     footer.className = 'about-footer about-fade-in';
     footer.innerHTML = `
       <div>© 2015–2026 DEEPX Co., Ltd. All rights reserved.</div>
-      ${verified ? `<div class="about-footer-meta">${verified}${meta.sources ? ' · ' + meta.sources.map(stripUrlHost).join(', ') : ''}</div>` : ''}
+      ${verified ? `<div class="about-footer-meta">${verified}${nextUpdate ? ' · ' + nextUpdate : ''}${meta.sources ? ' · ' + meta.sources.map(stripUrlHost).join(', ') : ''}</div>` : ''}
     `;
     container.appendChild(footer);
   }
