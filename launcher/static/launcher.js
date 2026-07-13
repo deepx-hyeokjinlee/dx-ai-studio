@@ -89,7 +89,9 @@
     var playSplash = ns.shouldPlayIntroSplash();
     if (playSplash) {
       ns.initSplashV2();
-      ns.ensureStudioReady({ showBootGate: false }).then(function() {
+      // No explicit showBootGate: let ensureStudioReady take its splash branch, which
+      // conceals the gate under the splash and keeps it for an early skip to re-show.
+      ns.ensureStudioReady().then(function() {
         ns.queueRouteRestore(window.location);
       });
       return;

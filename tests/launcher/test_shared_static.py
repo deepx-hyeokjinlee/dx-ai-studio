@@ -336,7 +336,12 @@ def test_launcher_health_includes_boot_id_for_stale_tab_reload():
     bootstrap_js = (ROOT / "launcher" / "static" / "launcher.js").read_text(encoding="utf-8")
     assert "shouldPlayIntroSplash()" in bootstrap_js
     assert "initSplashV2()" in bootstrap_js
-    assert "showBootGate: false" in bootstrap_js
+    # During the intro splash the boot gate is concealed (kept in the DOM) rather than
+    # removed, so an early splash-skip can re-show it while the modules finish booting
+    # instead of leaving a blank screen. The splash branch therefore calls
+    # ensureStudioReady() with no showBootGate override.
+    assert "hideStudioBootGate({ conceal: true })" in frame_js
+    assert "showStudioBootGate" in frame_js
     launcher_py = (ROOT / "launcher" / "launcher.py").read_text(encoding="utf-8")
     assert '"launcher_boot": _LAUNCHER_BOOT_ID' in launcher_py
     assert '"studio_ready": _STUDIO_READY' in launcher_py

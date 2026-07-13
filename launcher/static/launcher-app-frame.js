@@ -12,6 +12,12 @@
     var gate = document.getElementById('studioBootGate');
     if (!gate) return;
     gate.setAttribute('aria-busy', 'false');
+    if (options.conceal) {
+      // Keep the gate in the DOM but hidden behind the full-screen splash, so an
+      // early skip can re-show it while the studio is still booting (see skipSplash).
+      gate.style.display = 'none';
+      return;
+    }
     if (options.instant) {
       if (gate.parentNode) gate.parentNode.removeChild(gate);
       return;
@@ -20,6 +26,14 @@
     setTimeout(function() {
       if (gate.parentNode) gate.parentNode.removeChild(gate);
     }, 400);
+  }
+
+  function showStudioBootGate() {
+    var gate = document.getElementById('studioBootGate');
+    if (!gate) return;
+    gate.style.display = '';
+    gate.classList.remove('fade-out');
+    gate.setAttribute('aria-busy', 'true');
   }
 
   function isLauncherShellPending() {
@@ -136,9 +150,11 @@
       showBootGate = false;
       hideStudioBootGate({ instant: true });
     } else if (shouldPlayIntroSplash()) {
-      // Intro splash is full-screen — drop boot gate instantly so splash is not dimmed underneath.
-      showBootGate = false;
-      hideStudioBootGate({ instant: true });
+      // Intro splash is full-screen and sits above the gate — conceal the gate (keep it
+      // in the DOM) rather than removing it, so an early skip can re-show it while the
+      // studio is still booting instead of leaving a blank screen (see skipSplash).
+      showBootGate = true;
+      hideStudioBootGate({ conceal: true });
     }
 
     ns._studioReadyPromise = new Promise(function(resolve) {
@@ -1502,6 +1518,7 @@
   ns._initDeferredLauncherWork = _initLauncherCore;
   ns.ensureStudioReady = ensureStudioReady;
   ns.hideStudioBootGate = hideStudioBootGate;
+  ns.showStudioBootGate = showStudioBootGate;
   ns.shouldPlayIntroSplash = shouldPlayIntroSplash;
   ns.isIntroSplashPlaying = isIntroSplashPlaying;
   ns.isLauncherShellPending = isLauncherShellPending;

@@ -23,7 +23,9 @@
     }
 
     ns._splashActive = true;
-    if (typeof ns.hideStudioBootGate === 'function') ns.hideStudioBootGate({ instant: true });
+    // Conceal (not remove) the gate under the full-screen splash so an early skip can
+    // re-show it while the studio is still booting instead of blanking the screen.
+    if (typeof ns.hideStudioBootGate === 'function') ns.hideStudioBootGate({ conceal: true });
     var isSmall = window.innerWidth < 400;
     var totalDuration = isSmall ? 8500 : 17500;
 
@@ -100,6 +102,13 @@
 
     if (typeof ns.completeLauncherBoot === 'function') {
       ns.completeLauncherBoot({ revealAnimation: manual ? 'skip' : 'normal' });
+    }
+
+    // If the 8 module servers aren't ready yet, completeLauncherBoot is a no-op and the
+    // shell stays boot-pending. Re-show the boot gate (concealed behind the splash until
+    // now) so the user sees a "starting up" spinner instead of a blank screen until ready.
+    if (!ns._studioReadyResolved && typeof ns.showStudioBootGate === 'function') {
+      ns.showStudioBootGate();
     }
 
     setTimeout(function() {
