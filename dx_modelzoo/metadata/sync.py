@@ -143,17 +143,41 @@ def run_sync(
     ok_results = [r for r in adapter_results if r.get("ok")]
     if ok_results:
         catalog = merge_adapter_results(adapter_results, source_profile=source_profile)
+        # An ok-but-empty merge (e.g. run from the wrong location so the sibling
+        # dx-runtime/dx-modelzoo repos are absent, leaving only an empty
+        # benchmark_cache) must NOT count as a valid catalog — otherwise it
+        # silently clobbers a good one with 0 models. Treat as failure.
+        if not catalog.get("models"):
+            catalog = None
     else:
         catalog = None
 
     # 캐시 fallback: fresh 카탈로그가 없을 때만 이전 캐시 사용
     if catalog is None and cache_path:
         prior = load_catalog_cache(cache_path)
-        if prior is not None:
+        if prior is not None and prior.get("models"):
             for model in prior.get("models", []):
                 if isinstance(model.get("performance"), dict):
                     model["performance"]["source_status"] = "stale_cache"
             catalog = prior
+
+    # Last resort: keep whatever populated catalog is already on disk rather than
+    # overwriting it with an empty one.
+    if catalog is None or not catalog.get("models"):
+        existing = load_catalog_cache(Path(output_path))
+        if existing is not None and existing.get("models"):
+            return {
+                "catalog": existing,
+                "report": {
+                    "source_profile": source_profile,
+                    "generated_at": datetime.now(timezone.utc).isoformat(),
+                    "model_count": len(existing.get("models", [])),
+                    "adapter_errors": adapter_errors,
+                    "adapter_warnings": adapter_warnings,
+                    "skipped_write": "all adapters empty — kept existing catalog",
+                    "coverage": _build_coverage_report(existing),
+                },
+            }
 
     if catalog is None:
         catalog = {

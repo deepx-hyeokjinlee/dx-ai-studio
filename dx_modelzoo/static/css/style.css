@@ -1,5 +1,5 @@
 /* ═══ DX Model Zoo – local overrides (shared foundation via dx-base.css) ═══ */
-body{overflow-x:auto;overflow-y:hidden}
+body{overflow-x:auto;overflow-y:auto}
 
 /* ═══ Topbar ═══ */
 .mz-topbar{
