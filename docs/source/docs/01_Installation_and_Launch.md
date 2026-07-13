@@ -2,12 +2,9 @@
 
 ## Prerequisites
 
-- **Python 3.12+** (the studio core is pure standard-library; `./launcher.sh`
-  self-installs the package with `pip install -e .` on first run, so there's no manual
-  install step).
-- **Optional:** the dx_app **Model Zoo** tab needs an extra — `pip install -e ".[modelzoo]"`
-  (beautifulsoup4 + requests). Without it that one tab shows an in-app notice; everything
-  else works.
+- **Python 3.12+** (the studio has zero third-party dependencies — pure standard
+  library, ModelZoo tab included; `./launcher.sh` self-installs the package with
+  `pip install -e .` on first run, so there's no manual install step).
 - For **real** compilation and inference: the **DEEPX SDK** installed from `dx-runtime`
   (runtime, driver, firmware) and/or `dx-compiler` (DX-COM), plus a DEEPX **NPU**.
 - Without an NPU/SDK the studio still launches in **demo / mock mode** for exploring the

@@ -3,9 +3,9 @@
 ## Requirements
 
 - **Python 3.12+** — the only hard prerequisite (tested on Debian 12/13, Ubuntu 20.04–26.04).
-  The studio core is pure standard library; `./launcher.sh` self-installs the package
-  (`pip install -e .`) on first run, so no manual install is needed. The one optional
-  runtime add-on is the dx_app Model Zoo tab: `pip install -e ".[modelzoo]"` (beautifulsoup4 + requests).
+  The studio has **zero third-party runtime dependencies** (pure standard library, ModelZoo
+  tab included); `./launcher.sh` self-installs the package (`pip install -e .`) on first
+  run, so no manual install is needed.
 - Optional, per module: the sibling SDKs (`dx-runtime`, `dx-compiler`, `dx-modelzoo`)
   and NPU hardware. Each module degrades to mock data when its SDK is absent, so the
   GUI is fully browsable without an NPU.

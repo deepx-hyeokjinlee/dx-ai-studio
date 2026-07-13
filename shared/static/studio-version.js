@@ -8,7 +8,7 @@
   var VERSION = {
     channel: 'beta',
     label: 'Beta version',
-    semver: '0.1.1',
+    semver: '0.1.0',
   };
 
   function badgeText() {

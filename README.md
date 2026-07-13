@@ -7,16 +7,10 @@ experience, in six languages.
 
 ## Getting started
 
-**Prerequisites:** Linux (Debian 12/13, Ubuntu 20.04–26.04) with **Python 3.12+**.
-The studio core is pure standard library, and `./launcher.sh` self-installs the
-package (editable) on first run — so there's no manual `pip install` step. The one
-optional add-on is the dx_app **Model Zoo** tab, which needs extra packages:
-
-```bash
-pip install -e ".[modelzoo]"   # beautifulsoup4 + requests; only for the Model Zoo tab
-```
-
-Without it every other tool still works; the Model Zoo tab just shows an in-app notice.
+**Prerequisites:** Linux (Debian 12/13, Ubuntu 20.04–26.04) with **Python 3.12+** —
+and nothing else. DX AI Studio has **zero third-party dependencies** (pure Python
+standard library, ModelZoo tab included), and `./launcher.sh` self-installs the
+package (editable) on first run, so there's no manual `pip install` step.
 
 **Layout:** DX AI Studio is meant to sit inside a `dx-all-suite` tree, alongside
 sibling `dx-runtime` / `dx-compiler`. Running actual NPU inference or compiling models
@@ -41,7 +35,7 @@ your system `python3`. See [`docs/development.md`](docs/development.md) for opti
 |------|----------------|
 | **DX App** | Run NPU inference on images, video, camera or RTSP; live multi-stream, benchmark & compare. → [guide](dx_app/README.md) |
 | **DX Stream** | Real-time GStreamer vision-AI pipelines with live WebRTC playback. → [guide](dx_stream/README.md) |
-| **DX Model Zoo** | Browse 280+ DEEPX models by task; open details and use them. → [guide](dx_modelzoo/README.md) |
+| **DX Model Zoo** | Browse 340+ DEEPX models by task; open details and use them. → [guide](dx_modelzoo/README.md) |
 | **DX Compiler** | Compile ONNX → `.dxnn`: config wizard, quantization tuning + diagnosis, re-quantization. → [guide](dx_compiler/README.md) |
 | **DX EdgeGuide** | Recommend the best NPU board + host for your workload from real benchmarks. → [guide](dx_planner/README.md) |
 | **DX Benchmark** | Browse and compare NPU throughput / latency / multi-stream results. → [guide](dx_benchmark/README.md) |

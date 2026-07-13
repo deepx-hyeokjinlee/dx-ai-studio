@@ -1,12 +1,14 @@
 """DX-APP ModelZoo — browse, cart, download from DEEPX ModelZoo page."""
 
-import os, sys, json, time, threading, re
+import os, sys, json, time, threading, re, ssl
+import urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from dx_app.core import config
 from dx_app.core.config import DX_APP_ROOT, ASSETS_DIR, SCRIPTS_DIR, CONFIG_FILE
+from dx_app.core._html_dom import parse_html
 from shared.catalog_sources import parse_test_models_conf as _shared_parse_test_models_conf
 
 DEVELOPER_PORTAL = "https://developer.deepx.ai"
@@ -43,28 +45,30 @@ def _reset_dl_state():
     })
 
 
-def _get_session(source):
-    import requests
-    s = requests.Session()
-    s.headers.update({"User-Agent": "DX-APP-ModelZoo/2.0"})
+def _make_opener(source):
+    """urllib opener (stdlib). The internal devops host uses an internal CA, so TLS
+    verification is disabled for it only — matching the old requests verify=False."""
     if source == SOURCE_INTERNAL:
-        import urllib3
-        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-        s.verify = False
-    return s
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        return urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx))
+    return urllib.request.build_opener()
+
+
+def _open(opener, url, timeout):
+    req = urllib.request.Request(url, headers={"User-Agent": "DX-APP-ModelZoo/2.0"})
+    return opener.open(req, timeout=timeout)
 
 
 def _fetch_page(source):
     url = SOURCE_URLS.get(source, SOURCE_URLS[SOURCE_INTERNAL])
     try:
-        session = _get_session(source)
-        resp = session.get(url, timeout=30)
-        if resp.status_code != 200:
-            return None, f"HTTP {resp.status_code}"
-        return resp.text, None
-    except ImportError:
-        # requests is a [modelzoo] extra; absent on air-gapped installs.
-        return None, "ModelZoo browsing needs the [modelzoo] extras (pip install -e '.[modelzoo]')"
+        opener = _make_opener(source)
+        with _open(opener, url, 30) as resp:
+            if resp.status != 200:
+                return None, f"HTTP {resp.status}"
+            return resp.read().decode("utf-8", "replace"), None
     except Exception as e:
         return None, str(e)
 
@@ -89,15 +93,14 @@ def _parse_models(html):
       [15]Q-Pro Accuracy  [16]Q-Pro DXNN(link)  [17]Q-Pro JSON(link)
       [18]FPS [19]FPS/Watt
     """
-    from bs4 import BeautifulSoup, NavigableString
-    soup = BeautifulSoup(html, "html.parser")
+    soup = parse_html(html)
 
     def _cell_text(cell):
         """Extract cell text preserving <br> as newlines."""
         parts = []
         for child in cell.children:
-            if isinstance(child, NavigableString):
-                t = child.strip()
+            if child.name is None:  # text node
+                t = child.text.strip()
                 if t:
                     parts.append(t)
             elif child.name == "br":
@@ -298,11 +301,7 @@ def modelzoo_list(source="internal"):
     if err:
         return {"ok": False, "error": err, "models": []}
 
-    try:
-        models = _parse_models(html)
-    except ImportError:
-        # beautifulsoup4 is a [modelzoo] extra; absent on air-gapped installs.
-        return {"ok": False, "error": "ModelZoo browsing needs the [modelzoo] extras (pip install -e '.[modelzoo]')", "models": []}
+    models = _parse_models(html)
     if not models:
         return {"ok": False, "error": "No models found — page structure may have changed", "models": []}
 
@@ -373,7 +372,7 @@ def modelzoo_download(items, source="internal"):
 
 def _download_worker(tasks, source):
     """Background worker — download files sequentially (with thread pool for speed)."""
-    session = _get_session(source)
+    opener = _make_opener(source)
 
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     QPRO_DIR.mkdir(parents=True, exist_ok=True)
@@ -390,12 +389,15 @@ def _download_worker(tasks, source):
         dest.parent.mkdir(parents=True, exist_ok=True)
 
         try:
-            with session.get(url, stream=True, timeout=120) as r:
-                if r.status_code != 200:
-                    return {"file": dest.name, "status": "error", "error": f"HTTP {r.status_code}"}
+            with _open(opener, url, 120) as r:
+                if r.status != 200:
+                    return {"file": dest.name, "status": "error", "error": f"HTTP {r.status}"}
                 downloaded = 0
                 with open(dest, "wb") as f:
-                    for chunk in r.iter_content(chunk_size=256 * 1024):
+                    while True:
+                        chunk = r.read(256 * 1024)
+                        if not chunk:
+                            break
                         if _dl_state["cancel"]:
                             return {"file": dest.name, "status": "cancelled"}
                         f.write(chunk)

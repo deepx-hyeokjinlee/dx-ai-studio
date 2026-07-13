@@ -4,20 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dxstudio"
-version = "0.1.1"
+version = "0.1.0"
 requires-python = ">=3.12"
-# Core stays dependency-free ON PURPOSE: air-gapped boards bootstrap via
-# `pip install -e .` with no PyPI access (launcher.sh/run.sh auto-install).
+# ZERO third-party runtime dependencies — the entire studio, including the dx_app
+# ModelZoo tab (portal fetch via urllib + HTML parse via a stdlib html.parser DOM,
+# see dx_app/core/_html_dom.py), runs on the Python standard library alone. This is
+# deliberate: air-gapped boards bootstrap via `pip install -e .` with no PyPI access.
 dependencies = []
-
-[project.optional-dependencies]
-# dx_app ModelZoo tab (dx_app/core/modelzoo.py): portal fetch + HTML parse.
-# General-net boards: pip install -e ".[modelzoo]". Without it the tab
-# degrades to an in-UI error; everything else runs on the stdlib alone.
-modelzoo = [
-  "beautifulsoup4>=4.12",
-  "requests>=2.31",
-]
 
 [tool.setuptools]
 packages = [

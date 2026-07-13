@@ -21,8 +21,7 @@ The dashboard opens on a set of pages (top navigation):
   annotated result appears live, with a **before/after compare slider** for image runs.
   Multiple streams can run at once.
 - **Bench** / **Compare** — measure a model's throughput and compare models side by side.
-- **Model Zoo** — download additional models into the app. Needs the optional `[modelzoo]`
-  extra (`pip install -e ".[modelzoo]"`); without it this tab shows an in-app notice.
+- **Model Zoo** — browse and download additional models into the app.
 - **Lab** — scaffold a new model / task from a template (developer portal).
 - **Outputs** — browse and manage saved inference results.
 - **Reference** — SDK documentation.

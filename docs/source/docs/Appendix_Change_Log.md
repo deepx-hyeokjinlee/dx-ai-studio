@@ -2,9 +2,9 @@
 
 Notable changes to the DX-AI-Studio User Manual.
 
-## 2026-07 — v0.1.1
+## 2026-07 — v0.1.0
 
-- Initial DX-AI-Studio User Manual (studio **v0.1.1**, beta): MkDocs (Material) site
+- Initial DX-AI-Studio User Manual (studio **v0.1.0**, beta): MkDocs (Material) site
   covering installation & launch, the hub, all eight tools (DX Compiler, DX App,
   DX Stream, DX Model Zoo, DX Benchmark, DX Monitor, DX EdgeGuide, DX Agent Dev), and
   the SDK Library & About views. English, with PDF export.

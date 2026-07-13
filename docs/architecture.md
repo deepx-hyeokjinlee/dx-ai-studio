@@ -3,10 +3,9 @@
 DX AI Studio is a browser front-end that unifies the DEEPX NPU SDK tools into one
 experience. It is a **launcher hub** plus **eight independent module servers**, all
 built on the Python standard-library `http.server` (no FastAPI/Flask/Node). It has
-**no third-party runtime dependencies in the core** — pure Python standard library
-(3.12+), including a tiny built-in template renderer for DX Compiler (no Jinja2). The
-only optional runtime add-on is the dx_app Model Zoo tab (`[modelzoo]` extra:
-beautifulsoup4 + requests).
+**no third-party runtime dependencies** — pure Python standard library (3.12+),
+including a tiny built-in template renderer for DX Compiler (no Jinja2) and a stdlib
+`html.parser` DOM for the dx_app Model Zoo tab (no BeautifulSoup, no requests).
 
 ## Big picture
 
