@@ -13,7 +13,9 @@ The dashboard opens on a set of pages (top navigation):
 - **Run** — pick a model and an input (image / video / camera / RTSP), run inference, and
   watch the annotated result live in the browser. Multiple streams can run at once.
 - **Bench** / **Compare** — measure a model’s throughput and compare models side by side.
-- **Model Zoo** — download additional models into the app.
+- **Model Zoo** — download additional models into the app. (Needs the optional
+  `[modelzoo]` extra: `pip install -e ".[modelzoo]"`; without it this tab shows an
+  in-app notice while every other tab keeps working.)
 - **Lab** — scaffold a new model/task from a template (developer portal).
 - **Outputs** — browse and manage saved inference results.
 - **Reference** — SDK documentation.

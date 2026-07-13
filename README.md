@@ -7,11 +7,22 @@ experience, in six languages.
 
 ## Getting started
 
-**Prerequisites:** Linux (Debian 12/13, Ubuntu 20.04–26.04) with **Python 3.8+** — and nothing else. DX AI Studio has
-**no third-party dependencies** (pure Python standard library), so there is no
-`pip install` step. Running actual NPU inference or compiling models additionally
-needs the DEEPX SDK (installed from `dx-runtime` / `dx-compiler`) and an NPU + driver —
-but the whole studio is fully browsable in demo/mock mode without any hardware or SDK.
+**Prerequisites:** Linux (Debian 12/13, Ubuntu 20.04–26.04) with **Python 3.12+**.
+The studio core is pure standard library, and `./launcher.sh` self-installs the
+package (editable) on first run — so there's no manual `pip install` step. The one
+optional add-on is the dx_app **Model Zoo** tab, which needs extra packages:
+
+```bash
+pip install -e ".[modelzoo]"   # beautifulsoup4 + requests; only for the Model Zoo tab
+```
+
+Without it every other tool still works; the Model Zoo tab just shows an in-app notice.
+
+**Layout:** DX AI Studio is meant to sit inside a `dx-all-suite` tree, alongside
+sibling `dx-runtime` / `dx-compiler`. Running actual NPU inference or compiling models
+needs the DEEPX SDK (from those siblings), an NPU + driver, and models fetched into
+`dx-runtime/dx_app` — but the whole studio is fully browsable in demo/mock mode without
+any hardware, SDK, or models.
 
 ```bash
 ./launcher.sh

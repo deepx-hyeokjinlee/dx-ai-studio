@@ -23,7 +23,7 @@ module's port directly.
 - The current tool and its view are reflected in the **URL**, so links are shareable and
   reload-safe (for example, a DX EdgeGuide recommendation or an SDK Library document can
   be linked directly).
-- **Keyboard shortcuts** — `Alt`+`1`…`7` jump straight to a tool; `Esc` backs out of a
+- **Keyboard shortcuts** — `Alt`+`1`…`8` jump straight to a tool; `Esc` backs out of a
   tool or closes an open panel.
 
 ## Language

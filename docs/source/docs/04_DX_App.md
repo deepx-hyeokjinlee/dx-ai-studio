@@ -10,19 +10,27 @@ video, a camera or an RTSP stream, watch live results, and benchmark or compare 
 The dashboard opens on a set of pages (top navigation):
 
 - **Setup** — guided environment check; run it first so the NPU / runtime is ready.
-- **Models** — browse the model registry by AI task (detection, classification,
-  segmentation, pose, …); open a model to see its details.
-- **Run** — pick a model and an input (image / video / camera / RTSP), run inference, and
-  watch the annotated result live in the browser. Multiple streams can run at once.
+- **Models** — browse the model registry across **23 AI tasks** (object / face / OBB
+  detection, classification, semantic & instance segmentation, pose & keypoint estimation,
+  depth, super-resolution, denoising, enhancement, embedding, ReID, hand detection &
+  landmark, attribute recognition, PPU, **3D object detection**, **object pose
+  estimation**, **panoptic driving perception**, …); open a model to see its details.
+- **Run** — pick a **category → model → input**, then Run. Inputs are chosen per category:
+  a sample image, your **own uploaded image**, video, camera, or RTSP (some tasks are
+  image-only, and special inputs like 3D LiDAR `.bin` are offered where they apply). The
+  annotated result appears live, with a **before/after compare slider** for image runs.
+  Multiple streams can run at once.
 - **Bench** / **Compare** — measure a model's throughput and compare models side by side.
-- **Model Zoo** — download additional models into the app.
+- **Model Zoo** — download additional models into the app. Needs the optional `[modelzoo]`
+  extra (`pip install -e ".[modelzoo]"`); without it this tab shows an in-app notice.
 - **Lab** — scaffold a new model / task from a template (developer portal).
 - **Outputs** — browse and manage saved inference results.
 - **Reference** — SDK documentation.
 
 ## Key features
 
-- **Multiple input types** — image, video file, USB camera, and RTSP streams.
+- **Multiple input types** — sample or uploaded image, video file, USB camera, and RTSP streams.
+- **Before/after compare slider** — drag to compare the original against the annotated result.
 - **Live multi-stream** — several inference streams running and displaying at once.
 - **Benchmark & compare** — throughput / latency numbers per model, side by side.
 - **AI assistant** chat (floating button) for help with the workflow.

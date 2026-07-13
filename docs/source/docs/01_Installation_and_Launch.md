@@ -2,8 +2,12 @@
 
 ## Prerequisites
 
-- **Python 3.8+** (the studio itself is pure standard-library; no third-party runtime
-  dependencies).
+- **Python 3.12+** (the studio core is pure standard-library; `./launcher.sh`
+  self-installs the package with `pip install -e .` on first run, so there's no manual
+  install step).
+- **Optional:** the dx_app **Model Zoo** tab needs an extra — `pip install -e ".[modelzoo]"`
+  (beautifulsoup4 + requests). Without it that one tab shows an in-app notice; everything
+  else works.
 - For **real** compilation and inference: the **DEEPX SDK** installed from `dx-runtime`
   (runtime, driver, firmware) and/or `dx-compiler` (DX-COM), plus a DEEPX **NPU**.
 - Without an NPU/SDK the studio still launches in **demo / mock mode** for exploring the
@@ -33,6 +37,8 @@ opens your browser at the hub URL.
 | `--port <PORT>` / `-p <PORT>` | Hub port (default **8890**; auto-bumps if busy). |
 | `--no-browser` | Start the servers but do not open a browser. |
 | `--no-kill` | Do not kill an existing instance on the chosen port. |
+| `--fast` | Faster boot (skips some warm-up). |
+| `--verbose` / `-v` | Print port-fallback notices when a default port is busy. |
 
 You can also run the launcher directly:
 
