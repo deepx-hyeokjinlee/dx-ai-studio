@@ -16,7 +16,16 @@ PY_DIR      = DX_APP_ROOT/"src"/"python_example"
 ASSETS_DIR  = DX_APP_ROOT/"assets"
 SAMPLE_DIR  = DX_APP_ROOT/"sample"
 CONFIG_FILE = DX_APP_ROOT/"config"/"test_models.conf"
-BUILD_DIR   = DX_APP_ROOT/"build_x86_64"/"src"/"cpp_example"
+# C++ binary location varies by how dx_app was provisioned: a source build lands
+# under build_<arch>/src/cpp_example, while the dx-runtime tree ships prebuilt
+# binaries in bin/. Pick the first that exists so both work; fall back to the
+# source-build path (used in the "run build.sh" hint) when none are present yet.
+_BUILD_DIR_CANDIDATES = [
+    DX_APP_ROOT/"build_x86_64"/"src"/"cpp_example",
+    DX_APP_ROOT/"build_aarch64"/"src"/"cpp_example",
+    DX_APP_ROOT/"bin",
+]
+BUILD_DIR   = next((d for d in _BUILD_DIR_CANDIDATES if d.is_dir()), _BUILD_DIR_CANDIDATES[0])
 SCRIPTS_DIR = DX_APP_ROOT/"scripts"
 SERVER_NAME = "DX App"
 STATIC_DIR  = SCRIPT_DIR/"static"
