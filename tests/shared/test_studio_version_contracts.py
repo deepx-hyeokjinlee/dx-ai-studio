@@ -6,11 +6,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 STUDIO_VERSION_JS = ROOT / "shared" / "static" / "studio-version.js"
 LAUNCHER_INDEX = ROOT / "launcher" / "static" / "index.html"
+RELEASE_VER = ROOT / "release.ver"
 
 
 def test_studio_version_ssot_semver():
     text = STUDIO_VERSION_JS.read_text(encoding="utf-8")
-    assert "semver: '0.1.0'" in text
+    # Derive the expected semver from release.ver (the SSOT) instead of hardcoding it,
+    # so a version bump doesn't require editing this test in lockstep.
+    semver = RELEASE_VER.read_text(encoding="utf-8").strip().lstrip("v")
+    assert f"semver: '{semver}'" in text
     assert "label: 'Beta version'" in text
     assert "channel: 'beta'" in text
 

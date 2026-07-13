@@ -1069,6 +1069,23 @@ class LauncherHandler(DXBaseHandler):
         "/api/chat/config/test",
     )
 
+    def _request_hosts(self) -> set:
+        """Host aliases this request may legitimately arrive under. Behind a port
+        forwarder (VS Code / devtunnels / Codespaces) the browser keeps the public
+        host in Referer/Origin while the proxy may rewrite Host to 127.0.0.1:PORT,
+        so a Host-only same-origin check wrongly rejects the browser's own Referer
+        and breaks Referer-based module routing (module /static/* assets 404). Accept
+        the standard X-Forwarded-Host as well."""
+        hosts = set()
+        host = self.headers.get("Host", "").lower()
+        if host:
+            hosts.add(host)
+        xfh = self.headers.get("X-Forwarded-Host", "")
+        if xfh:
+            # may be a comma-separated chain; the first entry is the original client host
+            hosts.add(xfh.split(",")[0].strip().lower())
+        return hosts
+
     def _request_host(self) -> str:
         return self.headers.get("Host", "").lower()
 
@@ -1076,7 +1093,7 @@ class LauncherHandler(DXBaseHandler):
         parsed = urlparse(value)
         if parsed.scheme not in ("http", "https") or not parsed.netloc:
             return False
-        return parsed.netloc.lower() == self._request_host()
+        return parsed.netloc.lower() in self._request_hosts()
 
     @classmethod
     def _chat_endpoint_for_path(cls, path: str) -> str | None:
