@@ -247,7 +247,7 @@
           "zh-TW": "韓國（總部）",
           "es": "Corea del Sur (sede central)"
         },
-        "address": "5F, 20 Pangyoyeok-ro 241beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do, Republic of Korea"
+        "address": "3F, 20 Pangyoyeok-ro 241beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do, 13494, Republic of Korea"
       },
       {
         "city": {
@@ -1059,6 +1059,31 @@
           "es": "Analítica en tienda con privacidad local"
         }
       }
+    ],
+    "systems": [
+      {
+        "name": "DX-AIPlayer",
+        "type": {
+          "en": "Edge AI Box",
+          "ko": "엣지 AI 박스",
+          "ja": "エッジAIボックス",
+          "zh-CN": "边缘AI盒子",
+          "zh-TW": "邊緣AI盒子",
+          "es": "Caja de IA de borde"
+        },
+        "tops": "25 TOPS (DX-M1 M.2)",
+        "power": "15–37W system",
+        "memory": "8GB LPDDR5 + 4GB NPU · 64GB eMMC",
+        "interface": "2× GbE · USB 3.2 · HDMI/DP",
+        "form": {
+          "en": "95×95×45 mm · Intel N97",
+          "ko": "95×95×45 mm · Intel N97",
+          "ja": "95×95×45 mm · Intel N97",
+          "zh-CN": "95×95×45 mm · Intel N97",
+          "zh-TW": "95×95×45 mm · Intel N97",
+          "es": "95×95×45 mm · Intel N97"
+        }
+      }
     ]
   },
   "investment": {
@@ -1104,12 +1129,12 @@
           "es": "Completado"
         },
         "note": {
-          "en": "$80M · $529M valuation · led by SkyLake Equity Partners (May 2024)",
-          "ko": "8천만 달러 · 기업가치 5.29억 달러 · SkyLake Equity Partners 주도 (2024.05)",
-          "ja": "8,000万ドル · 評価額5.29億ドル · SkyLake Equity Partners主導（2024年5月）",
-          "zh-CN": "8000万美元 · 估值5.29亿美元 · SkyLake Equity Partners领投（2024年5月）",
-          "zh-TW": "8000萬美元 · 估值5.29億美元 · SkyLake Equity Partners領投（2024年5月）",
-          "es": "80M$ · valoración de 529M$ · liderada por SkyLake Equity Partners (mayo de 2024)"
+          "en": "$80.5M · $529M valuation · led by SkyLake Equity Partners (May 2024)",
+          "ko": "8,050만 달러 · 기업가치 5.29억 달러 · SkyLake Equity Partners 주도 (2024.05)",
+          "ja": "8,050万ドル · 評価額5.29億ドル · SkyLake Equity Partners主導（2024年5月）",
+          "zh-CN": "8050万美元 · 估值5.29亿美元 · SkyLake Equity Partners领投（2024年5月）",
+          "zh-TW": "8050萬美元 · 估值5.29億美元 · SkyLake Equity Partners領投（2024年5月）",
+          "es": "80,5M$ · valoración de 529M$ · liderada por SkyLake Equity Partners (mayo de 2024)"
         }
       }
     ],
@@ -1334,6 +1359,17 @@
           "zh-TW": "全球分銷",
           "es": "Distribución global"
         }
+      },
+      {
+        "name": "Koshida Tech",
+        "role": {
+          "en": "Japan distribution",
+          "ko": "일본 유통",
+          "ja": "日本国内販売",
+          "zh-CN": "日本分销",
+          "zh-TW": "日本經銷",
+          "es": "Distribución en Japón"
+        }
       }
     ],
     "ecosystem": [
@@ -1347,7 +1383,8 @@
       "AAEON",
       "Renesas",
       "Raspberry Pi",
-      "Naver Cloud"
+      "Naver Cloud",
+      "Sixfab"
     ]
   },
   "news": {
@@ -1469,6 +1506,18 @@
         "date": "2026.07",
         "type": "news",
         "url": "https://deepx.ai/deepx-strategic-partnership-physical-ai-japan/"
+      },
+      {
+        "title": {
+          "en": "DEEPX AI HAT with Sixfab — DX-M1 edge AI for Raspberry Pi 5",
+          "ko": "DEEPX AI HAT × Sixfab — 라즈베리파이 5용 DX-M1 엣지 AI",
+          "ja": "DEEPX AI HAT × Sixfab — Raspberry Pi 5向けDX-M1エッジAI",
+          "zh-CN": "DEEPX AI HAT × Sixfab — 面向树莓派5的DX-M1边缘AI",
+          "zh-TW": "DEEPX AI HAT × Sixfab — 面向樹莓派5的DX-M1邊緣AI",
+          "es": "DEEPX AI HAT con Sixfab — IA de borde DX-M1 para Raspberry Pi 5"
+        },
+        "date": "2026.06",
+        "type": "news"
       },
       {
         "title": {

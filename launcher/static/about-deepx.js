@@ -314,6 +314,7 @@
       ${category(T({en:'Chips', ko:'칩', ja:'チップ', 'zh-CN':'芯片', 'zh-TW':'晶片', es:'Chips'}), p.chips)}
       ${category(T({en:'Modules', ko:'모듈', ja:'モジュール', 'zh-CN':'模块', 'zh-TW':'模組', es:'Módulos'}), p.modules)}
       ${category(T({en:'PCIe Cards', ko:'PCIe 카드', ja:'PCIeカード', 'zh-CN':'PCIe 卡', 'zh-TW':'PCIe 卡', es:'Tarjetas PCIe'}), p.cards)}
+      ${p.systems && p.systems.length ? category(T({en:'Systems', ko:'시스템', ja:'システム', 'zh-CN':'系统', 'zh-TW':'系統', es:'Sistemas'}), p.systems) : ''}
 
       ${p.useCases && p.useCases.length ? `
       <h3 class="about-tech-title about-fade-in">${T({en:'Use Cases', ko:'활용 사례', ja:'ユースケース', 'zh-CN':'应用场景', 'zh-TW':'應用場景', es:'Casos de uso'})}</h3>
