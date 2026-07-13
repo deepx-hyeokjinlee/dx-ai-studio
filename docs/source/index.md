@@ -17,7 +17,7 @@ with **every tool**.
 | **DX Compiler** | Compile ONNX → `.dxnn`: config wizard, quantization tuning + diagnosis, re-quantization. |
 | **DX App** | Run NPU inference on images, video, camera or RTSP; live multi-stream, benchmark & compare. |
 | **DX Stream** | Real-time GStreamer vision-AI pipelines with live WebRTC playback. |
-| **DX Model Zoo** | Browse 340+ DEEPX models by task; open details and use them. |
+| **DX Model Zoo** | Browse 360+ DEEPX models by task; open details and use them. |
 | **DX Benchmark** | Browse and compare NPU throughput / latency / multi-stream results. |
 | **DX Monitor** | Live NPU + system telemetry (temperature, clock, utilization, versions). |
 | **DX EdgeGuide** | Recommend the best NPU board + host for your workload from real benchmarks. |

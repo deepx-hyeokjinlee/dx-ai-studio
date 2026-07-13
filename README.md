@@ -35,7 +35,7 @@ your system `python3`. See [`docs/development.md`](docs/development.md) for opti
 |------|----------------|
 | **DX App** | Run NPU inference on images, video, camera or RTSP; live multi-stream, benchmark & compare. → [guide](dx_app/README.md) |
 | **DX Stream** | Real-time GStreamer vision-AI pipelines with live WebRTC playback. → [guide](dx_stream/README.md) |
-| **DX Model Zoo** | Browse 340+ DEEPX models by task; open details and use them. → [guide](dx_modelzoo/README.md) |
+| **DX Model Zoo** | Browse 360+ DEEPX models by task; open details and use them. → [guide](dx_modelzoo/README.md) |
 | **DX Compiler** | Compile ONNX → `.dxnn`: config wizard, quantization tuning + diagnosis, re-quantization. → [guide](dx_compiler/README.md) |
 | **DX EdgeGuide** | Recommend the best NPU board + host for your workload from real benchmarks. → [guide](dx_planner/README.md) |
 | **DX Benchmark** | Browse and compare NPU throughput / latency / multi-stream results. → [guide](dx_benchmark/README.md) |
