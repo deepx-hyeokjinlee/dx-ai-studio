@@ -232,9 +232,15 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
                 if _inp_img is not None and _res_img is not None:
                     _ih, _iw = _inp_img.shape[:2]
                     _rh, _rw = _res_img.shape[:2]
-                    # Side-by-side canvas (e.g. SR): crop right half only — skip embedding/reid compare layout
-                    if (category not in _PAIR_COMPARE_CATS
-                            and _rw > _iw * 1.5 and abs(_rh - _ih) < _ih * 0.5):
+                    # Side-by-side canvas (e.g. SR = Bicubic|model output): the result is
+                    # two panels laid horizontally, so its aspect ratio is ~2x the input's
+                    # (holds whether or not the model upscales — the old abs(rh-ih) check
+                    # broke for SR because the panels are also 4x taller). Crop to the right
+                    # panel (model output). Skip embedding/reid, which use their own layout.
+                    _inp_ar = _iw / _ih if _ih else 0
+                    _res_ar = _rw / _rh if _rh else 0
+                    if (category not in _PAIR_COMPARE_CATS and _inp_ar
+                            and abs(_res_ar - _inp_ar * 2) < _inp_ar * 0.3):
                         _res_img = _res_img[:, _rw // 2 + 2:]
                         _rh, _rw = _res_img.shape[:2]
                     # Only resize-back if result is SMALLER than original (denoising/etc.)
