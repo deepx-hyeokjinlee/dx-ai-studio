@@ -88,8 +88,12 @@
     ns._updateLangUI();
 
     var playSplash = ns.shouldPlayIntroSplash();
+    // #splashOverlay is a static element in index.html. initSplashV2() either plays it
+    // (first visit) or removes it (already seen). It MUST run in both cases — otherwise on
+    // a return visit the static overlay is never removed, covers the shell, and blocks
+    // startWhenShellReady() so the launcher tutorial engine is never created.
+    ns.initSplashV2();
     if (playSplash) {
-      ns.initSplashV2();
       // No explicit showBootGate: let ensureStudioReady take its splash branch, which
       // conceals the gate under the splash and keeps it for an early skip to re-show.
       ns.ensureStudioReady().then(function() {
