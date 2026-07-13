@@ -51,7 +51,7 @@
         }
       },
       {
-        "value": "2015",
+        "value": "2018",
         "label": {
           "en": "Founded",
           "ko": "설립",
@@ -76,12 +76,12 @@
       "author": "Lokwon Kim, Founder & CEO"
     },
     "overview": {
-      "en": "DEEPX develops on-device AI semiconductors that bring reliable intelligence to everyday devices. Founded in 2015 by CEO Lokwon Kim, Ph.D., a former Apple, IBM, and Cisco semiconductor engineer, DEEPX is headquartered in Seongnam, South Korea.",
-      "ko": "딥엑스(DEEPX)는 일상의 디바이스에 신뢰할 수 있는 지능을 제공하는 온디바이스 AI 반도체를 개발합니다. 2015년 전 Apple·IBM·Cisco 반도체 엔지니어 김록원 박사(CEO)가 설립했으며, 한국 성남에 본사를 두고 있습니다.",
-      "ja": "DEEPXは日常デバイスに信頼性の高い知能をもたらすオンデバイスAI半導体を開発しています。2015年、元Apple・IBM・Ciscoの半導体エンジニアであるキム・ロクウォン博士（CEO）が設立し、韓国・城南に本社を置いています。",
-      "zh-CN": "DEEPX开发为日常设备带来可靠智能的端侧AI半导体。2015年由前Apple、IBM、Cisco半导体工程师金录源博士（CEO）创立，总部位于韩国城南。",
-      "zh-TW": "DEEPX開發為日常裝置帶來可靠智能的端側AI半導體。2015年由前Apple、IBM、Cisco半導體工程師金錄源博士（CEO）創立，總部位於韓國城南。",
-      "es": "DEEPX desarrolla semiconductores de IA en dispositivo que aportan inteligencia fiable a dispositivos cotidianos. Fundada en 2015 por el CEO Lokwon Kim, Ph.D., ex ingeniero de semiconductores de Apple, IBM y Cisco, con sede en Seongnam, Corea del Sur."
+      "en": "DEEPX develops on-device AI semiconductors that bring reliable intelligence to everyday devices. Founded in 2018 by CEO Lokwon Kim, Ph.D., a former Apple, IBM, and Cisco semiconductor engineer, DEEPX is headquartered in Seongnam, South Korea.",
+      "ko": "딥엑스(DEEPX)는 일상의 디바이스에 신뢰할 수 있는 지능을 제공하는 온디바이스 AI 반도체를 개발합니다. 2018년 전 Apple·IBM·Cisco 반도체 엔지니어 김록원 박사(CEO)가 설립했으며, 한국 성남에 본사를 두고 있습니다.",
+      "ja": "DEEPXは日常デバイスに信頼性の高い知能をもたらすオンデバイスAI半導体を開発しています。2018年、元Apple・IBM・Ciscoの半導体エンジニアであるキム・ロクウォン博士（CEO）が設立し、韓国・城南に本社を置いています。",
+      "zh-CN": "DEEPX开发为日常设备带来可靠智能的端侧AI半导体。2018年由前Apple、IBM、Cisco半导体工程师金录源博士（CEO）创立，总部位于韩国城南。",
+      "zh-TW": "DEEPX開發為日常裝置帶來可靠智能的端側AI半導體。2018年由前Apple、IBM、Cisco半導體工程師金錄源博士（CEO）創立，總部位於韓國城南。",
+      "es": "DEEPX desarrolla semiconductores de IA en dispositivo que aportan inteligencia fiable a dispositivos cotidianos. Fundada en 2018 por el CEO Lokwon Kim, Ph.D., ex ingeniero de semiconductores de Apple, IBM y Cisco, con sede en Seongnam, Corea del Sur."
     },
     "values": [
       {
@@ -163,7 +163,7 @@
     ],
     "timeline": [
       {
-        "year": "2015",
+        "year": "2018",
         "event": {
           "en": "DEEPX founded by Lokwon Kim",
           "ko": "김록원 CEO, DEEPX 설립",
@@ -198,12 +198,12 @@
       {
         "year": "2024",
         "event": {
-          "en": "5nm DX-M1 sample chips; 300+ global verifications; Gen AI NPU IP draft; LG U+ iXi; Samsung Foundry 5nm (90% yield); Series C $80M at $529M valuation (SkyLake-led)",
-          "ko": "5nm DX-M1 샘플; 300+ 글로벌 검증; Gen AI NPU IP draft; LG U+ iXi; 삼성 파운드리 5nm(수율 90%); 시리즈 C 8천만 달러, 기업가치 5.29억 달러(SkyLake 주도)",
-          "ja": "5nm DX-M1サンプル；300社以上の検証；Gen AI NPU IP draft；LG U+ iXi; Samsungファウンドリ5nm（歩留まり90%）; シリーズC 8,000万ドル・評価額5.29億ドル（SkyLake主導）",
-          "zh-CN": "5nm DX-M1样品；300+全球验证；Gen AI NPU IP draft；LG U+ iXi；三星代工5nm（良率90%）；C轮8000万美元，估值5.29亿美元（SkyLake领投）",
-          "zh-TW": "5nm DX-M1樣品；300+全球驗證；Gen AI NPU IP draft；LG U+ iXi；三星晶圓代工5nm（良率90%）；C輪8000萬美元，估值5.29億美元（SkyLake領投）",
-          "es": "Muestras DX-M1 5nm; 300+ verificaciones globales; borrador IP NPU Gen AI; LG U+ iXi; Samsung Foundry 5nm (90% de rendimiento); Serie C de 80M$ con valoración de 529M$ (liderada por SkyLake)"
+          "en": "5nm DX-M1 samples verified by 300+ companies; Series C $80.5M at $529M valuation",
+          "ko": "5nm DX-M1 샘플 300+ 기업 검증; 시리즈 C 8,050만 달러 (기업가치 5.29억 달러)",
+          "ja": "5nm DX-M1サンプルを300社以上が検証; シリーズC 8,050万ドル（評価額5.29億ドル）",
+          "zh-CN": "5nm DX-M1样片获300+企业验证；C轮融资8050万美元（估值5.29亿美元）",
+          "zh-TW": "5nm DX-M1樣片獲300+企業驗證；C輪融資8050萬美元（估值5.29億美元）",
+          "es": "Muestras DX-M1 de 5nm verificadas por 300+ empresas; Serie C de 80,5M$ (valoración 529M$)"
         }
       },
       {
@@ -220,12 +220,12 @@
       {
         "year": "2026",
         "event": {
-          "en": "CES 2026 Innovation Awards — Double Honoree; DX-M2 roadmap unveiled; repositioned as a Physical AI Infrastructure Company; Hyundai Robotics LAB partnership; Samsung Foundry 2nm DX-M2 agreement; DX-M1 volume production & on-device SLM support; Koshida Tech Japan partnership",
-          "ko": "CES 2026 Innovation Awards — Double Honoree; DX-M2 로드맵 공개; 'Physical AI 인프라 기업'으로 리포지셔닝; 현대차 로보틱스 LAB 협력; 삼성 파운드리 2nm DX-M2 계약; DX-M1 양산 및 온디바이스 SLM 지원; 고시다텍 일본 파트너십",
-          "ja": "CES 2026 Innovation Awards — Double Honoree；DX-M2ロードマップ公開; 「Physical AIインフラ企業」へのリポジショニング; 現代自動車Robotics LABとの提携; Samsungファウンドリ2nm DX-M2契約; DX-M1量産・オンデバイスSLM対応; コシダテック日本パートナーシップ",
-          "zh-CN": "CES 2026 Innovation Awards — Double Honoree；DX-M2路线图发布；重新定位为“物理AI基础设施公司”；现代汽车Robotics LAB合作；三星代工2nm DX-M2协议；DX-M1量产及端侧SLM支持；Koshida Tech日本合作",
-          "zh-TW": "CES 2026 Innovation Awards — Double Honoree；DX-M2路線圖發佈；重新定位為「實體AI基礎設施公司」；現代汽車Robotics LAB合作；三星晶圓代工2nm DX-M2協議；DX-M1量產及端側SLM支援；Koshida Tech日本合作",
-          "es": "CES 2026 Innovation Awards — Double Honoree; hoja de ruta DX-M2; reposicionada como empresa de infraestructura de IA física; alianza con Hyundai Robotics LAB; acuerdo de 2nm con Samsung Foundry para DX-M2; producción en volumen del DX-M1 y soporte SLM en dispositivo; alianza con Koshida Tech en Japón"
+          "en": "CES Innovation Awards Double Honoree; DX-M2 2nm roadmap; DX-M1 volume production & on-device SLM",
+          "ko": "CES 혁신상 Double Honoree; DX-M2 2nm 로드맵; DX-M1 양산 및 온디바이스 SLM",
+          "ja": "CESイノベーションアワードDouble Honoree; DX-M2 2nmロードマップ; DX-M1量産・オンデバイスSLM",
+          "zh-CN": "CES创新奖Double Honoree；DX-M2 2nm路线图；DX-M1量产及端侧SLM",
+          "zh-TW": "CES創新獎Double Honoree；DX-M2 2nm路線圖；DX-M1量產及端側SLM",
+          "es": "Doble galardón CES Innovation Awards; hoja de ruta DX-M2 2nm; producción en volumen DX-M1 y SLM en dispositivo"
         }
       }
     ],
@@ -1369,7 +1369,8 @@
           "zh-CN": "日本分销",
           "zh-TW": "日本經銷",
           "es": "Distribución en Japón"
-        }
+        },
+        "url": "https://www.koshida.co.jp/"
       }
     ],
     "ecosystem": [

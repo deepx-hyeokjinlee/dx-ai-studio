@@ -342,6 +342,7 @@
   position: relative;
   flex: 0 0 auto;
   min-width: 140px;
+  max-width: 240px;
   text-align: center;
   padding: 0 12px;
 }

@@ -99,10 +99,11 @@
       <h3 class="about-tech-title about-fade-in">${L(data.distribution.title)}</h3>
       <div class="about-distribution-row about-fade-in">
         ${data.distribution.channels.map(function (c) {
-          return `<a class="about-distribution-card" href="${c.url}" target="_blank" rel="noopener noreferrer">
-            <div class="about-distribution-name">${c.name}</div>
-            <div class="about-distribution-region">${L(c.region)}</div>
-          </a>`;
+          const inner = `<div class="about-distribution-name">${c.name}</div>
+            <div class="about-distribution-region">${L(c.region)}</div>`;
+          return c.url
+            ? `<a class="about-distribution-card" href="${c.url}" target="_blank" rel="noopener noreferrer">${inner}</a>`
+            : `<div class="about-distribution-card">${inner}</div>`;
         }).join('')}
       </div>` : ''}
     `;
@@ -466,7 +467,7 @@
     const footer = document.createElement('div');
     footer.className = 'about-footer about-fade-in';
     footer.innerHTML = `
-      <div>© 2015–2026 DEEPX Co., Ltd. All rights reserved.</div>
+      <div>© 2026 DEEPX Co., Ltd. All Rights Reserved.</div>
       ${verified ? `<div class="about-footer-meta">${verified}${nextUpdate ? ' · ' + nextUpdate : ''}${meta.sources ? ' · ' + meta.sources.map(stripUrlHost).join(', ') : ''}</div>` : ''}
     `;
     container.appendChild(footer);

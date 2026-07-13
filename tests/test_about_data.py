@@ -173,8 +173,11 @@ def test_news_events_are_official_curated(about_data):
 
 
 def test_hero_founded_year_official(about_data):
+    # 2018 per TechCrunch ("DEEPX was founded in 2018 by CEO Lokwon Kim") and company HR.
+    # deepx.ai's our-story "In 2015 ... led me to found DEEPX" is the founder's decision
+    # year, not incorporation — don't regress to it.
     founded = next(s for s in about_data['hero']['stats'] if s['label']['en'] == 'Founded')
-    assert founded['value'] == '2015'
+    assert founded['value'] == '2018'
 
 
 def test_sdk_model_count_official(about_data):
