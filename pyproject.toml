@@ -4,9 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dxstudio"
-version = "0.0.0"
+version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+  # dx_app ModelZoo tab (dx_app/core/modelzoo.py): portal fetch + HTML parse.
+  # Everything else runs on the stdlib alone.
+  "beautifulsoup4>=4.12",
+  "requests>=2.31",
+]
 
 [tool.setuptools]
 packages = [
