@@ -287,6 +287,10 @@
   color: var(--about-text);
   margin-bottom: 48px;
   max-width: 800px;
+  /* Balance line lengths so sentences don't split awkwardly mid-phrase
+     ("Founded in" / "2018"); pretty is the graceful fallback for older engines. */
+  text-wrap: pretty;
+  text-wrap: balance;
 }
 .about-values-grid {
   display: grid;
