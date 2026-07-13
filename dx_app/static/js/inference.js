@@ -449,10 +449,13 @@ function renderRunResult(r){
   if(r.result_video_url){h+='<div class="mb8"><video src="'+r.result_video_url+'" controls class="res-img" style="max-width:100%"></video></div>'}
   var pairCats=['embedding','reid'];
   // CMP slider applies when input is an image and result_image is present (not pair-compare layouts)
-  if(r.result_image&&!isVideo&&S.selectedImage&&pairCats.indexOf(cat)===-1){
+  // "Before" image is either a picked sample (served via /file/) or an uploaded
+  // data URL — support both so the compare slider also works for uploads.
+  var beforeSrc=S.uploadedImage?S.uploadedImage:(S.selectedImage?'/file/'+S.selectedImage:null);
+  if(r.result_image&&!isVideo&&beforeSrc&&pairCats.indexOf(cat)===-1){
     var cmpId='cmp-'+Date.now();
     h+='<div class="cmp-wrap mb8" id="'+cmpId+'">';
-    h+='<img class="cmp-before" src="/file/'+S.selectedImage+'" crossorigin="anonymous"/>';
+    h+='<img class="cmp-before" src="'+beforeSrc+'" crossorigin="anonymous"/>';
     h+='<span class="cmp-lbl cmp-lbl-orig">'+T('Original')+'</span>';
     h+='<div class="cmp-after-clip"><img src="data:image/jpeg;base64,'+r.result_image+'" alt="result"/><span class="cmp-lbl cmp-lbl-result">'+T('Result')+'</span></div>';
     h+='<div class="cmp-handle"></div>';
