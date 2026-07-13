@@ -204,8 +204,6 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
             stdout = open(_stdout_file, "r").read()
         except:
             stdout = ""
-        try: os.unlink(_stdout_file)
-        except: pass
         hw1 = get_hw()
         res = {"exit_code": proc.returncode, "output": stdout[-4000:], "model": model_name,
                "category": category, "lang": lang, "variant": variant, "input_type": input_type,
@@ -260,13 +258,8 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
                         res["result_image_url"] = f"/outputs/{_out_name}"
                     except Exception:
                         pass
-            try: os.unlink(res_img)
-            except: pass
         else:
             res["result_image"] = None
-        if res_img:
-            try: os.unlink(res_img)
-            except: pass
         res["result_video_url"] = None
         if input_type == "video":
             vo = _find_saved_video(stdout, _video_save_dir) or (DX_APP_ROOT / "result.mp4")
@@ -289,40 +282,24 @@ def run_inference(model_name, category, model_file, lang="cpp", variant="sync",
              "variant": variant, "input_type": input_type, "fps": res["fps"], "latency": res["latency"],
              "elapsed_s": res["elapsed_s"], "exit_code": proc.returncode, "timestamp": time.time(),
              })
-        if tmp_config:
-            try: os.unlink(tmp_config)
-            except: pass
-        if _b64_tmp:
-            try: os.unlink(_b64_tmp)
-            except: pass
-        if _video_save_dir:
-            shutil.rmtree(_video_save_dir, ignore_errors=True)
         return res
     except subprocess.TimeoutExpired:
         if _multi and proc is not None: _multi_unregister(proc)
         with config._proc_lock:
             if config._running_proc: config._running_proc.kill(); config._running_proc.wait(); config._running_proc = None
-        try: os.unlink(_stdout_file)
-        except: pass
-        if tmp_config:
-            try: os.unlink(tmp_config)
-            except: pass
-        if _b64_tmp:
-            try: os.unlink(_b64_tmp)
-            except: pass
-        if _video_save_dir:
-            shutil.rmtree(_video_save_dir, ignore_errors=True)
         return _err("inference_timeout", f"Timeout ({timeout}s)", model=model_name)
     except Exception as e:
         if _multi and proc is not None: _multi_unregister(proc)
-        try: os.unlink(_stdout_file)
-        except: pass
-        if _b64_tmp:
-            try: os.unlink(_b64_tmp)
-            except: pass
+        return _err("inference_exception", str(e), model=model_name)
+    finally:
+        # Single cleanup point for every exit path (success/timeout/exception):
+        # remove whatever temp artifacts this run created.
+        for _p in (_stdout_file, tmp_config, _b64_tmp, res_img):
+            if _p:
+                try: os.unlink(_p)
+                except OSError: pass
         if _video_save_dir:
             shutil.rmtree(_video_save_dir, ignore_errors=True)
-        return _err("inference_exception", str(e), model=model_name)
 
 
 def stop_inference():
