@@ -253,7 +253,7 @@ class Handler(DXBaseHandler):
             if path=="/api/file_content":
                 c=get_file_content(self.read_query_param("path"))
                 return self.send_json({"content":c} if c else{"error":"not found"},404 if not c else 200)
-            if path=="/api/images":return self.send_json(get_images())
+            if path=="/api/images":return self.send_json(get_images(self.read_query_param("category") or None))
             if path=="/api/videos":return self.send_json(get_videos())
             if path=="/api/categories":return self.send_json(CATEGORIES)
             if path=="/api/recent_runs":

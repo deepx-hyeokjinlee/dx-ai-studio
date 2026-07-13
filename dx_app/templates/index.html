@@ -212,7 +212,15 @@
         </div>
       </div>
       <div id="img-picker">
-        <div class="fg"><label><span class="ko">샘플 이미지</span><span class="en">Sample Image</span><span class="es">Imagen de muestra</span><span class="ja">サンプル画像</span><span class="zh-CN">示例图像</span><span class="zh-TW">範例影像</span></label><div class="img-grid" id="img-grid"></div></div>
+        <div class="fg">
+          <label><span class="ko">샘플 이미지</span><span class="en">Sample Image</span><span class="es">Imagen de muestra</span><span class="ja">サンプル画像</span><span class="zh-CN">示例图像</span><span class="zh-TW">範例影像</span></label>
+          <div id="r-upload-row" class="fg-inline">
+            <input type="file" id="r-upload" accept="image/*" class="hidden" onchange="onRunUpload(this)">
+            <button type="button" class="btn-sm" onclick="document.getElementById('r-upload').click()">⬆ <span class="ko">이미지 업로드</span><span class="en">Upload image</span><span class="es">Subir imagen</span><span class="ja">画像アップロード</span><span class="zh-CN">上传图像</span><span class="zh-TW">上傳影像</span></button>
+            <span id="r-upload-name" class="txt-dim"></span>
+          </div>
+          <div class="img-grid" id="img-grid"></div>
+        </div>
       </div>
       <div id="video-picker" class="hidden">
         <div class="fg"><label for="r-video"><span class="ko">동영상 파일</span><span class="en">Video File</span><span class="es">Archivo de vídeo</span><span class="ja">動画ファイル</span><span class="zh-CN">视频文件</span><span class="zh-TW">影片檔案</span></label><select id="r-video" class="input"></select></div>

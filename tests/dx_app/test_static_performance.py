@@ -44,7 +44,10 @@ def test_inference_run_media_is_cached_and_selection_is_incremental():
     assert "var _runMediaCache={};" in source
     assert "var _lastRunImageCategory=null;" in source
     assert "_renderRunMedia(cat,_runMediaCache[cat]);" in load_body
-    assert "Promise.all([api('/api/images'),api('/api/videos')])" in load_body
+    # images + videos are still fetched together and cached per category; the images URL
+    # now carries a ?category= filter (built into imgUrl above the Promise.all).
+    assert "Promise.all([api(imgUrl),api('/api/videos')])" in load_body
+    assert "/api/images?category=" in load_body
     assert "document.querySelectorAll('.img-item')" not in pick_body
     assert "var _lastSelectedRunImageEl=null;" in source
     assert "_lastSelectedRunImageEl.classList.remove('selected')" in pick_body

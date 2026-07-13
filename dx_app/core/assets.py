@@ -13,7 +13,7 @@ def get_file_content(rel):
         return p.read_text(errors="replace")
     except:return None
 
-def get_images():
+def _scan_sample_img():
     d=SAMPLE_DIR/"img"
     if not d.is_dir():return[]
     _img_ext={".jpg",".jpeg",".png",".bmp"}
@@ -29,6 +29,31 @@ def get_images():
             if has_img:
                 out.append(str(entry.relative_to(DX_APP_ROOT)))
     return out
+
+def get_images(category=None):
+    """List selectable run inputs.
+
+    Without a category → the sample/img gallery (jpg/png/bmp), the historical
+    behaviour. With a category whose default input lives OUTSIDE sample/img
+    (3d_object_detection → LiDAR .bin, object_pose_estimation → DOPE png), scan
+    that input's own directory for same-extension files instead — the sample/img
+    jpgs are not valid inputs for those models and must not be offered.
+    """
+    if category:
+        from dx_app.core.config import CAT_IMAGE
+        default=CAT_IMAGE.get(category,"")
+        if default and not default.startswith("sample/img/"):
+            parent=(DX_APP_ROOT/default).parent
+            ext=Path(default).suffix.lower()
+            if parent.is_dir():
+                out=[str(f.relative_to(DX_APP_ROOT))
+                     for f in sorted(parent.iterdir())
+                     if f.is_file() and f.suffix.lower()==ext]
+                # Guarantee the default is present even if the dir scan missed it.
+                if default not in out and (DX_APP_ROOT/default).is_file():
+                    out.insert(0,default)
+                return out
+    return _scan_sample_img()
 
 def get_videos():
     d=ASSETS_DIR/"videos"

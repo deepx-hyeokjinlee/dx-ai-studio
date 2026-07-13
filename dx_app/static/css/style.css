@@ -409,6 +409,19 @@ tbody tr:hover td{background:var(--bg-3)}
 .img-item:hover{opacity:1;border-color:var(--border-hover)}
 .img-item.selected{border-color:var(--accent);opacity:1;box-shadow:0 0 8px rgba(99,140,255,.3)}
 .img-item img{width:100%;height:100%;object-fit:cover;display:block}
+/* Non-image inputs (LiDAR .bin, etc.) — no raster thumbnail; labeled tile instead */
+.img-item--data .img-data-ph{
+  width:100%;height:100%;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;padding:4px;box-sizing:border-box;text-align:center;
+}
+.img-item--data .img-data-ext{font-size:13px;font-weight:700;color:var(--accent)}
+.img-item--data .img-data-name{font-size:8px;line-height:1.1;color:var(--text-3);word-break:break-all}
+.fg-inline{display:flex;align-items:center;gap:8px;margin:4px 0}
+.btn-sm{
+  font-size:12px;padding:4px 10px;border-radius:var(--radius);cursor:pointer;
+  border:1px solid var(--border-hover);background:var(--bg-2);color:var(--text-1);
+}
+.btn-sm:hover{border-color:var(--accent)}
 .img-item .img-dir-badge{
   position:absolute;top:2px;right:2px;font-size:11px;line-height:1;z-index:1;
   background:rgba(0,0,0,.55);border-radius:4px;padding:1px 3px;pointer-events:none;

@@ -262,7 +262,8 @@ function loadRunImages(cat){
   var grid=$('img-grid');
   if(grid)grid.innerHTML='<p class="txt-dim">'+T('Loading…')+'</p>';
   _lastRunImageCategory=cat;
-  _runMediaPending[cat]=Promise.all([api('/api/images'),api('/api/videos')]).then(function(results){
+  var imgUrl=(cat&&cat!=='__all__')?('/api/images?category='+encodeURIComponent(cat)):'/api/images';
+  _runMediaPending[cat]=Promise.all([api(imgUrl),api('/api/videos')]).then(function(results){
     _runMediaCache[cat]={
       images:Array.isArray(results[0])?results[0]:[],
       videos:Array.isArray(results[1])?results[1]:[],
@@ -285,8 +286,16 @@ function _renderRunMedia(cat,media){
     grid.innerHTML=list.map(function(p){
       var fn=p.split('/').pop();
       var sel=S.selectedImage===p?' selected':'';
+      var isImg=/\.(jpe?g|png|bmp)$/i.test(p);
+      var isDir=!isImg&&!/\.[a-z0-9]+$/i.test(p);
+      if(!isImg&&!isDir){
+        // Non-image input (e.g. LiDAR .bin point cloud) — no raster thumbnail exists,
+        // show a labeled placeholder tile instead of a broken <img>.
+        var ext=(fn.split('.').pop()||'').toUpperCase();
+        return '<div class="img-item img-item--data'+sel+'" onclick="pickImg(this,\''+p+'\')" title="'+fn+'">'
+          +'<div class="img-data-ph"><span class="img-data-ext">'+esc(ext)+'</span><span class="img-data-name">'+esc(fn)+'</span></div></div>';
+      }
       var thumb=_runMediaThumb(p);
-      var isDir=!/\.(jpe?g|png|bmp)$/i.test(p);
       var badge=isDir?'<span class="img-dir-badge">📁</span>':'';
       return '<div class="img-item'+sel+'" onclick="pickImg(this,\''+p+'\')" title="'+fn+'">'
         +badge+'<img src="/file/'+thumb+'" alt="'+fn+'" loading="lazy"/></div>';
@@ -304,6 +313,24 @@ function pickImg(el,path){
   if(_lastSelectedRunImageEl&&_lastSelectedRunImageEl!==el)_lastSelectedRunImageEl.classList.remove('selected');
   el.classList.add('selected');S.selectedImage=path;
   _lastSelectedRunImageEl=el;
+  // Picking a sample clears any pending upload so the two inputs never conflict.
+  S.uploadedImage=null;var un=$('r-upload-name');if(un)un.textContent='';
+}
+
+var _MAX_UPLOAD_BYTES=8*1024*1024;  // mirrors backend MAX_IMAGE_BASE64_BYTES budget
+function onRunUpload(input){
+  var f=input.files&&input.files[0];if(!f)return;
+  if(f.size>_MAX_UPLOAD_BYTES){toast(T('Image too large (max 8MB)'),'err');input.value='';return;}
+  var rd=new FileReader();
+  rd.onload=function(){
+    S.uploadedImage=rd.result;                 // data:image/...;base64,....
+    S.selectedImage=null;                      // upload wins over sample selection
+    if(_lastSelectedRunImageEl){_lastSelectedRunImageEl.classList.remove('selected');_lastSelectedRunImageEl=null;}
+    var un=$('r-upload-name');if(un)un.textContent=f.name;
+    toast(T('Image ready — press Run'),'ok');
+  };
+  rd.onerror=function(){toast(T('Failed to read file'),'err');};
+  rd.readAsDataURL(f);
 }
 
 function toggleRInput(){
@@ -363,7 +390,7 @@ async function doRun(){
   if(lang==='python'&&!m.python){toast(T('⚠ Python app not found for ')+model,'err');$('r-result').innerHTML='<p style="color:var(--error)">\u274c '+T('Python app not found.')+'<br><span class="txt-dim">'+T('Switch to C++ or add a Python app.')+'</span></p>';return}
   const isImg=$('r-input-img').checked;
   const inputType=isImg?'image':'video';
-  if(isImg&&!S.selectedImage){toast(T('Please select an image'),'warn');return}
+  if(isImg&&!S.selectedImage&&!S.uploadedImage){toast(T('Please select or upload an image'),'warn');return}
   if(inputType==='video'&&!$('r-video').value){toast(T('Please select a video'),'warn');return}
   const runBtn=$('r-run-btn');
   _runInFlight=true;
@@ -374,7 +401,8 @@ async function doRun(){
     lang:$('r-lang').value,variant:$('r-mode').value,input_type:inputType,
     device_id:parseInt($('r-dev').value)||0,
     config_overrides:collectRunConfigOverrides()};
-  if(isImg&&S.selectedImage)body.image_path=S.selectedImage;
+  if(isImg&&S.uploadedImage)body.image_base64=S.uploadedImage;
+  else if(isImg&&S.selectedImage)body.image_path=S.selectedImage;
   else if(inputType==='video')body.video_path=$('r-video').value;
   const res=await postJ('/api/run',body);
   if(res.error){
