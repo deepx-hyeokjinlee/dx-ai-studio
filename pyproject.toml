@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dxstudio"
-version = "0.1.0"
+version = "0.1.1"
 requires-python = ">=3.12"
 # Core stays dependency-free ON PURPOSE: air-gapped boards bootstrap via
 # `pip install -e .` with no PyPI access (launcher.sh/run.sh auto-install).
