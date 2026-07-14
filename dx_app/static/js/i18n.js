@@ -256,7 +256,7 @@ window._DX_I18N_DICT = {
   },
   'Total Models': {
     ko: '전체 모델', ja: 'モデル合計',
-    'zh-CN': '总计模型', 'zh-TW': '總計模型',
+    'zh-CN': '模型总数', 'zh-TW': '總計模型',
     es: 'Total de modelos',
   },
   'C++ Models': {
@@ -877,7 +877,7 @@ window._DX_I18N_DICT = {
   },
   'Operating Hours': {
     ko: '운영 시간', ja: '稼働時間',
-    'zh-CN': '运营时间', 'zh-TW': '運營時間',
+    'zh-CN': '运营时间', 'zh-TW': '營運時間',
     es: 'Horas de operación',
   },
   'TCO Period': {
@@ -972,7 +972,7 @@ window._DX_I18N_DICT = {
   },
   'Monthly cumulative cost vs. Cloud': {
     ko: '월간 누적 비용 vs. 클라우드', ja: '月間累計コスト vs. クラウド',
-    'zh-CN': '月度累计成本 vs. 云端', 'zh-TW': '月度累計成本 vs. 雲端',
+    'zh-CN': '月度累计成本 vs. 云端', 'zh-TW': '每月累計成本 vs. 雲端',
     es: 'Costo acumulado mensual vs. Cloud',
   },
   'Cost curve as camera count scales': {
@@ -1012,10 +1012,20 @@ window._DX_I18N_DICT = {
   },
 
   /* Planner warning badges */
-  'GDPR/Privacy law: Cloud unsuitable — cross-border video transfer restricted':
-    'GDPR/개인정보보호법: 클라우드 부적합 — 국경 간 영상 전송 제한',
-  'Edge AI: offline operation supported — works even without internet':
-    '엣지 AI: 오프라인 운영 지원 — 인터넷 없이도 동작',
+  'GDPR/Privacy law: Cloud unsuitable — cross-border video transfer restricted': {
+    ko: 'GDPR/개인정보보호법: 클라우드 부적합 — 국경 간 영상 전송 제한',
+    ja: 'GDPR/プライバシー法: クラウドは不適 — 国境を越えた映像転送が制限されます',
+    'zh-CN': 'GDPR/隐私法：云端不适用——跨境视频传输受限',
+    'zh-TW': 'GDPR/隱私法：雲端不適用——跨境影像傳輸受限',
+    es: 'Ley GDPR/de privacidad: la nube no es adecuada: transferencia de vídeo transfronteriza restringida',
+  },
+  'Edge AI: offline operation supported — works even without internet': {
+    ko: '엣지 AI: 오프라인 운영 지원 — 인터넷 없이도 동작',
+    ja: 'エッジAI: オフライン動作に対応 — インターネットなしでも動作します',
+    'zh-CN': '边缘 AI：支持离线运行——无需联网也能工作',
+    'zh-TW': '邊緣 AI：支援離線運行——無需連網也能運作',
+    es: 'IA en el borde: funcionamiento sin conexión — funciona incluso sin internet',
+  },
 
   /* Planner summary stats */
   'CAPEX': {
@@ -1045,7 +1055,7 @@ window._DX_I18N_DICT = {
   },
   'CO₂ Saved': {
     ko: 'CO₂ 절감량', ja: 'CO₂ 削減量',
-    'zh-CN': 'CO₂ 减排量', 'zh-TW': 'CO₂ 減排量',
+    'zh-CN': 'CO₂ 减排量', 'zh-TW': 'CO₂ 減碳量',
     es: 'CO₂ ahorrado',
   },
   'months': {
@@ -1094,7 +1104,7 @@ window._DX_I18N_DICT = {
   },
   'Authenticate': {
     ko: '인증', ja: '認証',
-    'zh-CN': '验证', 'zh-TW': '驗證',
+    'zh-CN': '认证', 'zh-TW': '驗證',
     es: 'Autenticar',
   },
   'Add Model': {
@@ -1133,7 +1143,7 @@ window._DX_I18N_DICT = {
     es: 'Tipo de tarea',
   },
   'Postprocessor': {
-    ko: '후처리기', ja: 'ポストプロセッサ',
+    ko: '후처리기', ja: 'ポストプロセッサー',
     'zh-CN': '后处理器', 'zh-TW': '後處理器',
     es: 'Post-procesador',
   },
@@ -1373,7 +1383,7 @@ window._DX_I18N_DICT = {
   },
   '🔓 Authenticate': {
     ko: '🔓 인증', ja: '🔓 認証',
-    'zh-CN': '🔓 验证', 'zh-TW': '🔓 驗證',
+    'zh-CN': '🔓 认证', 'zh-TW': '🔓 驗證',
     es: '🔓 Autenticar',
   },
   '➕ Add Model': {
@@ -1498,7 +1508,7 @@ window._DX_I18N_DICT = {
   '�� Calibration Dataset': {
     ko: '📁 보정 데이터셋', ja: '📁 キャリブレーションデータセット',
     'zh-CN': '📁 校准数据集', 'zh-TW': '📁 校準資料集',
-    es: '�� Calibración Dataset',
+    es: '�� Conjunto de datos de calibración',
   },
   '🎨 Preprocessing Pipeline': {
     ko: '🎨 전처리 파이프라인', ja: '🎨 前処理パイプライン',
@@ -1532,7 +1542,7 @@ window._DX_I18N_DICT = {
   },
   '📜 Compile History': {
     ko: '📜 컴파일 이력', ja: '📜 コンパイル履歴',
-    'zh-CN': '📜 编译历史', 'zh-TW': '📜 編譯歷程',
+    'zh-CN': '📜 编译历史', 'zh-TW': '📜 編譯歷史',
     es: '📜 Historial de compilación',
   },
 
@@ -1921,8 +1931,8 @@ window._DX_I18N_DICT = {
     es: '🚀 Desplegar y ejecutar ahora',
   },
   '📊 Deploy & Benchmark': {
-    ko: '📊 배포 & 벤치마크', ja: '📊 Deploy & ベンチマーク',
-    'zh-CN': '📊 Deploy & 基准测试', 'zh-TW': '📊 Deploy & 基準測試',
+    ko: '📊 배포 & 벤치마크', ja: '📊 デプロイ & ベンチマーク',
+    'zh-CN': '📊 Deploy & 基准测试', 'zh-TW': '📊 部署 & 基準測試',
     es: '📊 Desplegar y benchmark',
   },
   '📥 Download': {
@@ -1952,7 +1962,7 @@ window._DX_I18N_DICT = {
   },
   'Navigating to Benchmark': {
     ko: '벤치마크로 이동 중', ja: 'ベンチマークに移動中',
-    'zh-CN': '正在导航至基准测试', 'zh-TW': '正在導航至基準測試',
+    'zh-CN': '正在导航至基准测试', 'zh-TW': '前往基準測試',
     es: 'Navegando al benchmark',
   },
   'will be auto-selected': {
@@ -1972,7 +1982,7 @@ window._DX_I18N_DICT = {
   },
   'navigating to Run page…': {
     ko: '실행 페이지로 이동 중…', ja: '実行ページに移動中…',
-    'zh-CN': '正在导航到运行页面…', 'zh-TW': '正在導航到執行頁面…',
+    'zh-CN': '正在导航到运行页面…', 'zh-TW': '前往執行頁面…',
     es: 'navegando a la página de ejecución…',
   },
   'Running test…': {
@@ -1992,7 +2002,7 @@ window._DX_I18N_DICT = {
   },
   'Navigated to Run Inference page. Select the deployed model and run inference.': {
     ko: '추론 실행 페이지로 이동했습니다. 배포된 모델을 선택하고 추론을 실행하세요.', ja: '推論実行ページに移動しました。デプロイされたモデルを選択して推論を実行してください。',
-    'zh-CN': '已导航至运行推理页面。请选择已部署的模型并运行推理。', 'zh-TW': '已導航至執行推論頁面。請選擇已部署的模型並執行推論。',
+    'zh-CN': '已导航至运行推理页面。请选择已部署的模型并运行推理。', 'zh-TW': '切換到執行推論頁面。請選擇已部署的模型並執行推論。',
     es: 'Se navegó a la página de Ejecutar inferencia. Seleccione el modelo desplegado y ejecute la inferencia.',
   },
   'No dxnn file info': {
@@ -2189,12 +2199,12 @@ window._DX_I18N_DICT = {
   },
   'image_base64_too_large': {
     ko: '이미지 업로드가 너무 큽니다', ja: '画像アップロードが大きすぎます',
-    'zh-CN': '图像上传过大', 'zh-TW': '圖片上傳過大',
+    'zh-CN': '图像上传过大', 'zh-TW': '影像上傳過大',
     es: 'La imagen cargada es demasiado grande',
   },
   'invalid_image_base64': {
     ko: '이미지 업로드 데이터가 올바르지 않습니다', ja: '画像アップロードデータが無効です',
-    'zh-CN': '图像上传数据无效', 'zh-TW': '圖片上傳資料無效',
+    'zh-CN': '图像上传数据无效', 'zh-TW': '影像上傳資料無效',
     es: 'Datos de imagen no válidos',
   },
   'camera_not_found': {
@@ -2270,7 +2280,7 @@ window._DX_I18N_DICT = {
     es: 'Agregar pasos de pipeline',
   },
   '▶ Run Pipeline': {
-    ko: '▶ 파이프라인 실행', ja: '▶ Run パイプライン',
+    ko: '▶ 파이프라인 실행', ja: '▶ パイプライン実行',
     'zh-CN': '▶ Run 流水线', 'zh-TW': '▶ Run 管線',
     es: '▶ Ejecutar pipeline',
   },
@@ -2367,7 +2377,7 @@ window._DX_I18N_DICT = {
   'px — only this region will be cropped for inference': {
     ko: 'px — 이 영역만 잘려서 추론에 사용됩니다', ja: 'px — この領域のみが切り取られて推論に使用されます',
     'zh-CN': 'px — 仅此区域将被裁剪用于推理', 'zh-TW': 'px — 僅此區域將被裁剪用於推論',
-    es: 'px — solo este región será cropped para inferencia',
+    es: 'px — solo esta región se recortará para la inferencia',
   },
   '⚠ Model file not configured for ': {
     ko: '⚠ 모델 파일이 설정되지 않음: ', ja: '⚠ モデルファイル未設定: ',
@@ -2453,7 +2463,7 @@ window._DX_I18N_DICT = {
   },
   'Semantic segmentation: predicts per-pixel class labels': {
     ko: '의미론적 분할: 픽셀별 클래스 레이블을 예측합니다', ja: 'セマンティックセグメンテーション: ピクセルごとのクラスラベルを予測します',
-    'zh-CN': '语义分割: 预测每个像素的类别标签', 'zh-TW': '語義分割: 預測每個像素的類別標籤',
+    'zh-CN': '语义分割: 预测每个像素的类别标签', 'zh-TW': '語意分割: 預測每個像素的類別標籤',
     es: 'Segmentación semántica: predice etiquetas de clase por píxel',
   },
 
@@ -2524,7 +2534,7 @@ window._DX_I18N_DICT = {
   },
   'Deployment complete → navigating to Run page…': {
     ko: '배포 완료 → 실행 페이지로 이동 중…', ja: 'デプロイ完了 → 実行ページに移動中…',
-    'zh-CN': '部署完成 → 正在导航到运行页面…', 'zh-TW': '部署完成 → 正在導航到執行頁面…',
+    'zh-CN': '部署完成 → 正在导航到运行页面…', 'zh-TW': '部署完成 → 前往執行頁面…',
     es: 'Despliegue completo → navegando a la página de Ejecución…',
   },
   'Enter a model name': {
@@ -2678,7 +2688,7 @@ window._DX_I18N_DICT = {
 
   /* ==== Inference (extra) ==== */
   'Confidence Trend': {
-    ko: 'Confidence 추이', ja: 'Confidence トレンド',
+    ko: 'Confidence 추이', ja: '信頼度の推移',
     'zh-CN': 'Confidence 趋势', 'zh-TW': 'Confidence 趨勢',
     es: 'Tendencia de confianza',
   },
@@ -2732,7 +2742,7 @@ window._DX_I18N_DICT = {
   'ONNX→.dxnn converter. Requires DEEPX Developers Portal account →': {
     ko: 'ONNX→.dxnn 변환기. DEEPX 개발자 포털 계정 필요 →',
     ja: 'ONNX→.dxnn コンバーター。DEEPX 開発者ポータルアカウントが必要 →',
-    'zh-CN': 'ONNX→.dxnn 转换器。需要 DEEPX 开发者门户账号 →',
+    'zh-CN': 'ONNX→.dxnn 转换器。需要 DEEPX 开发者门户账户 →',
     'zh-TW': 'ONNX→.dxnn 轉換器。需要 DEEPX 開發者入口網站帳號 →',
     es: 'Conversor ONNX→.dxnn. Requiere cuenta de DEEPX Developers Portal →',
   },
@@ -2753,8 +2763,8 @@ window._DX_I18N_DICT = {
     'zh-CN': '作为 score_threshold / nms_threshold 传递给模型的 config.json',
     'zh-TW': '作為 score_threshold / nms_threshold 傳遞給模型的 config.json'
   },
-  'Profiler': { ko: '프로파일러', ja: 'プロファイラ', 'zh-CN': '分析器', 'zh-TW': '分析器',es:'Perfilador'},
-  'Profiler Timeline': { ko: '프로파일러 타임라인', ja: 'プロファイラ タイムライン', 'zh-CN': '分析器时间轴', 'zh-TW': '分析器時間軸',es:'Línea de tiempo del perfilador'},
+  'Profiler': { ko: '프로파일러', ja: 'プロファイラー', 'zh-CN': '性能分析器', 'zh-TW': '分析器',es:'Perfilador'},
+  'Profiler Timeline': { ko: '프로파일러 타임라인', ja: 'プロファイラー タイムライン', 'zh-CN': '性能分析器时间轴', 'zh-TW': '分析器時間軸',es:'Línea de tiempo del perfilador'},
   'Reset Zoom': { ko: '줌 초기화', ja: 'ズームをリセット', 'zh-CN': '重置缩放', 'zh-TW': '重設縮放',es:'Restablecer zoom'},
   'Extract the selected model\'s source code, config, and model file as a package. Available for download on the Outputs page.': {
     ko: '선택한 모델의 소스 코드, 설정, 모델 파일을 패키지로 추출합니다. Outputs 페이지에서 다운로드할 수 있습니다.',
@@ -2770,7 +2780,7 @@ window._DX_I18N_DICT = {
   'None': { ko: '해제', ja: 'なし', 'zh-CN': '无', 'zh-TW': '無',es:'Ninguno'},
   'Latency(ms)': { ko: '지연시간(ms)', ja: 'レイテンシ(ms)', 'zh-CN': '延迟(ms)', 'zh-TW': '延遲(ms)',es:'Latencia (ms)'},
   'Slots:': { ko: '슬롯:', ja: 'スロット:', 'zh-CN': '插槽:', 'zh-TW': '插槽:',es:'Ranuras:'},
-  'Shared Input (Image / Video)': { ko: '공유 입력 (이미지 / 동영상)', ja: '共有入力 (画像 / 動画)', 'zh-CN': '共享输入 (图片 / 视频)', 'zh-TW': '共享輸入 (圖片 / 影片)',es:'Entrada compartida (Imagen / Vídeo)'},
+  'Shared Input (Image / Video)': { ko: '공유 입력 (이미지 / 동영상)', ja: '共有入力 (画像 / 動画)', 'zh-CN': '共享输入 (图片 / 视频)', 'zh-TW': '共用輸入 (影像 / 影片)',es:'Entrada compartida (Imagen / Vídeo)'},
   'Camera': { ko: '카메라', ja: 'カメラ', 'zh-CN': '摄像头', 'zh-TW': '攝影機',es:'Cámara'},
   'Browse the DEEPX ModelZoo — select models and download Q-Lite / Q-Pro DXNN files directly.': {
     ko: 'DEEPX 모델 저장소를 탐색하세요 — 모델을 선택하고 Q-Lite / Q-Pro DXNN 파일을 직접 다운로드합니다.',
@@ -2806,7 +2816,7 @@ window._DX_I18N_DICT = {
   'Server JSON path': { ko: '서버 JSON 경로', ja: 'サーバー JSON パス', 'zh-CN': '服务器 JSON 路径', 'zh-TW': '伺服器 JSON 路徑',es:'Ruta JSON del servidor'},
   'Load': { ko: '로드', ja: '読み込み', 'zh-CN': '加载', 'zh-TW': '載入',es:'Cargar'},
   'Click to browse folder': { ko: '클릭하여 폴더 탐색', ja: 'クリックしてフォルダを参照', 'zh-CN': '点击浏览文件夹', 'zh-TW': '點擊瀏覽資料夾',es:'Haga clic para explorar carpeta'},
-  'Or drag images / enter path': { ko: '또는 이미지 드래그 / 경로 입력', ja: 'または画像をドラッグ / パスを入力', 'zh-CN': '或拖拽图片 / 输入路径', 'zh-TW': '或拖曳圖片 / 輸入路徑',es:'O arrastre imágenes / introduzca ruta'},
+  'Or drag images / enter path': { ko: '또는 이미지 드래그 / 경로 입력', ja: 'または画像をドラッグ / パスを入力', 'zh-CN': '或拖拽图片 / 输入路径', 'zh-TW': '或拖曳影像 / 輸入路徑',es:'O arrastre imágenes / introduzca ruta'},
   'fast compile': { ko: '빠른 컴파일', ja: '高速コンパイル', 'zh-CN': '快速编译', 'zh-TW': '快速編譯',es:'compilación rápida'},
   'optimal performance': { ko: '최적 성능', ja: '最適パフォーマンス', 'zh-CN': '最优性能', 'zh-TW': '最佳效能',es:'rendimiento óptimo'},
   'Add': { ko: '추가', ja: '追加', 'zh-CN': '添加', 'zh-TW': '新增',es:'Agregar'},
@@ -2836,7 +2846,7 @@ window._DX_I18N_DICT = {
     ko: '이미지 위에서 드래그하여 관심 영역(ROI)을 선택하세요.✅ 선택한 영역만 추론을 위해 자동 잘림됩니다. Apply를 클릭한 후 Run Inference를 실행하면 ROI만 추론합니다.',
     ja: '画像上でドラッグして関心領域 (ROI) を選択してください。✅ 選択した領域のみが推論用に自動クロップされます。Apply をクリックして Run Inference を実行すると ROI のみを推論します。',
     'zh-CN': '在图片上拖拽选择感兴趣区域 (ROI)。✅ 仅所选区域会被自动裁剪用于推理。点击 Apply 后执行 Run Inference 即可仅对 ROI 进行推理。',
-    'zh-TW': '在圖片上拖曳選擇感興趣區域 (ROI)。✅ 僅所選區域會被自動裁切用於推論。點擊 Apply 後執行 Run Inference 即可僅對 ROI 進行推論。',
+    'zh-TW': '在影像上拖曳選擇感興趣區域 (ROI)。✅ 僅所選區域會被自動裁切用於推論。點擊 Apply 後執行 Run Inference 即可僅對 ROI 進行推論。',
     es: 'Arrastre sobre la imagen para seleccionar una Región de Interés (ROI).✅ Solo el área seleccionada se recortará automáticamente para inferencia. Haga clic en Aplicar y luego en Ejecutar inferencia para inferir solo el ROI.',
   },
   'This will permanently delete model source files from disk.': {
@@ -3091,8 +3101,8 @@ window._DX_I18N_PLACEHOLDERS = {
     es: 'Total de personas',
   },
   'Total Faces': {
-    ko: '총 얼굴', ja: '合計顔数',
-    'zh-CN': '总面部', 'zh-TW': '總面部',
+    ko: '총 얼굴', ja: '顔の総数',
+    'zh-CN': '人脸总数', 'zh-TW': '總面部',
     es: 'Total de rostros',
   },
   'Avg/Frame': {
@@ -3208,7 +3218,7 @@ window._DX_I18N_PLACEHOLDERS = {
   'DX-APP Benchmark Report — Generated automatically by DX-APP GUI': {
     ko: 'DX-APP 벤치마크 리포트 — DX-APP GUI에서 자동 생성됨', ja: 'DX-APP ベンチマークレポート — DX-APP GUIにより自動生成',
     'zh-CN': 'DX-APP 基准测试报告 — 由 DX-APP GUI 自动生成', 'zh-TW': 'DX-APP 基準測試報告 — 由 DX-APP GUI 自動產生',
-    es: 'DX-APP Benchmark Report — Generated automáticamente por DX-APP GUI',
+    es: 'DX-APP Benchmark Report — Generado automáticamente por DX-APP GUI',
   },
   'ERROR': {
     ko: '오류', ja: 'エラー',
@@ -3490,7 +3500,7 @@ window._DX_I18N_PLACEHOLDERS = {
   '📊 Navigating to Benchmark — "': {
     ko: '📊 벤치마크로 이동 — "', ja: '📊 ベンチマークに移動 — "',
     es: '📊 Navegando a Benchmark — "',
-    'zh-CN': '📊 正在导航到基准测试 — "', 'zh-TW': '📊 正在導航到基準測試 — "'
+    'zh-CN': '📊 正在导航到基准测试 — "', 'zh-TW': '📊 前往基準測試 — "'
   },
 
   'Authenticated': {
@@ -3524,12 +3534,12 @@ window._DX_I18N_PLACEHOLDERS = {
     es: 'Eliminado',
   },
   'Extract failed': {
-    ko: '추출 실패', ja: '展開失敗',
+    ko: '추출 실패', ja: '抽出失敗',
     'zh-CN': '提取失败', 'zh-TW': '擷取失敗',
     es: 'Error al extraer',
   },
   'Extracting package for: ': {
-    ko: '패키지 추출 중: ', ja: 'パッケージ展開中: ',
+    ko: '패키지 추출 중: ', ja: 'パッケージ抽出中: ',
     'zh-CN': '正在提取包: ', 'zh-TW': '正在擷取套件: ',
     es: 'Extrayendo paquete para: ',
   },
@@ -3544,7 +3554,7 @@ window._DX_I18N_PLACEHOLDERS = {
     es: 'Se requiere nombre',
   },
   'Package extracted to outputs/': {
-    ko: '패키지가 outputs/에 추출됨', ja: 'パッケージを outputs/ に展開しました',
+    ko: '패키지가 outputs/에 추출됨', ja: 'パッケージを outputs/ に抽出しました',
     'zh-CN': '包已提取到 outputs/', 'zh-TW': '套件已擷取到 outputs/',
     es: 'Paquete extraído a outputs/',
   },
@@ -3842,7 +3852,7 @@ window._DX_I18N_PLACEHOLDERS = {
   },
   '▶ Press Start to begin inference': {
     ko: '▶ 시작 버튼을 눌러 추론을 시작하세요', ja: '▶ 開始ボタンを押して推論を開始してください',
-    'zh-CN': '▶ 按"开始"按钮以开始推理', 'zh-TW': '▶ 按「開始」按鈕以開始推論',
+    'zh-CN': '▶ 按“开始”按钮以开始推理', 'zh-TW': '▶ 按「開始」按鈕以開始推論',
     es: '▶ Presione Iniciar para comenzar la inferencia',
   },
   '⚠️ Inference exited abnormally (exit code: ': {
@@ -3851,7 +3861,7 @@ window._DX_I18N_PLACEHOLDERS = {
     es: '⚠️ La inferencia terminó de forma anormal (código de salida: ',
   },
   '✅ Extraction complete! Output: ': {
-    ko: '✅ 추출 완료! 출력: ', ja: '✅ 展開完了！出力: ',
+    ko: '✅ 추출 완료! 출력: ', ja: '✅ 抽出完了！出力: ',
     'zh-CN': '✅ 提取完成！输出: ', 'zh-TW': '✅ 擷取完成！輸出: ',
     es: '✅ ¡Extracción completa! Salida: ',
   },
@@ -3883,7 +3893,7 @@ window._DX_I18N_PLACEHOLDERS = {
   '🎯 ROI applied — only the selected region was inferred.': {
     ko: '🎯 ROI 적용됨 — 선택한 영역만 추론되었습니다.', ja: '🎯 ROI 適用済み — 選択された領域のみ推論されました。',
     'zh-CN': '🎯 ROI 已应用 — 仅对选定区域进行了推理。', 'zh-TW': '🎯 ROI 已套用 — 僅對選定區域進行了推論。',
-    es: '🎯 ROI applied — solo el selected región fue inferred.',
+    es: '🎯 ROI aplicado — solo se infirió la región seleccionada.',
   },
   '💃 Pose Estimation: draws skeleton (joint connections) and keypoints. Low-confidence keypoints may be omitted.': {
     ko: '💃 Pose Estimation: 스켈레톤(관절 연결)과 키포인트를 표시합니다. 신뢰도가 낮은 키포인트는 생략될 수 있습니다.', ja: '💃 Pose Estimation: スケルトン（関節接続）とキーポイントを描画します。信頼度の低いキーポイントは省略される場合があります。',
@@ -3963,13 +3973,13 @@ window._DX_I18N_PLACEHOLDERS = {
   },
   'BiSeNetV1 real-time semantic segmentation. Spatial + Context path.': {
     ko: 'BiSeNetV1 실시간 의미론적 분할. Spatial + Context 경로.', ja: 'BiSeNetV1 リアルタイムセマンティックセグメンテーション。Spatial + Context パス。',
-    'zh-CN': 'BiSeNetV1 实时语义分割。Spatial + Context 路径。', 'zh-TW': 'BiSeNetV1 即時語義分割。Spatial + Context 路徑。',
-    es: 'BiSeNetV1 tiempo real segmentación semántica. Spatial + Context ruta.',
+    'zh-CN': 'BiSeNetV1 实时语义分割。Spatial + Context 路径。', 'zh-TW': 'BiSeNetV1 即時語意分割。Spatial + Context 路徑。',
+    es: 'Segmentación semántica en tiempo real BiSeNetV1. Rutas Spatial + Context.',
   },
   'BiSeNetV2 real-time semantic segmentation. Detail + Semantic branch.': {
     ko: 'BiSeNetV2 실시간 의미론적 분할. Detail + Semantic 브랜치.', ja: 'BiSeNetV2 リアルタイムセマンティックセグメンテーション。Detail + Semantic ブランチ。',
-    'zh-CN': 'BiSeNetV2 实时语义分割。Detail + Semantic 分支。', 'zh-TW': 'BiSeNetV2 即時語義分割。Detail + Semantic 分支。',
-    es: 'BiSeNetV2 tiempo real segmentación semántica. Detail + Semantic branch.',
+    'zh-CN': 'BiSeNetV2 实时语义分割。Detail + Semantic 分支。', 'zh-TW': 'BiSeNetV2 即時語意分割。Detail + Semantic 分支。',
+    es: 'Segmentación semántica en tiempo real BiSeNetV2. Ramas Detail + Semantic.',
   },
   'CLIP image encoder. Vision-Language contrastive learning.': {
     ko: 'CLIP 이미지 인코더. Vision-Language 대조 학습.', ja: 'CLIP 画像エンコーダー。Vision-Language 対照学習。',
@@ -3984,12 +3994,12 @@ window._DX_I18N_PLACEHOLDERS = {
   'CenterNet center-point based detection. Heatmap + offset prediction.': {
     ko: 'CenterNet 중심점 기반 검출. Heatmap + offset 예측.', ja: 'CenterNet センターポイントベース検出。Heatmap + offset 予測。',
     'zh-CN': 'CenterNet 基于中心点的检测。Heatmap + offset 预测。', 'zh-TW': 'CenterNet 基於中心點的偵測。Heatmap + offset 預測。',
-    es: 'CenterNet center-point based detección. Mapa de calor + desplazamiento predicción.',
+    es: 'Detección basada en puntos centrales CenterNet. Mapa de calor + predicción de desplazamiento.',
   },
   'CenterPose center-point based pose estimation. Heatmap + keypoint offset.': {
     ko: 'CenterPose 중심점 기반 자세 추정. Heatmap + keypoint offset.', ja: 'CenterPose センターポイントベース姿勢推定。Heatmap + keypoint offset。',
     'zh-CN': 'CenterPose 基于中心点的姿态估计。Heatmap + keypoint offset。', 'zh-TW': 'CenterPose 基於中心點的姿態估計。Heatmap + keypoint offset。',
-    es: 'CenterPose center-point based estimación de pose. Mapa de calor + keypoint desplazamiento.',
+    es: 'Estimación de pose basada en puntos centrales CenterPose. Mapa de calor + desplazamiento de puntos clave.',
   },
   'Classes': {
     ko: '클래스', ja: 'クラス',
@@ -4008,7 +4018,7 @@ window._DX_I18N_PLACEHOLDERS = {
   },
   'DeepLabV3 semantic segmentation. Atrous convolution, ASPP.': {
     ko: 'DeepLabV3 의미론적 분할. Atrous 컨볼루션, ASPP.', ja: 'DeepLabV3 セマンティックセグメンテーション。Atrous 畳み込み、ASPP。',
-    'zh-CN': 'DeepLabV3 语义分割。空洞卷积、ASPP。', 'zh-TW': 'DeepLabV3 語義分割。空洞卷積、ASPP。',
+    'zh-CN': 'DeepLabV3 语义分割。空洞卷积、ASPP。', 'zh-TW': 'DeepLabV3 語意分割。空洞卷積、ASPP。',
     es: 'Segmentación semántica DeepLabV3. Convolución atrous, ASPP.',
   },
   'Displays PPU pipeline results.': {
@@ -4099,7 +4109,7 @@ window._DX_I18N_PLACEHOLDERS = {
   'FastDepth monocular depth estimation. Depthwise separable convolution.': {
     ko: 'FastDepth 단안 깊이 추정. Depthwise separable 컨볼루션.', ja: 'FastDepth 単眼深度推定。Depthwise separable 畳み込み。',
     'zh-CN': 'FastDepth 单目深度估计。Depthwise separable 卷积。', 'zh-TW': 'FastDepth 單目深度估計。Depthwise separable 卷積。',
-    es: 'FastDepth monocular estimación de profundidad. Depthwise separable convolution.',
+    es: 'Estimación de profundidad monocular FastDepth. Convolución separable en profundidad.',
   },
   'Image ready — press Run': {
     ko: '이미지 준비됨 — 실행을 누르세요', ja: '画像の準備ができました — 実行を押してください',
@@ -4144,7 +4154,7 @@ window._DX_I18N_PLACEHOLDERS = {
   'Outputs the denoised result image directly.': {
     ko: '노이즈 제거된 결과 이미지를 직접 출력합니다.', ja: 'ノイズ除去された結果画像を直接出力します。',
     'zh-CN': '直接输出去噪后的结果图像。', 'zh-TW': '直接輸出去噪後的結果影像。',
-    es: 'Genera la imagen denoised resultante directamente.',
+    es: 'Genera directamente la imagen resultante sin ruido.',
   },
   'Outputs the enhanced image directly.': {
     ko: '향상된 이미지를 직접 출력합니다.', ja: '強化された画像を直接出力します。',
@@ -4184,12 +4194,12 @@ window._DX_I18N_PLACEHOLDERS = {
   'RetinaFace face detection. FPN + multi-task learning (landmark).': {
     ko: 'RetinaFace 얼굴 검출. FPN + 멀티태스크 학습 (landmark).', ja: 'RetinaFace 顔検出。FPN + マルチタスク学習（landmark）。',
     'zh-CN': 'RetinaFace 人脸检测。FPN + 多任务学习（landmark）。', 'zh-TW': 'RetinaFace 人臉偵測。FPN + 多任務學習（landmark）。',
-    es: 'RetinaFace detección de rostros. FPN + multi-tarea learning (punto de referencia).',
+    es: 'RetinaFace detección de rostros. FPN + aprendizaje multitarea (puntos de referencia).',
   },
   'Rotated bounding box (OBB) detection. Oriented region prediction.': {
     ko: '회전 바운딩 박스 (OBB) 검출. 방향 영역 예측.', ja: '回転バウンディングボックス（OBB）検出。方向領域予測。',
     'zh-CN': '旋转边界框 (OBB) 检测。定向区域预测。', 'zh-TW': '旋轉邊界框 (OBB) 偵測。定向區域預測。',
-    es: 'Rotated delimitador box (OBB) detección. Oriented region predicción.',
+    es: 'Detección de cuadros delimitadores rotados (OBB). Predicción de región orientada.',
   },
   'SCRFD high-efficiency face detection. Multi-task learning.': {
     ko: 'SCRFD 고효율 얼굴 검출. 멀티태스크 학습.', ja: 'SCRFD 高効率顔検出。マルチタスク学習。',
@@ -4203,13 +4213,13 @@ window._DX_I18N_PLACEHOLDERS = {
   },
   'SegFormer Transformer-based semantic segmentation. Mix-FFN.': {
     ko: 'SegFormer Transformer 기반 의미론적 분할. Mix-FFN.', ja: 'SegFormer Transformer ベースのセマンティックセグメンテーション。Mix-FFN。',
-    'zh-CN': 'SegFormer 基于 Transformer 的语义分割。Mix-FFN。', 'zh-TW': 'SegFormer 基於 Transformer 的語義分割。Mix-FFN。',
+    'zh-CN': 'SegFormer 基于 Transformer 的语义分割。Mix-FFN。', 'zh-TW': 'SegFormer 基於 Transformer 的語意分割。Mix-FFN。',
     es: 'Segmentación semántica basada en Transformer SegFormer. Mix-FFN.',
   },
   'Single Shot Detector. Multi-scale feature map based detection.': {
     ko: 'Single Shot Detector. 멀티스케일 특징 맵 기반 검출.', ja: 'Single Shot Detector。マルチスケール特徴マップベースの検出。',
     'zh-CN': 'Single Shot Detector。基于多尺度特征图的检测。', 'zh-TW': 'Single Shot Detector。基於多尺度特徵圖的偵測。',
-    es: 'Individual Shot Detector. Multi-escala característica map based detección.',
+    es: 'Single Shot Detector. Detección basada en mapas de características multiescala.',
   },
   'Ultra-Light-Fast face detection. Lightweight mobile network.': {
     ko: 'Ultra-Light-Fast 얼굴 검출. 경량 모바일 네트워크.', ja: 'Ultra-Light-Fast 顔検出。軽量モバイルネットワーク。',
@@ -4254,7 +4264,7 @@ window._DX_I18N_PLACEHOLDERS = {
   'YOLOv5-Face face detection with simultaneous landmark prediction.': {
     ko: 'YOLOv5-Face 얼굴 검출 (동시 landmark 예측).', ja: 'YOLOv5-Face 顔検出（同時 landmark 予測）。',
     'zh-CN': 'YOLOv5-Face 人脸检测（同时预测 landmark）。', 'zh-TW': 'YOLOv5-Face 人臉偵測（同時預測 landmark）。',
-    es: 'YOLOv5-Face detección de rostros with simultaneous punto de referencia predicción.',
+    es: 'Detección de rostros YOLOv5-Face con predicción simultánea de puntos de referencia.',
   },
   'YOLOv5-Pose estimation. Keypoint regression.': {
     ko: 'YOLOv5-Pose 자세 추정. Keypoint 회귀.', ja: 'YOLOv5-Pose 姿勢推定。Keypoint 回帰。',
@@ -4279,7 +4289,7 @@ window._DX_I18N_PLACEHOLDERS = {
   'YOLOv7-Face face detection with simultaneous landmark prediction.': {
     ko: 'YOLOv7-Face 얼굴 검출 (동시 landmark 예측).', ja: 'YOLOv7-Face 顔検出（同時 landmark 予測）。',
     'zh-CN': 'YOLOv7-Face 人脸检测（同时预测 landmark）。', 'zh-TW': 'YOLOv7-Face 人臉偵測（同時預測 landmark）。',
-    es: 'YOLOv7-Face detección de rostros with simultaneous punto de referencia predicción.',
+    es: 'Detección de rostros YOLOv7-Face con predicción simultánea de puntos de referencia.',
   },
   'YOLOv7-based object detection. E-ELAN architecture with NMS post-processing.': {
     ko: 'YOLOv7 기반 객체 검출. E-ELAN 아키텍처, NMS 후처리.', ja: 'YOLOv7 ベースの物体検出。E-ELAN アーキテクチャ、NMS 後処理。',
@@ -4309,7 +4319,7 @@ window._DX_I18N_PLACEHOLDERS = {
   'Zero-DCE low-light image enhancement. Zero-reference learning.': {
     ko: 'Zero-DCE 저조도 이미지 향상. Zero-reference 학습.', ja: 'Zero-DCE 低照度画像強化。ゼロリファレンス学習。',
     'zh-CN': 'Zero-DCE 低光照图像增强。零参考学习。', 'zh-TW': 'Zero-DCE 低光照影像增強。零參考學習。',
-    es: 'Zero-DCE low-light imagen enhancement. Zero-reference learning.',
+    es: 'Mejora de imágenes con poca luz Zero-DCE. Aprendizaje sin referencia.',
   },
   '⚙️ Postprocessors': {
     ko: '⚙️ 후처리기', ja: '⚙️ ポストプロセッサー',
@@ -4533,27 +4543,27 @@ window._DX_I18N_PLACEHOLDERS = {
   'Capture — frame capture from input source': {
     ko: 'Capture — 입력 소스에서 프레임 캡처', ja: 'Capture — 入力ソースからのフレームキャプチャ',
     'zh-CN': 'Capture — 从输入源捕获帧', 'zh-TW': 'Capture — 從輸入來源擷取影格',
-    es: 'Capture — cuadro captura desde fuente de entrada',
+    es: 'Captura — captura de fotogramas desde la fuente de entrada',
   },
   'Input I/O — reading image/video from disk or camera': {
     ko: 'Input I/O — 디스크 또는 카메라에서 이미지/비디오 읽기', ja: 'Input I/O — ディスクまたはカメラからの画像/動画読み取り',
     'zh-CN': 'Input I/O — 从磁盘或摄像头读取图像/视频', 'zh-TW': 'Input I/O — 從磁碟或攝影機讀取影像/影片',
-    es: 'Input I/O — reading imagen/vídeo desde disk o camera',
+    es: 'E/S de entrada — lectura de imagen/vídeo desde disco o cámara',
   },
   'NPU compute — neural network inference on the NPU chip': {
     ko: 'NPU 연산 — NPU 칩에서의 신경망 추론', ja: 'NPU 演算 — NPU チップ上でのニューラルネットワーク推論',
     'zh-CN': 'NPU 计算 — NPU 芯片上的神经网络推理', 'zh-TW': 'NPU 運算 — NPU 晶片上的神經網路推論',
-    es: 'NPU compute — red neuronal inferencia en el NPU chip',
+    es: 'Cómputo NPU — inferencia de red neuronal en el chip NPU',
   },
   'Output I/O — writing result image/video to disk': {
     ko: 'Output I/O — 결과 이미지/비디오를 디스크에 기록', ja: 'Output I/O — 結果画像/動画のディスクへの書き込み',
     'zh-CN': 'Output I/O — 将结果图像/视频写入磁盘', 'zh-TW': 'Output I/O — 將結果影像/影片寫入磁碟',
-    es: 'Output I/O — writing result imagen/vídeo a disk',
+    es: 'E/S de salida — escritura de imagen/vídeo de resultado en disco',
   },
   'PCIe transfer — data transfer between CPU and NPU': {
     ko: 'PCIe 전송 — CPU와 NPU 간 데이터 전송', ja: 'PCIe 転送 — CPU と NPU 間のデータ転送',
     'zh-CN': 'PCIe 传输 — CPU 与 NPU 之间的数据传输', 'zh-TW': 'PCIe 傳輸 — CPU 與 NPU 之間的資料傳輸',
-    es: 'PCIe transfer — datos transferencia entre CPU y NPU',
+    es: 'Transferencia PCIe — transferencia de datos entre CPU y NPU',
   },
   'Postprocessing — NMS, bounding boxes, visualization': {
     ko: 'Postprocessing — NMS, 바운딩 박스, 시각화', ja: 'Postprocessing — NMS、バウンディングボックス、可視化',
@@ -4614,7 +4624,7 @@ window._DX_I18N_PLACEHOLDERS = {
   },
   'Overwrite?': {
     ko: '덮어쓰시겠습니까?', ja: '上書きしますか?',
-    'zh-CN': '要覆盖吗?', 'zh-TW': '要覆寫嗎?',
+    'zh-CN': '要覆盖吗？', 'zh-TW': '要覆寫嗎?',
     es: '¿Sobrescribir?',
   },
   'Cancelled': {
@@ -4708,7 +4718,7 @@ window._DX_I18N_PLACEHOLDERS = {
     es: 'Estructura completa',
   },
   'Postprocessor only': {
-    ko: '후처리기만', ja: 'ポストプロセッサのみ',
+    ko: '후처리기만', ja: 'ポストプロセッサーのみ',
     'zh-CN': '仅后处理器', 'zh-TW': '僅後處理器',
     es: 'Solo post-procesador',
   },
@@ -4850,7 +4860,7 @@ window._DX_I18N_PLACEHOLDERS = {
   'Grid view': {ko:'그리드 보기',ja:'グリッド表示',es:'Vista de cuadrícula','zh-CN':'网格视图','zh-TW':'網格檢視'},
   'Table view': {ko:'테이블 보기',ja:'テーブル表示',es:'Vista de tabla','zh-CN':'表格视图','zh-TW':'表格檢視'},
   'Open in new tab': {ko:'새 탭에서 열기',ja:'新しいタブで開く',es:'Abrir en nueva pestaña','zh-CN':'在新标签页中打开','zh-TW':'在新分頁中開啟'},
-  'View pipeline reference table': {ko:'파이프라인 레퍼런스 테이블 보기',ja:'パイプライン参照テーブルを表示',es:'Ver tabla de referencia del pipeline','zh-CN':'查看管道参考表','zh-TW':'檢視管線參考表'},
+  'View pipeline reference table': {ko:'파이프라인 레퍼런스 테이블 보기',ja:'パイプライン参照テーブルを表示',es:'Ver tabla de referencia del pipeline','zh-CN':'查看流水线参考表','zh-TW':'檢視管線參考表'},
   'File browser': {ko:'파일 탐색기',ja:'ファイルブラウザ',es:'Explorador de archivos','zh-CN':'文件浏览器','zh-TW':'檔案瀏覽器'},
   'Check that dx_engine is running. Real inference is not available in Mock mode.': {
     ko: 'dx_engine이 실행 중인지 확인해주세요. (Mock 모드에서는 실제 추론이 불가능합니다)',

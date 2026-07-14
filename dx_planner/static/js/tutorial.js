@@ -46,7 +46,7 @@
   var sections = [
     { id: 'overview', icon: '🏠',
       title: { ko: '🏠 전체 소개', en: '🏠 Overview', ja: '🏠 概要', 'zh-CN': '🏠 概述', 'zh-TW': '🏠 概述', es: '🏠 Resumen general' },
-      description: { ko: 'EdgeGuide 한 화면 워크스페이스 구성 소개', en: 'Introduction to the EdgeGuide single-screen workspace', ja: 'EdgeGuide単一画面ワークスペースの紹介', 'zh-CN': 'EdgeGuide单屏工作区介绍', 'zh-TW': 'EdgeGuide單屏工作區介紹', es: 'Introducción al espacio de trabajo de una sola pantalla de DX EdgeGuide' },
+      description: { ko: 'EdgeGuide 한 화면 워크스페이스 구성 소개', en: 'Introduction to the EdgeGuide single-screen workspace', ja: 'EdgeGuideの1画面ワークスペースの紹介', 'zh-CN': 'EdgeGuide单屏工作区介绍', 'zh-TW': 'EdgeGuide單一畫面工作區介紹', es: 'Introducción al espacio de trabajo de una sola pantalla de DX EdgeGuide' },
       steps: [
         { target: '.planner-topbar', position: 'bottom',
           title: { ko: 'DX EdgeGuide', en: 'DX EdgeGuide', ja: 'DX EdgeGuide', 'zh-CN': 'DX EdgeGuide', 'zh-TW': 'DX EdgeGuide', es: 'DX EdgeGuide' },
@@ -77,7 +77,7 @@
       steps: [
         { target: '#requirementsPanel', position: 'right',
           title: { ko: '조건 패널', en: 'Requirements panel', ja: '要件パネル', 'zh-CN': '条件面板', 'zh-TW': '條件面板', es: 'Panel de requisitos' },
-          content: { ko: '추천에 필요한 모든 입력값을 이 패널에서 조정합니다. 첫 추천 이후 변경 사항은 자동으로 결과에 반영됩니다.', en: 'Adjust all inputs for recommendation here. After the first run, changes refresh results automatically.', ja: '推奨に必要な入力をここで調整します。初回実行後の変更は自動で結果へ反映されます。', 'zh-CN': '在此调整推荐所需的全部输入。首次运行后，变更会自动刷新结果。', 'zh-TW': '在此調整推薦所需的全部輸入。首次執行後，變更會自動刷新結果。', es: 'Ajuste en este panel todos los valores de entrada para la recomendación. Tras la primera ejecución, los cambios se reflejan automáticamente en los resultados.' } },
+          content: { ko: '추천에 필요한 모든 입력값을 이 패널에서 조정합니다. 첫 추천 이후 변경 사항은 자동으로 결과에 반영됩니다.', en: 'Adjust all inputs for recommendation here. After the first run, changes refresh results automatically.', ja: '推奨に必要な入力をここで調整します。初回実行後の変更は自動で結果へ反映されます。', 'zh-CN': '在此调整推荐所需的全部输入。首次运行后，变更会自动刷新结果。', 'zh-TW': '在此調整推薦所需的全部輸入。首次執行後，變更會自動重新整理結果。', es: 'Ajuste en este panel todos los valores de entrada para la recomendación. Tras la primera ejecución, los cambios se reflejan automáticamente en los resultados.' } },
         { target: '#scenarioChips', position: 'bottom',
           title: { ko: '빠른 시나리오', en: 'Quick scenarios', ja: 'クイックシナリオ', 'zh-CN': '快速场景', 'zh-TW': '快速情境', es: 'Escenarios rápidos' },
           content: { ko: 'CCTV, 리테일, 포즈 등 자주 쓰는 조합을 한 번에 채웁니다. 이후 우선순위 단계로 이동합니다.', en: 'Prefill common CCTV, retail, and pose workloads, then continue to the priority step.', ja: 'CCTV、小売、ポーズなどよく使う条件を一括入力し、優先度ステップへ進みます。', 'zh-CN': '一键填入常见 CCTV、零售、姿态等组合，然后进入优先级步骤。', 'zh-TW': '一鍵填入常見 CCTV、零售、姿態等組合，然後進入優先順序步驟。', es: 'Complete de un clic escenarios habituales (CCTV, retail, pose) y pase al paso de prioridad.' } },
@@ -106,7 +106,7 @@
           beforeStep: function () { _openPriorityPanel(); _scrollTo('#priority-card'); } },
         { target: '#btnRecommend', position: 'top',
           title: { ko: '추천 실행', en: 'Run recommendation', ja: '推奨を実行', 'zh-CN': '执行推荐', 'zh-TW': '執行推薦', es: 'Ejecutar recomendación' },
-          content: { ko: '우선순위까지 설정한 뒤 추천을 실행합니다. URL 파라미터로 들어오면 입력이 채워진 뒤 자동으로 추천이 실행됩니다(Benchmark 연동).', en: 'Run recommendation after priority is set. URL parameters prefill inputs and auto-run (Benchmark deeplink).', ja: '優先度設定後に推奨を実行します。URL パラメータでは入力を補完したうえで自動実行します（Benchmark 連携）。', 'zh-CN': '设置优先级后执行推荐。URL 参数会预填并自动运行（Benchmark 深链）。', 'zh-TW': '設定優先順序後執行推薦。URL 參數會預填並自動執行（Benchmark 深鏈）。', es: 'Ejecute la recomendación tras definir la prioridad. Los parámetros URL completan entradas y se ejecutan solos (enlace desde Benchmark).' },
+          content: { ko: '우선순위까지 설정한 뒤 추천을 실행합니다. URL 파라미터로 들어오면 입력이 채워진 뒤 자동으로 추천이 실행됩니다(Benchmark 연동).', en: 'Run recommendation after priority is set. URL parameters prefill inputs and auto-run (Benchmark deeplink).', ja: '優先度設定後に推奨を実行します。URL パラメータでは入力を事前入力したうえで自動実行します（Benchmark 連携）。', 'zh-CN': '设置优先级后执行推荐。URL 参数会预填并自动运行（Benchmark 深链）。', 'zh-TW': '設定優先順序後執行推薦。URL 參數會預填並自動執行（Benchmark 深鏈）。', es: 'Ejecute la recomendación tras definir la prioridad. Los parámetros URL completan entradas y se ejecutan solos (enlace desde Benchmark).' },
           beforeStep: function () { _openPriorityPanel(); _scrollTo('#btnRecommend'); } }
       ]
     },
@@ -129,7 +129,7 @@
           title: { ko: '원리 (결과)', en: 'Methodology (results)', ja: '原理解説（結果）', 'zh-CN': '原理（结果）', 'zh-TW': '原理（結果）', es: 'Metodología (resultados)' },
           content: { ko: '추천 헤더의 노란 원리 버튼으로도 방법론과 면책 안내를 열 수 있습니다.', en: 'The yellow chip in the recommendations header also opens methodology and disclaimers.', ja: '推奨ヘッダーの黄色ボタンからも方法論と免責事項を開けます。', 'zh-CN': '推荐标题栏的黄色原理按钮也可打开方法论与免责声明。', 'zh-TW': '推薦標題列的黃色原理按鈕也可開啟方法論與免責聲明。', es: 'El botón amarillo del encabezado de recomendaciones también abre metodología y avisos.' } },
         { target: '#autoRefreshNote', position: 'bottom',
-          title: { ko: '자동 갱신', en: 'Auto refresh', ja: '自動更新', 'zh-CN': '自动刷新', 'zh-TW': '自動刷新', es: 'Actualización automática' },
+          title: { ko: '자동 갱신', en: 'Auto refresh', ja: '自動更新', 'zh-CN': '自动刷新', 'zh-TW': '自動重新整理', es: 'Actualización automática' },
           content: { ko: '첫 추천 이후 조건을 바꾸면 결과가 자동으로 다시 계산됩니다.', en: 'After the first run, changing requirements automatically recalculates results.', ja: '初回実行後、条件を変更すると結果が自動で再計算されます。', 'zh-CN': '首次运行后，修改条件会自动重新计算结果。', 'zh-TW': '首次執行後，修改條件會自動重新計算結果。', es: 'Tras la primera ejecución, cambiar requisitos recalcula los resultados automáticamente.' } },
         { target: '#overviewChart', position: 'top',
           title: { ko: '처리량 차트', en: 'Throughput chart', ja: 'スループットチャート', 'zh-CN': '吞吐量图表', 'zh-TW': '吞吐量圖表', es: 'Gráfico de rendimiento' },
@@ -160,7 +160,7 @@
           content: { ko: 'FPS, 채널, 전력 효율, 비용 효율, TOPS를 정규화해 현재 플랫폼과 비교 대상을 시각화합니다.', en: 'Normalizes FPS, channels, power efficiency, cost efficiency, and TOPS for current and compared platforms.', ja: 'FPS、チャンネル、電力効率、コスト効率、TOPSを正規化して比較します。', 'zh-CN': '将FPS、通道、能效、成本效率和TOPS标准化后进行比较。', 'zh-TW': '將FPS、通道、能效、成本效率和TOPS標準化後進行比較。', es: 'Normaliza FPS, canales, eficiencia energética, eficiencia de costo y TOPS para visualizar la plataforma actual frente a la de comparación.' } },
         { target: '#compare-dropdown', position: 'left',
           title: { ko: '비교 대상 선택', en: 'Select comparison', ja: '比較対象を選択', 'zh-CN': '选择比较对象', 'zh-TW': '選擇比較對象', es: 'Seleccionar comparación' },
-          content: { ko: '다른 플랫폼을 선택하면 레이더와 비교 요약 테이블이 즉시 갱신됩니다.', en: 'Select another platform to refresh the radar and comparison summary immediately.', ja: '別のプラットフォームを選ぶと、レーダーと比較サマリーが即時更新されます。', 'zh-CN': '选择其他平台后，雷达图和比较摘要会立即刷新。', 'zh-TW': '選擇其他平台後，雷達圖和比較摘要會立即刷新。', es: 'Al elegir otra plataforma, el gráfico de radar y la tabla resumida de comparación se actualizan al instante.' } },
+          content: { ko: '다른 플랫폼을 선택하면 레이더와 비교 요약 테이블이 즉시 갱신됩니다.', en: 'Select another platform to refresh the radar and comparison summary immediately.', ja: '別のプラットフォームを選ぶと、レーダーと比較サマリーが即時更新されます。', 'zh-CN': '选择其他平台后，雷达图和比较摘要会立即刷新。', 'zh-TW': '選擇其他平台後，雷達圖和比較摘要會立即重新整理。', es: 'Al elegir otra plataforma, el gráfico de radar y la tabla resumida de comparación se actualizan al instante.' } },
         { target: '#comparison-summary', position: 'left',
           title: { ko: '비교 요약', en: 'Comparison summary', ja: '比較サマリー', 'zh-CN': '比较摘要', 'zh-TW': '比較摘要', es: 'Resumen de comparación' },
           content: { ko: '현재 플랫폼과 비교 대상의 NPU, Host, TOPS, TDP, 가격, throughput, 최대 채널을 표로 비교합니다.', en: 'Compares NPU, host, TOPS, TDP, price, throughput, and max channels in a table.', ja: 'NPU、Host、TOPS、TDP、価格、throughput、最大チャンネルを表で比較します。', 'zh-CN': '以表格比较NPU、Host、TOPS、TDP、价格、throughput和最大通道。', 'zh-TW': '以表格比較NPU、Host、TOPS、TDP、價格、throughput和最大通道。', es: 'Compara en tabla la NPU, el host, TOPS, TDP, precio, throughput y máximo de canales entre la plataforma actual y la de comparación.' } },
@@ -199,8 +199,8 @@ var referenceDocs = [
       body: { ko: '<h3>사용 흐름</h3><ol><li>시나리오 칩 또는 task/size/ops로 조건을 입력합니다.</li><li>다음 → 비용·성능·전력 우선순위 → 추천 실행.</li><li>카드나 차트 막대를 선택해 상세/비교/구매 패널을 확인합니다.</li></ol>',
               en: '<h3>Usage flow</h3><ol><li>Enter requirements via scenario chips or task/size/ops fields.</li><li>Next → set cost/performance/power priority → Run recommendation.</li><li>Select a card or chart bar to inspect details, comparison, and commerce links.</li></ol>',
               ja: '<h3>利用フロー</h3><ol><li>シナリオチップまたは task/size/ops で条件を入力します。</li><li>次へ → コスト/性能/電力の優先度 → 推奨実行。</li><li>カードまたはチャートバーで詳細・比較・購入パネルを確認します。</li></ol>',
-              'zh-CN': '<h3>使用流程</h3><ol><li>通过场景芯片或 task/size/ops 输入条件。</li><li>下一步 → 设置成本/性能/功耗优先级 → 执行推荐。</li><li>选择卡片或图表柱条查看详情、比较与购买链接。</li></ol>',
-              'zh-TW': '<h3>使用流程</h3><ol><li>透過情境晶片或 task/size/ops 輸入條件。</li><li>下一步 → 設定成本/效能/功耗優先順序 → 執行推薦。</li><li>選擇卡片或圖表長條查看詳情、比較與購買連結。</li></ol>',
+              'zh-CN': '<h3>使用流程</h3><ol><li>通过场景标签或 task/size/ops 输入条件。</li><li>下一步 → 设置成本/性能/功耗优先级 → 执行推荐。</li><li>选择卡片或图表柱条查看详情、比较与购买链接。</li></ol>',
+              'zh-TW': '<h3>使用流程</h3><ol><li>透過情境標籤或 task/size/ops 輸入條件。</li><li>下一步 → 設定成本/效能/功耗優先順序 → 執行推薦。</li><li>選擇卡片或圖表長條查看詳情、比較與購買連結。</li></ol>',
               es: '<h3>Flujo de uso</h3><ol><li>Ingrese requisitos con chips de escenario o campos task/size/ops.</li><li>Siguiente → prioridad costo/rendimiento/consumo → Ejecutar recomendación.</li><li>Seleccione tarjeta o barra para detalle, comparación y enlaces comerciales.</li></ol>' } },
     { id: 'ref-recommend', icon: '🎯',
       title: { ko: '추천 기준', en: 'Recommendation basis', ja: '推奨基準', 'zh-CN': '推荐依据', 'zh-TW': '推薦依據', es: 'Base de recomendación' },
@@ -215,7 +215,7 @@ var referenceDocs = [
       body: { ko: '<h3>상세 패널</h3><ul><li>핵심 수치: throughput, latency, cost/channel, TOPS/W</li><li>비교: 드롭다운으로 다른 플랫폼과 주요 수치를 비교</li><li>근거: benchmark table과 multi-stream 측정값 확인</li></ul>',
               en: '<h3>Detail panel</h3><ul><li>Key metrics: throughput, latency, cost/channel, TOPS/W</li><li>Comparison: use the dropdown to compare with another platform</li><li>Evidence: inspect benchmark table and multi-stream measurements</li></ul>',
               ja: '<h3>詳細パネル</h3><ul><li>主要指標: throughput、latency、cost/channel、TOPS/W</li><li>比較: ドロップダウンで他プラットフォームと比較</li><li>根拠: benchmark表とmulti-stream測定値を確認</li></ul>',
-              'zh-CN': '<h3>详情面板</h3><ul><li>关键指标: throughput、latency、cost/channel、TOPS/W</li><li>比较: 使用下拉框与其他平台比较</li><li>依据: 查看benchmark表和multi-stream测量值</li></ul>',
+              'zh-CN': '<h3>详情面板</h3><ul><li>关键指标：throughput、latency、cost/channel、TOPS/W</li><li>比较：使用下拉框与其他平台比较</li><li>依据：查看benchmark表和multi-stream测量值</li></ul>',
               'zh-TW': '<h3>詳情面板</h3><ul><li>關鍵指標: throughput、latency、cost/channel、TOPS/W</li><li>比較: 使用下拉框與其他平台比較</li><li>依據: 查看benchmark表和multi-stream測量值</li></ul>',
               es: '<h3>Panel de detalle</h3><ul><li>Métricas clave: throughput, latencia, costo/canal, TOPS/W</li><li>Comparación: utilice el menú desplegable para comparar con otra plataforma</li><li>Evidencia: consulte la tabla de benchmarks y las mediciones multi-stream</li></ul>' } }
   ];

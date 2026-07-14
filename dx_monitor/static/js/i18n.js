@@ -3,7 +3,7 @@ window._DX_I18N_DICT = {
     ko: 'NPU 토폴로지',
     ja: 'NPU トポロジー',
     'zh-CN': 'NPU 拓扑',
-    'zh-TW': 'NPU 拓樸',
+    'zh-TW': 'NPU 拓撲',
     es: 'Topología NPU',
   },
   'Realtime Monitor': {
@@ -275,7 +275,7 @@ window._DX_I18N_DICT = {
   'DX Monitor': {
     ko: 'DX 모니터',
     ja: 'DX モニター',
-    'zh-CN': 'DX 监控',
+    'zh-CN': 'DX Monitor',
     'zh-TW': 'DX 監控',
     es: 'DX Monitor',
   },
@@ -334,7 +334,7 @@ window._DX_I18N_DICT = {
   'No events recorded': {
     ko: '기록된 이벤트 없음',
     ja: 'イベントの記録なし',
-    'zh-CN': '无记录事件',
+    'zh-CN': '无事件记录',
     'zh-TW': '無記錄事件',
     es: 'No se registraron eventos',
   },

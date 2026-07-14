@@ -3,9 +3,9 @@ window._DX_I18N_DICT = {
   'Describe what you want to build...': {
     ko: '만들고 싶은 것을 설명하세요...',
     ja: '作りたいものを説明してください...',
-    'zh-CN': '描述你想构建的内容...',
+    'zh-CN': '描述您想构建的内容…',
     'zh-TW': '描述你想建立的內容...',
-    es: 'Describe lo que quieres construir...',
+    es: 'Describa lo que quiere construir...',
   },
   'Ready': {
     ko: '준비됨',
@@ -39,22 +39,22 @@ window._DX_I18N_DICT = {
     ko: '에이전트가 작업 중입니다. 잠시 기다려 주세요.',
     ja: 'エージェントは処理中です。少々お待ちください。',
     'zh-CN': '智能体正忙，请稍候。',
-    'zh-TW': '智能體忙碌中，請稍候。',
-    es: 'El agente está ocupado, espera.',
+    'zh-TW': '代理程式忙碌中，請稍候。',
+    es: 'El agente está ocupado, espere.',
   },
   'Agent is still running. Please wait for the current reply to finish.': {
     ko: '에이전트가 아직 실행 중입니다. 현재 답변이 끝날 때까지 기다려 주세요.',
     ja: 'エージェントはまだ実行中です。現在の応答が終わるまでお待ちください。',
     'zh-CN': '智能体仍在运行，请等待当前回复完成。',
-    'zh-TW': '智能體仍在執行，請等待目前回覆完成。',
-    es: 'El agente sigue ejecutándose. Espera a que termine la respuesta actual.',
+    'zh-TW': '代理程式仍在執行，請等待目前回覆完成。',
+    es: 'El agente sigue ejecutándose. Espere a que termine la respuesta actual.',
   },
   'The agent is unavailable in this environment. Browse the showcases.': {
     ko: '이 환경에서는 에이전트를 사용할 수 없습니다. 쇼케이스를 살펴보세요.',
     ja: 'この環境ではエージェントを利用できません。ショーケースをご覧ください。',
     'zh-CN': '当前环境无法使用智能体，请浏览示例。',
-    'zh-TW': '此環境無法使用智能體，請瀏覽範例。',
-    es: 'El agente no está disponible en este entorno. Explora los ejemplos.',
+    'zh-TW': '此環境無法使用代理程式，請瀏覽範例。',
+    es: 'El agente no está disponible en este entorno. Explore los ejemplos.',
   },
   'Showcases': {
     ko: '쇼케이스',
@@ -121,9 +121,9 @@ window._DX_I18N_DICT = {
   },
   'Agent activity': {
     ko: '에이전트 활동',
-    ja: 'エージェント作業',
+    ja: 'エージェントアクティビティ',
     'zh-CN': '智能体活动',
-    'zh-TW': '智能體活動',
+    'zh-TW': '代理程式活動',
     es: 'Actividad del agente',
   },
   '(No response)': {
@@ -144,7 +144,7 @@ window._DX_I18N_DICT = {
     ko: '에이전트 실행 중…',
     ja: 'エージェント実行中…',
     'zh-CN': '智能体运行中…',
-    'zh-TW': '智能體執行中…',
+    'zh-TW': '代理程式執行中…',
     es: 'Agente en ejecución…',
   },
   'Interactive': {

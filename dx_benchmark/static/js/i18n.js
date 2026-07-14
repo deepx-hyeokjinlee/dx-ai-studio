@@ -7,7 +7,7 @@ window._DX_I18N_DICT = {
   'Dashboard': {
     ko: '대시보드',
     ja: 'ダッシュボード',
-    'zh-CN': '仪表板',
+    'zh-CN': '仪表盘',
     'zh-TW': '儀表板',
     es: 'Panel de control',
   },
@@ -36,7 +36,7 @@ window._DX_I18N_DICT = {
   'Performance Dashboard': {
     ko: '성능 대시보드',
     ja: 'パフォーマンスダッシュボード',
-    'zh-CN': '性能仪表板',
+    'zh-CN': '性能仪表盘',
     'zh-TW': '效能儀表板',
     es: 'Panel de rendimiento',
   },
@@ -129,7 +129,7 @@ window._DX_I18N_DICT = {
     ja: 'ベンチマークモデル',
     'zh-CN': '基准测试模型',
     'zh-TW': '基準測試模型',
-    es: 'Modelos probados',
+    es: 'Modelos evaluados',
   },
   'E2E Pipeline (Single-Stream)': {
     ko: 'E2E 파이프라인 (단일 스트림)',
@@ -236,7 +236,7 @@ window._DX_I18N_DICT = {
     ja: '回転バウンディングボックス (OBB)',
     'zh-CN': '旋转边界框 (OBB)',
     'zh-TW': '旋轉邊界框 (OBB)',
-    es: 'CuadroDelim orientado (OBB)',
+    es: 'BBox orientado (OBB)',
   },
   'Classification': {
     ko: '분류',
@@ -312,7 +312,7 @@ window._DX_I18N_DICT = {
   },
   'Iterations': {
     ko: '반복 횟수',
-    ja: '反復回数',
+    ja: '繰り返し回数',
     'zh-CN': '迭代次数',
     'zh-TW': '迭代次數',
     es: 'Iteraciones',
@@ -326,7 +326,7 @@ window._DX_I18N_DICT = {
   },
   'FPS Threshold': {
     ko: 'FPS 임계값',
-    ja: 'FPS しきい値',
+    ja: 'FPS 閾値',
     'zh-CN': 'FPS 阈值',
     'zh-TW': 'FPS 閾值',
     es: 'Umbral de FPS',

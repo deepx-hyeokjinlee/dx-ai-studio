@@ -170,7 +170,7 @@ window._DX_MODELZOO_I18N_REGISTER({
     ko: '이 모델에는 샘플이 제공되지 않습니다',
     ja: 'このモデルにはサンプルがありません',
     'zh-CN': '此模型没有可用样本',
-    'zh-TW': '此模型沒有可用範例',
+    'zh-TW': '此模型沒有可用樣本',
     es: 'No hay muestra disponible para este modelo',
   },
   'Result': {

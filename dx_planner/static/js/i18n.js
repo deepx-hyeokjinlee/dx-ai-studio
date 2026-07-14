@@ -24,7 +24,7 @@ window._DX_I18N_DICT = {
   'Fastest': { ko: '최고속도', ja: '最速', 'zh-CN': '最快', 'zh-TW': '最快',es:'Más rápido'},
   'Balanced': { ko: '균형', ja: 'バランス', 'zh-CN': '均衡', 'zh-TW': '均衡',es:'Equilibrado'},
   'Most Accurate': { ko: '최고정확도', ja: '最高精度', 'zh-CN': '最高精度', 'zh-TW': '最高精度',es:'Más preciso'},
-  'Operating Requirements': { ko: '운영 요구사항', ja: '運用要件', 'zh-CN': '运营需求', 'zh-TW': '營運需求',es:'Requisitos de operación'},
+  'Operating Requirements': { ko: '운영 요구사항', ja: '運用要件', 'zh-CN': '运行需求', 'zh-TW': '營運需求',es:'Requisitos de operación'},
   'Camera / Channels': { ko: '카메라 / 채널 수', ja: 'カメラ / チャンネル数', 'zh-CN': '摄像头 / 通道数', 'zh-TW': '攝影機 / 通道數',es:'Cámara / Canales'},
   'Target FPS': { ko: '목표 FPS', ja: '目標 FPS', 'zh-CN': '目标 FPS', 'zh-TW': '目標 FPS',es:'FPS objetivo'},
   'Runtime': { ko: '런타임', ja: 'ランタイム', 'zh-CN': '运行时', 'zh-TW': '執行環境',es:'Tiempo de ejecución'},

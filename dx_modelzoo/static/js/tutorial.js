@@ -107,7 +107,7 @@
       steps: [
         { target: '.mz-topbar', position: 'bottom',
           title: { ko: '상단 바', en: 'Top Bar', ja: 'トップバー', 'zh-CN': '顶部栏', 'zh-TW': '頂部列', es: 'Barra superior' },
-          content: { ko: 'ModelZoo의 <strong>상단 바</strong>입니다. 모델 카운트, 테마/언어 전환, DX App 연결 상태를 한눈에 확인할 수 있습니다.', en: 'The ModelZoo <strong>top bar</strong>. View model count, theme/language toggle, and DX App connection status at a glance.', ja: 'モデルズーの<strong>トップバー</strong>です。モデル数、テーマ/言語切替、DX App接続状態を一目で確認できます。', 'zh-CN': '模型库<strong>顶部栏</strong>。一目了然地查看模型数量、主题/语言切换和DX App连接状态。', 'zh-TW': '模型庫<strong>頂部列</strong>。一目了然地查看模型數量、主題/語言切換和DX App連線狀態。', es: 'La <strong>barra superior</strong> de ModelZoo. Vea de un vistazo el recuento de modelos, el selector de tema/idioma y el estado de conexión de DX App.' } },
+          content: { ko: 'ModelZoo의 <strong>상단 바</strong>입니다. 모델 카운트, 테마/언어 전환, DX App 연결 상태를 한눈에 확인할 수 있습니다.', en: 'The ModelZoo <strong>top bar</strong>. View model count, theme/language toggle, and DX App connection status at a glance.', ja: 'ModelZoo の<strong>トップバー</strong>です。モデル数、テーマ/言語切替、DX App接続状態を一目で確認できます。', 'zh-CN': '模型库<strong>顶部栏</strong>。一目了然地查看模型数量、主题/语言切换和DX App连接状态。', 'zh-TW': '模型庫<strong>頂部列</strong>。一目了然地查看模型數量、主題/語言切換和DX App連線狀態。', es: 'La <strong>barra superior</strong> de ModelZoo. Vea de un vistazo el recuento de modelos, el selector de tema/idioma y el estado de conexión de DX App.' } },
         { target: '#modelCount', position: 'bottom',
           title: { ko: '모델 카운트', en: 'Model Count', ja: 'モデル数', 'zh-CN': '模型数量', 'zh-TW': '模型數量', es: 'Recuento de modelos' },
           content: { ko: '현재 필터 조건에 맞는 <strong>모델 수</strong>를 표시합니다. 카테고리 필터나 검색어에 따라 실시간으로 변경됩니다.', en: 'Shows the <strong>number of models</strong> matching current filters. Updates in real-time as you filter or search.', ja: '現在のフィルター条件に一致する<strong>モデル数</strong>を表示します。フィルターや検索に応じてリアルタイムに更新されます。', 'zh-CN': '显示与当前筛选条件匹配的<strong>模型数量</strong>。随筛选或搜索实时更新。', 'zh-TW': '顯示與目前篩選條件匹配的<strong>模型數量</strong>。隨篩選或搜尋即時更新。', es: 'Muestra el <strong>número de modelos</strong> que coinciden con los filtros actuales. Se actualiza en tiempo real al filtrar o buscar.' } },
@@ -175,7 +175,7 @@
           content: { ko: '선택된 모델의 <strong>이름</strong>이 큰 글씨로 표시됩니다.', en: 'The selected model\'s <strong>name</strong> is displayed prominently.', ja: '選択されたモデルの<strong>名前</strong>が大きく表示されます。', 'zh-CN': '所选模型的<strong>名称</strong>醒目显示。', 'zh-TW': '所選模型的<strong>名稱</strong>醒目顯示。', es: 'El <strong>nombre</strong> del modelo seleccionado se muestra de forma destacada.' } },
         // 안정적 ID 사용 (기존 nth-child(3) → #sectionUseCase)
         { target: '#sectionUseCase', position: 'bottom',
-          title: { ko: '사용 사례', en: 'Use Case', ja: '使用事例', 'zh-CN': '使用场景', 'zh-TW': '使用案例', es: 'Caso de uso' },
+          title: { ko: '사용 사례', en: 'Use Case', ja: 'ユースケース', 'zh-CN': '使用场景', 'zh-TW': '使用案例', es: 'Caso de uso' },
           content: { ko: '모델의 <strong>용도와 설명</strong>이 한/영 양쪽으로 표시됩니다. 어떤 상황에서 이 모델을 사용하는지 확인하세요.', en: 'Model <strong>description and use cases</strong> in both Korean/English. Understand when to use this model.', ja: 'モデルの<strong>用途と説明</strong>が韓/英両方で表示されます。このモデルをどのような状況で使用するか確認してください。', 'zh-CN': '模型的<strong>描述和使用场景</strong>以韩语/英语双语显示。了解何时使用此模型。', 'zh-TW': '模型的<strong>描述和使用案例</strong>以韓語/英語雙語顯示。了解何時使用此模型。', es: 'La <strong>descripción y casos de uso</strong> del modelo en coreano/inglés. Comprenda cuándo usar este modelo.' } },
         // .mz-spec-table은 specification 필드가 없으면 생성되지 않음 — 가드 추가
         { target: '.mz-spec-table', position: 'top',
@@ -199,7 +199,7 @@
     },
 
     { id: 'examples', icon: '🖼️',
-      title: { ko: '🖼️ 예제 이미지', en: '🖼️ Example Images', ja: '🖼️ サンプル画像', 'zh-CN': '🖼️ 示例图片', 'zh-TW': '🖼️ 範例圖片', es: '🖼️ Imágenes de ejemplo' },
+      title: { ko: '🖼️ 예제 이미지', en: '🖼️ Example Images', ja: '🖼️ サンプル画像', 'zh-CN': '🖼️ 示例图像', 'zh-TW': '🖼️ 範例影像', es: '🖼️ Imágenes de ejemplo' },
       description: { ko: '5가지 유형의 모델 예제 확인', en: 'View 5 types of model examples', ja: '5種類のモデルサンプルを確認', 'zh-CN': '查看5种模型示例类型', 'zh-TW': '查看5種模型範例類型', es: 'Vea 5 tipos de ejemplos de modelos' },
       prerequisite: 'detail',
       prerequisiteMessage: { ko: '먼저 모델 상세 섹션을 완료하세요.', en: 'Complete the Model Detail section first.', ja: '先にモデル詳細セクションを完了してください。', 'zh-CN': '请先完成模型详情部分。', 'zh-TW': '請先完成模型詳情部分。', es: 'Complete primero la sección Detalle del modelo.' },
@@ -212,7 +212,7 @@
         // .mz-ba-container는 before_after 타입 모델에서만 존재 → target:null로 개념 설명
         { target: null, position: 'bottom',
           title: { ko: '비포/에프터 슬라이더', en: 'Before-After Slider', ja: 'ビフォー/アフター スライダー', 'zh-CN': '前后对比滑块', 'zh-TW': '前後對比滑桿', es: 'Control deslizante antes/después' },
-          content: { ko: '<strong>before_after</strong> 타입 모델에서는 중앙 핸들을 드래그하여 원본과 추론 결과를 비교합니다. Detection, Segmentation 모델에서 주로 사용됩니다.', en: 'In <strong>before_after</strong> type models, drag the center handle to compare original and inference result. Used in Detection, Segmentation models.', ja: '<strong>before_after</strong>タイプのモデルでは、中央のハンドルをドラッグして原画と推論結果を比較します。Detection、Segmentationモデルで主に使用されます。', 'zh-CN': '在<strong>before_after</strong>类型模型中，拖动中间滑块比较原图和推理结果。主要用于检测、分割模型。', 'zh-TW': '在<strong>before_after</strong>類型模型中，拖動中間滑桿比較原圖和推論結果。主要用於偵測、分割模型。', es: 'En modelos tipo <strong>before_after</strong>, arrastre el control central para comparar el original y el resultado de inferencia. Se usa en modelos Detection y Segmentation.' } },
+          content: { ko: '<strong>before_after</strong> 타입 모델에서는 중앙 핸들을 드래그하여 원본과 추론 결과를 비교합니다. Detection, Segmentation 모델에서 주로 사용됩니다.', en: 'In <strong>before_after</strong> type models, drag the center handle to compare original and inference result. Used in Detection, Segmentation models.', ja: '<strong>before_after</strong>タイプのモデルでは、中央のハンドルをドラッグして元画像と推論結果を比較します。Detection、Segmentationモデルで主に使用されます。', 'zh-CN': '在<strong>before_after</strong>类型模型中，拖动中间滑块比较原图和推理结果。主要用于检测、分割模型。', 'zh-TW': '在<strong>before_after</strong>類型模型中，拖動中間滑桿比較原圖和推論結果。主要用於偵測、分割模型。', es: 'En modelos tipo <strong>before_after</strong>, arrastre el control central para comparar el original y el resultado de inferencia. Se usa en modelos Detection y Segmentation.' } },
         // #overlayImg는 overlay 타입 모델에서만 존재 → target:null로 개념 설명
         { target: null, position: 'bottom',
           title: { ko: '오버레이', en: 'Overlay', ja: 'オーバーレイ', 'zh-CN': '叠加', 'zh-TW': '疊加', es: 'Superposición' },
@@ -268,13 +268,13 @@
 
     { id: 'inference', icon: '🔬',
       title: { ko: '🔬 라이브 추론', en: '🔬 Live Inference', ja: '🔬 ライブ推論', 'zh-CN': '🔬 实时推理', 'zh-TW': '🔬 即時推論', es: '🔬 Inferencia en vivo' },
-      description: { ko: '데모 코드 확인 및 추론 실행', en: 'View demo code and run inference', ja: 'デモコードの確認と推論の実行', 'zh-CN': '查看演示代码并运行推理', 'zh-TW': '查看演示程式碼並執行推論', es: 'Vea el código de demostración y ejecute inferencia' },
+      description: { ko: '데모 코드 확인 및 추론 실행', en: 'View demo code and run inference', ja: 'デモコードの確認と推論の実行', 'zh-CN': '查看演示代码并运行推理', 'zh-TW': '查看示範程式碼並執行推論', es: 'Vea el código de demostración y ejecute inferencia' },
       prerequisite: 'detail',
       prerequisiteMessage: { ko: '먼저 모델 상세 섹션을 완료하세요.', en: 'Complete the Model Detail section first.', ja: '先にモデル詳細セクションを完了してください。', 'zh-CN': '请先完成模型详情部分。', 'zh-TW': '請先完成模型詳情部分。', es: 'Complete primero la sección Detalle del modelo.' },
       beforeStart: function () { return goDetail(); },
       steps: [
         { target: '#demoSection', position: 'bottom',
-          title: { ko: '데모 코드', en: 'Demo Code', ja: 'デモコード', 'zh-CN': '演示代码', 'zh-TW': '演示程式碼', es: 'Código de demostración' },
+          title: { ko: '데모 코드', en: 'Demo Code', ja: 'デモコード', 'zh-CN': '演示代码', 'zh-TW': '示範程式碼', es: 'Código de demostración' },
           content: { ko: '<strong>C++, Python, CLI</strong> 3가지 언어의 예제 코드를 제공합니다. 탭을 전환하여 각 언어별 사용법을 확인하세요.', en: 'Provides example code in <strong>C++, Python, CLI</strong>. Switch tabs to see usage for each language.', ja: '<strong>C++、Python、CLI</strong>の3言語のサンプルコードを提供します。タブを切り替えて各言語の使用方法を確認してください。', 'zh-CN': '提供<strong>C++、Python、CLI</strong>三种语言的示例代码。切换标签查看各语言的用法。', 'zh-TW': '提供<strong>C++、Python、CLI</strong>三種語言的範例程式碼。切換標籤查看各語言的用法。', es: 'Proporciona código de ejemplo en <strong>C++, Python, CLI</strong>. Cambie de pestaña para ver el uso de cada idioma.' },
           beforeStep: function () { scrollTo('#demoSection'); } },
         // .mz-code-tabs는 비동기 loadDemoCode() API 완료 후 생성 — pollFor 5초 대기
@@ -294,26 +294,26 @@
         // 안정적 ID 사용 (기존 nth-child(4) details summary → #sectionExample details summary)
         { target: '#sectionExample details summary', position: 'bottom',
           title: { ko: '추론 패널', en: 'Inference Panel', ja: '推論パネル', 'zh-CN': '推理面板', 'zh-TW': '推論面板', es: 'Panel de inferencia' },
-          content: { ko: '이 <strong>summary</strong>를 클릭하면 추론 실행 패널이 펼쳐집니다. 이미지를 업로드하거나 기본 이미지로 추론을 실행할 수 있습니다.', en: 'Click this <strong>summary</strong> to expand the inference panel. Upload an image or use default images to run inference.', ja: 'この<strong>summary</strong>をクリックすると推論実行パネルが展開されます。画像をアップロードするかデフォルト画像で推論を実行できます。', 'zh-CN': '点击此<strong>摘要</strong>展开推理面板。上传图片或使用默认图片运行推理。', 'zh-TW': '點擊此<strong>摘要</strong>展開推論面板。上傳圖片或使用預設圖片執行推論。', es: 'Haga clic en este <strong>summary</strong> para expandir el panel de inferencia. Suba una imagen o use imágenes predeterminadas para ejecutar inferencia.' },
+          content: { ko: '이 <strong>summary</strong>를 클릭하면 추론 실행 패널이 펼쳐집니다. 이미지를 업로드하거나 기본 이미지로 추론을 실행할 수 있습니다.', en: 'Click this <strong>summary</strong> to expand the inference panel. Upload an image or use default images to run inference.', ja: 'この<strong>summary</strong>をクリックすると推論実行パネルが展開されます。画像をアップロードするかデフォルト画像で推論を実行できます。', 'zh-CN': '点击此<strong>摘要</strong>展开推理面板。上传图像或使用默认图像运行推理。', 'zh-TW': '點擊此<strong>摘要</strong>展開推論面板。上傳影像或使用預設影像執行推論。', es: 'Haga clic en este <strong>summary</strong> para expandir el panel de inferencia. Suba una imagen o use imágenes predeterminadas para ejecutar inferencia.' },
           beforeStep: function () { scrollTo('#sectionExample details summary'); } },
         { target: '#inferencePanel', position: 'top',
           title: { ko: '추론 실행', en: 'Run Inference', ja: '推論実行', 'zh-CN': '运行推理', 'zh-TW': '執行推論', es: 'Ejecutar inferencia' },
-          content: { ko: '이미지를 업로드하거나 기본 이미지를 선택한 후 <strong>실행 버튼</strong>을 클릭합니다. NPU에서 실시간 추론이 수행됩니다.', en: 'Upload an image or select a default, then click <strong>Run</strong>. Real-time inference runs on the NPU.', ja: '画像をアップロードするかデフォルトを選択し、<strong>実行ボタン</strong>をクリックします。NPUでリアルタイム推論が実行されます。', 'zh-CN': '上传图片或选择默认图片，然后点击<strong>运行</strong>。在NPU上执行实时推理。', 'zh-TW': '上傳圖片或選擇預設圖片，然後點擊<strong>執行</strong>。在NPU上執行即時推論。', es: 'Suba una imagen o seleccione una predeterminada y haga clic en <strong>Run</strong>. La inferencia en tiempo real se ejecuta en la NPU.' },
+          content: { ko: '이미지를 업로드하거나 기본 이미지를 선택한 후 <strong>실행 버튼</strong>을 클릭합니다. NPU에서 실시간 추론이 수행됩니다.', en: 'Upload an image or select a default, then click <strong>Run</strong>. Real-time inference runs on the NPU.', ja: '画像をアップロードするかデフォルトを選択し、<strong>実行ボタン</strong>をクリックします。NPUでリアルタイム推論が実行されます。', 'zh-CN': '上传图像或选择默认图像，然后点击<strong>运行</strong>。在NPU上执行实时推理。', 'zh-TW': '上傳影像或選擇預設影像，然後點擊<strong>執行</strong>。在NPU上執行即時推論。', es: 'Suba una imagen o seleccione una predeterminada y haga clic en <strong>Run</strong>. La inferencia en tiempo real se ejecuta en la NPU.' },
           beforeStep: function () {
             var d = document.querySelector('#inferencePanel');
             if (d) { var det = d.closest('details'); if (det) det.open = true; }
           } },
         { target: '#inferenceUploadTrigger', position: 'bottom',
-          title: { ko: '이미지 업로드', en: 'Upload Image', ja: '画像アップロード', 'zh-CN': '上传图片', 'zh-TW': '上傳圖片', es: 'Subir imagen' },
-          content: { ko: '<strong>📁 Upload Image</strong> 버튼을 클릭하여 추론할 이미지를 선택합니다. JPG, PNG 등 이미지 파일을 지원합니다.', en: 'Click <strong>📁 Upload Image</strong> to select an image for inference. Supports JPG, PNG, and other image formats.', ja: '<strong>📁 Upload Image</strong>ボタンをクリックして推論する画像を選択します。JPG、PNGなどの画像ファイルに対応しています。', 'zh-CN': '点击<strong>📁 Upload Image</strong>选择推理图片。支持JPG、PNG等图片格式。', 'zh-TW': '點擊<strong>📁 Upload Image</strong>選擇推論圖片。支援JPG、PNG等圖片格式。', es: 'Haga clic en <strong>📁 Upload Image</strong> para seleccionar una imagen para inferencia. Admite JPG, PNG y otros formatos de imagen.' },
+          title: { ko: '이미지 업로드', en: 'Upload Image', ja: '画像アップロード', 'zh-CN': '上传图像', 'zh-TW': '上傳影像', es: 'Subir imagen' },
+          content: { ko: '<strong>📁 Upload Image</strong> 버튼을 클릭하여 추론할 이미지를 선택합니다. JPG, PNG 등 이미지 파일을 지원합니다.', en: 'Click <strong>📁 Upload Image</strong> to select an image for inference. Supports JPG, PNG, and other image formats.', ja: '<strong>📁 Upload Image</strong>ボタンをクリックして推論する画像を選択します。JPG、PNGなどの画像ファイルに対応しています。', 'zh-CN': '点击<strong>📁 Upload Image</strong>选择推理图像。支持JPG、PNG等图像格式。', 'zh-TW': '點擊<strong>📁 Upload Image</strong>選擇推論影像。支援JPG、PNG等影像格式。', es: 'Haga clic en <strong>📁 Upload Image</strong> para seleccionar una imagen para inferencia. Admite JPG, PNG y otros formatos de imagen.' },
           beforeStep: function () {
             var d = document.querySelector('#inferencePanel');
             if (d) { var det = d.closest('details'); if (det) det.open = true; }
             pollFor('#inferenceUploadTrigger', 30);
           } },
         { target: '#btnRunDefault', position: 'bottom',
-          title: { ko: '기본 이미지 실행', en: 'Use Default Image', ja: 'デフォルト画像使用', 'zh-CN': '使用默认图片', 'zh-TW': '使用預設圖片', es: 'Usar imagen predeterminada' },
-          content: { ko: '<strong>▶ Use Default</strong> 버튼을 클릭하면 모델에 포함된 <strong>기본 샘플 이미지</strong>로 즉시 추론을 실행합니다.', en: 'Click <strong>▶ Use Default</strong> to instantly run inference with the model\'s <strong>built-in sample image</strong>.', ja: '<strong>▶ Use Default</strong>ボタンをクリックすると、モデルに含まれる<strong>デフォルトサンプル画像</strong>で即座に推論を実行します。', 'zh-CN': '点击<strong>▶ Use Default</strong>使用模型的<strong>内置样本图片</strong>立即运行推理。', 'zh-TW': '點擊<strong>▶ Use Default</strong>使用模型的<strong>內建範例圖片</strong>立即執行推論。', es: 'Haga clic en <strong>▶ Use Default</strong> para ejecutar inferencia al instante con la <strong>imagen de muestra integrada</strong> del modelo.' },
+          title: { ko: '기본 이미지 실행', en: 'Use Default Image', ja: 'デフォルト画像使用', 'zh-CN': '使用默认图像', 'zh-TW': '使用預設影像', es: 'Usar imagen predeterminada' },
+          content: { ko: '<strong>▶ Use Default</strong> 버튼을 클릭하면 모델에 포함된 <strong>기본 샘플 이미지</strong>로 즉시 추론을 실행합니다.', en: 'Click <strong>▶ Use Default</strong> to instantly run inference with the model\'s <strong>built-in sample image</strong>.', ja: '<strong>▶ Use Default</strong>ボタンをクリックすると、モデルに含まれる<strong>デフォルトサンプル画像</strong>で即座に推論を実行します。', 'zh-CN': '点击<strong>▶ Use Default</strong>使用模型的<strong>内置样本图像</strong>立即运行推理。', 'zh-TW': '點擊<strong>▶ Use Default</strong>使用模型的<strong>內建範例影像</strong>立即執行推論。', es: 'Haga clic en <strong>▶ Use Default</strong> para ejecutar inferencia al instante con la <strong>imagen de muestra integrada</strong> del modelo.' },
           beforeStep: function () {
             var d = document.querySelector('#inferencePanel');
             if (d) { var det = d.closest('details'); if (det) det.open = true; }
@@ -321,7 +321,7 @@
           } },
         { target: null, position: 'bottom',
           title: { ko: '추론 결과', en: 'Inference Results', ja: '推論結果', 'zh-CN': '推理结果', 'zh-TW': '推論結果', es: 'Resultados de inferencia' },
-          content: { ko: '추론 완료 후 <strong>FPS, Latency, 감지 태그</strong> 등의 결과가 표시됩니다. 결과 이미지에 바운딩 박스나 분할 마스크가 오버레이됩니다.', en: 'After inference, <strong>FPS, latency, detection tags</strong> appear. Result image shows bounding boxes or segmentation masks.', ja: '推論完了後、<strong>FPS、レイテンシ、検出タグ</strong>などの結果が表示されます。結果画像にバウンディングボックスやセグメンテーションマスクがオーバーレイされます。', 'zh-CN': '推理完成后显示<strong>FPS、延迟、检测标签</strong>等结果。结果图片上显示边界框或分割掩码。', 'zh-TW': '推論完成後顯示<strong>FPS、延遲、偵測標籤</strong>等結果。結果圖片上顯示邊界框或分割遮罩。', es: 'Tras la inferencia, aparecen <strong>FPS, latencia y etiquetas de detección</strong>. La imagen de resultado muestra cuadros delimitadores o máscaras de segmentación.' } },
+          content: { ko: '추론 완료 후 <strong>FPS, Latency, 감지 태그</strong> 등의 결과가 표시됩니다. 결과 이미지에 바운딩 박스나 분할 마스크가 오버레이됩니다.', en: 'After inference, <strong>FPS, latency, detection tags</strong> appear. Result image shows bounding boxes or segmentation masks.', ja: '推論完了後、<strong>FPS、レイテンシ、検出タグ</strong>などの結果が表示されます。結果画像にバウンディングボックスやセグメンテーションマスクがオーバーレイされます。', 'zh-CN': '推理完成后显示<strong>FPS、延迟、检测标签</strong>等结果。结果图像上显示边界框或分割掩码。', 'zh-TW': '推論完成後顯示<strong>FPS、延遲、偵測標籤</strong>等結果。結果影像上顯示邊界框或分割遮罩。', es: 'Tras la inferencia, aparecen <strong>FPS, latencia y etiquetas de detección</strong>. La imagen de resultado muestra cuadros delimitadores o máscaras de segmentación.' } },
       ]
     },
 

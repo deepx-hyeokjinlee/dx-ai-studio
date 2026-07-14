@@ -14,7 +14,7 @@ window._DX_MODELZOO_I18N_REGISTER({
     ko: 'ModelZoo 공개 사이트',
     ja: 'ModelZoo 公開サイト',
     'zh-CN': 'ModelZoo 公开站点',
-    'zh-TW': 'ModelZoo 公開站點',
+    'zh-TW': 'ModelZoo 公開網站',
     es: 'Sitio público de ModelZoo',
   },
   'All': {
@@ -60,7 +60,7 @@ window._DX_MODELZOO_I18N_REGISTER({
   'Category': {
     en: 'Category',
     ko: '카테고리',
-    ja: 'カテゴリ',
+    ja: 'カテゴリー',
     'zh-CN': '类别',
     'zh-TW': '類別',
     es: 'Categoría',
@@ -150,7 +150,7 @@ window._DX_MODELZOO_I18N_REGISTER({
     en: 'unique models',
     ja: 'ユニークモデル',
     'zh-CN': '唯一模型',
-    'zh-TW': '唯一模型',
+    'zh-TW': '不重複的模型',
     es: 'modelos únicos',
   },
   'View as cards': {
