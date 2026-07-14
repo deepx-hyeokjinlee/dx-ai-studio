@@ -88,7 +88,11 @@ def generate():
             "category": cat,
             "description": {
                 "en": f"{m['id']} is a {cat.replace('_', ' ')} model optimized for DEEPX NPU.",
-                "ko": f"{m['id']}은(는) DEEPX NPU에 최적화된 {CATEGORIES.get(cat, {}).get('label_ko', cat)} 모델입니다."
+                "ko": f"{m['id']}은(는) DEEPX NPU에 최적화된 {CATEGORIES.get(cat, {}).get('label_ko', cat)} 모델입니다.",
+                "ja": f"{m['id']} は DEEPX NPU に最適化された{CATEGORIES.get(cat, {}).get('label_ja', cat)}モデルです。",
+                "es": f"{m['id']} es un modelo de {CATEGORIES.get(cat, {}).get('label_es', cat).lower()} optimizado para la NPU de DEEPX.",
+                "zh-CN": f"{m['id']} 是针对 DEEPX NPU 优化的{CATEGORIES.get(cat, {}).get('label_zh-CN', cat)}模型。",
+                "zh-TW": f"{m['id']} 是針對 DEEPX NPU 最佳化的{CATEGORIES.get(cat, {}).get('label_zh-TW', cat)}模型。"
             },
             "specification": {
                 "input_resolution": "", "ops": "", "params": "", "dataset": "",
@@ -97,7 +101,9 @@ def generate():
             },
             "compile_guide": {
                 "onnx_url": "", "recommended_quant": "qlite",
-                "notes": {"en": "Use dxcom default settings.", "ko": "dxcom 기본 설정 사용."}
+                "notes": {"en": "Use dxcom default settings.", "ko": "dxcom 기본 설정 사용.",
+                          "ja": "dxcom のデフォルト設定を使用します。", "es": "Use la configuración predeterminada de dxcom.",
+                          "zh-CN": "使用 dxcom 默认设置。", "zh-TW": "使用 dxcom 預設設定。"}
             },
             "demo": {
                 "cpp_example": cpp_path if cpp_exists else "",
