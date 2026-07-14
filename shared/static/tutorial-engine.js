@@ -757,11 +757,17 @@ class DXTutorialEngine {
         '</div>';
       const btnWrap = overlay.querySelector('.dxt-confirm-btns');
       var primaryBtn = buttons.find(function(b) { return b.primary; }) || buttons[0];
+      var self = this;
       var cleanup = function(value) {
+        if (self._pendingConfirmCleanup === cleanup) self._pendingConfirmCleanup = null;
         document.removeEventListener('keydown', onKey, true);
         if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
         resolve(value);
       };
+      // Expose to stop()/suspend()/destroy so an aborted tour (nav away, toggle off)
+      // tears down this full-screen modal + its capture keydown listener instead of
+      // leaving them stuck over the app with an unresolved promise.
+      this._pendingConfirmCleanup = cleanup;
       var onKey = function(e) {
         if (e.key === 'Enter' || e.key === 'ArrowRight' || e.key === ' ') {
           e.preventDefault();
@@ -811,6 +817,7 @@ class DXTutorialEngine {
   }
 
   stop() {
+    if (this._pendingConfirmCleanup) this._pendingConfirmCleanup(null);
     if (this._curSection) {
       var steps = this._curSection.steps;
       this._invokeAfterStep(steps[this._curStep]);

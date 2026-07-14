@@ -193,6 +193,18 @@
       } },
   ];
 
+  // The tutorial opens the full-screen #config-wizard overlay on these steps but had no
+  // teardown, so leaving/finishing the section left it covering the compiler UI. Give
+  // every step an afterStep that closes it; the next wizard step's beforeStep reopens it,
+  // so it stays visible during the walkthrough but is closed on completion or an early exit.
+  (function () {
+    var _closeWiz = function () {
+      var wiz = document.getElementById('config-wizard');
+      if (wiz) wiz.style.display = 'none';
+    };
+    configWizardSteps.forEach(function (s) { if (!s.afterStep) s.afterStep = _closeWiz; });
+  })();
+
   var advancedSteps = [
     { target: '#opt_level', position: 'left', title: { en: 'Optimization', ko: '최적화 수준', ja: '最適化レベル', 'zh-CN': '优化级别', 'zh-TW': '最佳化等級', es: 'Optimización' }, content: { en: 'Choose Standard (0) or Advanced (1) optimization level.', ko: '최적화 수준을 Standard(0) 또는 Advanced(1)로 선택합니다.', ja: 'Standard(0)またはAdvanced(1)の最適化レベルを選択します。', 'zh-CN': '选择Standard(0)或Advanced(1)优化级别。', 'zh-TW': '選擇Standard(0)或Advanced(1)最佳化等級。', es: 'Elija el nivel de optimización Standard (0) o Advanced (1).' } },
     { target: '#aggressive_partitioning', position: 'left', title: { en: 'Partitioning', ko: '파티셔닝', ja: 'パーティショニング', 'zh-CN': '分区', 'zh-TW': '分區', es: 'Particionado' }, content: { en: 'Check to remove NPU task count limit.', ko: '체크하면 NPU 태스크 수 제한을 해제합니다.', ja: 'チェックするとNPUタスク数の制限が解除されます。', 'zh-CN': '勾选以移除NPU任务数量限制。', 'zh-TW': '勾選以移除NPU工作數量限制。', es: 'Marque para eliminar el límite de tareas NPU.' } },

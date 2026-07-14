@@ -86,7 +86,9 @@
   function liftChat(sel) {
     var el = document.querySelector(sel);
     if (!el) return;
-    _chatOrigZ[sel] = el.style.zIndex || '';
+    // Record the ORIGINAL z-index once; a repeat lift must not capture our own 99996
+    // as the "original" (that made restore a no-op, pinning chat above the app forever).
+    if (!(sel in _chatOrigZ)) _chatOrigZ[sel] = el.style.zIndex || '';
     el.style.zIndex = '99996';
   }
   function restoreChat() {
@@ -355,6 +357,19 @@
     },
 
   ];
+
+  // Restore chat z-index on EVERY exit from the chat section — not just onComplete.
+  // The engine fires onComplete once ever, so replaying a completed section, or
+  // stopping/skipping mid-section, previously left chat pinned at 99996. Chaining
+  // restoreChat into each step's afterStep covers those paths (the next step's
+  // beforeStep re-lifts, so chat stays raised during the walkthrough).
+  (function () {
+    var _chatSec = sections.find(function (s) { return s.id === 'chat'; });
+    if (_chatSec) _chatSec.steps.forEach(function (st) {
+      var prev = st.afterStep;
+      st.afterStep = function () { if (prev) prev(); restoreChat(); };
+    });
+  })();
 
   window.DXTutorial.create({
     appId: 'modelzoo',
