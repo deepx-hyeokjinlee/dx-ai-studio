@@ -77,6 +77,15 @@
     if (typeof closeLightbox === 'function') closeLightbox();
   }
 
+  function _closeChatWindow() {
+    // The chat tour opens the assistant via the FAB; close it on exit so it isn't left
+    // floating open after the tour (toggles the FAB only if the window is currently open).
+    if (document.querySelector('.dx-chat-window.open')) {
+      var fab = document.querySelector('.dx-chat-fab');
+      if (fab) fab.click();
+    }
+  }
+
   function _scrollToTarget(selector) {
     var el = document.querySelector(selector);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -464,14 +473,15 @@
         { target:'.dx-chat-window', position:'left',
           title:{ ko: '챗봇 창', en: 'Chat Window', ja: 'チャットウィンドウ', 'zh-CN': '聊天窗口', 'zh-TW': '聊天視窗', es: 'Ventana de chat' },
           content:{ ko: '챗봇 설정(⚙️)에서 <strong>AI 제공자</strong>(OpenAI·Anthropic·로컬 등)를 선택하고, 하단 입력란에 질문을 입력하세요. <strong>추천 질문</strong>이 제공되며, DeepX 플랫폼의 모델·SDK·컴파일러에 대한 다양한 질문에 답변합니다.', en: 'Choose an <strong>AI provider</strong> (OpenAI, Anthropic, local, etc.) in chat settings (⚙️), then type questions below. <strong>Suggested questions</strong> provided. Answers about DeepX models, SDK, compiler, etc.', ja: 'チャット設定(⚙️)で<strong>AIプロバイダー</strong>（OpenAI・Anthropic・ローカル等）を選択し、下部に質問を入力します。<strong>おすすめの質問</strong>が提供されています。DeepXのモデル、SDK、コンパイラ等について回答します。', 'zh-CN': '在聊天设置(⚙️)中选择<strong>AI提供商</strong>（OpenAI、Anthropic、本地等），然后在下方输入问题。提供<strong>推荐问题</strong>。回答关于DeepX模型、SDK、编译器等的问题。', 'zh-TW': '在聊天設定(⚙️)中選擇<strong>AI提供商</strong>（OpenAI、Anthropic、本機等），然後在下方輸入問題。提供<strong>推薦問題</strong>。回答關於DeepX模型、SDK、編譯器等的問題。', es: 'Elija un <strong>proveedor de IA</strong> (OpenAI, Anthropic, local, etc.) en la configuración del chat (⚙️) y escriba preguntas abajo. Se ofrecen <strong>preguntas sugeridas</strong>. Responde sobre modelos DeepX, SDK, compilador, etc.' },
-          beforeStep:function(){ var fab=document.querySelector('.dx-chat-fab'); if(fab && !document.querySelector('.dx-chat-window.open')) fab.click(); } },
+          beforeStep:function(){ var fab=document.querySelector('.dx-chat-fab'); if(fab && !document.querySelector('.dx-chat-window.open')) fab.click(); },
+          afterStep:function(){ _closeChatWindow(); } },
       ]
     },
 
     { id:'global', icon:'🌐',
       title:{ ko: '🌐 글로벌 UI 요소', en: '🌐 Global UI Elements', ja: '🌐 グローバルUI要素', 'zh-CN': '🌐 全局UI元素', 'zh-TW': '🌐 全域UI元素', es: '🌐 Elementos globales de la interfaz' },
       description:{ ko: '사이드바, 상단 바, 알림, NPU 모니터 등', en: 'Sidebar, top bar, notifications, NPU monitor', ja: 'サイドバー、トップバー、通知、NPUモニター', 'zh-CN': '侧边栏、顶部栏、通知、NPU监控', 'zh-TW': '側邊欄、頂部列、通知、NPU監控', es: 'Barra lateral, barra superior, notificaciones, monitor NPU' },
-      beforeStart:function(){ _closeLightbox(); _closeNotifDrawer(); },
+      beforeStart:function(){ _closeLightbox(); _closeNotifDrawer(); _closeChatWindow(); },
       steps:[
         { target:'#sidebar', position:'right',
           title:{ ko: '사이드바 네비게이션', en: 'Sidebar Navigation', ja: 'サイドバー ナビゲーション', 'zh-CN': '侧边栏导航', 'zh-TW': '側邊欄導覽', es: 'Navegación de barra lateral' },

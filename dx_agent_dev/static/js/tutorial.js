@@ -136,6 +136,7 @@
             if (!panel) {
               var block = document.createElement('div');
               block.className = 'console-turn';
+              block.dataset.dxtTutorialMock = '1';  // tag so afterStep removes only OUR fake panel
               panel = document.createElement('details');
               panel.className = 'activity-panel';
               panel.open = true;
@@ -153,6 +154,13 @@
               panel.removeAttribute('hidden');
               panel.open = true;
             }
+          },
+          afterStep: function () {
+            // Remove the fake activity panel this tutorial injected so it doesn't linger
+            // among real chat turns after the tour ends (only ours, tagged above).
+            var out = document.getElementById('console-output');
+            var mock = out && out.querySelector('.console-turn[data-dxt-tutorial-mock]');
+            if (mock) mock.remove();
           } },
       ]
     },

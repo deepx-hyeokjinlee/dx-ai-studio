@@ -327,7 +327,10 @@
   function isLauncherShellBlocked() {
     if (isLauncherShellPending()) return true;
     if (isIntroSplashPlaying()) return true;
-    if (document.getElementById('studioBootGate')) return true;
+    // The boot gate is concealed (display:none), not removed, so gate on VISIBLE — a
+    // mere existence check would report "blocked" forever after a conceal.
+    var gate = document.getElementById('studioBootGate');
+    if (gate && getComputedStyle(gate).display !== 'none') return true;
     if (!ns._studioReadyResolved) return true;
     return false;
   }

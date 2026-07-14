@@ -66,7 +66,10 @@
       function _isLauncherShellBlocked() {
         if (document.documentElement.classList.contains('launcher-boot-pending')) return true;
         if (document.getElementById('splashOverlay')) return true;
-        if (document.getElementById('studioBootGate')) return true;
+        // Gate on VISIBLE, not merely present: the gate is concealed (display:none) not
+        // removed, so an existence check would block the tutorial forever after conceal.
+        var _gate = document.getElementById('studioBootGate');
+        if (_gate && getComputedStyle(_gate).display !== 'none') return true;
         if (window.DXLauncher) {
           if (typeof window.DXLauncher.isLauncherShellBlocked === 'function' &&
               window.DXLauncher.isLauncherShellBlocked()) {

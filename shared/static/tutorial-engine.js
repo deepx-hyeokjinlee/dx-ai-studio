@@ -372,6 +372,12 @@ class DXTutorialEngine {
   async startSection(sectionId) {
     var sec = this.sections.find(s => s.id === sectionId);
     if (!sec || sec.helpOnly) return;
+    // Jumping to another section (e.g. via the TOC) without running the current step's
+    // afterStep leaks that step's chrome (pins, mock dialogs, raised z-index). Run it first.
+    if (this._curSection && this._curSection !== sec &&
+        this._curSection.steps && this._curSection.steps[this._curStep]) {
+      this._invokeAfterStep(this._curSection.steps[this._curStep]);
+    }
     this._buildDOM();
 
     var prereqMsg = this._checkPrereq(sec);
