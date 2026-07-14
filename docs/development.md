@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- **Python 3.12+** — the only hard prerequisite (tested on Debian 12/13, Ubuntu 20.04–26.04).
+- **Python 3.8+** — the only hard prerequisite (tested on Debian 12/13, Ubuntu 20.04–26.04).
   The studio has **zero third-party runtime dependencies** (pure standard library, ModelZoo
   tab included); `./launcher.sh` self-installs the package (`pip install -e .`) on first
   run, so no manual install is needed.

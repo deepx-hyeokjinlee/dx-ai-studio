@@ -9,6 +9,7 @@ the exact directory lists and probe order.
 
 Roots are derived from shared.paths (DX_RUNTIME_ROOT / SUITE_ROOT), never re-derived.
 """
+from __future__ import annotations  # PEP 563: keeps `X | None` hints valid on Python 3.8+
 import os
 import shutil
 import subprocess

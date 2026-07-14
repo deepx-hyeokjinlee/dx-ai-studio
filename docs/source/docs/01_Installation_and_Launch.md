@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- **Python 3.12+**. `./launcher.sh` installs the package automatically on first run —
+- **Python 3.8+**. `./launcher.sh` installs the package automatically on first run —
   no manual install step, no third-party dependencies.
 - For **real** compilation and inference: the **DEEPX SDK** (from `dx-runtime` /
   `dx-compiler`) and a DEEPX **NPU**. Without them the studio still launches in

@@ -1,5 +1,6 @@
 """Single source of truth for studio/suite/runtime roots and path-safety.
 Env vars are honored; fallbacks derive from this file's location."""
+from __future__ import annotations  # PEP 563: keeps `X | None` hints valid on Python 3.8+
 import os
 from pathlib import Path
 

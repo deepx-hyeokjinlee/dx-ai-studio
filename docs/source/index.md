@@ -28,7 +28,7 @@ From the hub you can also open the **SDK Library** (DEEPX docs & brochures, in-a
 
 ## Requirements at a glance
 
-- **Python 3.12+**, no manual install (`./launcher.sh` handles it), no third-party deps.
+- **Python 3.8+**, no manual install (`./launcher.sh` handles it), no third-party deps.
 - Real inference / compilation needs the **DEEPX SDK** (`dx-runtime` / `dx-compiler`) and
   an **NPU + driver**. Without them every tool falls back to sample / mock data, so the
   whole UI is browsable for evaluation without hardware.

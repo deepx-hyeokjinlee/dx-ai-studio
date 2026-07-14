@@ -7,7 +7,7 @@ experience, in six languages.
 
 ## Getting started
 
-**Prerequisites:** Linux (Debian 12/13, Ubuntu 20.04–26.04) with **Python 3.12+** —
+**Prerequisites:** Linux (Debian 12/13, Ubuntu 20.04–26.04) with **Python 3.8+** —
 and nothing else. DX AI Studio has **zero third-party dependencies** (pure Python
 standard library, ModelZoo tab included), and `./launcher.sh` self-installs the
 package (editable) on first run, so there's no manual `pip install` step.
@@ -53,5 +53,5 @@ whole studio is browsable without hardware.
 Maintainer documentation lives in [`docs/`](docs/):
 
 - [`docs/architecture.md`](docs/architecture.md) — launcher hub + module servers + `shared/`, the proxy model, port map.
-- [`docs/development.md`](docs/development.md) — Python 3.12 venv, running modules, env vars, i18n workflow.
+- [`docs/development.md`](docs/development.md) — Python 3.8+ venv, running modules, env vars, i18n workflow.
 - [`docs/testing.md`](docs/testing.md) — test layers and how to run the gates.
