@@ -21,8 +21,3 @@ studio tools.
   pagination.
 - **Rich detail view** per model — including license / source / copyright, kept up to
   date from the public DEEPX model catalog.
-
-!!! note
-    The catalog data is generated from the DEEPX model metadata; see the
-    [SDK Library](11_SDK_Library_and_About.md) and the `dx_modelzoo` docs for the
-    underlying model definitions.

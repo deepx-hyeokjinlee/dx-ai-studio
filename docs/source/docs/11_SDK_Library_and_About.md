@@ -16,10 +16,6 @@ An in-app library of DEEPX documentation and marketing material, reachable from 
   document is captured in the URL, so a link reopens it (for example, links arriving from
   the About page or another tool).
 
-!!! note
-    The library renders the same markdown that ships with the SDK; the document set is
-    defined by the studio's SDK-library catalog and served read-only.
-
 ## About DEEPX
 
 The **About DEEPX** page presents company and product information — the DXNN SDK

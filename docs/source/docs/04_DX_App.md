@@ -10,30 +10,19 @@ video, a camera or an RTSP stream, watch live results, and benchmark or compare 
 The dashboard opens on a set of pages (top navigation):
 
 - **Setup** — guided environment check; run it first so the NPU / runtime is ready.
-- **Models** — browse the model registry across **23 AI tasks** (object / face / OBB
-  detection, classification, semantic & instance segmentation, pose & keypoint estimation,
-  depth, super-resolution, denoising, enhancement, embedding, ReID, hand detection &
-  landmark, attribute recognition, PPU, **3D object detection**, **object pose
-  estimation**, **panoptic driving perception**, …); open a model to see its details.
-- **Run** — pick a **category → model → input**, then Run. Inputs are chosen per category:
+- **Models** — browse the model registry across 23 AI tasks (detection, classification,
+  segmentation, pose, depth, super-resolution, 3D object detection, and more); open a
+  model for details.
+- **Run** — pick a **category → model → input**, then Run. Inputs adapt to the category:
   a sample image, your **own uploaded image**, video, camera, or RTSP (some tasks are
-  image-only, and special inputs like 3D LiDAR `.bin` are offered where they apply). The
-  annotated result appears live, with a **before/after compare slider** for image runs.
-  Multiple streams can run at once.
+  image-only; special inputs like 3D LiDAR `.bin` appear where they apply). The annotated
+  result shows live, with a **before/after compare slider** for image runs, and multiple
+  streams can run at once.
 - **Bench** / **Compare** — measure a model's throughput and compare models side by side.
 - **Model Zoo** — browse and download additional models into the app.
-- **Lab** — scaffold a new model / task from a template (developer portal).
 - **Outputs** — browse and manage saved inference results.
-- **Reference** — SDK documentation.
 
-## Key features
-
-- **Multiple input types** — sample or uploaded image, video file, USB camera, and RTSP streams.
-- **Before/after compare slider** — drag to compare the original against the annotated result.
-- **Live multi-stream** — several inference streams running and displaying at once.
-- **Benchmark & compare** — throughput / latency numbers per model, side by side.
-- **AI assistant** chat (floating button) for help with the workflow.
-- Works **without an NPU** too (falls back to mock data for exploring the UI).
+Works **without an NPU** too — every page falls back to mock data so you can explore the UI.
 
 !!! note "Related"
     Run the `.dxnn` files produced by **[DX Compiler](03_DX_Compiler.md)**; the same

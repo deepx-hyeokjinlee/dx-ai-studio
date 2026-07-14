@@ -15,8 +15,7 @@ versions.
 
 ## Key features
 
-- **Live NPU telemetry** per device, with status coloring (a dead / invalid sensor shows
-  "no data" rather than a misleading 0 °C).
+- **Live NPU telemetry** per device, with status coloring.
 - **System stats** — CPU cores, load, memory.
 - **Version info** — DX-RT / DX-APP / SDK / driver versions.
 - Falls back to **mock telemetry** when no NPU is present (for exploring the UI).

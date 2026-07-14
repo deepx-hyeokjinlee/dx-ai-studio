@@ -35,9 +35,3 @@ The entire studio is available in **6 languages** — English, 한국어, 日本
 
 Several tools ship an in-app guided tutorial. Toggle tutorial mode from the top bar to
 get step-by-step callouts over the live UI. Tutorials are optional and can be replayed.
-
-## Demo / mock mode
-
-The hub and every tool are fully browsable without an NPU or the SDK. In that state each
-tool falls back to representative **sample / mock data** and indicates that it is not
-showing live hardware results — useful for evaluation, demos, and screenshots.

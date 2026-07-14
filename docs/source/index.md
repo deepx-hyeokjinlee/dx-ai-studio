@@ -28,15 +28,10 @@ From the hub you can also open the **SDK Library** (DEEPX docs & brochures, in-a
 
 ## Requirements at a glance
 
-- The full studio runs on top of the **DEEPX SDK** (installed from `dx-runtime` /
-  `dx-compiler`) with an **NPU + driver** for real inference and compilation.
-- Every tool **degrades gracefully to sample / mock data** when no NPU or SDK is
-  present, so the entire UI is browsable for evaluation without hardware.
+- **Python 3.12+**, no manual install (`./launcher.sh` handles it), no third-party deps.
+- Real inference / compilation needs the **DEEPX SDK** (`dx-runtime` / `dx-compiler`) and
+  an **NPU + driver**. Without them every tool falls back to sample / mock data, so the
+  whole UI is browsable for evaluation without hardware.
 
 See **[Installation & Launch](docs/01_Installation_and_Launch.md)** to get started, then
 **[The Hub](docs/02_The_Hub.md)** for navigating the studio.
-
-!!! note "Demo / mock mode"
-    If you just want to explore the interface, you can launch the studio without an NPU
-    or SDK — each tool falls back to representative sample data and clearly indicates
-    when it is showing mock results.
