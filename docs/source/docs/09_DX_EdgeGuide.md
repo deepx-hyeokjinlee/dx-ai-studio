@@ -33,8 +33,10 @@ like *Host-limited*. Click a card (or a bar in the throughput chart) to open det
 ### 3. Explore / compare
 
 The Details panel shows key facts, platform specs, a Performance Radar, a sortable
-benchmark table, and a per-model-size chart. Use **Compare with** to line up a second
-platform side by side.
+benchmark table, and a per-model-size chart; **task tabs** let you view the same platform's
+numbers for other AI tasks. The charts and table are interactive — click a model-size bar
+or a table row to re-run the recommendation at that size. Use **Compare with** to line up
+a second platform side by side (with a summary count of Meets / Insufficient / Theoretical).
 
 ### 4. Buy / contact
 
@@ -50,7 +52,7 @@ info** and **Request quote** buttons to DEEPX.
   and the shown cost is NPU-board price per channel — **not** full TCO; host / power /
   install are extra).
 - **Multi-stream evidence** — per-channel and total FPS behind each channel estimate.
-- **Shareable** — the current selection is captured in the URL, so a link (for example,
-  arriving from [DX Benchmark](07_DX_Benchmark.md)) reproduces the inputs and re-runs the
-  recommendation.
+- **Shareable & resumable** — the current selection is captured in the URL (a link, e.g.
+  arriving from [DX Benchmark](07_DX_Benchmark.md), reproduces the inputs and re-runs), and
+  your last inputs are also restored locally on reload.
 - **AI Help** chat for follow-up questions grounded in your requirements / results.

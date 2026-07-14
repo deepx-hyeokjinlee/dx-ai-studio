@@ -9,13 +9,18 @@ ready-made showcases.
 ## Using it
 
 1. **Connect an agent** — the console detects installed coding CLIs (e.g. Claude,
-   OpenCode). A badge shows whether each is signed in; if a login is needed it shows the
+   Cursor). A badge shows whether each is signed in; if a login is needed it shows the
    exact command to run, then re-checks.
-2. **Describe your task** in the prompt — the agent works and streams its progress live.
-3. **Chat** — ask questions in the assistant; besides the coding agents you can point it
+2. **Set the run** — choose the **target** (which repo the agent works in: Suite,
+   dx-runtime, dx_app, dx_stream, dx-compiler), the **interaction mode** (Interactive vs
+   Autopilot), and the **reasoning effort**. A hint warns if the chosen model is too weak
+   and suggests a stronger one.
+3. **Describe your task** in the prompt — the agent works and streams its progress live;
+   an expandable **activity panel** shows each turn's shell / tool output next to the reply.
+4. **Chat** — ask questions in the assistant; besides the coding agents you can point it
    at a **local LLM** (Ollama / vLLM / LM Studio — any OpenAI-compatible endpoint) or use
    a signed-in coding CLI as the chat backend.
-4. **Showcases** — browse the gallery of example NPU apps for reference.
+5. **Showcases** — browse the gallery of example NPU apps for reference.
 
 ## Key features
 

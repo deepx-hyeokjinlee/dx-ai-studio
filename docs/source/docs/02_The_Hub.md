@@ -1,8 +1,8 @@
 # The Hub
 
 The **hub** is the landing page that ties the studio together. Every tool is launched
-from here and every tool is reached through the hub's address bar — you never open a
-module's port directly.
+from here; you normally reach each one through the hub, which proxies them under a single
+address.
 
 ![The hub's orbital launcher — the eight tools orbit the central DEEPX mark, each showing its online status.](../resources/hub.png)
 
@@ -10,11 +10,21 @@ module's port directly.
 
 - **Orbital launcher** — the eight tools orbit the central DEEPX mark. Click a tile to
   open that tool; the shell swaps to the module while the hub chrome stays in place.
-- **Top bar** — language switcher, the guided-tutorial toggle, and a shortcut to the
-  DEEPX store / "Buy now".
+- **Live status** — a status dot on each tile (and the top-bar row) shows whether that
+  module is online; the hub polls health every few seconds and flags a module that's
+  starting, unavailable, or crashed. Each tile also shows the module's `:port`, which you
+  can click to open that module directly in a new tab.
+- **Top bar** — 6-language switcher, the guided-tutorial toggle, a **Platform Info**
+  overview, and a shortcut to the DEEPX store / "Buy now".
+- **Global AI assistant** — a floating help button (bottom-right) opens **DX AI Studio
+  Help**, an assistant available across the whole studio; set or clear its API key from
+  the panel.
 - **Hub views** — besides the eight tools, the hub hosts the **SDK Library** (in-app
   DEEPX documentation and brochures) and the **About DEEPX** page. See
   [SDK Library & About](11_SDK_Library_and_About.md).
+
+If a module fails to start, its tile shows an **unavailable / crashed** state with a
+**Retry** action. The intro animation can be replayed any time via **Replay Intro**.
 
 ## Navigating
 

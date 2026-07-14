@@ -71,8 +71,11 @@ downloads an HTML report of the compile.
   only the chosen subgraph.
 - **Graph Viewer** — pan / zoom, **Fit**, **Collapse / Expand All**, `Ctrl+F` node
   search, click a node / tensor for details; a color-coded **Legend** by node category.
-- **Agentic Auto Compile** — give a model name / path / URL, pick an agent, and it
-  downloads, converts, configures, compiles, and verifies automatically.
+- **Agentic Auto Compile** — give a model name / path / URL, pick an agent (with LLM model
+  and reasoning-effort), and it downloads, converts, configures, compiles, and verifies
+  automatically — either fully hands-off or **interactive** (you can reply mid-run).
+- **Sample-model picker** — a 📦 dropdown fills the Model Path from an already-downloaded
+  sample.
 - **AI Assistant** chat (floating button) explains errors and settings.
 
 !!! note "Related"

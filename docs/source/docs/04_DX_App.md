@@ -18,9 +18,17 @@ The dashboard opens on a set of pages (top navigation):
   image-only; special inputs like 3D LiDAR `.bin` appear where they apply). The annotated
   result shows live, with a **before/after compare slider** for image runs, and multiple
   streams can run at once.
-- **Bench** / **Compare** — measure a model's throughput and compare models side by side.
-- **Model Zoo** — browse and download additional models into the app.
-- **Outputs** — browse and manage saved inference results.
+- **Bench** / **Compare** — measure a model's throughput and compare models side by side;
+  Bench can run several models in a batch and **export a report**.
+- **Model Zoo** — browse and download additional models into the app (public or air-gapped
+  source, Q-Lite / Q-Pro variants, batch cart).
+- **Outputs** — browse and manage saved inference results (grid / table, filters, preview).
+- **Lab** / **Developer** — guided wizards to add a model, create a task, or extract a
+  deployable package, with a change-preview + rollback safety step (advanced use).
+- **Reference** — searchable in-app feature and parameter guides.
+
+From the Run page you can also **Export Model Package** — bundle a model's source, config,
+and file (C++ / Python / both) for reuse.
 
 Works **without an NPU** too — every page falls back to mock data so you can explore the UI.
 
