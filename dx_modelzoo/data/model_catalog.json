@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated_at": "2026-07-14T15:36:27.279878",
+  "generated_at": "2026-07-14T16:25:26.552850",
   "categories": {
     "object_detection": {
       "label_en": "Object Detection",
@@ -219,7 +219,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -339,7 +339,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -399,7 +399,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -459,7 +459,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -519,7 +519,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -579,7 +579,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -789,7 +789,7 @@
         "cli_command": "./ssdmv1_sync -m assets/models/ssd-mobilenetv1_300x300.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/qfgaohao/pytorch-ssd"
       },
@@ -849,7 +849,7 @@
         "cli_command": "./ssdmv2lite_sync -m assets/models/ssd-mobilenetv2-lite_300x300.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/qfgaohao/pytorch-ssd"
       },
@@ -879,7 +879,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -939,7 +939,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -999,7 +999,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -1059,7 +1059,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -1119,7 +1119,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -1209,7 +1209,7 @@
         "cli_command": "./yolov3_sync -m assets/models/yolov3_640x640.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Public Domain",
         "copyright": "",
         "source_url": "https://github.com/AlexeyAB/darknet"
       },
@@ -1359,7 +1359,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -1539,7 +1539,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -1569,7 +1569,7 @@
         "cli_command": "./yolov6n_0_1_0_sync -m assets/models/yolov6-n0_640x640_v0.1.0.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/meituan/YOLOv6"
       },
@@ -1599,7 +1599,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -1629,7 +1629,7 @@
         "cli_command": "./yolov6n_0_2_1_sync -m assets/models/yolov6-n0_640x640_v0.2.1.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/meituan/YOLOv6"
       },
@@ -1839,7 +1839,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2384,7 +2384,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2444,7 +2444,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2504,7 +2504,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2564,7 +2564,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2624,7 +2624,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2684,7 +2684,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2744,7 +2744,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2804,7 +2804,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2864,7 +2864,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2924,7 +2924,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -2984,7 +2984,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3344,7 +3344,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3404,7 +3404,7 @@
         "input_resolution": "768x768x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3464,7 +3464,7 @@
         "input_resolution": "1024x1024x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3524,7 +3524,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3584,7 +3584,7 @@
         "input_resolution": "416x416x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3644,7 +3644,7 @@
         "input_resolution": "416x416x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3704,7 +3704,7 @@
         "input_resolution": "300x300x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PascalVOC2007",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3734,7 +3734,7 @@
         "cli_command": "./ssdvgg16_sync -m assets/models/ssd-vgg16_300x300.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/qfgaohao/pytorch-ssd"
       },
@@ -3764,7 +3764,7 @@
         "input_resolution": "416x416x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3824,7 +3824,7 @@
         "input_resolution": "416x416x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3854,7 +3854,7 @@
         "cli_command": "./yolov3_gluon_416_sync -m assets/models/yolov3-gluon_416x416.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/dmlc/gluon-cv"
       },
@@ -3884,7 +3884,7 @@
         "input_resolution": "608x608x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -3914,7 +3914,7 @@
         "cli_command": "./yolov3_gluon_608_sync -m assets/models/yolov3-gluon_608x608.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/dmlc/gluon-cv"
       },
@@ -3944,7 +3944,7 @@
         "input_resolution": "416x416x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4004,7 +4004,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4034,7 +4034,7 @@
         "cli_command": "./yolov4_leaky_512_512_sync -m assets/models/yolov4-leaky_512x512.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Public Domain",
         "copyright": "",
         "source_url": "https://github.com/AlexeyAB/darknet"
       },
@@ -4064,7 +4064,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4124,7 +4124,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4184,7 +4184,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4244,7 +4244,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4304,7 +4304,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4364,7 +4364,7 @@
         "input_resolution": "320x320x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4424,7 +4424,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4484,7 +4484,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4544,7 +4544,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4604,7 +4604,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4664,7 +4664,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4724,7 +4724,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4784,7 +4784,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4814,7 +4814,7 @@
         "cli_command": "./yolov6l_sync -m assets/models/yolov6-l_640x640.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/meituan/YOLOv6"
       },
@@ -4844,7 +4844,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4874,7 +4874,7 @@
         "cli_command": "./yolov6m_sync -m assets/models/yolov6-m_640x640.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/meituan/YOLOv6"
       },
@@ -4934,7 +4934,7 @@
         "cli_command": "./yolov6n_sync -m assets/models/yolov6-n_640x640.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/meituan/YOLOv6"
       },
@@ -4964,7 +4964,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -4994,7 +4994,7 @@
         "cli_command": "./yolov6n_0_2_1_nms_core_sync -m assets/models/yolov6-n_640x640_nmscore.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/meituan/YOLOv6"
       },
@@ -5024,7 +5024,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5084,7 +5084,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5144,7 +5144,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5204,7 +5204,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5264,7 +5264,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5324,7 +5324,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5384,7 +5384,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5444,7 +5444,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5504,7 +5504,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5564,7 +5564,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5624,7 +5624,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5684,7 +5684,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -5954,7 +5954,7 @@
         "cli_command": "./yolov5m_face_sync -m assets/models/yolov5-m-face_640x640.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/deepcam-cn/yolov5-face"
       },
@@ -5984,7 +5984,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6014,7 +6014,7 @@
         "cli_command": "./yolov5s_face_sync -m assets/models/yolov5-s-face_640x640.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/deepcam-cn/yolov5-face"
       },
@@ -6074,7 +6074,7 @@
         "cli_command": "./yolov7_face_sync -m assets/models/yolov7-face_640x640.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/derronqi/yolov7-face"
       },
@@ -6134,7 +6134,7 @@
         "cli_command": "./yolov7_w6_face_sync -m assets/models/yolov7-w6-face_960x960.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/derronqi/yolov7-face"
       },
@@ -6194,7 +6194,7 @@
         "cli_command": "./yolov7_w6_tta_face_sync -m assets/models/yolov7-w6-face_1280x1280_tta.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/derronqi/yolov7-face"
       },
@@ -6254,7 +6254,7 @@
         "cli_command": "./yolov7s_face_sync -m assets/models/yolov7-s-face_640x640.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/derronqi/yolov7-face"
       },
@@ -6284,7 +6284,7 @@
         "input_resolution": "320x240x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6314,7 +6314,7 @@
         "cli_command": "./ulfgfd_rfb_320_sync -m assets/models/ulfgfd-rfb_240x320.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB"
       },
@@ -6344,7 +6344,7 @@
         "input_resolution": "320x240x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6374,7 +6374,7 @@
         "cli_command": "./ulfgfd_rfb_320_without_postprocessing_sync -m assets/models/ulfgfd-rfb_240x320_nopp.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB"
       },
@@ -6404,7 +6404,7 @@
         "input_resolution": "640x480x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6434,7 +6434,7 @@
         "cli_command": "./ulfgfd_rfb_640_sync -m assets/models/ulfgfd-rfb_480x640.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB"
       },
@@ -6464,7 +6464,7 @@
         "input_resolution": "320x240x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6494,7 +6494,7 @@
         "cli_command": "./ulfgfd_slim_320_sync -m assets/models/ulfgfd-slim_240x320.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB"
       },
@@ -6524,7 +6524,7 @@
         "input_resolution": "320x240x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6554,7 +6554,7 @@
         "cli_command": "./ulfgfd_slim_320_without_postprocessing_sync -m assets/models/ulfgfd-slim_240x320_nopp.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/Linzaer/Ultra-Light-Fast-Generic-Face-Detector-1MB"
       },
@@ -6704,7 +6704,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6764,7 +6764,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6824,7 +6824,7 @@
         "input_resolution": "416x416x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6884,7 +6884,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -6944,7 +6944,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7004,7 +7004,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7064,7 +7064,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7124,7 +7124,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7184,7 +7184,7 @@
         "input_resolution": "1024x1024x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "DOTAv1",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7244,7 +7244,7 @@
         "input_resolution": "1024x1024x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "DOTAv1",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7304,7 +7304,7 @@
         "input_resolution": "1024x1024x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "DOTAv1",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7364,7 +7364,7 @@
         "input_resolution": "1024x1024x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "DOTAv1",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7424,7 +7424,7 @@
         "input_resolution": "1024x1024x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "DOTAv1",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7664,7 +7664,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -7694,7 +7694,7 @@
         "cli_command": "./efficientnet_lite0_sync -m assets/models/efficientnet-lite0_256x256.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/huggingface/pytorch-image-models"
       },
@@ -7754,7 +7754,7 @@
         "cli_command": "./efficientnet_lite1_sync -m assets/models/efficientnet-lite1_240x240.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/huggingface/pytorch-image-models"
       },
@@ -7814,7 +7814,7 @@
         "cli_command": "./efficientnet_lite2_sync -m assets/models/efficientnet-lite2_260x260.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/huggingface/pytorch-image-models"
       },
@@ -7874,7 +7874,7 @@
         "cli_command": "./efficientnet_lite3_sync -m assets/models/efficientnet-lite3_300x300.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/huggingface/pytorch-image-models"
       },
@@ -7934,7 +7934,7 @@
         "cli_command": "./efficientnet_lite4_sync -m assets/models/efficientnet-lite4_380x380.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/huggingface/pytorch-image-models"
       },
@@ -8114,7 +8114,7 @@
         "cli_command": "./hardnet39ds_sync -m assets/models/hardnet39ds_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/PingoLH/Pytorch-HarDNet"
       },
@@ -8174,7 +8174,7 @@
         "cli_command": "./hardnet68_sync -m assets/models/hardnet68_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/PingoLH/Pytorch-HarDNet"
       },
@@ -9644,7 +9644,7 @@
         "input_resolution": "384x384x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -9674,7 +9674,7 @@
         "cli_command": "./deitbase384_sync -m assets/models/deit-b_384x384.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -9704,7 +9704,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -9764,7 +9764,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -9824,7 +9824,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -9884,7 +9884,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10011,7 +10011,7 @@
         "input_resolution": "300x300x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10071,7 +10071,7 @@
         "input_resolution": "380x380x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10131,7 +10131,7 @@
         "input_resolution": "456x456x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10191,7 +10191,7 @@
         "input_resolution": "528x528x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10251,7 +10251,7 @@
         "input_resolution": "480x480x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10311,7 +10311,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10341,7 +10341,7 @@
         "cli_command": "./levit128_sync -m assets/models/levit-128_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/LeViT"
       },
@@ -10371,7 +10371,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10401,7 +10401,7 @@
         "cli_command": "./levit192_sync -m assets/models/levit-192_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/LeViT"
       },
@@ -10431,7 +10431,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10461,7 +10461,7 @@
         "cli_command": "./levit256_sync -m assets/models/levit-256_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/LeViT"
       },
@@ -10491,7 +10491,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10521,7 +10521,7 @@
         "cli_command": "./levit384_sync -m assets/models/levit-384_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://huggingface.co/facebook/levit-384"
       },
@@ -10551,7 +10551,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10611,7 +10611,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10671,7 +10671,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10731,7 +10731,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10791,7 +10791,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10911,7 +10911,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -10971,7 +10971,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11031,7 +11031,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11091,7 +11091,7 @@
         "input_resolution": "384x384x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11151,7 +11151,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11211,7 +11211,7 @@
         "input_resolution": "384x384x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11271,7 +11271,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11331,7 +11331,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11451,7 +11451,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11511,7 +11511,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11571,7 +11571,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11631,7 +11631,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11691,7 +11691,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11751,7 +11751,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11811,7 +11811,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11871,7 +11871,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -11931,7 +11931,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12023,7 +12023,7 @@
         "cli_command": "./vitb32_sync -m assets/models/vit-b-p32_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "BSD 3-Clause",
+        "license": "BSD-3-Clause",
         "copyright": "",
         "source_url": "https://pytorch.org/vision/stable/models/generated/torchvision.models.vit_b_32.html"
       },
@@ -12058,7 +12058,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12088,7 +12088,7 @@
         "cli_command": "./vitl32_sync -m assets/models/vit-l-p32_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/google-research/vision_transformer"
       },
@@ -12118,7 +12118,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12178,7 +12178,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12238,7 +12238,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12298,7 +12298,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12358,7 +12358,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12418,7 +12418,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12448,7 +12448,7 @@
         "cli_command": "./yolact_regnetx_800mf_sync -m assets/models/yolact_regnet-x800mf_512x512.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/dbolya/yolact"
       },
@@ -12478,7 +12478,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12538,7 +12538,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12598,7 +12598,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12658,7 +12658,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12718,7 +12718,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12778,7 +12778,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12838,7 +12838,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12898,7 +12898,7 @@
         "input_resolution": "1024x1024x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12958,7 +12958,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -12988,7 +12988,7 @@
         "cli_command": "./yolact_regnetx_1_6gf_sync -m assets/models/yolact_regnet-x1.6gf_512x512.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/dbolya/yolact"
       },
@@ -13018,7 +13018,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13078,7 +13078,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13138,7 +13138,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13198,7 +13198,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13258,7 +13258,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13498,7 +13498,7 @@
         "input_resolution": "1024x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "Cityscapes",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13678,7 +13678,7 @@
         "input_resolution": "256x256x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "OxfordIIITPet",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13708,7 +13708,7 @@
         "cli_command": "./unet_mobilenet_v2_sync -m assets/models/unet_mobilenetv2_256x256.dxnn -i sample/img/sample_parking.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/tensorflow/examples"
       },
@@ -13768,7 +13768,7 @@
         "cli_command": "./fastdepth_1_sync -m assets/models/fastdepth_224x224.dxnn -i sample/img/sample_horse.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/dwofk/fast-depth"
       },
@@ -13798,7 +13798,7 @@
         "input_resolution": "320x256x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "NYUDepthv2",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13828,7 +13828,7 @@
         "cli_command": "./scdepthv3_sync -m assets/models/scdepthv3_256x320.dxnn -i sample/img/sample_horse.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/JiawangBian/sc_depth_pl"
       },
@@ -13918,7 +13918,7 @@
         "input_resolution": "512x512x1",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "BSD68",
         "metric": {},
         "quantization": [
           "qlite"
@@ -13978,7 +13978,7 @@
         "input_resolution": "512x512x1",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "BSD68",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14038,7 +14038,7 @@
         "input_resolution": "512x512x1",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "BSD68",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14128,7 +14128,7 @@
         "cli_command": "./espcn_x4_sync -m assets/models/espcn-x4_17x17.dxnn -i sample/img/sample_superresolution.png"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/Lornatang/ESPCN-PyTorch"
       },
@@ -14188,7 +14188,7 @@
         "cli_command": "./espcn_x3_sync -m assets/models/espcn-x3_17x17.dxnn -i sample/img/sample_superresolution.png"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/Lornatang/ESPCN-PyTorch"
       },
@@ -14218,7 +14218,7 @@
         "input_resolution": "600x400x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "LOL",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14278,7 +14278,7 @@
         "input_resolution": "112x112x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "LFW",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14338,7 +14338,7 @@
         "input_resolution": "112x112x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "LFW",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14398,7 +14398,7 @@
         "input_resolution": "112x112x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "LFW",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14458,7 +14458,7 @@
         "input_resolution": "112x112x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "LFW",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14518,7 +14518,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PETA",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14578,7 +14578,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PETA",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14638,7 +14638,7 @@
         "input_resolution": "178x218x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "CelebA",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14668,7 +14668,7 @@
         "cli_command": "./face_attr_resnet_v1_18_sync -m assets/models/faceattr_resnetv1-18_218x178.dxnn -i sample/img/sample_person_a1.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/d-li14/face-attribute-prediction"
       },
@@ -14832,7 +14832,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14892,7 +14892,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -14952,7 +14952,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15012,7 +15012,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15072,7 +15072,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15132,7 +15132,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15192,7 +15192,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15252,7 +15252,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15312,7 +15312,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15342,7 +15342,7 @@
         "cli_command": "./yolov12n_ppu_sync -m assets/models/yolov12-n_640x640_ppu.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "AGPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/sunsmarterjie/yolov12"
       },
@@ -15450,6 +15450,7 @@
         "fps_per_watt": "",
         "input_width": 640,
         "input_height": 640,
+        "parameters": "7.06",
         "operations": "10.2"
       },
       "compile_guide": {
@@ -15505,7 +15506,7 @@
         "input_resolution": "416x416x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15535,7 +15536,7 @@
         "cli_command": "./yolov3_2_ppu_sync -m assets/models/yolov3_416x416_ppu.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Public Domain",
         "copyright": "",
         "source_url": "https://github.com/AlexeyAB/darknet"
       },
@@ -15565,7 +15566,7 @@
         "input_resolution": "608x608x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15595,7 +15596,7 @@
         "cli_command": "./yolov3_3_ppu_sync -m assets/models/yolov3_608x608_ppu.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Public Domain",
         "copyright": "",
         "source_url": "https://github.com/AlexeyAB/darknet"
       },
@@ -15692,7 +15693,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15722,7 +15723,7 @@
         "cli_command": "./yolov4_2_ppu_sync -m assets/models/yolov4_512x512_ppu.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Public Domain",
         "copyright": "",
         "source_url": "https://github.com/AlexeyAB/darknet"
       },
@@ -15752,7 +15753,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15812,7 +15813,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "HandKeypoints",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15842,7 +15843,7 @@
         "cli_command": "./handlandmarklite_1_sync -m assets/models/mediapipe-hands-lite_224x224.dxnn -i sample/img/sample_hand.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/google-ai-edge/mediapipe"
       },
@@ -15872,7 +15873,7 @@
         "input_resolution": "120x120x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "AFLW20003D",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15932,7 +15933,7 @@
         "input_resolution": "120x120x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "AFLW20003D",
         "metric": {},
         "quantization": [
           "qlite"
@@ -15992,7 +15993,7 @@
         "input_resolution": "480x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "HPatches",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16022,7 +16023,7 @@
         "cli_command": "./superpoint_sync -m assets/models/superpoint_480x640.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Non-commercial",
         "copyright": "",
         "source_url": "https://github.com/magicleap/SuperPointPretrainedNetwork"
       },
@@ -16052,7 +16053,7 @@
         "input_resolution": "480x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "HOPE",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16112,7 +16113,7 @@
         "input_resolution": "384x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "BDD100K",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16142,7 +16143,7 @@
         "cli_command": "./yolopv2_sync -m assets/models/yolopv2_384x640.dxnn -i sample/img/sample_parking.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/hustvl/YOLOP"
       },
@@ -16172,7 +16173,7 @@
         "input_resolution": "608x608x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "KITTI",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16202,7 +16203,7 @@
         "cli_command": "./sfa3d_608x608_sync -m assets/models/sfa3d_608x608.dxnn -i sample/kitti/velodyne/000049.bin"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/maudzung/SFA3D"
       },
@@ -16232,7 +16233,7 @@
         "input_resolution": "192x192x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "HandKeypointsDetection",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16260,7 +16261,7 @@
         "cli_command": "./mediapipe_hand_detector_sync -m assets/models/mediapipe-hand-detector_192x192.dxnn -i sample/img/sample_hand.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://google.github.io/mediapipe/solutions/hands"
       },
@@ -16290,7 +16291,7 @@
         "input_resolution": "416x416x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16320,7 +16321,7 @@
         "cli_command": "./yolov4tiny_1_sync -m assets/models/yolov4-t_416x416.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Public Domain",
         "copyright": "",
         "source_url": "https://github.com/AlexeyAB/darknet"
       },
@@ -16350,7 +16351,7 @@
         "input_resolution": "1280x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16380,7 +16381,7 @@
         "cli_command": "./yolov6l6_sync -m assets/models/yolov6-l6_1280x1280.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/meituan/YOLOv6"
       },
@@ -16410,7 +16411,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16440,7 +16441,7 @@
         "cli_command": "./yolov6s_sync -m assets/models/yolov6-s_640x640.dxnn -i sample/img/sample_street.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/meituan/YOLOv6"
       },
@@ -16470,7 +16471,7 @@
         "input_resolution": "736x1280x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16530,7 +16531,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16560,7 +16561,7 @@
         "cli_command": "./yolov5n_face_sync -m assets/models/yolov5-n-face_640x640.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/deepcam-cn/yolov5-face"
       },
@@ -16590,7 +16591,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "WiderFace",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16620,7 +16621,7 @@
         "cli_command": "./yolov7_lite_t_face_sync -m assets/models/yolov7-lite-t-face_640x640.dxnn -i sample/img/sample_face.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "GPL-3.0",
         "copyright": "",
         "source_url": "https://github.com/derronqi/yolov7-face"
       },
@@ -16650,7 +16651,7 @@
         "input_resolution": "256x192x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPoseTopDown",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16680,7 +16681,7 @@
         "cli_command": "./vit_pose_small_bn_sync -m assets/models/vitpose-s_256x192.dxnn -i sample/img/sample_people.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/ViTAE-Transformer/ViTPose"
       },
@@ -16710,7 +16711,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16770,7 +16771,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16830,7 +16831,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16890,7 +16891,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -16950,7 +16951,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17010,7 +17011,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17070,7 +17071,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17130,7 +17131,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCOPose",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17190,7 +17191,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17220,7 +17221,7 @@
         "cli_command": "./beit_large_patch16_sync -m assets/models/beit-l-p16_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/microsoft/unilm/tree/master/beit"
       },
@@ -17250,7 +17251,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17280,7 +17281,7 @@
         "cli_command": "./deit_base_sync -m assets/models/deit-b_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -17310,7 +17311,7 @@
         "input_resolution": "384x384x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17340,7 +17341,7 @@
         "cli_command": "./deit_base384_distilled_sync -m assets/models/deit-b_384x384.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -17370,7 +17371,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17400,7 +17401,7 @@
         "cli_command": "./deit_base_distilled_1_sync -m assets/models/deit-b_224x224_distilled.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -17430,7 +17431,7 @@
         "input_resolution": "384x384x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17460,7 +17461,7 @@
         "cli_command": "./deit_base_distilled_2_sync -m assets/models/deit-b_384x384_distilled.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -17490,7 +17491,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17520,7 +17521,7 @@
         "cli_command": "./deit_small_sync -m assets/models/deit-s_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -17550,7 +17551,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17580,7 +17581,7 @@
         "cli_command": "./deit_small_distilled_sync -m assets/models/deit-s_224x224_distilled.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -17610,7 +17611,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17640,7 +17641,7 @@
         "cli_command": "./deit_tiny_sync -m assets/models/deit-t_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -17670,7 +17671,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17700,7 +17701,7 @@
         "cli_command": "./deit_tiny_distilled_sync -m assets/models/deit-t_224x224_distilled.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -17730,7 +17731,7 @@
         "input_resolution": "600x600x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17790,7 +17791,7 @@
         "input_resolution": "480x480x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17850,7 +17851,7 @@
         "input_resolution": "256x256x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17880,7 +17881,7 @@
         "cli_command": "./fastvit_ma36_sync -m assets/models/fastvit-ma36_256x256.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apple ML Research License",
         "copyright": "",
         "source_url": "https://github.com/apple/ml-fastvit"
       },
@@ -17910,7 +17911,7 @@
         "input_resolution": "256x256x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -17940,7 +17941,7 @@
         "cli_command": "./fastvit_sa24_sync -m assets/models/fastvit-sa24_256x256.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apple ML Research License",
         "copyright": "",
         "source_url": "https://github.com/apple/ml-fastvit"
       },
@@ -17970,7 +17971,7 @@
         "input_resolution": "256x256x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18000,7 +18001,7 @@
         "cli_command": "./fastvit_sa36_sync -m assets/models/fastvit-sa36_256x256.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apple ML Research License",
         "copyright": "",
         "source_url": "https://github.com/apple/ml-fastvit"
       },
@@ -18030,7 +18031,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18060,7 +18061,7 @@
         "cli_command": "./ghostnet_sync -m assets/models/ghostnet_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/huawei-noah/Efficient-AI-Backbones"
       },
@@ -18090,7 +18091,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18120,7 +18121,7 @@
         "cli_command": "./repghost_2_0x_sync -m assets/models/repghost-2.0x_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/ChengpengChen/RepGhost"
       },
@@ -18150,7 +18151,7 @@
         "input_resolution": "320x320x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18180,7 +18181,7 @@
         "cli_command": "./repvgg_a0_sync -m assets/models/repvgg-a0_320x320.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/DingXiaoH/RepVGG"
       },
@@ -18210,7 +18211,7 @@
         "input_resolution": "320x320x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18240,7 +18241,7 @@
         "cli_command": "./repvgg_a1_sync -m assets/models/repvgg-a1_320x320.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/DingXiaoH/RepVGG"
       },
@@ -18270,7 +18271,7 @@
         "input_resolution": "320x320x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18300,7 +18301,7 @@
         "cli_command": "./repvgg_a2_sync -m assets/models/repvgg-a2_320x320.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/DingXiaoH/RepVGG"
       },
@@ -18330,7 +18331,7 @@
         "input_resolution": "320x320x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18360,7 +18361,7 @@
         "cli_command": "./repvgg_b0_sync -m assets/models/repvgg-b0_320x320.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/DingXiaoH/RepVGG"
       },
@@ -18390,7 +18391,7 @@
         "input_resolution": "320x320x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18420,7 +18421,7 @@
         "cli_command": "./repvgg_b1_sync -m assets/models/repvgg-b1_320x320.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/DingXiaoH/RepVGG"
       },
@@ -18450,7 +18451,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18480,7 +18481,7 @@
         "cli_command": "./resmlp24_sync -m assets/models/resmlp24_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/facebookresearch/deit"
       },
@@ -18510,7 +18511,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18570,7 +18571,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18600,7 +18601,7 @@
         "cli_command": "./vit_base_bn_sync -m assets/models/vit-b-p16_224x224_bn.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/google-research/vision_transformer"
       },
@@ -18630,7 +18631,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18660,7 +18661,7 @@
         "cli_command": "./vit_base_p16_sync -m assets/models/vit-b-p16_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/google-research/vision_transformer"
       },
@@ -18690,7 +18691,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18720,7 +18721,7 @@
         "cli_command": "./vit_small_p16_sync -m assets/models/vit-s-p16_224x224.dxnn -i sample/img/sample_dog.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/google-research/vision_transformer"
       },
@@ -18750,7 +18751,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18810,7 +18811,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18870,7 +18871,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18930,7 +18931,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -18990,7 +18991,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19050,7 +19051,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19110,7 +19111,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19170,7 +19171,7 @@
         "input_resolution": "640x640x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "COCO",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19230,7 +19231,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ADE20K",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19290,7 +19291,7 @@
         "input_resolution": "513x513x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PascalVOC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19350,7 +19351,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PascalVOC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19410,7 +19411,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PascalVOC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19470,7 +19471,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PascalVOC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19500,7 +19501,7 @@
         "cli_command": "./deeplabv3plus_drn_512x512_sync -m assets/models/deeplabv3plus-drn_512x512.dxnn -i sample/img/sample_parking.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/jfzhang95/pytorch-deeplab-xception"
       },
@@ -19530,7 +19531,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PascalVOC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19560,7 +19561,7 @@
         "cli_command": "./deeplabv3plus_resnet101_sync -m assets/models/deeplabv3plus-resnet101_512x512.dxnn -i sample/img/sample_parking.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/VainF/DeepLabV3Plus-Pytorch"
       },
@@ -19590,7 +19591,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PascalVOC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19620,7 +19621,7 @@
         "cli_command": "./deeplabv3plus_resnet50_sync -m assets/models/deeplabv3plus-resnet50_512x512.dxnn -i sample/img/sample_parking.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/VainF/DeepLabV3Plus-Pytorch"
       },
@@ -19650,7 +19651,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "PascalVOC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19710,7 +19711,7 @@
         "input_resolution": "1024x1920x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "Cityscapes",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19770,7 +19771,7 @@
         "input_resolution": "1024x2048x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "Cityscapes",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19800,7 +19801,7 @@
         "cli_command": "./pidnet_s_sync -m assets/models/pidnet-s_1024x2048.dxnn -i sample/img/sample_parking.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/XuJiacong/PIDNet"
       },
@@ -19830,7 +19831,7 @@
         "input_resolution": "512x1024x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "Cityscapes",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19860,7 +19861,7 @@
         "cli_command": "./stdc2_model_maxmiou50_sync -m assets/models/stdc2-seg50_512x1024.dxnn -i sample/img/sample_parking.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/MichaelFan01/STDC-Seg"
       },
@@ -19890,7 +19891,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "NYUDepthv2",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19920,7 +19921,7 @@
         "cli_command": "./depth_anything_v2_vitb_sync -m assets/models/depthanythingv2-vitb_224x224.dxnn -i sample/img/sample_horse.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "CC BY-NC 4.0",
         "copyright": "",
         "source_url": "https://github.com/DepthAnything/Depth-Anything-V2"
       },
@@ -19950,7 +19951,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "NYUDepthv2",
         "metric": {},
         "quantization": [
           "qlite"
@@ -19980,7 +19981,7 @@
         "cli_command": "./depth_anything_v2_vitl_sync -m assets/models/depthanythingv2-vitl_224x224.dxnn -i sample/img/sample_horse.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "CC BY-NC 4.0",
         "copyright": "",
         "source_url": "https://github.com/DepthAnything/Depth-Anything-V2"
       },
@@ -20010,7 +20011,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "NYUDepthv2",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20040,7 +20041,7 @@
         "cli_command": "./depth_anything_v2_vits_sync -m assets/models/depthanythingv2-vits_224x224.dxnn -i sample/img/sample_horse.jpg"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/DepthAnything/Depth-Anything-V2"
       },
@@ -20070,7 +20071,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "CBSD68",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20130,7 +20131,7 @@
         "input_resolution": "17x17x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "BSD100",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20160,7 +20161,7 @@
         "cli_command": "./espcn_x2_sync -m assets/models/espcn-x2_17x17.dxnn -i sample/img/sample_superresolution.png"
       },
       "legal": {
-        "license": "",
+        "license": "Apache-2.0",
         "copyright": "",
         "source_url": "https://github.com/Lornatang/ESPCN-PyTorch"
       },
@@ -20190,7 +20191,7 @@
         "input_resolution": "192x192x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "BSD100",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20220,7 +20221,7 @@
         "cli_command": "./realesrgan_x2_sync -m assets/models/realesrgan-x2_192x192.dxnn -i sample/img/sample_superresolution.png"
       },
       "legal": {
-        "license": "",
+        "license": "BSD-3-Clause",
         "copyright": "",
         "source_url": "https://github.com/xinntao/Real-ESRGAN"
       },
@@ -20250,7 +20251,7 @@
         "input_resolution": "192x192x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "BSD100",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20280,7 +20281,7 @@
         "cli_command": "./realesrgan_x4_sync -m assets/models/realesrgan-x4_192x192.dxnn -i sample/img/sample_superresolution.png"
       },
       "legal": {
-        "license": "",
+        "license": "BSD-3-Clause",
         "copyright": "",
         "source_url": "https://github.com/xinntao/Real-ESRGAN"
       },
@@ -20310,7 +20311,7 @@
         "input_resolution": "192x192x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "BSD100",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20340,7 +20341,7 @@
         "cli_command": "./realesrgan_x8_sync -m assets/models/realesrgan-x8_192x192.dxnn -i sample/img/sample_superresolution.png"
       },
       "legal": {
-        "license": "",
+        "license": "BSD-3-Clause",
         "copyright": "",
         "source_url": "https://github.com/xinntao/Real-ESRGAN"
       },
@@ -20370,7 +20371,7 @@
         "input_resolution": "400x600x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "LOL",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20430,7 +20431,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "HPatches",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20460,7 +20461,7 @@
         "cli_command": "./eigenplaces_resnet18_sync -m assets/models/eigenplaces-resnet18_512x512.dxnn -i sample/img/face_pair"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/gmberton/EigenPlaces"
       },
@@ -20490,7 +20491,7 @@
         "input_resolution": "512x512x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "HPatches",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20520,7 +20521,7 @@
         "cli_command": "./eigenplaces_resnet50_sync -m assets/models/eigenplaces-resnet50_512x512.dxnn -i sample/img/face_pair"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/gmberton/EigenPlaces"
       },
@@ -20550,7 +20551,7 @@
         "input_resolution": "384x384x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20580,7 +20581,7 @@
         "cli_command": "./rn50x16_openai_sync -m assets/models/clip-img_resnet50x16_384x384_openai-wit.dxnn -i sample/img/face_pair"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/mlfoundations/open_clip"
       },
@@ -20610,7 +20611,7 @@
         "input_resolution": "256x256x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20640,7 +20641,7 @@
         "cli_command": "./vit_b_32_256_datacomp_s34b_b86k_sync -m assets/models/clip-img_vit-b32_256x256_datacomp-s34b-b86k.dxnn -i sample/img/face_pair"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/mlfoundations/open_clip"
       },
@@ -20670,7 +20671,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20700,7 +20701,7 @@
         "cli_command": "./vit_l_14_datacomp_xl_s13b_b90k_sync -m assets/models/clip-img_vit-l14_224x224_datacomp-xl-s13b-b90k.dxnn -i sample/img/face_pair"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/mlfoundations/open_clip"
       },
@@ -20730,7 +20731,7 @@
         "input_resolution": "224x224x3",
         "ops": "",
         "params": "",
-        "dataset": "",
+        "dataset": "ILSVRC2012",
         "metric": {},
         "quantization": [
           "qlite"
@@ -20760,7 +20761,7 @@
         "cli_command": "./vit_l_14_quickgelu_dfn2b_sync -m assets/models/clip-img_vit-l14-quickgelu_224x224_dfn2b.dxnn -i sample/img/face_pair"
       },
       "legal": {
-        "license": "",
+        "license": "MIT",
         "copyright": "",
         "source_url": "https://github.com/mlfoundations/open_clip"
       },

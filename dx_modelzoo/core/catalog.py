@@ -44,6 +44,8 @@ _LICENSE_TEXT_REF = {
     "CC BY-NC 4.0": "Creative Commons Attribution-NonCommercial 4.0 — https://creativecommons.org/licenses/by-nc/4.0/",
     "Non-commercial": "Non-commercial use only — see the source repository for terms",
     "No License": "No license declared by the source repository (all rights reserved by default)",
+    "Public Domain": "Public domain dedication — Darknet \"YOLO LICENSE\" (no rights reserved)",
+    "Apple ML Research License": "Apple proprietary research license — use/reproduce/modify/redistribute with notice retention; see the source repository LICENSE",
 }
 
 # source-host org slug → display copyright holder (else the slug verbatim = repo owner).
