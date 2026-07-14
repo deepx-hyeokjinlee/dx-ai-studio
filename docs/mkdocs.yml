@@ -67,7 +67,9 @@ nav:
     - DX EdgeGuide: docs/09_DX_EdgeGuide.md
     - DX Agent Dev: docs/10_DX_Agent_Dev.md
   - SDK Library & About: docs/11_SDK_Library_and_About.md
-  - Change Log: docs/Appendix_Change_Log.md
+  - Appendix:
+    - Third-Party Licenses: docs/Appendix_Third_Party_License.md
+    - Change Log: docs/Appendix_Change_Log.md
 
 plugins:
   - search
