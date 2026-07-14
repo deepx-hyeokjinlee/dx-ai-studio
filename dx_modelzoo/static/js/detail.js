@@ -86,6 +86,30 @@ function _detailValue(v, fallbackLabel) {
   return escapeHtml(String(v));
 }
 
+function _commercialUseLabel(cu) {
+  switch (cu) {
+    case 'allowed': return T('Allowed — commercial use permitted');
+    case 'copyleft': return T('Copyleft — commercial use OK, share-alike required');
+    case 'non-commercial': return T('Non-commercial — commercial use prohibited');
+    default: return T('Restricted — license review required');
+  }
+}
+
+function _commercialUseValue(cu) {
+  const key = ['allowed', 'copyleft', 'non-commercial', 'restricted'].indexOf(cu) >= 0 ? cu : 'restricted';
+  return `<span class="mz-commercial mz-commercial-${key}"><span class="mz-commercial-dot"></span>${escapeHtml(_commercialUseLabel(key))}</span>`;
+}
+
+function _commercialUseWarning(cu) {
+  if (cu === 'non-commercial') {
+    return `<div class="mz-commercial-warn non-commercial">⚠ ${escapeHtml(T('This model is licensed for non-commercial use only — review the source license before deploying commercially.'))}</div>`;
+  }
+  if (cu === 'restricted') {
+    return `<div class="mz-commercial-warn restricted">⚠ ${escapeHtml(T('This model has no clear commercial-use license — review the source license before deploying commercially.'))}</div>`;
+  }
+  return '';
+}
+
 function _sourceStatusText(status) {
   const labels = {
     provided: 'Available',
@@ -776,12 +800,18 @@ function _buildModelCardHtml(m, imgDataUrl) {
   const lastSync = (typeof _lastMetadataSync === 'function') ? _lastMetadataSync(m) : '';
   const legalRows = [
     [T('License'), v(legal.license)],
+    [T('Commercial use'), e(_commercialUseLabel(legal.commercial_use))],
     [T('License text'), v(legal.license_text)],
     [T('Copyright'), v(legal.copyright)],
     [T('Source'), src],
     [T('Source profile'), v(metaSrc.source_profile)],
     [T('Last metadata sync'), v(lastSync)],
   ].map(function (r) { return '<tr><th>' + e(r[0]) + '</th><td>' + (r[0] === T('Source') ? r[1] : r[1]) + '</td></tr>'; }).join('');
+  const legalWarn = (legal.commercial_use === 'non-commercial')
+    ? ('<p class="sum">⚠ ' + e(T('This model is licensed for non-commercial use only — review the source license before deploying commercially.')) + '</p>')
+    : (legal.commercial_use === 'restricted')
+      ? ('<p class="sum">⚠ ' + e(T('This model has no clear commercial-use license — review the source license before deploying commercially.')) + '</p>')
+      : '';
 
   const preview = imgDataUrl
     ? '<h2>' + e(T('Preview')) + '</h2><img src="' + imgDataUrl + '" alt="' + e(title) + '" style="display:block;max-width:100%;margin:0 auto 8px;border-radius:10px;border:1px solid rgba(99,140,255,.18)">'
@@ -812,7 +842,7 @@ function _buildModelCardHtml(m, imgDataUrl) {
     + (cgNote ? '<p class="sum">' + e(cgNote) + '</p>' : '')
     + '<h2>' + e(T('Artifacts & Downloads')) + '</h2><table>' + artRows + '</table>'
     + ((cli || exP) ? ('<h2>' + e(T('Demo')) + '</h2>' + cli + exP) : '')
-    + '<h2>' + e(T('Source & License')) + '</h2><table>' + legalRows + '</table>'
+    + '<h2>' + e(T('Source & License')) + '</h2><table>' + legalRows + '</table>' + legalWarn
     + '<footer>Generated from DEEPX Model Zoo · ' + e(title)
     + (exportedAt ? (' · ' + e(T('Exported')) + ': ' + e(exportedAt)) : '') + '</footer>'
     + '</div></body></html>';
@@ -834,6 +864,7 @@ function renderLegal(model) {
 
   const rows = [
     [T('License'), legal.license ? escapeHtml(legal.license) : _detailStatus('Not provided by source')],
+    [T('Commercial use'), _commercialUseValue(legal.commercial_use)],
     [T('License text'), legal.license_text ? escapeHtml(legal.license_text) : _detailStatus('License text not provided by source')],
     [T('Copyright'), legal.copyright ? escapeHtml(legal.copyright) : _detailStatus('Not provided by source')],
     [T('Source'), sourceValue],
@@ -846,7 +877,7 @@ function renderLegal(model) {
       <h4>${escapeHtml(label)}</h4>
       <div class="mz-legal-value">${value}</div>
     </div>`).join('')}
-  </div>`;
+  </div>${_commercialUseWarning(legal.commercial_use)}`;
 }
 
 function renderDownloadButtons(model, scope = 'inline') {

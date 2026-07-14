@@ -48,6 +48,18 @@ _LICENSE_TEXT_REF = {
     "Apple ML Research License": "Apple proprietary research license — use/reproduce/modify/redistribute with notice retention; see the source repository LICENSE",
 }
 
+# Commercial-use classification per license, so the UI can flag models that cannot be
+# used commercially. "allowed" = permissive; "copyleft" = commercial OK but share-alike
+# obligations; "non-commercial" = commercial use prohibited; "restricted" = proprietary/
+# custom or no declared license (all rights reserved) — review before any use.
+_LICENSE_COMMERCIAL = {
+    "Apache-2.0": "allowed", "MIT": "allowed", "BSD-3-Clause": "allowed",
+    "BSD 3-Clause": "allowed", "Unlicense": "allowed", "Public Domain": "allowed",
+    "GPL-3.0": "copyleft", "AGPL-3.0": "copyleft", "LGPL-3.0": "copyleft",
+    "CC BY-NC 4.0": "non-commercial", "Non-commercial": "non-commercial",
+    "Apple ML Research License": "restricted", "No License": "restricted",
+}
+
 # source-host org slug → display copyright holder (else the slug verbatim = repo owner).
 _COPYRIGHT_ORG = {
     "ultralytics": "Ultralytics", "deepinsight": "InsightFace", "facebook": "Facebook",
@@ -86,6 +98,11 @@ def _enrich_legal(model):
         ref = _LICENSE_TEXT_REF.get(lg["license"])
         if ref:
             lg["license_text"] = ref
+    # Commercial-use classification (derived from the license) so the UI can flag models
+    # whose license restricts commercial use. Unknown/undeclared license → "restricted".
+    if not lg.get("commercial_use"):
+        lic = lg.get("license")
+        lg["commercial_use"] = _LICENSE_COMMERCIAL.get(lic, "restricted") if lic else "restricted"
 
 
 _I18N_LANGS = ("en", "ko", "ja", "zh-CN", "zh-TW", "es")

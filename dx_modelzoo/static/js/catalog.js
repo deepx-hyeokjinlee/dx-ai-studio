@@ -174,6 +174,16 @@ function _artifactBadges(m) {
   ].join(' ');
 }
 
+function _licenseBadge(m) {
+  const cu = m.legal && m.legal.commercial_use;
+  if (cu !== 'non-commercial' && cu !== 'restricted') return '';
+  const label = cu === 'non-commercial' ? T('Non-commercial') : T('License: review');
+  const title = cu === 'non-commercial'
+    ? T('Commercial use prohibited')
+    : T('Commercial use requires license review');
+  return `<span class="mz-license-badge ${cu}" title="${_escapeAttr(title)}">⚠ ${_escapeAttr(label)}</span>`;
+}
+
 function _commitCatalogStateSave(state) {
   sessionStorage.setItem('modelzooCatalogState', JSON.stringify(state));
 }
@@ -577,6 +587,7 @@ const ModelZooVirtualCatalog = {
       <div class="mz-card-body">
         <div class="mz-card-name" title="${_escapeAttr(m.id)}">${_escapeAttr(m.name)}</div>
         <div class="mz-card-cat">${categoryIcon} ${_escapeAttr(catLabel)}</div>
+        ${_licenseBadge(m)}
         ${summary ? `<div class="mz-card-summary">${_escapeAttr(summary)}</div>` : ''}
         <div class="mz-card-meta">
           ${fps}
@@ -616,7 +627,7 @@ const ModelZooVirtualCatalog = {
       <td>${_escapeAttr(fpsText)}</td>
       <td>${resolution ? _escapeAttr(resolution) : _missingLabel('Not provided by source')}</td>
       <td>${accuracyText ? _escapeAttr(String(accuracyText)) : _missingLabel('Not provided by source')}</td>
-      <td>${statusBadges}</td>
+      <td>${statusBadges}${_licenseBadge(m)}</td>
     </tr>`;
   },
 

@@ -243,6 +243,33 @@ body{overflow-x:auto;overflow-y:auto}
 .mz-download-badge.ready{background:rgba(var(--success-rgb),.15);color:var(--success)}
 .mz-download-badge.not-ready{background:rgba(var(--warning-rgb),.15);color:var(--warning)}
 
+/* ═══ License / Commercial-use Badge ═══ */
+.mz-license-badge{display:inline-flex;align-items:center;gap:4px;margin-top:var(--sp-1);
+  padding:2px 10px;border-radius:var(--radius-pill);font-size:var(--fs-xs);font-weight:600;
+  line-height:1.5;white-space:nowrap}
+.mz-license-badge.non-commercial{background:rgba(var(--error-rgb),.15);color:var(--error);
+  border:1px solid rgba(var(--error-rgb),.35)}
+.mz-license-badge.restricted{background:rgba(var(--warning-rgb),.15);color:var(--warning);
+  border:1px solid rgba(var(--warning-rgb),.35)}
+
+/* ═══ Commercial-use indicator (detail Source & License) ═══ */
+.mz-commercial{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.mz-commercial-dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.mz-commercial-allowed .mz-commercial-dot{background:var(--success)}
+.mz-commercial-allowed{color:var(--success)}
+.mz-commercial-copyleft .mz-commercial-dot{background:var(--info)}
+.mz-commercial-copyleft{color:var(--info)}
+.mz-commercial-non-commercial .mz-commercial-dot{background:var(--error)}
+.mz-commercial-non-commercial{color:var(--error)}
+.mz-commercial-restricted .mz-commercial-dot{background:var(--warning)}
+.mz-commercial-restricted{color:var(--warning)}
+.mz-commercial-warn{margin-top:var(--sp-3);padding:var(--sp-3);border-radius:var(--radius);
+  font-size:var(--fs-sm);line-height:1.5;font-weight:500}
+.mz-commercial-warn.non-commercial{background:rgba(var(--error-rgb),.12);color:var(--error-light);
+  border:1px solid rgba(var(--error-rgb),.35)}
+.mz-commercial-warn.restricted{background:rgba(var(--warning-rgb),.12);color:var(--warning-light);
+  border:1px solid rgba(var(--warning-rgb),.35)}
+
 /* ═══ Placeholder / Loading ═══ */
 .mz-placeholder{display:flex;align-items:center;justify-content:center;
   padding:var(--sp-7);color:var(--text-4);font-size:15px}
