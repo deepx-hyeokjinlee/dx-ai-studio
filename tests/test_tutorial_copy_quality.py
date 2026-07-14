@@ -45,7 +45,7 @@ def test_tutorial_copy_no_missing_languages():
 def test_tutorial_js_has_no_dom_mock_markers():
     offenders = []
     for rel in ROOT.glob("**/static/js/tutorial.js"):
-        if "dx-agent-dev" in rel.parts:
+        if "dx_agent_dev" in rel.parts:
             continue
         src = rel.read_text(encoding="utf-8")
         if "data-dxt-tutorial-mock" in src:

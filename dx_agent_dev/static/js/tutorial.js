@@ -53,7 +53,19 @@
         { target: '#console-status-bar', position: 'bottom',
           title: { ko: '상태줄', en: 'Status Line', ja: 'ステータス行', 'zh-CN': '状态行', 'zh-TW': '狀態列', es: 'Línea de estado' },
           content: { ko: '재연결, 세션 시작, 완료 시간, <code>workspace/agent-sessions/</code> 출력 경로 등 <strong>진행 상태</strong>가 여기 표시됩니다. 채팅 말풍선과 분리됩니다.', en: 'Shows <strong>progress details</strong> — reconnections, session start, finish time, and the <code>workspace/agent-sessions/</code> output path — separate from chat bubbles.', ja: '再接続、セッション開始、完了時間、<code>workspace/agent-sessions/</code> 出力パスなどの<strong>進行状態</strong>がここに表示されます。チャット吹き出しとは分離されています。', 'zh-CN': '显示<strong>进度详情</strong> — 重连、会话开始、完成时间及 <code>workspace/agent-sessions/</code> 输出路径 — 与聊天气泡分开。', 'zh-TW': '顯示<strong>進度詳情</strong> — 重連、工作階段開始、完成時間及 <code>workspace/agent-sessions/</code> 輸出路徑 — 與聊天氣泡分開。', es: 'Muestra <strong>detalles del progreso</strong> — reconexiones, inicio de sesión, tiempo de finalización y la ruta de salida <code>workspace/agent-sessions/</code> — separado de las burbujas del chat.' },
-          beforeStep: function () { _ensureConsoleStatusBar(); } },
+          beforeStep: function () { _ensureConsoleStatusBar(); },
+          afterStep: function () {
+            // Revert the status bar the tutorial revealed, unless a real session has
+            // populated it (in which case it no longer shows our demo placeholder text).
+            var bar = document.getElementById('console-status-bar');
+            if (!bar) return;
+            if (bar.textContent.trim() === 'Session output: workspace/agent-sessions/demo-session/') {
+              bar.textContent = '';
+              bar.setAttribute('hidden', '');
+              bar.style.display = '';
+              bar.style.minHeight = '';
+            }
+          } },
         { target: '#console-output', position: 'top',
           title: { ko: '채팅 출력', en: 'Chat Output', ja: 'チャット出力', 'zh-CN': '聊天输出', 'zh-TW': '聊天輸出', es: 'Salida del chat' },
           content: { ko: '에이전트 답변은 <strong>마크다운 말풍선</strong>으로 스트리밍됩니다. 셸·도구 실행은 아래 <strong>Agent activity</strong> 접이 패널에 모입니다.', en: 'Agent replies <strong>stream as markdown chat bubbles</strong>. Shell and tool runs collect in the collapsible <strong>Agent activity</strong> panel below.', ja: 'エージェントの回答は<strong>Markdownのチャット吹き出し</strong>としてストリーミングされます。シェル・ツール実行は下の<strong>Agent activity</strong>折りたたみパネルに集まります。', 'zh-CN': '智能体回复以<strong>Markdown 聊天气泡</strong>流式显示。Shell 和工具运行汇总在下方可折叠的 <strong>Agent activity</strong> 面板。', 'zh-TW': '智能體回覆以<strong>Markdown 聊天氣泡</strong>串流顯示。Shell 和工具執行彙總在下方可摺疊的 <strong>Agent activity</strong> 面板。', es: 'Las respuestas del agente se <strong>transmiten como burbujas de chat Markdown</strong>. Las ejecuciones de shell y herramientas se recopilan en el panel plegable <strong>Agent activity</strong> de abajo.' } },
@@ -79,6 +91,14 @@
             var c = document.getElementById('agent-controls');
             if (c) c.removeAttribute('hidden');
             _scrollTo('#agent-select');
+          },
+          afterStep: function () {
+            // The app (fillAgentControls) hides #agent-controls when no agents exist.
+            // Re-apply that state so the tour doesn't leave an empty toolbar visible;
+            // if agents are present (#agent-select has options), leave it shown.
+            var c = document.getElementById('agent-controls');
+            var sel = document.getElementById('agent-select');
+            if (c && (!sel || sel.options.length === 0)) c.setAttribute('hidden', '');
           } },
         { target: '#model-select', position: 'bottom',
           title: { ko: '모델 선택', en: 'Model Select', ja: 'モデル選択', 'zh-CN': '模型选择', 'zh-TW': '模型選擇', es: 'Selección de modelo' },
@@ -109,6 +129,12 @@
           beforeStep: function () {
             var g = document.getElementById('showcase-gallery');
             if (g) g.removeAttribute('hidden');
+          },
+          afterStep: function () {
+            // The app only reveals #showcase-gallery (with content) in degraded/no-agent
+            // mode. If it's still empty, the tutorial forced it open — re-hide it.
+            var g = document.getElementById('showcase-gallery');
+            if (g && !g.textContent.trim()) g.setAttribute('hidden', '');
           } },
       ]
     },
@@ -125,7 +151,17 @@
         { target: '#console-status-bar', position: 'bottom',
           title: { ko: '세션 상태 vs Activity', en: 'Status Line vs Activity', ja: 'ステータス行 vs Activity', 'zh-CN': '状态行与 Activity', 'zh-TW': '狀態列與 Activity', es: 'Línea de estado vs Activity' },
           content: { ko: '<strong>상태줄</strong>은 재연결·세션 경로 등 메타 정보를, <strong>Activity</strong>는 명령 stdout/stderr를 표시합니다. 둘 다 채팅 본문과 분리되어 있습니다.', en: 'The <strong>status line</strong> shows meta info (reconnect, session path); <strong>Activity</strong> shows command stdout/stderr. Both stay separate from chat prose.', ja: '<strong>ステータス行</strong>は再接続・セッションパスなどのメタ情報、<strong>Activity</strong>はコマンドのstdout/stderrを表示します。どちらもチャット本文とは分離されています。', 'zh-CN': '<strong>状态行</strong>显示重连、会话路径等元信息；<strong>Activity</strong>显示命令 stdout/stderr。两者均与聊天正文分离。', 'zh-TW': '<strong>狀態列</strong>顯示重連、工作階段路徑等元資訊；<strong>Activity</strong>顯示命令 stdout/stderr。兩者均與聊天正文分離。', es: 'La <strong>línea de estado</strong> muestra metadatos (reconexión, ruta de sesión); <strong>Activity</strong> muestra stdout/stderr de comandos. Ambos permanecen separados del texto del chat.' },
-          beforeStep: function () { _ensureConsoleStatusBar(); } },
+          beforeStep: function () { _ensureConsoleStatusBar(); },
+          afterStep: function () {
+            var bar = document.getElementById('console-status-bar');
+            if (!bar) return;
+            if (bar.textContent.trim() === 'Session output: workspace/agent-sessions/demo-session/') {
+              bar.textContent = '';
+              bar.setAttribute('hidden', '');
+              bar.style.display = '';
+              bar.style.minHeight = '';
+            }
+          } },
         { target: '.activity-panel', position: 'top',
           title: { ko: 'Activity 패널', en: 'Activity Panel', ja: 'Activityパネル', 'zh-CN': 'Activity 面板', 'zh-TW': 'Activity 面板', es: 'Panel Activity' },
           content: { ko: '에이전트가 shell·도구를 실행하면 채팅 아래에 <strong>Agent activity</strong> 접이 패널이 생깁니다. 요약 줄을 펼쳐 stdout/stderr 로그를 확인하세요.', en: 'When the agent runs shell or tool commands, a collapsible <strong>Agent activity</strong> panel appears below chat. Expand the summary row to read stdout/stderr logs.', ja: 'エージェントがshell・ツールを実行すると、チャットの下に<strong>Agent activity</strong>折りたたみパネルが現れます。サマリー行を展開してstdout/stderrログを確認します。', 'zh-CN': '智能体运行 shell 或工具时，聊天下方会出现可折叠的 <strong>Agent activity</strong> 面板。展开摘要行查看 stdout/stderr 日志。', 'zh-TW': '智能體執行 shell 或工具時，聊天下方會出現可摺疊的 <strong>Agent activity</strong> 面板。展開摘要列查看 stdout/stderr 日誌。', es: 'Cuando el agente ejecuta shell o herramientas, aparece un panel plegable <strong>Agent activity</strong> bajo el chat. Expanda la fila de resumen para leer los registros stdout/stderr.' },

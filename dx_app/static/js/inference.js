@@ -148,6 +148,7 @@ function _applyPendingAutoSelect(){
 
 function initRunPage(){
   _invalidateRunMediaCache();
+  $('r-export-out').classList.add('hidden');
   var cats=[...new Set(S.models.map(function(m){return m.category}))].sort();
   $('r-cat').innerHTML='<option value="">'+T('— Select Category —')+'</option>'+cats.map(function(c){return '<option value="'+esc(c)+'">'+esc(c)+'</option>'}).join('');
   _applyPendingAutoSelect();

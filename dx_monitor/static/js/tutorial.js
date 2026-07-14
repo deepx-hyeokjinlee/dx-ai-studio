@@ -48,6 +48,11 @@
     if (typeof _updateMockBanner === 'function') _updateMockBanner();
   }
 
+  function _clearMonitorMock() {
+    if (typeof S !== 'undefined') S.isMock = false;
+    if (typeof _updateMockBanner === 'function') _updateMockBanner();
+  }
+
   var sections = [
 
     { id: 'overview', icon: '🖥️',
@@ -146,7 +151,8 @@
         { target: '#npu-topo', position: 'right',
           title: { ko: 'NPU 토폴로지', en: 'NPU Topology', ja: 'NPUトポロジー', 'zh-CN': 'NPU拓扑', 'zh-TW': 'NPU拓撲' , es: 'Topología del NPU' },
           content: { ko: '각 NPU 디바이스의 <strong>온도, 전압, 클럭, DRAM, 사용률</strong>과 펌웨어/칩/보드 메타데이터를 표시합니다.', en: 'Shows per-device <strong>temperature, voltage, clock, DRAM, utilization</strong> and firmware/chip/board metadata.', ja: '各NPUデバイスの<strong>温度、電圧、クロック、DRAM、使用率</strong>とファームウェア/チップ/ボードメタデータを表示します。', 'zh-CN': '显示每个设备的<strong>温度、电压、时钟、DRAM、使用率</strong>和固件/芯片/板卡元数据。', 'zh-TW': '顯示每個裝置的<strong>溫度、電壓、時鐘、DRAM、使用率</strong>和韌體/晶片/板卡中繼資料。' , es: 'Muestra por dispositivo <strong>temperatura, voltaje, reloj, DRAM, utilización</strong> y metadatos de firmware/chip/placa.' },
-          beforeStep: function () { _ensureMonitorDemo(); _scrollTo('#npu-topo'); } },
+          beforeStep: function () { _ensureMonitorDemo(); _scrollTo('#npu-topo'); },
+          afterStep: function () { _clearMonitorMock(); } },
         { target: '#npu-status-label', position: 'bottom',
           title: { ko: 'NPU 상태 배지', en: 'NPU Status Badge', ja: 'NPUステータスバッジ', 'zh-CN': 'NPU状态徽章', 'zh-TW': 'NPU狀態徽章' , es: 'Indicador de estado del NPU' },
           content: { ko: '감지된 NPU 개수 또는 <strong>모의 데이터</strong> 여부를 나타냅니다.', en: 'Shows detected NPU count or whether <strong>mock data</strong> is active.', ja: '検出されたNPU数または<strong>モックデータ</strong>の有無を示します。', 'zh-CN': '显示检测到的NPU数量或是否使用<strong>模拟数据</strong>。', 'zh-TW': '顯示偵測到的NPU數量或是否使用<strong>模擬資料</strong>。' , es: 'Muestra el número de NPUs detectados o si están activos <strong>datos simulados</strong>.' },
@@ -168,7 +174,8 @@
         { target: '#event-log', position: 'top',
           title: { ko: '런타임 이벤트', en: 'Runtime Events', ja: 'ランタイムイベント', 'zh-CN': '运行时事件', 'zh-TW': '執行時事件' , es: 'Eventos de tiempo de ejecución' },
           content: { ko: '최근 모니터 이벤트를 <strong>심각도 배지, 타임스탬프</strong>와 함께 표시하며 자동 갱신됩니다.', en: 'Shows recent monitor events with <strong>severity badges, timestamps</strong>, and auto-refresh.', ja: '最近のモニターイベントを<strong>重大度バッジ、タイムスタンプ</strong>と共に表示し、自動更新されます。', 'zh-CN': '显示最近的监控事件，带有<strong>严重性徽章、时间戳</strong>，并自动刷新。', 'zh-TW': '顯示最近的監控事件，帶有<strong>嚴重性徽章、時間戳</strong>，並自動重新整理。' , es: 'Muestra eventos recientes del monitor con <strong>indicadores de gravedad y marcas de tiempo</strong>, con actualización automática.' },
-          beforeStep: function () { _ensureMonitorDemo(); _scrollTo('#event-log'); } },
+          beforeStep: function () { _ensureMonitorDemo(); _scrollTo('#event-log'); },
+          afterStep: function () { _clearMonitorMock(); } },
         { target: '#event-count', position: 'left',
           title: { ko: '이벤트 수', en: 'Event Count', ja: 'イベント数', 'zh-CN': '事件计数', 'zh-TW': '事件計數' , es: 'Recuento de eventos' },
           content: { ko: '이벤트 수 배지이며, <strong>언어 변경</strong> 시 카운트 레이블이 다시 그려집니다.', en: 'Event count badge — the count label <strong>repaints on language changes</strong>.', ja: 'イベント数バッジで、<strong>言語変更</strong>時にカウントラベルが再描画されます。', 'zh-CN': '事件计数徽章——<strong>更改语言</strong>时计数标签会自动更新。', 'zh-TW': '事件計數徽章——<strong>語言變更</strong>時計數標籤會自動更新。' , es: 'Indicador del recuento de eventos: la etiqueta del contador se <strong>vuelve a dibujar al cambiar el idioma</strong>.' },

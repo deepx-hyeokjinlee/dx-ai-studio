@@ -32,6 +32,7 @@ var _abDocClickHandler=null;
 var _abInFlight=false;
 function setABCols(n){
   S.abCols=n;
+  $('ab-compare-card').classList.add('hidden');
   document.querySelectorAll('#ab-cols .btn').forEach(b=>b.classList.remove('active'));
   var activeBtn=document.querySelector('#ab-cols .btn[onclick="setABCols('+n+')"]');
   if(activeBtn)activeBtn.classList.add('active');
