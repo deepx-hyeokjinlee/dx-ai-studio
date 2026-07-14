@@ -36,10 +36,11 @@ def test_model_image_override_wins_over_task_default():
 
 def test_pair_task_has_no_flat_sample():
     # reid (person_pair dir) / embedding (face_pair dir) cannot be a single flat file →
-    # sample_dir stays None so the UI honestly disables the tab.
+    # sample_dir stays None so the UI honestly disables the tab. (casvit_t is a reid model;
+    # casvit_xs was removed from the staging catalog.)
     ms = _catalog_models()
-    assert ms["casvit_xs"].get("sample_dir") is None
-    assert ms["casvit_xs"].get("sample_image") is None
+    assert ms["casvit_t"].get("sample_dir") is None
+    assert ms["casvit_t"].get("sample_image") is None
 
 
 def test_demo_input_is_representative_image_for_file_tasks():
@@ -55,7 +56,7 @@ def test_demo_input_is_pair_dir_for_reid_embedding():
     # reid/embedding demos take a directory of image pairs; the sync runner expands it
     # and renders the pair comparison, exactly like dx_app run_demo.sh.
     ms = _catalog_models()
-    assert ms["casvit_xs"].get("demo_input") == "sample/img/person_pair"
+    assert ms["casvit_t"].get("demo_input") == "sample/img/person_pair"
     assert ms["arcface_r50"].get("demo_input") == "sample/img/face_pair"
 
 

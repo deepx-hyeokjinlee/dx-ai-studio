@@ -5,10 +5,13 @@ from pathlib import Path
 import pytest
 
 BENCHMARK_DIR = Path(__file__).resolve().parents[4] / "dx-runtime" / "dx_stream" / "dx_stream" / "apps" / "benchmark"
+# Guard on the actual source file, not the directory: a stale __pycache__ leftover
+# can keep the dir present after staging dx_stream removed the benchmark app.
+_BENCHMARK_APP = BENCHMARK_DIR / "__main__.py"
 pytestmark = [
     pytest.mark.requires_dx_runtime,
     pytest.mark.skipif(
-        not BENCHMARK_DIR.is_dir(),
+        not _BENCHMARK_APP.is_file(),
         reason="dx-runtime benchmark app is not available",
     ),
 ]

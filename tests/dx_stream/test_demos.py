@@ -163,12 +163,13 @@ def test_config_demo_reports_missing_config(monkeypatch, tmp_path):
 
 def test_script_demo_reports_missing_runtime_script(monkeypatch, tmp_path):
     import core.demos as demos
+    demo = demos.DEMOS[0]
     models_dir = tmp_path / "models"
     videos_dir = tmp_path / "videos"
     models_dir.mkdir()
     videos_dir.mkdir()
-    (models_dir / "yolo26n.dxnn").touch()
-    (videos_dir / "boat.mp4").touch()
+    (models_dir / demos._model_file(demo["model"])).touch()
+    (videos_dir / demo["required_videos"][0]).touch()
     monkeypatch.setattr(demos, "MODELS_DIR", models_dir)
     monkeypatch.setattr(demos, "CONFIGS_DIR", tmp_path / "configs")
     monkeypatch.setattr(demos, "PIPELINES_DIR", tmp_path / "pipelines", raising=False)
@@ -191,12 +192,15 @@ def test_script_demo_reports_missing_runtime_script(monkeypatch, tmp_path):
 
 def test_local_video_demo_reports_missing_video(monkeypatch, tmp_path):
     import core.demos as demos
+    demo = demos.DEMOS[0]
+    video_name = demo["required_videos"][0]
     models_dir = tmp_path / "models"
     pipelines_dir = tmp_path / "pipelines"
     models_dir.mkdir()
-    (models_dir / "yolo26n.dxnn").touch()
-    (pipelines_dir / "single_network" / "object_detection").mkdir(parents=True)
-    (pipelines_dir / "single_network" / "object_detection" / "run_yolo26n.sh").touch()
+    (models_dir / demos._model_file(demo["model"])).touch()
+    script_path = pipelines_dir / demo["runtime_script"]
+    script_path.parent.mkdir(parents=True)
+    script_path.touch()
     monkeypatch.setattr(demos, "MODELS_DIR", models_dir)
     monkeypatch.setattr(demos, "CONFIGS_DIR", tmp_path / "configs")
     monkeypatch.setattr(demos, "PIPELINES_DIR", pipelines_dir, raising=False)
@@ -207,9 +211,9 @@ def test_local_video_demo_reports_missing_video(monkeypatch, tmp_path):
     result = demos.check_demo_available(0)
 
     assert result["available"] is False
-    assert "Missing sample video: boat.mp4" in result["reason"]
+    assert f"Missing sample video: {video_name}" in result["reason"]
     assert "샘플 비디오 없음" not in result["reason"]
-    assert {"code": "missing_sample_video", "path": "boat.mp4"} in result["reason_items"]
+    assert {"code": "missing_sample_video", "path": video_name} in result["reason_items"]
 
 
 def test_secondary_demo_still_requires_three_models():
@@ -245,7 +249,7 @@ def test_available_demo_reports_language_neutral_ready_reason(monkeypatch, tmp_p
     pipelines_dir = tmp_path / "pipelines"
     models_dir.mkdir()
     videos_dir.mkdir()
-    (models_dir / demo["model"]).touch()
+    (models_dir / demos._model_file(demo["model"])).touch()
     (videos_dir / demo["required_videos"][0]).touch()
     script_path = pipelines_dir / demo["runtime_script"]
     script_path.parent.mkdir(parents=True)

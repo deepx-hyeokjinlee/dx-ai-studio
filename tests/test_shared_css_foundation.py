@@ -795,7 +795,7 @@ def test_shared_chat_widget_retranslates_banner_without_refetching_config():
     source = read_text(ROOT / "shared" / "chat" / "static" / "chat-widget.js")
     assert "function _renderConfigBanner()" in source
     start = source.index("DXI18n.onLangChange(function() {")
-    end = source.index("    // Render existing history", start)
+    end = source.index("_history.forEach(m => _renderMessage", start)
     handler = source[start:end]
     assert "_renderConfigBanner();" in handler
     assert "_checkConfig();" not in handler

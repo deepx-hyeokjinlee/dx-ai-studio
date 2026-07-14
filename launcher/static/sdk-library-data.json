@@ -282,10 +282,10 @@
           "label": {
             "en": "User Manual",
             "ko": "사용자 매뉴얼",
-            "ja": "User Manual",
-            "zh-CN": "User Manual",
-            "zh-TW": "User Manual",
-            "es": "User Manual"
+            "ja": "ユーザーマニュアル",
+            "zh-CN": "用户手册",
+            "zh-TW": "使用手冊",
+            "es": "Manual del usuario"
           },
           "icon": "📖",
           "files": [

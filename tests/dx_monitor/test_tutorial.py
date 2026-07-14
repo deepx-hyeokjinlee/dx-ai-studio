@@ -163,5 +163,14 @@ def test_index_html_loads_tutorial_assets():
 
 
 def test_tutorial_header_declares_six_language_support():
+    """The literal '6-language support' header string was removed in a refactor;
+    verify the tutorial genuinely ships all six languages
+    (ko/en/ja/zh-CN/zh-TW/es) with real per-section coverage."""
     source = read_text(JS_DIR / "tutorial.js")
-    assert "6-language support" in source
+    langs = ("ko", "en", "ja", "zh-CN", "zh-TW", "es")
+    counts = {
+        lang: source.count(f"'{lang}':" if "-" in lang else f"{lang}:")
+        for lang in langs
+    }
+    insufficient = {lang: c for lang, c in counts.items() if c < 8}
+    assert not insufficient, f"languages with insufficient coverage: {counts}"

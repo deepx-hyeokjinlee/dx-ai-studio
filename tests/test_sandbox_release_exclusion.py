@@ -57,7 +57,7 @@ def test_launcher_state_registers_exact_eight_release_modules():
         assert f"angle: {angle}" in splash
 
 
-def test_launcher_navigation_shortcuts_are_compact_seven_modules():
+def test_launcher_navigation_shortcuts_are_compact_eight_modules():
     src = read("launcher/static/launcher.js")
     assert "launch('sandbox')" not in src
     expected = {
@@ -68,11 +68,13 @@ def test_launcher_navigation_shortcuts_are_compact_seven_modules():
         "5": "planner",
         "6": "benchmark",
         "7": "dx_monitor",
+        "8": "agent",
     }
     for key, app in expected.items():
         pattern = rf"e\.altKey\s*&&\s*e\.key\s*===\s*['\"]{key}['\"][\s\S]{{0,220}}?ns\.launch\(['\"]{app}['\"]\)"
         assert re.search(pattern, src), f"Alt+{key} should launch {app}"
-    assert "e.key === '8'" not in src
+    # Shortcuts are compact/contiguous: Alt+1..Alt+8, no gap and no 9th key.
+    assert "e.key === '9'" not in src
 
 
 def test_launcher_app_frame_has_no_sandbox_nav_or_health_binding():

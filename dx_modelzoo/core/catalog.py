@@ -49,6 +49,7 @@ _LICENSE_TEXT_REF = {
 # source-host org slug → display copyright holder (else the slug verbatim = repo owner).
 _COPYRIGHT_ORG = {
     "ultralytics": "Ultralytics", "deepinsight": "InsightFace", "facebook": "Facebook",
+    "facebookresearch": "Facebook",
     "google": "Google", "meituan": "Meituan", "megvii-basedetection": "Megvii",
     "thu-mig": "THU-MIG", "tinyvision": "Alibaba DAMO Academy", "snap-research": "Snap Research",
     "tianfang-zhang": "Tianfang Zhang", "wongkinyiu": "WongKinYiu",
@@ -58,6 +59,7 @@ _COPYRIGHT_ORG = {
 _COPYRIGHT_HOST = {
     "pytorch.org": "PyTorch (Torch Contributors)", "cv.gluon.ai": "GluonCV",
     "www.tensorflow.org": "Google", "tensorflow.org": "Google", "ai.google.dev": "Google",
+    "google.github.io": "Google",
 }
 
 

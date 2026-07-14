@@ -39,10 +39,10 @@ class TestModelCatalog:
         from core.models import get_model_status
         models_dir = tmp_path / "models"
         models_dir.mkdir()
-        (models_dir / "yolo26n.dxnn").write_bytes(b"fake")
+        (models_dir / "yolo26-n_640x640.dxnn").write_bytes(b"fake")
         with patch("core.models.MODELS_DIR", models_dir):
             status = get_model_status()
-        assert status["yolo26n.dxnn"]["installed"] is True
+        assert status["yolo26-n_640x640.dxnn"]["installed"] is True
 
     def test_has_obb_category(self):
         from core.models import get_catalog_source, get_models_by_category

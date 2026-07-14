@@ -4036,10 +4036,20 @@ window._DX_I18N_PLACEHOLDERS = {
     'zh-CN': '绘制边界框和逐实例颜色掩码。', 'zh-TW': '繪製邊界框和逐實例顏色遮罩。',
     es: 'Dibuja cajas delimitadoras y máscaras de color por instancia.',
   },
+  'Draws bounding boxes around detected hands.': {
+    ko: '검출된 손 주위에 바운딩 박스를 표시합니다.', ja: '検出された手の周囲にバウンディングボックスを描画します。',
+    'zh-CN': '在检测到的手部周围绘制边界框。', 'zh-TW': '在偵測到的手部周圍繪製邊界框。',
+    es: 'Dibuja cajas delimitadoras alrededor de las manos detectadas.',
+  },
   'Draws bounding boxes with class labels and confidence scores.': {
     ko: '클래스 레이블과 신뢰도 점수가 포함된 바운딩 박스를 표시합니다.', ja: 'クラスラベルと信頼度スコア付きのバウンディングボックスを描画します。',
     'zh-CN': '绘制带有类别标签和置信度分数的边界框。', 'zh-TW': '繪製帶有類別標籤和信賴度分數的邊界框。',
     es: 'Dibuja cajas delimitadoras con etiquetas de clase y puntuaciones de confianza.',
+  },
+  'Draws detected keypoints (interest points) on the image.': {
+    ko: '검출된 키포인트(관심 지점)를 이미지 위에 표시합니다.', ja: '検出されたキーポイント（興味点）を画像上に描画します。',
+    'zh-CN': '在图像上绘制检测到的关键点（兴趣点）。', 'zh-TW': '在影像上繪製偵測到的關鍵點（興趣點）。',
+    es: 'Dibuja los puntos clave detectados (puntos de interés) en la imagen.',
   },
   'Draws face alignment landmark points.': {
     ko: '얼굴 정렬 랜드마크 포인트를 표시합니다.', ja: '顔アラインメントランドマークポイントを描画します。',
@@ -4061,6 +4071,11 @@ window._DX_I18N_PLACEHOLDERS = {
     'zh-CN': '绘制骨架（关节连接）和关键点。', 'zh-TW': '繪製骨架（關節連接）和關鍵點。',
     es: 'Dibuja esqueleto (conexiones articulares) y puntos clave.',
   },
+  'Draws the projected 3D bounding box and 6-DoF pose of the object.': {
+    ko: '객체의 투영된 3D 바운딩 박스와 6-DoF 포즈를 표시합니다.', ja: 'オブジェクトの投影された 3D バウンディングボックスと 6-DoF 姿勢を描画します。',
+    'zh-CN': '绘制物体的投影 3D 边界框和 6-DoF 姿态。', 'zh-TW': '繪製物體的投影 3D 邊界框和 6-DoF 姿態。',
+    es: 'Dibuja la caja delimitadora 3D proyectada y la pose 6-DoF del objeto.',
+  },
   'ESPCN super-resolution. Sub-pixel convolution layer.': {
     ko: 'ESPCN 초해상도. Sub-pixel 컨볼루션 레이어.', ja: 'ESPCN 超解像。Sub-pixel 畳み込み層。',
     'zh-CN': 'ESPCN 超分辨率。Sub-pixel 卷积层。', 'zh-TW': 'ESPCN 超解析度。Sub-pixel 卷積層。',
@@ -4076,10 +4091,25 @@ window._DX_I18N_PLACEHOLDERS = {
     'zh-CN': 'EfficientNet 图像分类。输出 Top-K 概率。', 'zh-TW': 'EfficientNet 影像分類。輸出 Top-K 機率。',
     es: 'EfficientNet clasificación de imágenes. Genera Top-K probabilidades.',
   },
+  'Failed to read file': {
+    ko: '파일을 읽지 못했습니다', ja: 'ファイルの読み込みに失敗しました',
+    'zh-CN': '读取文件失败', 'zh-TW': '讀取檔案失敗',
+    es: 'Error al leer el archivo',
+  },
   'FastDepth monocular depth estimation. Depthwise separable convolution.': {
     ko: 'FastDepth 단안 깊이 추정. Depthwise separable 컨볼루션.', ja: 'FastDepth 単眼深度推定。Depthwise separable 畳み込み。',
     'zh-CN': 'FastDepth 单目深度估计。Depthwise separable 卷积。', 'zh-TW': 'FastDepth 單目深度估計。Depthwise separable 卷積。',
     es: 'FastDepth monocular estimación de profundidad. Depthwise separable convolution.',
+  },
+  'Image ready — press Run': {
+    ko: '이미지 준비됨 — 실행을 누르세요', ja: '画像の準備ができました — 実行を押してください',
+    'zh-CN': '图像已就绪 — 请按运行', 'zh-TW': '影像已就緒 — 請按執行',
+    es: 'Imagen lista — pulse Ejecutar',
+  },
+  'Image too large (max 8MB)': {
+    ko: '이미지가 너무 큽니다 (최대 8MB)', ja: '画像が大きすぎます（最大 8MB）',
+    'zh-CN': '图像过大（最大 8MB）', 'zh-TW': '影像過大（最大 8MB）',
+    es: 'Imagen demasiado grande (máx. 8 MB)',
   },
   'Input Size': {
     ko: '입력 크기', ja: '入力サイズ',
@@ -4126,15 +4156,30 @@ window._DX_I18N_PLACEHOLDERS = {
     'zh-CN': '输出超分辨率处理后的结果图像。', 'zh-TW': '輸出超解析度處理後的結果影像。',
     es: 'Genera la imagen de súper resolución resultante.',
   },
+  'Overlays drivable area, lane lines, and vehicle detections on the driving scene.': {
+    ko: '주행 가능 영역, 차선, 차량 검출 결과를 주행 장면 위에 오버레이합니다.', ja: '走行可能領域、車線、車両検出結果を走行シーン上にオーバーレイします。',
+    'zh-CN': '在行驶场景上叠加可行驶区域、车道线和车辆检测结果。', 'zh-TW': '在行駛場景上疊加可行駛區域、車道線和車輛偵測結果。',
+    es: 'Superpone el área transitable, las líneas de carril y las detecciones de vehículos en la escena de conducción.',
+  },
   'Overlays Top-K class predictions as text on the image.': {
     ko: 'Top-K 클래스 예측을 이미지 위에 텍스트로 오버레이합니다.', ja: 'Top-K クラス予測をテキストとして画像上にオーバーレイします。',
     'zh-CN': '将 Top-K 类别预测以文本形式叠加在图像上。', 'zh-TW': '將 Top-K 類別預測以文字形式疊加在影像上。',
     es: 'Superpone predicciones Top-K de clase como texto en la imagen.',
   },
+  'Please select or upload an image': {
+    ko: '이미지를 선택하거나 업로드하세요', ja: '画像を選択またはアップロードしてください',
+    'zh-CN': '请选择或上传图像', 'zh-TW': '請選擇或上傳影像',
+    es: 'Por favor seleccione o cargue una imagen',
+  },
   'Post-processor: ': {
     ko: '후처리기: ', ja: 'ポストプロセッサー: ',
     'zh-CN': '后处理器: ', 'zh-TW': '後處理器: ',
     es: 'Post-procesador: ',
+  },
+  'Renders 3D bounding boxes on the LiDAR bird\'s-eye-view.': {
+    ko: 'LiDAR 조감도에 3D 바운딩 박스를 렌더링합니다.', ja: 'LiDAR の俯瞰図に 3D バウンディングボックスをレンダリングします。',
+    'zh-CN': '在 LiDAR 鸟瞰图上渲染 3D 边界框。', 'zh-TW': '在 LiDAR 鳥瞰圖上繪製 3D 邊界框。',
+    es: 'Renderiza cajas delimitadoras 3D en la vista aérea del LiDAR.',
   },
   'RetinaFace face detection. FPN + multi-task learning (landmark).': {
     ko: 'RetinaFace 얼굴 검출. FPN + 멀티태스크 학습 (landmark).', ja: 'RetinaFace 顔検出。FPN + マルチタスク学習（landmark）。',

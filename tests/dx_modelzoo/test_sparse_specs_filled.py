@@ -19,14 +19,14 @@ def _raw(m):
 
 def test_casvit_license_is_mit_not_apache():
     ms = _ms()
-    for v in ("casvit_xs", "casvit_s", "casvit_t", "casvit_m"):
+    # casvit_xs / casvit_s were dropped from the staging catalog; casvit_t / casvit_m remain.
+    for v in ("casvit_t", "casvit_m"):
         assert ms[v]["legal"]["license"] == "MIT", f"{v} license must be MIT (repo LICENSE)"
 
 
 def test_sparse_cluster_has_params_ops_accuracy():
     ms = _ms()
     expect = {
-        "casvit_xs": ("3.2", "0.56", "77.5"),
         "casvit_t": ("21.76", "3.6", "82.3"),
         "vitb32": ("88.22", "4.41", "75.912"),
         "efficientformerv2_l": ("26.1", "5.12", "83.5"),

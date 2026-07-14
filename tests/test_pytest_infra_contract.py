@@ -176,7 +176,7 @@ class TestModuleConftestsExist:
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 for alias in node.names:
-                    assert alias.name in ("sys", "pathlib", "os"), (
+                    assert alias.name in ("sys", "pathlib", "os", "importlib"), (
                         f"{rel_path} imports disallowed module: {alias.name}"
                     )
             elif isinstance(node, ast.ImportFrom):

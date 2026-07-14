@@ -47,6 +47,29 @@ _EMBEDDED_MODELS = [
 ]
 
 
+# model_list.json v2_4_0 renamed most sample models to <slug>_<resolution>.dxnn
+# (PPU models kept their legacy names). Map each new manifest filename back to the
+# embedded metadata key so the catalog can categorize them instead of dropping every
+# renamed model into 'uncategorized' in the DX Stream UI. Mirrors demos._MODEL_ALIAS
+# (old -> new) but covers the full catalog, not just demo-backed models.
+_MANIFEST_ALIAS = {
+    "efficientnet-lite0_256x256.dxnn": "EfficientNet_Lite0.dxnn",
+    "scrfd-500m_640x640.dxnn": "SCRFD500M.dxnn",
+    "yolov5-s_640x640_ppu.dxnn": "YoloV5S_PPU.dxnn",
+    "yolov5-s-face_640x640.dxnn": "YOLOv5s_Face.dxnn",
+    "yolo26-n_640x640.dxnn": "yolo26n.dxnn",
+    "yolo26-n-pose_640x640.dxnn": "yolo26n-pose.dxnn",
+    "yolo26-n-seg_640x640.dxnn": "yolo26n-seg.dxnn",
+    "yolov5-s_640x640.dxnn": "YoloV5S.dxnn",
+    "yolov7_640x640.dxnn": "YoloV7.dxnn",
+    "yolov8-n_640x640.dxnn": "YoloV8N.dxnn",
+    "yolov9-s_640x640.dxnn": "YoloV9S.dxnn",
+    "yolox-s_640x640.dxnn": "YoloXS.dxnn",
+    "yolo11-n_640x640.dxnn": "YOLOV11N.dxnn",
+    "yolov8-m-pose_640x640.dxnn": "yolov8m_pose.dxnn",
+}
+
+
 def _known_metadata_by_file() -> dict[str, dict]:
     return {m["file"]: dict(m) for m in _EMBEDDED_MODELS}
 
@@ -57,13 +80,15 @@ def _build_catalog() -> tuple[list[dict], str]:
         known = _known_metadata_by_file()
         catalog = []
         for mf in manifest.models:
-            entry = dict(known.get(mf, {
-                "file": mf,
+            # Exact match first (legacy-named manifests + PPU models), then the
+            # v2_4_0 rename alias, then fall back to an uncategorized entry.
+            meta = known.get(mf) or known.get(_MANIFEST_ALIAS.get(mf, ""))
+            entry = dict(meta or {
                 "name": mf.replace(".dxnn", ""),
                 "category": "uncategorized",
                 "description_ko": f"{mf} (자동 감지)",
                 "description_en": f"{mf} (auto-detected)",
-            }))
+            })
             entry["file"] = mf
             catalog.append(entry)
         return catalog, "manifest"

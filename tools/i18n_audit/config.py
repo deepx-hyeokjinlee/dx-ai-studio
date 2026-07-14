@@ -61,6 +61,7 @@ _EXCLUDED_PARTS = {
 
 _EXCLUDED_PREFIXES = (
     "docs/superpowers/reports/",
+    "docs/site/",
     "tools/data/",
     "shared/static/vendor/mermaid.min.js",
     "CHECKLIST.html",

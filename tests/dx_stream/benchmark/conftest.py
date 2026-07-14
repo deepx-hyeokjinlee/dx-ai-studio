@@ -21,7 +21,9 @@ def _clear_benchmark_modules():
 
 
 def _ensure_benchmark_path():
-    if not _BENCHMARK_DIR.is_dir():
+    # Require a real source file, not just the dir: a stale __pycache__ leftover
+    # can keep the dir present after staging dx_stream removed the benchmark app.
+    if not (_BENCHMARK_DIR / "__main__.py").is_file():
         return
     while _APPS_DIR in sys.path:
         sys.path.remove(_APPS_DIR)

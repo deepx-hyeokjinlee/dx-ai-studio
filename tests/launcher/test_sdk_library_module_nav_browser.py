@@ -23,7 +23,7 @@ def _purge_launcher_modules() -> None:
             del sys.modules[name]
 
 
-WAIT_IFRAME_READY = """() => new Promise((resolve, reject) => {
+WAIT_IFRAME_READY = """(readySel) => new Promise((resolve, reject) => {
   let n = 0;
   const tick = () => {
     const sdk = document.getElementById('sdk-library-view');
@@ -52,7 +52,8 @@ WAIT_IFRAME_READY = """() => new Promise((resolve, reject) => {
     }
     try {
       const doc = iframe.contentDocument;
-      if (doc && doc.body && doc.body.childElementCount > 0) {
+      if (doc && doc.body && doc.body.childElementCount > 0 &&
+          doc.querySelector(readySel)) {
         resolve(true);
         return;
       }
@@ -97,7 +98,7 @@ def test_sdk_library_nav_tab_shows_module(page, launch_key, module, env_key, rea
         page.evaluate("() => window.LauncherRouter._showSdk({ push: false })")
         page.wait_for_selector("#sdk-library-view.visible", timeout=30000)
         page.click(f'.nav-tab[data-app="{launch_key}"]')
-        page.wait_for_function(WAIT_IFRAME_READY, timeout=90000)
+        page.wait_for_function(WAIT_IFRAME_READY, arg=ready_sel, timeout=90000)
         has_content = page.evaluate(
             f"""() => {{
               const iframe = document.getElementById('appIframe');
@@ -139,7 +140,7 @@ def test_sdk_library_nav_tab_with_tutorial_toc_open(page, launch_key, module, en
         page.evaluate("() => window._dxTutorial.showTOC()")
         page.wait_for_selector(".dxt-toc-backdrop.open", timeout=10000)
         page.click(f'.nav-tab[data-app="{launch_key}"]')
-        page.wait_for_function(WAIT_IFRAME_READY, timeout=90000)
+        page.wait_for_function(WAIT_IFRAME_READY, arg=ready_sel, timeout=90000)
     finally:
         launch_server.shutdown()
         mod_server.shutdown()

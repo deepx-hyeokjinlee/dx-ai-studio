@@ -170,7 +170,7 @@ def test_viewer_language_refresh_preserves_search_match_count():
     assert re.search(r"var\s+lastSearchCount\s*=\s*null;", source)
 
     update_start = source.index("function updateStatusSearchCount")
-    update_end = source.index("// ── Explorer", update_start)
+    update_end = source.index("function setupExplorer", update_start)
     update_section = source[update_start:update_end]
     assert "lastSearchCount = count;" in update_section
 

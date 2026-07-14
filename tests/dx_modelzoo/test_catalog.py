@@ -8,16 +8,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "dx_model
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 MODELZOO_DATA_DIR = PROJECT_ROOT / "dx_modelzoo" / "data"
 
+# The dx-runtime staging catalog dropped the `_h` brand suffix from these model ids
+# (e.g. yolov5l_h -> yolov5l) and renamed their dxnn files to the clean upstream naming.
+# Three 6.1-variant P6 models (yolov5{m,n,s}6_61_h) were removed from staging entirely.
 RELEASE_RENAMED_H_MODELS = {
-    "yolov5l_h": "YoloV5L_h.dxnn",
-    "yolov5m6_61_h": "YoloV5M6_61_h.dxnn",
-    "yolov5m_h": "YoloV5M_h.dxnn",
-    "yolov5n6_61_h": "YoloV5N6_61_h.dxnn",
-    "yolov5s6_61_h": "YoloV5S6_61_h.dxnn",
-    "yolov5s_h": "YoloV5S_h.dxnn",
-    "regnetx1_6gf_h": "RegNetX1_6GF_h.dxnn",
-    "resnext50_32x4d_h": "ResNeXt50_32x4d_h.dxnn",
-    "segformer_b0_512x1024_h": "segformer_b0_512x1024_h.dxnn",
+    "yolov5l": "yolov5-l_640x640.dxnn",
+    "yolov5m": "yolov5-m_640x640.dxnn",
+    "yolov5s": "yolov5-s_640x640.dxnn",
+    "regnetx1_6gf": "regnet-x1.6gf_224x224_v1.dxnn",
+    "resnext50_32x4d": "resnext50-32x4d_224x224.dxnn",
+    "segformer_b0_512x1024": "segformer_mit-b0_512x1024.dxnn",
 }
 
 

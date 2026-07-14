@@ -33,9 +33,9 @@ class TestConfig:
         from core.config import CONFIG_FILE
         assert str(CONFIG_FILE).endswith("test_models.conf")
 
-    def test_categories_has_17_entries(self):
+    def test_categories_has_22_entries(self):
         from core.config import CATEGORIES
-        assert len(CATEGORIES) == 17
+        assert len(CATEGORIES) == 22
 
     def test_categories_keys(self):
         from core.config import CATEGORIES
@@ -43,7 +43,10 @@ class TestConfig:
                     "pose_estimation", "semantic_segmentation", "instance_segmentation",
                     "image_denoising", "obb_detection", "reid", "embedding",
                     "attribute_recognition", "super_resolution", "face_alignment",
-                    "depth_estimation", "image_enhancement", "hand_landmark"}
+                    "depth_estimation", "image_enhancement", "hand_landmark",
+                    # added by the staging catalog (dx_app v3.2.0 → dx-runtime staging)
+                    "hand_detection", "keypoint_detection", "object_pose_estimation",
+                    "panoptic_driving_perception", "3d_object_detection"}
         assert set(CATEGORIES.keys()) == required
 
     def test_default_port(self):
