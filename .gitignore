@@ -1,7 +1,9 @@
 dc_dx_studio
 launcher/.launcher_pids
 CHECKLIST.html
-dx_modelzoo/data/generated_catalog.json
+# generated_catalog.json is a SHIPPED release artifact: the offline build exposes
+# official accuracy/fps/onnx URLs only via this snapshot (see dx_modelzoo/scripts/
+# sync_release_catalog.sh). The .cache.json below stays ignored (build-local only).
 dx_modelzoo/data/generated_catalog.cache.json
 dx_modelzoo/data/sync_report.json
 dx_modelzoo/data/metadata_sync_config.json

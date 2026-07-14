@@ -850,7 +850,18 @@ class TestSyncUpdatesCatalog:
         assert "with _catalog_lock:" in catalog_src
 
     def test_sync_generated_artifacts_are_gitignored(self):
+        # generated_catalog.json is now a SHIPPED release artifact (produced by
+        # dx_modelzoo/scripts/sync_release_catalog.sh in the general-net stage), so
+        # it must NOT be gitignored — the offline/air-gapped build exposes official
+        # accuracy/fps/onnx URLs only via this committed snapshot. The build-local
+        # artifacts (per-run cache + sync report) stay ignored.
         gitignore = (MODULE_DIR.parent / ".gitignore").read_text(encoding="utf-8")
-        assert "dx_modelzoo/data/generated_catalog.json" in gitignore
-        assert "dx_modelzoo/data/generated_catalog.cache.json" in gitignore
-        assert "dx_modelzoo/data/sync_report.json" in gitignore
+        # Only real ignore rules (strip comments/blank lines) count.
+        rules = {
+            ln.strip()
+            for ln in gitignore.splitlines()
+            if ln.strip() and not ln.lstrip().startswith("#")
+        }
+        assert "dx_modelzoo/data/generated_catalog.json" not in rules
+        assert "dx_modelzoo/data/generated_catalog.cache.json" in rules
+        assert "dx_modelzoo/data/sync_report.json" in rules
