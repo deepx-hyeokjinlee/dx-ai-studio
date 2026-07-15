@@ -361,6 +361,10 @@
   }
 
   function suspendAllTutorialChrome() {
+    // A tutorial-driven navigation (e.g. home tour's beforeStart calling goHome from
+    // inside a module) must NOT stop the tour it is starting. The step engine sets this
+    // flag around its own navigation so the view switches without killing _curSection.
+    if (ns && ns._tutorialDrivenNav) return;
     var sdkView = document.getElementById('sdk-library-view');
     var leavingSdk = sdkView && sdkView.classList.contains('visible');
     if (leavingSdk && window.SDKTutorial && typeof window.SDKTutorial.beforeLeave === 'function') {
