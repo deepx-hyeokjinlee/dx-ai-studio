@@ -565,19 +565,17 @@ body.app-frame-visible #launcherToolbar {
    overflow under body-zoom or Ctrl+scroll. */
 .deepx-footer {
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
+  /* span the whole band between the bottom-left replay button and the bottom-right
+     chat FAB. left:160 clears the widest replay label (~150px); right:84 clears the
+     FAB (56px + 20px margin). The chips center within this long bar and only wrap
+     to a 2nd row on narrow viewports / very wide languages. */
+  left: 160px;
+  right: 84px;
   bottom: 16px;             /* floated up off the very bottom edge */
   z-index: 50;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  /* explicit width (not just max-width) so the bar keeps its full span and the
-     chips only wrap to a 2nd row when they genuinely overflow — otherwise a
-     wrap-enabled shrink-to-fit flexbox collapses to half width. Width is capped
-     to stay clear of the left replay button and the right chat FAB. */
-  width: calc(100vw - 320px);
-  max-width: 1080px;
   padding: 8px 16px;
   background: rgba(10, 14, 26, 0.82);
   border: 1px solid rgba(120,158,255,0.18);
@@ -600,7 +598,7 @@ body.app-frame-visible #launcherToolbar {
   justify-content: center;
   gap: 8px;
   flex: 0 0 auto;           /* content-width chips, uniform height, no shrink */
-  padding: 10px 16px;       /* roomier chips now that replay left the bar */
+  padding: 10px 14px;       /* fit all 8 in one row across the long bar */
   background: rgba(24, 32, 52, 0.94);
   border: 1px solid rgba(120,158,255,0.55);
   border-radius: 8px;
