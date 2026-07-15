@@ -13,7 +13,13 @@
       title: { en: 'Launcher Home', ko: '런처 홈', ja: 'ランチャーホーム', 'zh-CN': '启动器主页', 'zh-TW': '啟動器首頁', es: 'Inicio del iniciador' },
       description: { en: 'Open DX modules and shared resources from the launcher shell.', ko: '런처 셸에서 DX 모듈과 공유 리소스를 엽니다.', ja: 'ランチャーシェルからDXモジュールと共有リソースを開きます。', 'zh-CN': '从启动器外壳打开DX模块和共享资源。', 'zh-TW': '從啟動器殼層開啟DX模組和共用資源。', es: 'Abra módulos DX y recursos compartidos desde el shell del iniciador.' },
       beforeStart: function () {
-        if (typeof goHome === 'function') goHome();
+        // Only navigate home when actually inside a module/other view. Calling goHome()
+        // while ALREADY on home triggers setVisibleView → suspendAllTutorialChrome →
+        // _dxTutorial.stop(), which nulls _curSection and kills the tour that is just
+        // starting (the home steps then render empty / not at all).
+        if (typeof goHome === 'function' && window.DXLauncher && DXLauncher.currentApp) {
+          goHome();
+        }
         if (window.DXLauncher && typeof DXLauncher.tryCompleteLauncherBoot === 'function') {
           DXLauncher.tryCompleteLauncherBoot();
         }

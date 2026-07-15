@@ -569,25 +569,25 @@ body.app-frame-visible #launcherToolbar {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 5px 11px;
-  background: rgba(10, 14, 26, 0.82);
-  border: 1px solid rgba(99,140,255,0.22);
-  border-radius: 3px;
-  color: rgba(99,140,255,0.78);
+  padding: 6px 12px;
+  background: rgba(24, 32, 52, 0.94);
+  border: 1px solid rgba(120,158,255,0.55);
+  border-radius: 6px;
+  color: #cdd9ff;
   font-family: var(--font);
   font-size: var(--fs-xs);
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
   backdrop-filter: blur(8px);
-  transition: all 0.2s ease;
-  opacity: 0.62;
+  transition: all 0.15s ease;
+  opacity: 1;
 }
 .deepx-link:hover {
-  border-color: rgba(99,140,255,0.6);
-  color: var(--accent);
-  box-shadow: 0 0 14px rgba(99,140,255,0.18);
-  opacity: 1;
+  background: rgba(99,140,255,0.22);
+  border-color: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(99,140,255,0.35);
   transform: translateX(2px);
 }
 .deepx-link-icon { font-size: var(--fs-sm); line-height: 1; flex-shrink: 0; }
