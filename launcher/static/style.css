@@ -565,12 +565,12 @@ body.app-frame-visible #launcherToolbar {
    overflow under body-zoom or Ctrl+scroll. */
 .deepx-footer {
   position: fixed;
-  /* span the whole band between the bottom-left replay button and the bottom-right
-     chat FAB. left:160 clears the widest replay label (~150px); right:84 clears the
-     FAB (56px + 20px margin). The chips center within this long bar and only wrap
-     to a 2nd row on narrow viewports / very wide languages. */
+  /* Symmetric left/right insets keep the bar centered on the viewport (so the chips
+     sit at true screen centre) while clearing the bottom-left replay button (widest
+     label ~150px) and the bottom-right chat FAB. The chips wrap to a 2nd row only on
+     narrow viewports / very wide languages. */
   left: 160px;
-  right: 84px;
+  right: 160px;
   bottom: 16px;             /* floated up off the very bottom edge */
   z-index: 50;
   box-sizing: border-box;
@@ -586,9 +586,10 @@ body.app-frame-visible #launcherToolbar {
 .deepx-links {
   display: flex;
   flex-direction: row;      /* journey order left→right */
+  flex: 1 1 auto;           /* fill the bar so justify-content actually centers chips */
   flex-wrap: wrap;          /* wrap to a 2nd centered row for wide languages (es/ja) */
   align-items: center;
-  justify-content: center;  /* chips centered within the bar */
+  justify-content: center;  /* chips centered across the full bar width */
   gap: 8px 10px;            /* row-gap col-gap */
   min-width: 0;
 }
