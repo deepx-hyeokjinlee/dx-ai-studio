@@ -19,8 +19,8 @@
   --text-glow-accent:0 0 8px rgba(var(--accent-rgb),.18);
   --glass-bg:rgba(14,21,37,.7);--glass-border:rgba(99,140,255,.08);--glass-blur:blur(16px);
   --transition:all .18s cubic-bezier(.4,0,.2,1);
-  --font:'Inter','Noto Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
-  --mono:'JetBrains Mono','Noto Sans Mono','Fira Code','Cascadia Code',monospace;
+  --font:'Inter','Noto Sans','Noto Sans CJK',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono','Noto Sans Mono','Noto Sans CJK','Fira Code','Cascadia Code',monospace;
   /* Type scale — derived from actual usage across all modules (dense NPU-tooling UI). */
   --fs-2xs:10px;--fs-xs:11px;--fs-sm:12px;--fs-base:13px;--fs-md:14px;--fs-lg:16px;--fs-xl:18px;--fs-2xl:20px;--fs-3xl:24px;--fs-4xl:32px;--fs-5xl:48px;
   --fw-regular:400;--fw-medium:500;--fw-semibold:600;--fw-bold:700;

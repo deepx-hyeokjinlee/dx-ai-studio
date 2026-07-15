@@ -24,6 +24,25 @@ only**. You are responsible for identifying each sample's source and complying w
 terms, and must not redistribute or use them commercially without the copyright holder's
 permission.
 
+## Bundled software & fonts
+
+The studio bundles the following open-source assets so it runs fully offline. Each is
+redistributed under its own license:
+
+**Fonts** — SIL Open Font License 1.1 (https://openfontlicense.org):
+- **Inter** — © The Inter Project Authors
+- **JetBrains Mono** — © 2020 The JetBrains Mono Project Authors
+- **Noto Sans**, **Noto Sans Mono**, **Noto Sans CJK** — © The Noto Project Authors
+  (Google). Noto Sans CJK is shipped as a **subset** limited to the glyphs used by the
+  studio's 6-language UI.
+
+**JavaScript libraries** — MIT License:
+- **Chart.js** (© Chart.js Contributors)
+- **Mermaid** (© 2014–present Knut Sveidqvist)
+
+These bundled components are separate from the third-party **models** and **sample data**
+above and carry no usage restriction beyond their permissive licenses.
+
 ## Disclaimer
 
 DEEPX provides these third-party models and datasets "as-is" for convenience and is not
