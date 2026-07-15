@@ -229,6 +229,7 @@ body.app-frame-visible #launcherToolbar {
 .landing {
   position: relative;
   padding-top: var(--launcher-topbar-h);
+  padding-bottom: 72px;    /* clear the fixed DEEPX footer bar so lower cards aren't hidden */
   min-height: 100vh;
   width: 100%;
   max-width: 100%;
@@ -556,27 +557,45 @@ body.app-frame-visible #launcherToolbar {
   opacity: 0.8;
 }
 
-/* ─── DEEPX resource links (fixed bottom-left, stacked above the replay button) ── */
-.deepx-links {
+/* ─── DEEPX resource footer bar ───────────────────────
+   Full-width fixed bottom bar holding the resource link chips + the replay
+   control. left:0/right:0 spans the viewport, so it adds no horizontal overflow
+   under body-zoom or Ctrl+scroll; the chip row scrolls internally instead. */
+.deepx-footer {
   position: fixed;
-  left: 20px;
-  bottom: 64px;            /* sits just above the replay button (bottom:20px) */
+  left: 0; right: 0; bottom: 0;
   z-index: 50;
-  display: flex;
-  flex-direction: column;  /* journey order top→bottom; last item nearest replay */
-  align-items: stretch;    /* every box the same width as the container */
-  gap: 7px;
-  width: 240px;            /* fixed → all links share this width */
-  max-height: calc(100vh - 140px);
-}
-.deepx-link {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: center; /* icon + label centered in the box */
+  gap: 10px;
+  min-height: 52px;
+  /* right padding reserves the bottom-right corner for the floating chat FAB */
+  padding: 8px 84px 8px 20px;
+  background: rgba(10, 14, 26, 0.82);
+  border-top: 1px solid rgba(120,158,255,0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.deepx-links {
+  display: flex;
+  flex-direction: row;      /* journey order left→right */
+  align-items: center;
   gap: 8px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 11px 14px;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;         /* chips scroll within the bar when space is tight */
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  padding-bottom: 2px;      /* keep the thin scrollbar from clipping chip borders */
+}
+.deepx-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 0 0 auto;           /* content-width chips, uniform height, no shrink */
+  padding: 8px 14px;
   background: rgba(24, 32, 52, 0.94);
   border: 1px solid rgba(120,158,255,0.55);
   border-radius: 8px;
@@ -584,8 +603,7 @@ body.app-frame-visible #launcherToolbar {
   font-family: var(--font);
   font-size: var(--fs-sm);
   font-weight: 600;
-  text-align: center;
-  line-height: 1.25;
+  white-space: nowrap;
   text-decoration: none;
   backdrop-filter: blur(8px);
   transition: all 0.15s ease;
@@ -598,6 +616,15 @@ body.app-frame-visible #launcherToolbar {
   box-shadow: 0 0 16px rgba(99,140,255,0.35);
 }
 .deepx-link-icon { font-size: var(--fs-md); line-height: 1; flex-shrink: 0; }
+
+/* Replay control docked at the right end of the footer bar — overrides the
+   original viewport-fixed bottom-left placement. */
+.deepx-footer .replay-btn {
+  position: static;
+  margin-left: auto;        /* push to the right, past the scrolling chip row */
+  flex: 0 0 auto;
+  align-self: center;
+}
 
 /* ─── App Frame (iframe) ──────────────────────────────*/
 .app-frame {
