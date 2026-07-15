@@ -561,24 +561,29 @@ body.app-frame-visible #launcherToolbar {
   z-index: 50;
   display: flex;
   flex-direction: column;  /* journey order top→bottom; last item nearest replay */
-  align-items: flex-start;
-  gap: 5px;
+  align-items: stretch;    /* every box the same width as the container */
+  gap: 7px;
+  width: 240px;            /* fixed → all links share this width */
   max-height: calc(100vh - 140px);
 }
 .deepx-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 6px 12px;
+  justify-content: center; /* icon + label centered in the box */
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 14px;
   background: rgba(24, 32, 52, 0.94);
   border: 1px solid rgba(120,158,255,0.55);
-  border-radius: 6px;
+  border-radius: 8px;
   color: #cdd9ff;
   font-family: var(--font);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
   font-weight: 600;
+  text-align: center;
+  line-height: 1.25;
   text-decoration: none;
-  white-space: nowrap;
   backdrop-filter: blur(8px);
   transition: all 0.15s ease;
   opacity: 1;
@@ -588,9 +593,8 @@ body.app-frame-visible #launcherToolbar {
   border-color: var(--accent);
   color: #ffffff;
   box-shadow: 0 0 16px rgba(99,140,255,0.35);
-  transform: translateX(2px);
 }
-.deepx-link-icon { font-size: var(--fs-sm); line-height: 1; flex-shrink: 0; }
+.deepx-link-icon { font-size: var(--fs-md); line-height: 1; flex-shrink: 0; }
 
 /* ─── App Frame (iframe) ──────────────────────────────*/
 .app-frame {
