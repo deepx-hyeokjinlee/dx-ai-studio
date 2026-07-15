@@ -99,15 +99,27 @@ STUDIO_URL="http://localhost:$PORT"
 echo "$STUDIO_URL" > "$SCRIPT_DIR/.launcher-url"   # discoverable: cat dx-ai-studio/.launcher-url
 echo "  Starting DeepX AI Studio on port $PORT  (the clickable URL appears once it's ready)"
 
-# Prefer the project venv's interpreter (Python 3.12); fall back to system python3.
-# The launcher spawns each module server with its own interpreter, so this choice propagates.
+# Interpreter selection. The launcher spawns each module server with this interpreter,
+# so the choice propagates to every module.
+#
+# We need a venv (not bare system python) because:
+#   1. the studio is installed editable (`pip install -e`), which fails on a modern
+#      externally-managed system Python (PEP 668);
+#   2. it MUST be created with --system-site-packages so it inherits the platform's
+#      DEEPX runtime (`dx_engine`, from the dx-runtime install) and GStreamer Python
+#      bindings (`gi`/PyGObject). Without them DX Monitor falls back to mock and DX
+#      Stream cannot run pipelines. These are platform deps (like the NPU driver), not
+#      pip third-party — the studio's own code stays stdlib-only (pyproject deps == []).
+if [[ ! -x "$SCRIPT_DIR/.venv/bin/python" ]]; then
+  echo "  [launcher.sh] Creating .venv (--system-site-packages) ..."
+  python3 -m venv --system-site-packages "$SCRIPT_DIR/.venv" 2>/dev/null || true
+fi
 if [[ -x "$SCRIPT_DIR/.venv/bin/python" ]]; then
   DX_PY="$SCRIPT_DIR/.venv/bin/python"
 else
-  DX_PY="python3"
+  DX_PY="python3"   # last-resort fallback (mock mode); editable install may be unavailable
 fi
 # Ensure the studio package is importable so module servers resolve `import dx_app.core...`
-# etc. without sys.path hacks. Dist name is "dxstudio" but there's no top-level dxstudio
-# package — probe a real import package. `|| true` keeps the mock studio bootable offline.
+# etc. without sys.path hacks. `|| true` keeps the mock studio bootable offline.
 "$DX_PY" -c "import shared, dx_app" 2>/dev/null || "$DX_PY" -m pip install -e "$SCRIPT_DIR" >/dev/null 2>&1 || true
 "$DX_PY" "$SCRIPT_DIR/launcher/launcher.py" --port "$PORT"

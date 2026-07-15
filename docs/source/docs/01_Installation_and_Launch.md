@@ -7,6 +7,15 @@
 - For **real** compilation and inference: the **DEEPX SDK** (from `dx-runtime` /
   `dx-compiler`) and a DEEPX **NPU**. Without them the studio still launches in
   **demo / mock mode** for exploring the UI.
+- **DX Stream** additionally needs the system **GStreamer + PyGObject** (`python3-gi`,
+  `gstreamer1.0-*`) — standard on desktop Linux — to run pipelines.
+
+!!! note "How the studio finds these"
+    `./launcher.sh` creates its virtualenv with **`--system-site-packages`**, so it inherits
+    the platform-provided `dx_engine` (DEEPX runtime) and `gi` (GStreamer bindings). The
+    studio's *own* code stays stdlib-only (no pip third-party); these are platform runtimes,
+    like the NPU driver. If `dx_engine` is missing, **DX Monitor** shows mock data and live
+    inference is unavailable; if `gi` is missing, **DX Stream** can build but not run pipelines.
 
 !!! tip "Check your NPU"
     Once the DEEPX runtime is installed, `dxcli --status` lists each NPU device with its
