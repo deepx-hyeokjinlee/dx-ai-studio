@@ -2037,20 +2037,37 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 }
 
 /* ── Physical AI ecosystem overlay (reuses .platform-info-overlay/.panel chrome) ── */
+/* Two-column layout like the platform overlay: infographic left, text right.
+   Inherits .platform-info-panel width/height, so the window matches that overlay. */
 .eco-panel {
-  flex-direction: column;
-  /* inherits .platform-info-panel's max-width (1440) → same window size as the
-     right "Explore DX AI Studio" overlay. */
-  gap: var(--sp-4);
+  align-items: flex-start;
+  gap: var(--sp-6);
 }
-.eco-hero { text-align: center; }
+.eco-hero {
+  flex: 0 0 460px;           /* fixed image column — shrinks the 986px source (crisper) */
+  width: 460px;
+  max-width: 100%;
+  position: sticky;
+  top: 0;                    /* image stays put while the text column scrolls */
+}
 .eco-hero img {
   display: block;
-  width: 100%;               /* fill the panel width to match the platform overlay */
+  width: 100%;
   height: auto;
-  margin: 0 auto;
   border-radius: var(--radius);
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.eco-right {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+/* When the panel stacks (same breakpoint as .platform-info-panel), the image goes
+   full-width on top and stops being sticky. */
+@media (max-width: 1100px) {
+  .eco-hero { position: static; flex-basis: auto; width: 100%; max-width: 520px; margin: 0 auto; }
 }
 .eco-head h2 {
   font-size: var(--fs-xl);
