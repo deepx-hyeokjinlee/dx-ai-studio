@@ -39,6 +39,65 @@ only ever open the hub port.
 `Ctrl+C` in the terminal running `./launcher.sh`. Re-running on a busy port auto-bumps
 to the next free port unless you pass `--no-kill`.
 
+## Remote access & security
+
+By default the hub binds **all network interfaces**, so a studio running on a headless
+NPU board is reachable from another machine's browser at `http://<board-ip>:8890`.
+Convenient — but it also means **anyone on the same network can open it** (no login), and
+they share the board's files (uploads, runs, downloads). Choose the access model that fits:
+
+### Private access via SSH tunnel (recommended)
+
+Keeps the studio invisible to the network — only someone who can SSH into the board can
+reach it. No password feature needed; it reuses the SSH login you already have.
+
+1. On the board, bind to localhost only:
+   ```bash
+   DX_BIND_LOCAL=1 ./launcher.sh
+   ```
+   The studio now listens on `127.0.0.1:8890` and is **not** visible on the network.
+2. From your laptop (Windows PowerShell, macOS/Linux terminal), forward the port over SSH:
+   ```bash
+   ssh -L 8890:localhost:8890 <user>@<board-ip>
+   ```
+   (On Windows, PuTTY/MobaXterm can save this as a stored port-forward.)
+3. Open `http://localhost:8890` in your laptop browser — traffic rides the encrypted SSH
+   tunnel to the board. Keep the SSH session open while you use it.
+
+### Open LAN access
+
+Just run `./launcher.sh` (default) and open `http://<board-ip>:8890` from any machine on the
+network. Use this only on a **trusted** network — there is no browser login, so treat it as
+"anyone who can reach the port can use the studio". For programmatic/API clients you can
+require a token:
+
+```bash
+DX_API_TOKEN=<your-secret> ./launcher.sh   # module API calls must send this token
+```
+
+(The token gates the module API; it does not add a browser login screen — for private
+browser access use the SSH tunnel above.)
+
+### Multiple people
+
+- **Different machines** — fully independent studios. On an open LAN, remember each is
+  reachable by anyone via its board IP (use SSH tunnels to keep them private).
+- **Same board, same Linux account** — relaunching `./launcher.sh` **stops the previous
+  instance** (it clears stale studio processes owned by your user on start). Two people
+  sharing one login will interrupt each other; pass `--no-kill` to leave a running instance
+  alone, but they'll then contend for the port and shared files.
+- **Same board, separate Linux accounts** — instances don't kill each other (the cleanup is
+  per-user) and the port auto-bumps (8890 → 8891 …). Give each user their **own copy** of
+  `dx-ai-studio` so they don't share `outputs/`, sessions, and downloads.
+
+### Environment variables
+
+| Variable | Effect |
+|----------|--------|
+| `DX_BIND_LOCAL=1` | Bind `127.0.0.1` only — no network exposure (use with an SSH tunnel). |
+| `DX_BIND_HOST=<host>` | Bind an explicit interface/address. |
+| `DX_API_TOKEN=<secret>` | Require this token on module API requests (`Authorization` / `X-DX-Api-Token`). |
+
 ## Troubleshooting
 
 - **Everything shows sample / mock data** — the NPU or SDK isn't detected. Confirm the

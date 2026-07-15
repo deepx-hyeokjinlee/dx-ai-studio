@@ -1475,6 +1475,16 @@ def main():
     class _LauncherServer(ThreadingHTTPServer):
         allow_reuse_address = True
 
+    # Bind host: default all-interfaces (so a headless board is reachable from a
+    # dev laptop). DX_BIND_LOCAL=1 → 127.0.0.1 only (no LAN exposure; reach it via an
+    # SSH tunnel). DX_BIND_HOST=<host> → explicit override. Mirrors shared/dx_server.py
+    # so the whole studio (hub + modules) binds consistently.
+    _bind_host = "0.0.0.0"
+    if os.environ.get("DX_BIND_LOCAL", "").strip().lower() in ("1", "true", "yes"):
+        _bind_host = "127.0.0.1"
+    elif os.environ.get("DX_BIND_HOST", "").strip():
+        _bind_host = os.environ["DX_BIND_HOST"].strip()
+
     srv = None
     for attempt in range(5):
         if _is_port_open(port):
@@ -1482,7 +1492,7 @@ def main():
             _force_free_port(port)
             time.sleep(1.5)
         try:
-            srv = _LauncherServer(("0.0.0.0", port), LauncherHandler)
+            srv = _LauncherServer((_bind_host, port), LauncherHandler)
             _LAUNCHER_BOOT_ID = f"{port}-{os.getpid()}"
             break
         except OSError as e:
