@@ -64,10 +64,25 @@ reach it. No password feature needed; it reuses the SSH login you already have.
 3. Open `http://localhost:8890` in your laptop browser — traffic rides the encrypted SSH
    tunnel to the board. Keep the SSH session open while you use it.
 
+!!! example "Worked example — laptop → board at `192.168.0.42`"
+    Find the board's IP on the board with `hostname -I` (or `ip addr`) — say it's
+    `192.168.0.42`, login `deepx`.
+
+    - **On the board:** `DX_BIND_LOCAL=1 ./launcher.sh`
+    - **On your laptop** (Windows PowerShell / macOS / Linux terminal):
+      ```bash
+      ssh -L 8890:localhost:8890 deepx@192.168.0.42
+      ```
+    - **In your laptop browser:** open `http://localhost:8890`
+
+    Nobody else on the network can reach it — even though the studio runs on the board,
+    it only answers on the board's `localhost`, and the tunnel is yours alone.
+
 ### Open LAN access
 
 Just run `./launcher.sh` (default) and open `http://<board-ip>:8890` from any machine on the
-network. Use this only on a **trusted** network — there is no browser login, so treat it as
+network — e.g. a board at `192.168.0.42` → `http://192.168.0.42:8890` in your laptop
+browser (find the IP with `hostname -I` on the board). Use this only on a **trusted** network — there is no browser login, so treat it as
 "anyone who can reach the port can use the studio". For programmatic/API clients you can
 require a token:
 
