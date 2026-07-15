@@ -2039,15 +2039,15 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 /* ── Physical AI ecosystem overlay (reuses .platform-info-overlay/.panel chrome) ── */
 .eco-panel {
   flex-direction: column;
-  max-width: 900px;
+  /* inherits .platform-info-panel's max-width (1440) → same window size as the
+     right "Explore DX AI Studio" overlay. */
   gap: var(--sp-4);
 }
 .eco-hero { text-align: center; }
 .eco-hero img {
   display: block;
-  width: auto;
-  max-width: 100%;
-  max-height: 40vh;          /* keep the banner from pushing the text below the fold */
+  width: 986px;              /* native width — 1:1, the sharpest this source allows */
+  max-width: 100%;           /* only scales DOWN on narrow viewports, never up */
   height: auto;
   margin: 0 auto;
   border-radius: var(--radius);
