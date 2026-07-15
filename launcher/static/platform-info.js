@@ -80,10 +80,29 @@
     _unlockPlatformBodyScroll();
   }
 
+  function openEcosystemInfo() {
+    var ov = document.getElementById('ecosystemOverlay');
+    if (ov) ov.classList.add('open');
+    _lockPlatformBodyScroll();
+  }
+
+  function closeEcosystemInfo() {
+    var ov = document.getElementById('ecosystemOverlay');
+    if (ov) ov.classList.remove('open');
+    _unlockPlatformBodyScroll();
+  }
+
   document.addEventListener('keydown', function(e) {
-    var ov = document.getElementById('platformInfoOverlay');
-    if (ov && ov.classList.contains('open') && e.key === 'Escape') {
+    if (e.key !== 'Escape') return;
+    var pi = document.getElementById('platformInfoOverlay');
+    if (pi && pi.classList.contains('open')) {
       closePlatformInfo();
+      e.stopPropagation();
+      return;
+    }
+    var eco = document.getElementById('ecosystemOverlay');
+    if (eco && eco.classList.contains('open')) {
+      closeEcosystemInfo();
       e.stopPropagation();
     }
   });
@@ -107,4 +126,6 @@
 
   ns.openPlatformInfo = openPlatformInfo;
   ns.closePlatformInfo = closePlatformInfo;
+  ns.openEcosystemInfo = openEcosystemInfo;
+  ns.closeEcosystemInfo = closeEcosystemInfo;
 })();

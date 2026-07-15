@@ -2027,6 +2027,115 @@ body.lang-zh-TW .zh-CN { display: none !important; }
   .landing-poster { display: none; }
 }
 
+/* Physical AI ecosystem poster — mirror of the right platform poster, on the left.
+   Shows the full infographic (contain, not cropped) as a clickable teaser. */
+.landing-poster--left { left: 10%; right: auto; }
+.landing-poster--left img {
+  height: auto;
+  object-fit: contain;
+  background: rgba(5, 8, 18, 0.92);
+}
+
+/* ── Physical AI ecosystem overlay (reuses .platform-info-overlay/.panel chrome) ── */
+.eco-panel {
+  flex-direction: column;
+  max-width: 900px;
+  gap: var(--sp-4);
+}
+.eco-hero { text-align: center; }
+.eco-hero img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 40vh;          /* keep the banner from pushing the text below the fold */
+  height: auto;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.eco-head h2 {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: var(--text-1);
+}
+.eco-sub {
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 8px;
+}
+.eco-intro {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--text-3);
+  margin: 0;
+}
+.eco-pillars { display: flex; flex-direction: column; gap: var(--sp-4); }
+.eco-pillar {
+  border-left: 3px solid rgba(99,140,255,0.5);
+  padding: 4px 0 4px 16px;
+}
+.eco-pillar--npu { border-left-color: var(--accent); }
+.eco-pillar-title {
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--text-1);
+  margin: 0 0 10px;
+}
+.eco-pillar-title em { font-style: normal; font-weight: 500; color: var(--text-4); }
+.eco-partner { margin-bottom: 12px; }
+.eco-partner:last-child { margin-bottom: 0; }
+.eco-partner-name {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+.eco-partner-desc {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--text-3);
+  margin: 0 0 8px;
+}
+.eco-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.eco-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: #cdd9ff;
+  text-decoration: none;
+  background: rgba(24, 32, 52, 0.94);
+  border: 1px solid rgba(120,158,255,0.55);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+.eco-link:hover {
+  background: rgba(99,140,255,0.22);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+.eco-apps { border-top: 1px solid var(--border); padding-top: var(--sp-4); }
+.eco-apps-title {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--text-1);
+  margin: 0 0 10px;
+}
+.eco-app-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.eco-app-tags > span {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-2);
+  padding: 5px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+}
+
 /* Overlay */
 .platform-info-overlay {
   display: none;

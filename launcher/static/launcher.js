@@ -21,6 +21,8 @@
   window.showSdkLibrary = ns.showSdkLibrary;
   window.openPlatformInfo = ns.openPlatformInfo;
   window.closePlatformInfo = ns.closePlatformInfo;
+  window.openEcosystemInfo = ns.openEcosystemInfo;
+  window.closeEcosystemInfo = ns.closeEcosystemInfo;
   window._lt = ns._lt;
   window.selectLang = ns.selectLang;
   window.toggleLang = ns.toggleLang;
