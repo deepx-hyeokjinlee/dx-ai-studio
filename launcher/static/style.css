@@ -518,10 +518,10 @@ body.app-frame-visible #launcherToolbar {
   align-items: center;
   gap: var(--sp-2);
   padding: 8px 14px;
-  background: rgba(10, 14, 26, 0.85);
-  border: 1px solid rgba(99,140,255,0.3);
+  background: rgba(16, 22, 40, 0.9);
+  border: 1px solid rgba(120,158,255,0.55);
   border-radius: 3px;
-  color: rgba(99,140,255,0.8);
+  color: #cdd9ff;
   font-family: var(--font);
   font-size: var(--fs-sm);
   font-weight: 600;
@@ -529,7 +529,7 @@ body.app-frame-visible #launcherToolbar {
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: all 0.2s ease;
-  opacity: 0.6;
+  opacity: 1;
 }
 .replay-btn::before,
 .replay-btn::after {
@@ -537,7 +537,7 @@ body.app-frame-visible #launcherToolbar {
   position: absolute;
   width: 6px;
   height: 6px;
-  border-color: rgba(99,140,255,0.35);
+  border-color: rgba(120,158,255,0.6);
   border-style: solid;
   transition: border-color 0.2s ease;
 }
@@ -558,44 +558,49 @@ body.app-frame-visible #launcherToolbar {
 }
 
 /* ─── DEEPX resource footer bar ───────────────────────
-   Full-width fixed bottom bar holding the resource link chips + the replay
-   control. left:0/right:0 spans the viewport, so it adds no horizontal overflow
-   under body-zoom or Ctrl+scroll; the chip row scrolls internally instead. */
+   Centered floating bar of resource link chips, lifted off the bottom edge.
+   Centering (translateX) keeps it clear of the bottom-right chat FAB and away
+   from the bottom-left replay button; max-width caps it so it never reaches
+   either. The chip row scrolls internally, so it adds no page horizontal
+   overflow under body-zoom or Ctrl+scroll. */
 .deepx-footer {
   position: fixed;
-  left: 0; right: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 16px;             /* floated up off the very bottom edge */
   z-index: 50;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 52px;
-  /* right padding reserves the bottom-right corner for the floating chat FAB */
-  padding: 8px 84px 8px 20px;
+  /* explicit width (not just max-width) so the bar keeps its full span and the
+     chips only wrap to a 2nd row when they genuinely overflow — otherwise a
+     wrap-enabled shrink-to-fit flexbox collapses to half width. Width is capped
+     to stay clear of the left replay button and the right chat FAB. */
+  width: calc(100vw - 320px);
+  max-width: 1080px;
+  padding: 8px 16px;
   background: rgba(10, 14, 26, 0.82);
-  border-top: 1px solid rgba(120,158,255,0.18);
+  border: 1px solid rgba(120,158,255,0.18);
+  border-radius: 14px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 .deepx-links {
   display: flex;
   flex-direction: row;      /* journey order left→right */
+  flex-wrap: wrap;          /* wrap to a 2nd centered row for wide languages (es/ja) */
   align-items: center;
-  gap: 8px;
-  flex: 1 1 auto;
+  justify-content: center;  /* chips centered within the bar */
+  gap: 8px 10px;            /* row-gap col-gap */
   min-width: 0;
-  overflow-x: auto;         /* chips scroll within the bar when space is tight */
-  overflow-y: hidden;
-  scrollbar-width: thin;
-  padding-bottom: 2px;      /* keep the thin scrollbar from clipping chip borders */
 }
 .deepx-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 8px;
   flex: 0 0 auto;           /* content-width chips, uniform height, no shrink */
-  padding: 8px 14px;
+  padding: 10px 16px;       /* roomier chips now that replay left the bar */
   background: rgba(24, 32, 52, 0.94);
   border: 1px solid rgba(120,158,255,0.55);
   border-radius: 8px;
@@ -616,15 +621,6 @@ body.app-frame-visible #launcherToolbar {
   box-shadow: 0 0 16px rgba(99,140,255,0.35);
 }
 .deepx-link-icon { font-size: var(--fs-md); line-height: 1; flex-shrink: 0; }
-
-/* Replay control docked at the right end of the footer bar — overrides the
-   original viewport-fixed bottom-left placement. */
-.deepx-footer .replay-btn {
-  position: static;
-  margin-left: auto;        /* push to the right, past the scrolling chip row */
-  flex: 0 0 auto;
-  align-self: center;
-}
 
 /* ─── App Frame (iframe) ──────────────────────────────*/
 .app-frame {
