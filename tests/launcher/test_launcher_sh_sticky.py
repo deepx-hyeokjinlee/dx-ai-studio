@@ -45,7 +45,9 @@ def test_sh_does_not_print_clickable_url_before_python():
 
 def test_launcher_py_binds_before_boot_and_prints_banner():
     PY = (Path(__file__).resolve().parents[2] / "launcher" / "launcher.py").read_text(encoding="utf-8")
-    bind_idx = PY.index('_LauncherServer(("0.0.0.0"')
+    # Bind host is now resolved (DX_BIND_LOCAL/DX_BIND_HOST → _bind_host, default 0.0.0.0)
+    # rather than a hardcoded "0.0.0.0"; anchor on the constructor call itself.
+    bind_idx = PY.index('_LauncherServer((_bind_host')
     boot_idx = PY.index("show_boot_progress(")  # the call, not the import line
     start_idx = PY.index("start_sub_server(_name")
     ready_idx = PY.index("_STUDIO_READY = True")
