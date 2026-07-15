@@ -218,9 +218,12 @@ body.app-frame-visible #launcherToolbar {
   color: var(--text-3);
   margin: 0;
 }
-.studio-boot-gate:not(.fade-out) ~ .splash-overlay {
-  pointer-events: none;
-}
+/* NOTE: the splash overlay must stay clickable even while the boot gate is up.
+   On a cold start the gate sits un-faded under the splash for the whole time the
+   8 module servers boot; making the splash pointer-events:none here meant an early
+   click fell through and never skipped the intro. skipSplash() already handles the
+   not-ready case (fades the splash, then re-shows the gate), so the splash keeps
+   pointer-events:auto and a click always skips. */
 
 /* ─── Landing Page ────────────────────────────────────*/
 .landing {
