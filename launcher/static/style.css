@@ -2046,11 +2046,7 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 .eco-hero { text-align: center; }
 .eco-hero img {
   display: block;
-  /* Downscale below the 986px source: on a HiDPI display a smaller CSS width maps
-     the source down into device pixels (crisper) instead of stretching it up. Never
-     exceeds native, so it is never upscaled/blurred. */
-  width: 100%;
-  max-width: 760px;
+  width: 100%;               /* fill the panel width to match the platform overlay */
   height: auto;
   margin: 0 auto;
   border-radius: var(--radius);
