@@ -2044,11 +2044,10 @@ body.lang-zh-TW .zh-CN { display: none !important; }
   gap: var(--sp-6);
 }
 .eco-hero {
-  flex: 0 0 460px;           /* fixed image column — shrinks the 986px source (crisper) */
-  width: 460px;
+  flex: 0 0 700px;           /* image column sized to roughly match the text height */
+  width: 700px;
   max-width: 100%;
-  position: sticky;
-  top: 0;                    /* image stays put while the text column scrolls */
+  align-self: center;        /* center vertically against the taller text column */
 }
 .eco-hero img {
   display: block;
