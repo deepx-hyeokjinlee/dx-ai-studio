@@ -37,6 +37,9 @@
         { target: '.about-book-card.sdk-card', position: 'bottom',
           title: { en: 'SDK Library', ko: 'SDK Library', ja: 'SDK Library', 'zh-CN': 'SDK Library', 'zh-TW': 'SDK Library', es: 'SDK Library' },
           content: { en: 'Open the <strong>SDK Library</strong> to browse technical documentation without leaving the launcher shell.', ko: '런처를 벗어나지 않고 <strong>SDK Library</strong>에서 기술 문서를 탐색합니다.', ja: 'ランチャーを離れずに<strong>SDK Library</strong>で技術ドキュメントを閲覧します。', 'zh-CN': '无需离开启动器即可在<strong>SDK Library</strong>中浏览技术文档。', 'zh-TW': '無需離開啟動器即可在<strong>SDK Library</strong>中瀏覽技術文件。', es: 'Abra <strong>SDK Library</strong> para explorar documentación técnica sin salir del launcher.' } },
+        { target: '#deepxLinks', position: 'right', skipScroll: true,
+          title: { en: 'DEEPX Resources', ko: 'DEEPX 리소스', ja: 'DEEPXリソース', 'zh-CN': 'DEEPX 资源', 'zh-TW': 'DEEPX 資源', es: 'Recursos DEEPX' },
+          content: { en: 'Quick links to DEEPX\'s official sites — docs, the <strong>DEEPX Agent</strong> (ask anything), Model Zoo, downloads, GitHub, and deepx.ai. Each opens in a new tab.', ko: 'DEEPX 공식 사이트 바로가기 — 문서, <strong>DEEPX Agent</strong>(무엇이든 질문), Model Zoo, 다운로드, GitHub, deepx.ai. 각 항목은 새 탭에서 열립니다.', ja: 'DEEPX公式サイトへのショートカット — ドキュメント、<strong>DEEPX Agent</strong>（何でも質問）、Model Zoo、ダウンロード、GitHub、deepx.ai。それぞれ新しいタブで開きます。', 'zh-CN': 'DEEPX 官方站点快捷入口 — 文档、<strong>DEEPX Agent</strong>（有问必答）、Model Zoo、下载、GitHub 和 deepx.ai。均在新标签页打开。', 'zh-TW': 'DEEPX 官方網站快捷入口 — 文件、<strong>DEEPX Agent</strong>（有問必答）、Model Zoo、下載、GitHub 和 deepx.ai。均在新分頁開啟。', es: 'Accesos directos a los sitios oficiales de DEEPX: documentación, el <strong>DEEPX Agent</strong> (pregunte lo que sea), Model Zoo, descargas, GitHub y deepx.ai. Cada uno se abre en una pestaña nueva.' } },
         { target: '#replayBtn', position: 'top', skipScroll: true,
           beforeStep: function () {
             var rb = document.getElementById('replayBtn');

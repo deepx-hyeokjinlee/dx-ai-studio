@@ -553,6 +553,45 @@ body.app-frame-visible #launcherToolbar {
   opacity: 0.8;
 }
 
+/* ─── DEEPX resource links (fixed bottom-left, stacked above the replay button) ── */
+.deepx-links {
+  position: fixed;
+  left: 20px;
+  bottom: 64px;            /* sits just above the replay button (bottom:20px) */
+  z-index: 50;
+  display: flex;
+  flex-direction: column;  /* journey order top→bottom; last item nearest replay */
+  align-items: flex-start;
+  gap: 5px;
+  max-height: calc(100vh - 140px);
+}
+.deepx-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px;
+  background: rgba(10, 14, 26, 0.82);
+  border: 1px solid rgba(99,140,255,0.22);
+  border-radius: 3px;
+  color: rgba(99,140,255,0.78);
+  font-family: var(--font);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  opacity: 0.62;
+}
+.deepx-link:hover {
+  border-color: rgba(99,140,255,0.6);
+  color: var(--accent);
+  box-shadow: 0 0 14px rgba(99,140,255,0.18);
+  opacity: 1;
+  transform: translateX(2px);
+}
+.deepx-link-icon { font-size: var(--fs-sm); line-height: 1; flex-shrink: 0; }
+
 /* ─── App Frame (iframe) ──────────────────────────────*/
 .app-frame {
   position: fixed;
