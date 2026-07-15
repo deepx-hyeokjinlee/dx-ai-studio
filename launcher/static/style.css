@@ -2103,9 +2103,12 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 .eco-partner-name {
   font-size: var(--fs-sm);
   font-weight: 700;
-  color: var(--text-1);
+  color: var(--accent-light);
   margin-bottom: 2px;
 }
+/* inline key-term highlight (metrics, product names) — shared by both overlays */
+.hl { color: var(--accent-light); font-weight: 700; }
+.eco-partner-desc .hl, .eco-intro .hl { font-style: normal; }
 .eco-partner-desc {
   font-size: var(--fs-sm);
   line-height: 1.35;
@@ -2307,7 +2310,7 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 
 /* Bold module headline */
 .pm-desc strong {
-  color: var(--text-1, #fff);
+  color: var(--accent-light);
   font-size: 0.95em;
 }
 /* Platform panel scroll support */
