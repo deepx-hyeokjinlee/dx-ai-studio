@@ -475,7 +475,7 @@ class DXStreamHandler(DXBaseHandler):
                 log.info("WebRTC unavailable, falling back to MJPEG for demo %d", demo_id)
                 mjpeg_pipeline = mjpeg.build_mjpeg_pipeline(pipeline_str)
                 mjpeg.start(mjpeg_pipeline, extra_env=extra_env)
-                ready, error = mjpeg.wait_until_ready(timeout=5.0, require_frame=True)
+                ready, error = mjpeg.wait_until_ready(timeout=15.0, require_frame=True)
                 if not ready:
                     mjpeg.stop()
                     return self._error(500, "pipeline_error", error or "MJPEG pipeline failed to start")
@@ -654,7 +654,7 @@ class DXStreamHandler(DXBaseHandler):
                     fallback_str = gst_str
 
                 mjpeg.start(fallback_str, extra_env=extra_env)
-                ready, error = mjpeg.wait_until_ready(timeout=5.0, require_frame=True)
+                ready, error = mjpeg.wait_until_ready(timeout=15.0, require_frame=True)
                 if not ready:
                     mjpeg.stop()
                     return self._error(500, "pipeline_error", error or "MJPEG pipeline failed to start")

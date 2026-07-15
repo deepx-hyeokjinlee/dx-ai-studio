@@ -15,10 +15,14 @@
   --text-dim: var(--text-4);
 }
 
+/* clip (not auto) so extreme browser zoom / narrow viewports never produce a horizontal
+   document scrollbar — the hub dashboard is designed to wrap, not scroll sideways.
+   Must sit on the root element: the document scrollbar is driven by <html>. */
+html { overflow-x: clip; }
 body {
   color: var(--text-2);
   min-height: 100vh;
-  overflow-x: auto;
+  overflow-x: clip;
   overflow-y: auto;
 }
 
@@ -2044,11 +2048,14 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 }
 .platform-modules {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0,1fr) lets tracks shrink below item min-content (else nowrap pm-name forces
+     fixed-width tracks that overflow the document at high zoom / narrow viewports). */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
   margin-bottom: 8px;
 }
 .pm-item {
+  min-width: 0;
   display: flex; align-items: center; gap: var(--sp-2);
   padding: 4px 8px;
   border-radius: var(--radius-sm);
@@ -2167,6 +2174,9 @@ body.lang-zh-TW .zh-CN { display: none !important; }
   .platform-info-left {
     width: 100%;
     max-height: 360px;
+  }
+  .platform-modules {
+    grid-template-columns: 1fr;   /* single column when stacked/zoomed — no 2-col overflow */
   }
   .pu-images img {
     height: min(212px, 28vw);
