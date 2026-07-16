@@ -99,6 +99,107 @@
     _chatOrigZ = {};
   }
 
+  // ── Tutorial mock helpers ────────────────────────────────────────────
+  // Several detail-page features are type-specific (before_after / overlay /
+  // classified example widgets) or transient (download progress + completion,
+  // inference results) and are therefore absent when the tour opens an
+  // arbitrary model. Mirror the dx_app / dx_stream pattern: inject a labelled
+  // #dxt-mock-* preview into the REAL container so each step has a real,
+  // visible element to spotlight, then clear it on step exit (afterStep chain).
+  function _lang() { return localStorage.getItem('dx-lang') || 'en'; }
+  function _lc(m) { return m[_lang()] || m.en; }
+  function _mockImg(label) {
+    return 'data:image/svg+xml,' + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="280" height="150">' +
+      '<rect width="100%" height="100%" fill="#1a2332"/>' +
+      '<text x="50%" y="50%" fill="#8b949e" font-size="13" text-anchor="middle" dy=".3em">' +
+      (label || 'Tutorial preview') + '</text></svg>');
+  }
+  function _clearMocks() {
+    document.querySelectorAll('[id^="dxt-mock-"]').forEach(function (n) { n.remove(); });
+  }
+
+  // Inject a demo of one example display type into the real #sectionExample.
+  function _mockExample(kind) {
+    var host = document.querySelector('#sectionExample');
+    if (!host) return;
+    var old = document.getElementById('dxt-mock-example');
+    if (old) old.remove();
+    var box = document.createElement('div');
+    box.id = 'dxt-mock-example';
+    box.style.cssText = 'margin:12px 0;padding:12px;border:1px dashed var(--border,#3a3a3a);border-radius:8px;background:var(--bg-2,#161b22)';
+    if (kind === 'before_after') {
+      box.innerHTML = '<div class="mz-ba-container" style="position:relative;max-width:280px">' +
+        '<img src="' + _mockImg('After') + '" class="mz-example-image" style="width:100%;display:block">' +
+        '<div class="mz-ba-slider" style="position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--accent,#4c8dff);cursor:ew-resize"></div>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-3);margin-top:6px"><span>Before</span><span>After</span></div>';
+    } else if (kind === 'overlay') {
+      box.innerHTML = '<div class="mz-example-overlay" style="max-width:280px">' +
+        '<img src="' + _mockImg('Overlay') + '" id="overlayImg" class="mz-example-overlay-result" style="width:100%;display:block;opacity:.6">' +
+        '<label style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:14px">' +
+        '<input type="range" min="0" max="100" value="60"> Overlay</label></div>';
+    } else if (kind === 'classified') {
+      var bars = [['golden retriever', 0.92], ['labrador', 0.05], ['dingo', 0.02]].map(function (r) {
+        return '<div style="display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px">' +
+          '<span style="width:110px">' + r[0] + '</span>' +
+          '<span style="flex:1;height:10px;background:var(--bg-3,#0d1117);border-radius:5px;overflow:hidden">' +
+          '<span style="display:block;height:100%;width:' + (r[1] * 100) + '%;background:var(--accent,#4c8dff)"></span></span>' +
+          '<span>' + (r[1] * 100).toFixed(0) + '%</span></div>';
+      }).join('');
+      box.innerHTML = '<div id="classificationResults" class="mz-classified-results" style="max-width:340px">' + bars + '</div>';
+    }
+    host.appendChild(box);
+    box.scrollIntoView({ block: 'center' });
+  }
+
+  // Inject a download progress bar / completion badge into the real download area.
+  function _mockDownload(state) {
+    var host = document.querySelector('#detailView [data-detail-downloads]') ||
+      document.querySelector('#detailView .mz-detail-hero-badges');
+    if (!host) return;
+    var old = document.getElementById('dxt-mock-dl');
+    if (old) old.remove();
+    var box = document.createElement('div');
+    box.id = 'dxt-mock-dl';
+    box.style.cssText = 'margin-top:8px;font-size:13px;width:100%';
+    if (state === 'complete') {
+      box.innerHTML = '<span class="mz-download-badge ready" style="color:var(--success,#3fb950)">✅ ' +
+        _lc({ ko: '다운로드 완료', en: 'Download complete', ja: 'ダウンロード完了', 'zh-CN': '下载完成', 'zh-TW': '下載完成', es: 'Descarga completada' }) + '</span>';
+    } else {
+      box.innerHTML = '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' +
+        '<div style="flex:1;min-width:120px;height:6px;background:var(--bg-3,#0d1117);border-radius:3px;overflow:hidden">' +
+        '<div style="width:65%;height:100%;background:var(--accent,#4c8dff)"></div></div>' +
+        '<span>65%</span><span style="color:var(--text-3)">' +
+        _lc({ ko: '다운로드 중', en: 'Downloading', ja: 'ダウンロード中', 'zh-CN': '下载中', 'zh-TW': '下載中', es: 'Descargando' }) + '</span>' +
+        '<button class="mz-btn mz-btn-outline" style="font-size:12px;padding:2px 8px">✕</button></div>';
+    }
+    host.appendChild(box);
+    host.scrollIntoView({ block: 'center' });
+  }
+
+  // Open the inference panel and inject a completed inference-result preview.
+  function _mockInference() {
+    var panel = document.querySelector('#inferencePanel');
+    if (panel) { var det = panel.closest('details'); if (det) det.open = true; }
+    var host = document.querySelector('#inferenceResultUpload') || panel;
+    if (!host) return;
+    var old = document.getElementById('dxt-mock-inf');
+    if (old) old.remove();
+    var box = document.createElement('div');
+    box.id = 'dxt-mock-inf';
+    box.style.cssText = 'margin-top:12px';
+    box.innerHTML = '<div class="mz-inference-result" style="max-width:320px">' +
+      '<img src="' + _mockImg('Result') + '" style="max-width:100%;display:block">' +
+      '<div class="mz-pred-list" style="margin-top:8px"><span class="mz-pred-tag">person</span>' +
+      '<div class="mz-pred-item">person (98%)</div><div class="mz-pred-item">car (91%)</div></div></div>' +
+      '<div class="mz-inference-stats" style="display:flex;gap:16px;margin-top:8px;font-size:13px">' +
+      '<div>FPS: <span class="stat-value">142</span></div>' +
+      '<div>Latency: <span class="stat-value">7.0ms</span></div></div>';
+    host.appendChild(box);
+    box.scrollIntoView({ block: 'center' });
+  }
+
   var sections = [
 
     { id: 'topbar', icon: '🔝',
@@ -192,9 +293,10 @@
           title: { ko: '법적 정보', en: 'Legal Info', ja: '法的情報', 'zh-CN': '法律信息', 'zh-TW': '法律資訊', es: 'Información legal' },
           content: { ko: '모델의 <strong>라이선스, 저작권, 원본 소스 링크</strong> 정보입니다. 상업적 사용 전 라이선스를 확인하세요.', en: 'Model <strong>license, copyright, and source links</strong>. Check the license before commercial use.', ja: 'モデルの<strong>ライセンス、著作権、ソースリンク</strong>情報です。商用利用前にライセンスを確認してください。', 'zh-CN': '模型的<strong>许可证、版权和来源链接</strong>信息。商业使用前请查看许可证。', 'zh-TW': '模型的<strong>授權、版權和來源連結</strong>資訊。商業使用前請查看授權。', es: '<strong>Licencia, derechos de autor y enlaces de origen</strong> del modelo. Revise la licencia antes del uso comercial.' },
           beforeStep: function () { scrollTo('#sectionLegal'); } },
-        { target: null, position: 'bottom',
+        { target: '#sectionExample', position: 'top',
           title: { ko: '상세 페이지 완료', en: 'Detail Page Complete', ja: '詳細ページ完了', 'zh-CN': '详情页完成', 'zh-TW': '詳情頁完成', es: 'Página de detalle completada' },
-          content: { ko: '모델 상세 페이지의 주요 섹션을 모두 살펴봤습니다. 다음으로 <strong>예제 이미지, 다운로드, 추론</strong> 섹션을 확인하세요.', en: 'You\'ve explored all major sections. Next, check <strong>examples, downloads, and inference</strong>.', ja: 'モデル詳細ページの主要セクションをすべて確認しました。次に<strong>サンプル画像、ダウンロード、推論</strong>セクションを確認してください。', 'zh-CN': '您已浏览所有主要部分。接下来请查看<strong>示例、下载和推理</strong>。', 'zh-TW': '您已瀏覽所有主要部分。接下來請查看<strong>範例、下載和推論</strong>。', es: 'Ha explorado todas las secciones principales. A continuación, revise <strong>ejemplos, descargas e inferencia</strong>.' } },
+          content: { ko: '모델 상세 페이지의 주요 섹션을 모두 살펴봤습니다. 다음으로 <strong>예제 이미지, 다운로드, 추론</strong> 섹션을 확인하세요.', en: 'You\'ve explored all major sections. Next, check <strong>examples, downloads, and inference</strong>.', ja: 'モデル詳細ページの主要セクションをすべて確認しました。次に<strong>サンプル画像、ダウンロード、推論</strong>セクションを確認してください。', 'zh-CN': '您已浏览所有主要部分。接下来请查看<strong>示例、下载和推理</strong>。', 'zh-TW': '您已瀏覽所有主要部分。接下來請查看<strong>範例、下載和推論</strong>。', es: 'Ha explorado todas las secciones principales. A continuación, revise <strong>ejemplos, descargas e inferencia</strong>.' },
+          beforeStep: function () { scrollTo('#sectionExample'); } },
       ]
     },
 
@@ -208,22 +310,26 @@
         // 안정적 ID 사용 (기존 nth-child(4) → #sectionExample)
         { target: '#sectionExample', position: 'bottom',
           title: { ko: '예제 섹션', en: 'Example Section', ja: 'サンプルセクション', 'zh-CN': '示例部分', 'zh-TW': '範例區段', es: 'Sección de ejemplos' },
-          content: { ko: '모델의 <strong>5가지 예제 표시 유형</strong>을 소개합니다: 비포/에프터, 오버레이, 분류 결과, 포즈 시각화, 커스텀.', en: 'Introduces <strong>5 example display types</strong>: before/after, overlay, classification, pose visualization, custom.', ja: '<strong>5種類のサンプル表示タイプ</strong>を紹介します：ビフォー/アフター、オーバーレイ、分類結果、ポーズ可視化、カスタム。', 'zh-CN': '介绍<strong>5种示例显示类型</strong>：前后对比、叠加、分类结果、姿态可视化、自定义。', 'zh-TW': '介紹<strong>5種範例顯示類型</strong>：前後對比、疊加、分類結果、姿態視覺化、自訂。', es: 'Presenta <strong>5 tipos de visualización de ejemplo</strong>: antes/después, superposición, clasificación, visualización de pose y personalizado.' } },
-        // .mz-ba-container는 before_after 타입 모델에서만 존재 → target:null로 개념 설명
-        { target: null, position: 'bottom',
+          content: { ko: '모델 유형에 따라 예제 이미지가 <strong>5가지 표시 방식</strong> 중 하나로 렌더링됩니다: 비포/에프터, 오버레이, 분류 결과, 갤러리(유사도), 단일 이미지.', en: 'Depending on the model type, example images render in one of <strong>5 display styles</strong>: before/after, overlay, classification, gallery (similarity), single image.', ja: 'モデルの種類に応じて、サンプル画像は<strong>5種類の表示方式</strong>のいずれかでレンダリングされます：ビフォー/アフター、オーバーレイ、分類結果、ギャラリー（類似度）、単一画像。', 'zh-CN': '根据模型类型，示例图像以<strong>5种显示方式</strong>之一渲染：前后对比、叠加、分类结果、图库（相似度）、单张图像。', 'zh-TW': '根據模型類型，範例影像以<strong>5種顯示方式</strong>之一呈現：前後對比、疊加、分類結果、圖庫（相似度）、單張影像。', es: 'Según el tipo de modelo, las imágenes de ejemplo se muestran en uno de <strong>5 estilos de visualización</strong>: antes/después, superposición, clasificación, galería (similitud) e imagen única.' } },
+        // .mz-ba-container는 before_after 타입 모델에서만 존재 → 튜토리얼 미리보기를 주입해 스팟라이트
+        { target: '#dxt-mock-example', position: 'bottom',
           title: { ko: '비포/에프터 슬라이더', en: 'Before-After Slider', ja: 'ビフォー/アフター スライダー', 'zh-CN': '前后对比滑块', 'zh-TW': '前後對比滑桿', es: 'Control deslizante antes/después' },
-          content: { ko: '<strong>before_after</strong> 타입 모델에서는 중앙 핸들을 드래그하여 원본과 추론 결과를 비교합니다. Detection, Segmentation 모델에서 주로 사용됩니다.', en: 'In <strong>before_after</strong> type models, drag the center handle to compare original and inference result. Used in Detection, Segmentation models.', ja: '<strong>before_after</strong>タイプのモデルでは、中央のハンドルをドラッグして元画像と推論結果を比較します。Detection、Segmentationモデルで主に使用されます。', 'zh-CN': '在<strong>before_after</strong>类型模型中，拖动中间滑块比较原图和推理结果。主要用于检测、分割模型。', 'zh-TW': '在<strong>before_after</strong>類型模型中，拖動中間滑桿比較原圖和推論結果。主要用於偵測、分割模型。', es: 'En modelos tipo <strong>before_after</strong>, arrastre el control central para comparar el original y el resultado de inferencia. Se usa en modelos Detection y Segmentation.' } },
-        // #overlayImg는 overlay 타입 모델에서만 존재 → target:null로 개념 설명
-        { target: null, position: 'bottom',
+          content: { ko: '<strong>before_after</strong> 타입 모델에서는 중앙 핸들을 드래그하여 원본과 추론 결과를 비교합니다. Detection, Segmentation 모델에서 주로 사용됩니다.', en: 'In <strong>before_after</strong> type models, drag the center handle to compare original and inference result. Used in Detection, Segmentation models.', ja: '<strong>before_after</strong>タイプのモデルでは、中央のハンドルをドラッグして元画像と推論結果を比較します。Detection、Segmentationモデルで主に使用されます。', 'zh-CN': '在<strong>before_after</strong>类型模型中，拖动中间滑块比较原图和推理结果。主要用于检测、分割模型。', 'zh-TW': '在<strong>before_after</strong>類型模型中，拖動中間滑桿比較原圖和推論結果。主要用於偵測、分割模型。', es: 'En modelos tipo <strong>before_after</strong>, arrastre el control central para comparar el original y el resultado de inferencia. Se usa en modelos Detection y Segmentation.' },
+          beforeStep: function () { _mockExample('before_after'); } },
+        // #overlayImg는 overlay 타입 모델에서만 존재 → 튜토리얼 미리보기를 주입해 스팟라이트
+        { target: '#dxt-mock-example', position: 'bottom',
           title: { ko: '오버레이', en: 'Overlay', ja: 'オーバーレイ', 'zh-CN': '叠加', 'zh-TW': '疊加', es: 'Superposición' },
-          content: { ko: '<strong>overlay</strong> 타입 모델에서는 슬라이더로 추론 결과의 투명도를 조절합니다. Segmentation, Depth 모델에서 사용됩니다.', en: 'In <strong>overlay</strong> type models, adjust inference result opacity with the slider. Used in Segmentation, Depth models.', ja: '<strong>overlay</strong>タイプのモデルでは、スライダーで推論結果の透明度を調整します。Segmentation、Depthモデルで使用されます。', 'zh-CN': '在<strong>overlay</strong>类型模型中，使用滑块调整推理结果的透明度。用于分割、深度模型。', 'zh-TW': '在<strong>overlay</strong>類型模型中，使用滑桿調整推論結果的透明度。用於分割、深度模型。', es: 'En modelos tipo <strong>overlay</strong>, ajuste la opacidad del resultado de inferencia con el control deslizante. Se usa en modelos Segmentation y Depth.' } },
-        // #classificationResults는 classified 타입 모델에서만 존재 → target:null로 개념 설명
-        { target: null, position: 'bottom',
+          content: { ko: '<strong>overlay</strong> 타입 모델에서는 슬라이더로 추론 결과의 투명도를 조절합니다. Segmentation, Depth 모델에서 사용됩니다.', en: 'In <strong>overlay</strong> type models, adjust inference result opacity with the slider. Used in Segmentation, Depth models.', ja: '<strong>overlay</strong>タイプのモデルでは、スライダーで推論結果の透明度を調整します。Segmentation、Depthモデルで使用されます。', 'zh-CN': '在<strong>overlay</strong>类型模型中，使用滑块调整推理结果的透明度。用于分割、深度模型。', 'zh-TW': '在<strong>overlay</strong>類型模型中，使用滑桿調整推論結果的透明度。用於分割、深度模型。', es: 'En modelos tipo <strong>overlay</strong>, ajuste la opacidad del resultado de inferencia con el control deslizante. Se usa en modelos Segmentation y Depth.' },
+          beforeStep: function () { _mockExample('overlay'); } },
+        // #classificationResults는 classified 타입 모델에서만 존재 → 튜토리얼 미리보기를 주입해 스팟라이트
+        { target: '#dxt-mock-example', position: 'bottom',
           title: { ko: '분류 결과', en: 'Classification Result', ja: '分類結果', 'zh-CN': '分类结果', 'zh-TW': '分類結果', es: 'Resultado de clasificación' },
-          content: { ko: '<strong>classified</strong> 타입 모델에서는 상위 N개의 분류 클래스와 확률이 바 차트로 표시됩니다. Classification 모델에서 사용됩니다.', en: 'In <strong>classified</strong> type models, top-N classes and probabilities are shown as a bar chart. Used in Classification models.', ja: '<strong>classified</strong>タイプのモデルでは、上位N個の分類クラスと確率がバーチャートで表示されます。Classificationモデルで使用されます。', 'zh-CN': '在<strong>classified</strong>类型模型中，前N个分类类别和概率以条形图显示。用于分类模型。', 'zh-TW': '在<strong>classified</strong>類型模型中，前N個分類類別和機率以長條圖顯示。用於分類模型。', es: 'En modelos tipo <strong>classified</strong>, las N clases principales y sus probabilidades se muestran como gráfico de barras. Se usa en modelos Classification.' } },
-        { target: null, position: 'bottom',
+          content: { ko: '<strong>classified</strong> 타입 모델에서는 상위 N개의 분류 클래스와 확률이 바 차트로 표시됩니다. Classification 모델에서 사용됩니다.', en: 'In <strong>classified</strong> type models, top-N classes and probabilities are shown as a bar chart. Used in Classification models.', ja: '<strong>classified</strong>タイプのモデルでは、上位N個の分類クラスと確率がバーチャートで表示されます。Classificationモデルで使用されます。', 'zh-CN': '在<strong>classified</strong>类型模型中，前N个分类类别和概率以条形图显示。用于分类模型。', 'zh-TW': '在<strong>classified</strong>類型模型中，前N個分類類別和機率以長條圖顯示。用於分類模型。', es: 'En modelos tipo <strong>classified</strong>, las N clases principales y sus probabilidades se muestran como gráfico de barras. Se usa en modelos Classification.' },
+          beforeStep: function () { _mockExample('classified'); } },
+        { target: '#sectionExample', position: 'top',
           title: { ko: '예제 유형 안내', en: 'Example Types', ja: 'サンプルタイプ', 'zh-CN': '示例类型', 'zh-TW': '範例類型', es: 'Tipos de ejemplo' },
-          content: { ko: '모델마다 다른 예제 유형이 표시됩니다: <strong>비포/에프터</strong>(Detection), <strong>오버레이</strong>(Depth), <strong>분류 바</strong>(Classification), <strong>포즈 포인트</strong>(Pose). 현재 모델에 맞는 유형만 활성화됩니다.', en: 'Each model shows different example types: <strong>before/after</strong> (Detection), <strong>overlay</strong> (Depth), <strong>classification bars</strong> (Classification), <strong>pose points</strong> (Pose). Only applicable types are active.', ja: 'モデルごとに異なるサンプルタイプが表示されます：<strong>ビフォー/アフター</strong>（Detection）、<strong>オーバーレイ</strong>（Depth）、<strong>分類バー</strong>（Classification）、<strong>ポーズポイント</strong>（Pose）。該当するタイプのみ有効になります。', 'zh-CN': '每个模型显示不同的示例类型：<strong>前后对比</strong>（检测）、<strong>叠加</strong>（深度）、<strong>分类条</strong>（分类）、<strong>姿态点</strong>（姿态）。仅适用的类型处于激活状态。', 'zh-TW': '每個模型顯示不同的範例類型：<strong>前後對比</strong>（偵測）、<strong>疊加</strong>（深度）、<strong>分類條</strong>（分類）、<strong>姿態點</strong>（姿態）。僅適用的類型處於啟用狀態。', es: 'Cada modelo muestra distintos tipos de ejemplo: <strong>antes/después</strong> (Detection), <strong>superposición</strong> (Depth), <strong>barras de clasificación</strong> (Classification), <strong>puntos de pose</strong> (Pose). Solo los tipos aplicables están activos.' } },
+          content: { ko: '모델마다 다른 예제 유형이 표시됩니다: <strong>비포/에프터</strong>(Detection), <strong>오버레이</strong>(Segmentation/Depth), <strong>분류 바</strong>(Classification), <strong>갤러리</strong>(Re-ID/유사도), <strong>단일 이미지</strong>(기본). 현재 모델에 맞는 유형만 활성화됩니다.', en: 'Each model shows different example types: <strong>before/after</strong> (Detection), <strong>overlay</strong> (Segmentation/Depth), <strong>classification bars</strong> (Classification), <strong>gallery</strong> (Re-ID/similarity), <strong>single image</strong> (default). Only the type matching the current model is active.', ja: 'モデルごとに異なるサンプルタイプが表示されます：<strong>ビフォー/アフター</strong>（Detection）、<strong>オーバーレイ</strong>（Segmentation/Depth）、<strong>分類バー</strong>（Classification）、<strong>ギャラリー</strong>（Re-ID/類似度）、<strong>単一画像</strong>（デフォルト）。現在のモデルに該当するタイプのみ有効になります。', 'zh-CN': '每个模型显示不同的示例类型：<strong>前后对比</strong>（检测）、<strong>叠加</strong>（分割/深度）、<strong>分类条</strong>（分类）、<strong>图库</strong>（Re-ID/相似度）、<strong>单张图像</strong>（默认）。仅当前模型对应的类型处于激活状态。', 'zh-TW': '每個模型顯示不同的範例類型：<strong>前後對比</strong>（偵測）、<strong>疊加</strong>（分割/深度）、<strong>分類條</strong>（分類）、<strong>圖庫</strong>（Re-ID/相似度）、<strong>單張影像</strong>（預設）。僅目前模型對應的類型處於啟用狀態。', es: 'Cada modelo muestra distintos tipos de ejemplo: <strong>antes/después</strong> (Detection), <strong>superposición</strong> (Segmentation/Depth), <strong>barras de clasificación</strong> (Classification), <strong>galería</strong> (Re-ID/similitud), <strong>imagen única</strong> (predeterminado). Solo está activo el tipo que corresponde al modelo actual.' },
+          beforeStep: function () { scrollTo('#sectionExample'); } },
       ]
     },
 
@@ -244,15 +350,20 @@
           title: { ko: '다운로드 버튼', en: 'Download Button', ja: 'ダウンロードボタン', 'zh-CN': '下载按钮', 'zh-TW': '下載按鈕', es: 'Botón de descarga' },
           content: { ko: 'Q-Lite 또는 Q-Pro 버전을 선택한 후 이 버튼을 클릭하면 <strong>다운로드가 시작</strong>됩니다. DX App이 연결된 상태에서만 표시됩니다.', en: 'Select Q-Lite or Q-Pro version, then click to <strong>start download</strong>. Only visible when DX App is connected.', ja: 'Q-LiteまたはQ-Proバージョンを選択し、クリックして<strong>ダウンロードを開始</strong>します。DX Appが接続されている場合のみ表示されます。', 'zh-CN': '选择Q-Lite或Q-Pro版本，然后点击<strong>开始下载</strong>。仅在DX App连接时显示。', 'zh-TW': '選擇Q-Lite或Q-Pro版本，然後點擊<strong>開始下載</strong>。僅在DX App連線時顯示。', es: 'Seleccione la versión Q-Lite o Q-Pro y haga clic para <strong>iniciar la descarga</strong>. Solo visible cuando DX App está conectada.' },
           beforeStep: function () { scrollTo('.mz-detail-header'); } },
-        { target: null, position: 'bottom',
+        // 진행 상태는 다운로드 중에만 존재 → 튜토리얼 미리보기(진행바)를 주입해 스팟라이트
+        { target: '#dxt-mock-dl', position: 'bottom',
           title: { ko: '진행률', en: 'Progress', ja: '進捗', 'zh-CN': '进度', 'zh-TW': '進度', es: 'Progreso' },
-          content: { ko: '다운로드 중에는 <strong>진행바와 퍼센트</strong>가 표시됩니다. 취소 버튼으로 언제든 중단할 수 있습니다.', en: 'During download, a <strong>progress bar and percentage</strong> appear. Cancel anytime with the cancel button.', ja: 'ダウンロード中は<strong>プログレスバーとパーセント</strong>が表示されます。キャンセルボタンでいつでも中断できます。', 'zh-CN': '下载过程中会显示<strong>进度条和百分比</strong>。随时可以点击取消按钮中断。', 'zh-TW': '下載過程中會顯示<strong>進度條和百分比</strong>。隨時可以點擊取消按鈕中斷。', es: 'Durante la descarga, aparecen una <strong>barra de progreso y un porcentaje</strong>. Puede cancelar en cualquier momento con el botón Cancelar.' } },
-        { target: null, position: 'bottom',
+          content: { ko: '다운로드 중에는 <strong>진행바와 퍼센트</strong>가 표시됩니다. 취소 버튼으로 언제든 중단할 수 있습니다.', en: 'During download, a <strong>progress bar and percentage</strong> appear. Cancel anytime with the cancel button.', ja: 'ダウンロード中は<strong>プログレスバーとパーセント</strong>が表示されます。キャンセルボタンでいつでも中断できます。', 'zh-CN': '下载过程中会显示<strong>进度条和百分比</strong>。随时可以点击取消按钮中断。', 'zh-TW': '下載過程中會顯示<strong>進度條和百分比</strong>。隨時可以點擊取消按鈕中斷。', es: 'Durante la descarga, aparecen una <strong>barra de progreso y un porcentaje</strong>. Puede cancelar en cualquier momento con el botón Cancelar.' },
+          beforeStep: function () { _mockDownload('progress'); } },
+        // 실제 상단 바의 DX App 상태 표시등을 스팟라이트
+        { target: '#dxAppStatus', position: 'bottom',
           title: { ko: 'DX App 필요', en: 'DX App Required', ja: 'DX App 必要', 'zh-CN': '需要DX App', 'zh-TW': '需要DX App', es: 'DX App requerida' },
           content: { ko: '모델 다운로드에는 <strong>DX App이 실행 중</strong>이어야 합니다. 상단 바의 DX App 상태가 🟢인지 확인하세요.', en: '<strong>DX App must be running</strong> for downloads. Check the DX App status indicator (🟢) in the top bar.', ja: 'モデルのダウンロードには<strong>DX Appが実行中</strong>である必要があります。トップバーのDX App状態が🟢であることを確認してください。', 'zh-CN': '模型下载需要<strong>DX App正在运行</strong>。请检查顶部栏的DX App状态指示器（🟢）。', 'zh-TW': '模型下載需要<strong>DX App正在執行</strong>。請檢查頂部列的DX App狀態指示器（🟢）。', es: '<strong>DX App debe estar en ejecución</strong> para descargar. Compruebe el indicador de estado de DX App (🟢) en la barra superior.' } },
-        { target: null, position: 'bottom',
+        // 완료 배지는 다운로드 완료 후에만 존재 → 튜토리얼 미리보기(✅ 배지)를 주입해 스팟라이트
+        { target: '#dxt-mock-dl', position: 'bottom',
           title: { ko: '다운로드 완료', en: 'Download Complete', ja: 'ダウンロード完了', 'zh-CN': '下载完成', 'zh-TW': '下載完成', es: 'Descarga completada' },
-          content: { ko: '다운로드 완료 시 ✅ 배지로 변경됩니다. 실패하면 에러 메시지가 표시되며 재시도할 수 있습니다.', en: 'Badge changes to ✅ on completion. On failure, an error message appears and you can retry.', ja: '完了するとバッジが✅に変わります。失敗した場合はエラーメッセージが表示され、再試行できます。', 'zh-CN': '完成后标记变为✅。失败时会显示错误消息，可以重试。', 'zh-TW': '完成後標記變為✅。失敗時會顯示錯誤訊息，可以重試。', es: 'Al completarse, la insignia cambia a ✅. Si falla, aparece un mensaje de error y puede reintentar.' } },
+          content: { ko: '다운로드 완료 시 ✅ 배지로 변경됩니다. 실패하면 에러 메시지가 표시되며 재시도할 수 있습니다.', en: 'Badge changes to ✅ on completion. On failure, an error message appears and you can retry.', ja: '完了するとバッジが✅に変わります。失敗した場合はエラーメッセージが表示され、再試行できます。', 'zh-CN': '完成后标记变为✅。失败时会显示错误消息，可以重试。', 'zh-TW': '完成後標記變為✅。失敗時會顯示錯誤訊息，可以重試。', es: 'Al completarse, la insignia cambia a ✅. Si falla, aparece un mensaje de error y puede reintentar.' },
+          beforeStep: function () { _mockDownload('complete'); } },
         // ONNX 모델 링크 — onnx_url이 있는 모델에서만 존재
         { target: '#btnOnnxLink', position: 'bottom',
           title: { ko: 'ONNX 모델 링크', en: 'ONNX Model Link', ja: 'ONNXモデルリンク', 'zh-CN': 'ONNX模型链接', 'zh-TW': 'ONNX模型連結', es: 'Enlace de modelo ONNX' },
@@ -319,9 +430,11 @@
             if (d) { var det = d.closest('details'); if (det) det.open = true; }
             pollFor('#btnRunDefault', 30);
           } },
-        { target: null, position: 'bottom',
+        // 추론 결과는 실행 후에만 존재 → 튜토리얼 미리보기(결과+통계)를 주입해 스팟라이트
+        { target: '#dxt-mock-inf', position: 'top',
           title: { ko: '추론 결과', en: 'Inference Results', ja: '推論結果', 'zh-CN': '推理结果', 'zh-TW': '推論結果', es: 'Resultados de inferencia' },
-          content: { ko: '추론 완료 후 <strong>FPS, Latency, 감지 태그</strong> 등의 결과가 표시됩니다. 결과 이미지에 바운딩 박스나 분할 마스크가 오버레이됩니다.', en: 'After inference, <strong>FPS, latency, detection tags</strong> appear. Result image shows bounding boxes or segmentation masks.', ja: '推論完了後、<strong>FPS、レイテンシ、検出タグ</strong>などの結果が表示されます。結果画像にバウンディングボックスやセグメンテーションマスクがオーバーレイされます。', 'zh-CN': '推理完成后显示<strong>FPS、延迟、检测标签</strong>等结果。结果图像上显示边界框或分割掩码。', 'zh-TW': '推論完成後顯示<strong>FPS、延遲、偵測標籤</strong>等結果。結果影像上顯示邊界框或分割遮罩。', es: 'Tras la inferencia, aparecen <strong>FPS, latencia y etiquetas de detección</strong>. La imagen de resultado muestra cuadros delimitadores o máscaras de segmentación.' } },
+          content: { ko: '추론 완료 후 <strong>FPS, Latency, 감지 태그</strong> 등의 결과가 표시됩니다. 결과 이미지에 바운딩 박스나 분할 마스크가 오버레이됩니다.', en: 'After inference, <strong>FPS, latency, detection tags</strong> appear. Result image shows bounding boxes or segmentation masks.', ja: '推論完了後、<strong>FPS、レイテンシ、検出タグ</strong>などの結果が表示されます。結果画像にバウンディングボックスやセグメンテーションマスクがオーバーレイされます。', 'zh-CN': '推理完成后显示<strong>FPS、延迟、检测标签</strong>等结果。结果图像上显示边界框或分割掩码。', 'zh-TW': '推論完成後顯示<strong>FPS、延遲、偵測標籤</strong>等結果。結果影像上顯示邊界框或分割遮罩。', es: 'Tras la inferencia, aparecen <strong>FPS, latencia y etiquetas de detección</strong>. La imagen de resultado muestra cuadros delimitadores o máscaras de segmentación.' },
+          beforeStep: function () { _mockInference(); } },
       ]
     },
 
@@ -368,6 +481,20 @@
     if (_chatSec) _chatSec.steps.forEach(function (st) {
       var prev = st.afterStep;
       st.afterStep = function () { if (prev) prev(); restoreChat(); };
+    });
+  })();
+
+  // Clear any injected #dxt-mock-* preview when leaving a step (advance / prev /
+  // stop / section jump). The next step's beforeStep re-injects what it needs,
+  // so only the current step's mock is ever present.
+  (function () {
+    ['examples', 'download', 'inference'].forEach(function (secId) {
+      var sec = sections.find(function (s) { return s.id === secId; });
+      if (!sec) return;
+      sec.steps.forEach(function (st) {
+        var prev = st.afterStep;
+        st.afterStep = function () { if (prev) prev(); _clearMocks(); };
+      });
     });
   })();
 
