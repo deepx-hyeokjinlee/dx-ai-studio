@@ -17,3 +17,4 @@ def test_copies_snapshot(tmp_path):
     assert r.returncode == 0, r.stderr
     assert json.loads((dest/"dataset.json").read_text())["dataset_version"] == "v2"
     assert (dest/"results"/"HW"/"RUN"/"environment.json").exists()
+    assert not (dest/"results"/"dashboard").exists()
