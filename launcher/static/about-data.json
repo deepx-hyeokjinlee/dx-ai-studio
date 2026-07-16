@@ -18,7 +18,7 @@
     },
     "stats": [
       {
-        "value": "400+ / 130+",
+        "value": "500+ / 114",
         "label": {
           "en": "Patents Filed / Granted",
           "ko": "특허 출원 / 등록",
@@ -29,7 +29,7 @@
         }
       },
       {
-        "value": "27 / 8",
+        "value": "30 / 8",
         "label": {
           "en": "Commercial Orders / Countries",
           "ko": "상용 발주 / 국가",
@@ -226,6 +226,17 @@
           "zh-CN": "CES创新奖Double Honoree；DX-M2 2nm路线图；DX-M1量产及端侧SLM",
           "zh-TW": "CES創新獎Double Honoree；DX-M2 2nm路線圖；DX-M1量產及端側SLM",
           "es": "Doble galardón CES Innovation Awards; hoja de ruta DX-M2 2nm; producción en volumen DX-M1 y SLM en dispositivo"
+        }
+      },
+      {
+        "year": "2027–28",
+        "event": {
+          "en": "DX-M2 2nm mass production target (2027); DX-M3 roadmap — 1 PetaOPS under 20W (2028)",
+          "ko": "DX-M2 2nm 양산 목표(2027); DX-M3 로드맵 — 20W 이하 1 PetaOPS(2028)",
+          "ja": "DX-M2 2nm量産目標（2027）；DX-M3ロードマップ — 20W以下で1 PetaOPS（2028）",
+          "zh-CN": "DX-M2 2nm量产目标（2027）；DX-M3路线图 — 20W以下1 PetaOPS（2028）",
+          "zh-TW": "DX-M2 2nm量產目標（2027）；DX-M3路線圖 — 20W以下1 PetaOPS（2028）",
+          "es": "Producción en masa DX-M2 2nm (2027); hoja de ruta DX-M3 — 1 PetaOPS bajo 20W (2028)"
         }
       }
     ],
@@ -1099,12 +1110,12 @@
           "es": "Completado"
         },
         "detail": {
-          "en": "Details not publicly disclosed",
-          "ko": "세부 내용 비공개",
-          "ja": "詳細は非公開",
-          "zh-CN": "详情未公开",
-          "zh-TW": "詳情未公開",
-          "es": "Detalles no revelados públicamente"
+          "en": "~$4M (KRW ~4.5B) · Shinhan Bank, Capstone Partners, Dongmun Partners, Pathfinder H & others · 2019",
+          "ko": "~400만 달러 (약 45억 원) · 신한은행·캡스톤파트너스·동문파트너스·패스파인더H 외 · 2019",
+          "ja": "~400万ドル（約45億ウォン）· 新韓銀行・キャップストーンパートナーズ・トンムンパートナーズ・パスファインダーH ほか · 2019",
+          "zh-CN": "~400万美元（约45亿韩元）· 新韩银行、Capstone Partners、Dongmun Partners、Pathfinder H等 · 2019",
+          "zh-TW": "~400萬美元（約45億韓元）· 新韓銀行、Capstone Partners、Dongmun Partners、Pathfinder H等 · 2019",
+          "es": "~4M$ (~4500M KRW) · Shinhan Bank, Capstone Partners, Dongmun Partners, Pathfinder H y otros · 2019"
         }
       },
       {
@@ -1168,6 +1179,11 @@
       {
         "name": "Electronic Products / EE Times — 2024 Product of the Year (DX-M1)",
         "icon": "📰",
+        "year": "2024"
+      },
+      {
+        "name": "Forbes — #1 in U.S. NPU Patent Registrations",
+        "icon": "📑",
         "year": "2024"
       },
       {
@@ -1382,7 +1398,7 @@
         }
       },
       {
-        "name": "Koshida Tech",
+        "name": "Koshidaka Tech",
         "role": {
           "en": "Japan distribution",
           "ko": "일본 유통",
@@ -1508,12 +1524,25 @@
     "past": [
       {
         "title": {
-          "en": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, Booth S14-16",
-          "ko": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, 부스 S14-16",
-          "ja": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida、ブース S14-16",
-          "zh-CN": "Tokyo Physical AI Expo 2026 — DEEPX与Koshida，展位 S14-16",
-          "zh-TW": "Tokyo Physical AI Expo 2026 — DEEPX與Koshida，展位 S14-16",
-          "es": "Tokyo Physical AI Expo 2026 — DEEPX y Koshida, stand S14-16"
+          "en": "Baidu places initial 30,000-unit DX-M1 order",
+          "ko": "바이두, DX-M1 초도 3만 개 발주",
+          "ja": "百度がDX-M1を初回3万個発注",
+          "zh-CN": "百度首批下单3万颗DX-M1",
+          "zh-TW": "百度首批下單3萬顆DX-M1",
+          "es": "Baidu realiza pedido inicial de 30.000 unidades DX-M1"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://www.newstheai.com/news/articleView.html?idxno=20548"
+      },
+      {
+        "title": {
+          "en": "Tokyo Physical AI Expo 2026 — DEEPX & Koshidaka, Booth S14-16",
+          "ko": "Tokyo Physical AI Expo 2026 — DEEPX & Koshidaka, 부스 S14-16",
+          "ja": "Tokyo Physical AI Expo 2026 — DEEPX & Koshidaka、ブース S14-16",
+          "zh-CN": "Tokyo Physical AI Expo 2026 — DEEPX与Koshidaka，展位 S14-16",
+          "zh-TW": "Tokyo Physical AI Expo 2026 — DEEPX與Koshidaka，展位 S14-16",
+          "es": "Tokyo Physical AI Expo 2026 — DEEPX y Koshidaka, stand S14-16"
         },
         "date": "2026.07",
         "type": "event",
@@ -1563,12 +1592,12 @@
       },
       {
         "title": {
-          "en": "DEEPX × Koshida Tech — strategic partnership for Japan's Physical AI market",
+          "en": "DEEPX × Koshidaka Tech — strategic partnership for Japan's Physical AI market",
           "ko": "DEEPX × 고시다텍 — 일본 Physical AI 시장 전략적 파트너십",
           "ja": "DEEPX × コシダテック — 日本Physical AI市場での戦略的パートナーシップ",
-          "zh-CN": "DEEPX × Koshida Tech — 面向日本Physical AI市场的战略合作",
-          "zh-TW": "DEEPX × Koshida Tech — 面向日本Physical AI市場的戰略合作",
-          "es": "DEEPX × Koshida Tech — alianza estratégica para el mercado Physical AI de Japón"
+          "zh-CN": "DEEPX × Koshidaka Tech — 面向日本Physical AI市场的战略合作",
+          "zh-TW": "DEEPX × Koshidaka Tech — 面向日本Physical AI市場的戰略合作",
+          "es": "DEEPX × Koshidaka Tech — alianza estratégica para el mercado Physical AI de Japón"
         },
         "date": "2026.07",
         "type": "news",
