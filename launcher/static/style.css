@@ -565,17 +565,17 @@ body.app-frame-visible #launcherToolbar {
    overflow under body-zoom or Ctrl+scroll. */
 .deepx-footer {
   position: fixed;
-  /* Symmetric left/right insets keep the bar centered on the viewport (so the chips
-     sit at true screen centre) while clearing the bottom-left replay button (widest
-     label ~150px) and the bottom-right chat FAB. The chips wrap to a 2nd row only on
-     narrow viewports / very wide languages. */
+  /* Spans from just right of the bottom-left replay button (left:160) to clear of the
+     bottom-right chat FAB (right:84). Holds a lead caption + arrow that points into the
+     resource chips. */
   left: 160px;
-  right: 160px;
+  right: 84px;
   bottom: 16px;             /* floated up off the very bottom edge */
   z-index: 50;
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  gap: 10px;
   padding: 8px 16px;
   background: rgba(10, 14, 26, 0.82);
   border: 1px solid rgba(120,158,255,0.18);
@@ -583,13 +583,32 @@ body.app-frame-visible #launcherToolbar {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+/* Lead caption on the left, arrow pointing right into the chips. */
+.deepx-footer-lead {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--accent-light);
+  font-family: var(--font);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  text-shadow: 0 0 10px rgba(138,172,255,0.35);
+}
+.deepx-lead-icon { font-size: var(--fs-md); line-height: 1; }
+.deepx-lead-arrow { font-size: var(--fs-md); animation: deepxLeadArrow 1.4s ease-in-out infinite; }
+@keyframes deepxLeadArrow {
+  0%, 100% { transform: translateX(0); opacity: 0.7; }
+  50%      { transform: translateX(4px); opacity: 1; }
+}
 .deepx-links {
   display: flex;
   flex-direction: row;      /* journey order left→right */
-  flex: 1 1 auto;           /* fill the bar so justify-content actually centers chips */
-  flex-wrap: wrap;          /* wrap to a 2nd centered row for wide languages (es/ja) */
+  flex: 1 1 auto;
+  flex-wrap: wrap;          /* wrap to a 2nd row on narrow viewports / very wide languages */
   align-items: center;
-  justify-content: center;  /* chips centered across the full bar width */
+  justify-content: flex-start;  /* chips follow the arrow, left→right */
   gap: 8px 10px;            /* row-gap col-gap */
   min-width: 0;
 }
@@ -599,7 +618,7 @@ body.app-frame-visible #launcherToolbar {
   justify-content: center;
   gap: 8px;
   flex: 0 0 auto;           /* content-width chips, uniform height, no shrink */
-  padding: 10px 14px;       /* fit all 8 in one row across the long bar */
+  padding: 10px 11px;       /* fit lead + all 8 chips on one row */
   background: rgba(24, 32, 52, 0.94);
   border: 1px solid rgba(120,158,255,0.55);
   border-radius: 8px;
