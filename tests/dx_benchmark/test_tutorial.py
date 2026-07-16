@@ -28,6 +28,7 @@ EXPECTED_SECTION_IDS = [
     "dashboard-metrics",
     "dashboard-detail",
     "dashboard-trend",
+    "dashboard-ort",
     "results",
     "run-cli",
     "settings",

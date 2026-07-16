@@ -357,7 +357,7 @@ var TREND_METRICS = [
   { key: 'latency', title: 'Model Latency Trend', metricLabel: 'Model Latency', axisLabel: 'Latency (ms)', resultKind: 'model', family: 'latency', valueKey: 'latency_ms', precision: 2 },
   { key: 'throughput', title: 'Model Throughput Trend', metricLabel: 'Model Throughput', axisLabel: 'Throughput (FPS)', resultKind: 'model', family: 'throughput', valueKey: 'fps', precision: 1 },
   { key: 'e2e', title: 'E2E FPS (Single-Channel) Trend', metricLabel: 'E2E FPS (Single-Channel)', axisLabel: 'E2E FPS', resultKind: 'e2e_single', valueKey: 'avg_e2e_fps', precision: 1 },
-  { key: 'capacity', title: 'Max Channel Trend', metricLabel: 'Max Channel', axisLabel: 'Max Channel', resultKind: 'e2e_multi_capacity', valueKey: 'capacity_streams', precision: 0 },
+  { key: 'capacity', title: 'Max Channel Trend', metricLabel: 'Max Channels', axisLabel: 'Max Channels', resultKind: 'e2e_multi_capacity', valueKey: 'capacity_streams', precision: 0 },
 ];
 /* ORT ON/OFF comparison: keys/labels mirror summaries.ort_delta's `metric` values 1:1. */
 var ORT_METRICS = [
@@ -460,7 +460,7 @@ function renderRunSelectors(targetId){
 }
 
 
-function _infoRows(r) { return r.map(function(row) { return '<div class="info-row"><span class="info-key">'+escHtml(row[0])+'</span><span class="info-val">'+escHtml(String(row[1]||'-'))+'</span></div>'; }).join(''); }
+function _infoRows(r) { return r.map(function(row) { return '<div class="info-row"><span class="info-key">'+escHtml(row[0])+'</span><span class="info-val">'+escHtml(row[1]!=null?String(row[1]):'-')+'</span></div>'; }).join(''); }
 function cleanVer(v) { if (typeof v !== 'string') return v; return v.replace(/^DXRT\s+/i,'').replace(/^v(?=\d)/i,''); }
 /* Formats the npu_modules block (new-tool shape: [{product,count},...]) into a
    single readable string, e.g. "H1-Quattro ×1" or "M1 ×2, M1M ×1". */
