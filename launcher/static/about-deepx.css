@@ -537,6 +537,17 @@
   font: 600 11px/1 var(--font);
   letter-spacing: 0.5px;
 }
+.about-product-notes {
+  margin-top: 10px;
+}
+.about-product-note {
+  font: 400 11px/1.4 var(--font);
+  color: var(--about-text-muted);
+  font-style: italic;
+}
+.about-product-note::before {
+  content: "* ";
+}
 
 /* ── 10. Investment Section ── */
 .about-rounds-row {

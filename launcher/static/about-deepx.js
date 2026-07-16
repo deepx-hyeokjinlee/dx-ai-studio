@@ -279,6 +279,22 @@
     container.appendChild(el);
   }
 
+  // Generic spec fields that only some product entries carry. Rendered, in this
+  // order, as extra "about-product-spec" rows whenever the field is present on
+  // the item — keeps productCard() from needing a bespoke branch per new field.
+  const PRODUCT_SPEC_FIELD_LABELS = {
+    cpu:          { en: 'CPU',            ko: 'CPU',            ja: 'CPU',              'zh-CN': 'CPU',        'zh-TW': 'CPU',        es: 'CPU' },
+    frameworks:   { en: 'Frameworks',     ko: '프레임워크',       ja: 'フレームワーク',     'zh-CN': '框架',       'zh-TW': '框架',       es: 'Frameworks' },
+    security:     { en: 'Security',       ko: '보안',            ja: 'セキュリティ',       'zh-CN': '安全',       'zh-TW': '安全',       es: 'Seguridad' },
+    architecture: { en: 'Architecture',   ko: '아키텍처',         ja: 'アーキテクチャ',     'zh-CN': '架构',       'zh-TW': '架構',       es: 'Arquitectura' },
+    designPartner:{ en: 'Design Partner', ko: '설계 파트너',      ja: '設計パートナー',     'zh-CN': '设计合作伙伴','zh-TW': '設計合作夥伴', es: 'Socio de diseño' },
+    isp:          { en: 'ISP',            ko: 'ISP',             ja: 'ISP',              'zh-CN': 'ISP',        'zh-TW': 'ISP',        es: 'ISP' },
+    codec:        { en: 'Codec',          ko: '코덱',            ja: 'コーデック',         'zh-CN': '编解码',     'zh-TW': '編解碼',     es: 'Códec' },
+    channels:     { en: 'Channels',       ko: '채널',            ja: 'チャンネル',         'zh-CN': '通道',       'zh-TW': '通道',       es: 'Canales' },
+    savings:      { en: 'Savings',        ko: '절감',            ja: '削減',              'zh-CN': '节省',       'zh-TW': '節省',       es: 'Ahorro' },
+    weight:       { en: 'Weight',         ko: '무게',            ja: '重量',              'zh-CN': '重量',       'zh-TW': '重量',       es: 'Peso' }
+  };
+
   function renderProducts(container, data) {
     const p = data.products;
     const el = document.createElement('section');
@@ -294,8 +310,15 @@
         <div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Memory', ko:'메모리', ja:'メモリ', 'zh-CN':'内存', 'zh-TW':'記憶體', es:'Memoria'})}</span><span class="about-product-spec-value">${L(item.memory)}</span></div>
         <div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Interface', ko:'인터페이스', ja:'インターフェース', 'zh-CN':'接口', 'zh-TW':'介面', es:'Interfaz'})}</span><span class="about-product-spec-value">${item.interface}</span></div>`;
       if (item.os) html += `<div class="about-product-spec"><span class="about-product-spec-label">${T({en:'OS', ko:'OS', ja:'OS', 'zh-CN':'操作系统', 'zh-TW':'作業系統', es:'SO'})}</span><span class="about-product-spec-value">${L(item.os)}</span></div>`;
+      Object.keys(PRODUCT_SPEC_FIELD_LABELS).forEach(function (key) {
+        if (item[key] == null) return;
+        html += `<div class="about-product-spec"><span class="about-product-spec-label">${T(PRODUCT_SPEC_FIELD_LABELS[key])}</span><span class="about-product-spec-value">${L(item[key])}</span></div>`;
+      });
       if (item.temp) html += `<div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Temp', ko:'온도', ja:'温度', 'zh-CN':'温度', 'zh-TW':'溫度', es:'Temp.'})}</span><span class="about-product-spec-value">${L(item.temp)}</span></div>`;
       html += `<div class="about-product-spec" style="border:none"><span class="about-product-spec-label">${T({en:'Form Factor', ko:'폼팩터', ja:'フォームファクタ', 'zh-CN':'规格', 'zh-TW':'規格', es:'Formato'})}</span><span class="about-product-spec-value">${L(item.form)}</span></div>`;
+      if (item.notes && item.notes.length) {
+        html += `<div class="about-product-notes">${item.notes.map(function (n) { return `<div class="about-product-note">${L(n)}</div>`; }).join('')}</div>`;
+      }
       if (item.badge) html += `<div class="about-product-badge">${typeof item.badge === 'object' ? L(item.badge) : item.badge}</div>`;
       html += `</div>`;
       return html;
