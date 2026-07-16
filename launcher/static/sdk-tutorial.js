@@ -53,6 +53,19 @@
     if (found) window._sdkLib.openBookViewer(found.file, found.color);
   }
 
+  function _closeDocViewer() {
+    // The Document Viewer section (immediately before Architecture) leaves the full-screen
+    // #sdkBookViewer (position:fixed; z-index:200) open, covering the topbar. Without closing it
+    // the architecture button sits hidden behind the viewer, so the spotlight lands on the viewer
+    // overlay instead of the button. _sdkLib does not expose closeBookViewer(), so close it here.
+    var viewer = document.getElementById('sdkBookViewer');
+    if (viewer && viewer.classList.contains('open')) {
+      viewer.classList.remove('open');
+      var body = document.getElementById('sdkViewerBody');
+      if (body) body.innerHTML = '';
+    }
+  }
+
   var secWelcome = {
     id: 'welcome',
     icon: '🏠',
@@ -371,10 +384,12 @@
     icon: '🏗️',
     title: {
       ko: '아키텍처', en: 'Architecture', ja: 'アーキテクチャ', 'zh-CN': '架构', 'zh-TW': '架構', es: 'Arquitectura'},
+    beforeStart: function() { _closeDocViewer(); },
     steps: [
       {
         target: '#sdkArchBtn',
         position: 'bottom',
+        beforeStep: function() { _closeDocViewer(); },
         title: {
           ko: '아키텍처 버튼', en: 'Architecture Button', ja: 'アーキテクチャボタン', 'zh-CN': '架构按钮', 'zh-TW': '架構按鈕', es: 'Botón de arquitectura'},
         content: {

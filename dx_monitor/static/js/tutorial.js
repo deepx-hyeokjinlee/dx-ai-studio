@@ -180,9 +180,6 @@
           title: { ko: '이벤트 수', en: 'Event Count', ja: 'イベント数', 'zh-CN': '事件计数', 'zh-TW': '事件計數' , es: 'Recuento de eventos' },
           content: { ko: '이벤트 수 배지이며, <strong>언어 변경</strong> 시 카운트 레이블이 다시 그려집니다.', en: 'Event count badge — the count label <strong>repaints on language changes</strong>.', ja: 'イベント数バッジで、<strong>言語変更</strong>時にカウントラベルが再描画されます。', 'zh-CN': '事件计数徽章——<strong>更改语言</strong>时计数标签会自动更新。', 'zh-TW': '事件計數徽章——<strong>語言變更</strong>時計數標籤會自動更新。' , es: 'Indicador del recuento de eventos: la etiqueta del contador se <strong>vuelve a dibujar al cambiar el idioma</strong>.' },
           beforeStep: function () { _scrollTo('#event-count'); } },
-        { target: null, position: 'top',
-          title: { ko: 'DX Monitor 튜토리얼 완료', en: 'DX Monitor Tutorial Complete', ja: 'DX Monitorチュートリアル完了', 'zh-CN': 'DX Monitor教程完成', 'zh-TW': 'DX Monitor教學完成' , es: 'Tutorial de DX Monitor completado' },
-          content: { ko: '🎉 모든 섹션을 완료했습니다! 상단의 <strong>🎓</strong> 버튼으로 언제든 튜토리얼을 다시 볼 수 있습니다.', en: '🎉 All sections complete! Click <strong>🎓</strong> anytime to reopen the tutorial.', ja: '🎉 すべてのセクションが完了しました！<strong>🎓</strong>ボタンでいつでもチュートリアルを再開できます。', 'zh-CN': '🎉 所有部分已完成！随时点击<strong>🎓</strong>重新打开教程。', 'zh-TW': '🎉 所有部分已完成！隨時點擊<strong>🎓</strong>重新開啟教學。', es: '🎉 ¡Ha completado todas las secciones! Haga clic en <strong>🎓</strong> en cualquier momento para volver a abrir el tutorial.' } },
       ]
     },
 

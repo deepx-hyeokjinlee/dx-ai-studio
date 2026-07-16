@@ -128,13 +128,38 @@
           content: { ko: '에이전트를 사용할 수 없을 때 콘솔 입력 대신 이 영역에 쇼케이스가 표시됩니다. 정상 환경에서는 양옆 패널을 사용하세요.', en: 'When agents are unavailable, showcases appear here instead of the chat form. In a ready environment, use the side panels.', ja: 'エージェントが利用できない場合、チャット入力の代わりにここにショーケースが表示されます。通常は左右パネルを使用してください。', 'zh-CN': '智能体不可用时，此区域显示展示区而非聊天表单。正常环境下请使用两侧面板。', 'zh-TW': '代理程式不可用時，此區域顯示展示區而非聊天表單。正常環境下請使用兩側面板。', es: 'Cuando los agentes no están disponibles, los showcases aparecen aquí en lugar del formulario de chat. En un entorno listo, use los paneles laterales.' },
           beforeStep: function () {
             var g = document.getElementById('showcase-gallery');
-            if (g) g.removeAttribute('hidden');
+            if (!g) return;
+            // If the app already rendered the degraded gallery (real no-agent mode), leave it.
+            if (!g.hasAttribute('hidden') && g.textContent.trim()) { _scrollTo('#showcase-gallery'); return; }
+            // Otherwise mimic gallery mode: hide the chat form and drop in a placeholder note so
+            // the spotlight lands on a visibly-sized showcase area. An empty #showcase-gallery is a
+            // 0-height sliver wedged under the still-visible chat form, so the spotlight looked wrong.
+            var form = document.getElementById('console-form');
+            if (form && !form.hasAttribute('hidden')) { form.setAttribute('hidden', ''); g.dataset.dxtTutorialForm = '1'; }
+            g.dataset.dxtTutorialMock = '1';
+            g.innerHTML = '';
+            var note = document.createElement('p');
+            note.className = 'gallery-note';
+            note.textContent = (typeof T === 'function')
+              ? T('The agent is unavailable in this environment. Browse the showcases.')
+              : 'The agent is unavailable in this environment. Browse the showcases.';
+            g.appendChild(note);
+            g.removeAttribute('hidden');
+            _scrollTo('#showcase-gallery');
           },
           afterStep: function () {
-            // The app only reveals #showcase-gallery (with content) in degraded/no-agent
-            // mode. If it's still empty, the tutorial forced it open — re-hide it.
+            // Revert only the gallery/form state this tutorial forced open (tagged above);
+            // a real degraded-mode gallery rendered by the app is left untouched.
             var g = document.getElementById('showcase-gallery');
-            if (g && !g.textContent.trim()) g.setAttribute('hidden', '');
+            if (!g || g.dataset.dxtTutorialMock !== '1') return;
+            g.innerHTML = '';
+            g.setAttribute('hidden', '');
+            delete g.dataset.dxtTutorialMock;
+            if (g.dataset.dxtTutorialForm === '1') {
+              var form = document.getElementById('console-form');
+              if (form) form.removeAttribute('hidden');
+              delete g.dataset.dxtTutorialForm;
+            }
           } },
       ]
     },
