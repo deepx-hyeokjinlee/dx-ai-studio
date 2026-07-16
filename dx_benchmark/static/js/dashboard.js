@@ -447,8 +447,19 @@ function renderRunSelectors(targetId){
 
 function _infoRows(r) { return r.map(function(row) { return '<div class="info-row"><span class="info-key">'+escHtml(row[0])+'</span><span class="info-val">'+escHtml(String(row[1]||'-'))+'</span></div>'; }).join(''); }
 function cleanVer(v) { if (typeof v !== 'string') return v; return v.replace(/^DXRT\s+/i,'').replace(/^v(?=\d)/i,''); }
+/* Formats the npu_modules block (new-tool shape: [{product,count},...]) into a
+   single readable string, e.g. "H1-Quattro ×1" or "M1 ×2, M1M ×1". */
+function _fmtNpuModules(env) {
+  var mods = (env && Array.isArray(env.npu_modules)) ? env.npu_modules : [];
+  if (!mods.length) return '-';
+  return mods.map(function(m) {
+    if (!m) return '?';
+    var p = m.product || '?';
+    return (m.count != null) ? (p + ' ×' + m.count) : p;
+  }).join(', ');
+}
 function renderHostInfo(el, env) {
-  var rows = [['Hostname',env.hostname],['OS',env.os],['Kernel',env.kernel],['Architecture',env.arch],['CPU',env.cpu],['CPU Cores',env.cpu_count],['RAM',env.ram_gb?env.ram_gb+' GB':'-']];
+  var rows = [[_t('Product Name'),env.product_name||'-'],['Hostname',env.hostname],['OS',env.os],['Kernel',env.kernel],['Architecture',env.arch],['CPU',env.cpu],['CPU Cores',env.cpu_count],['RAM',env.ram_gb?env.ram_gb+' GB':'-']];
   el.innerHTML = _infoRows(rows);
 }
 function renderToolsInfo(el, env) {
@@ -456,7 +467,7 @@ function renderToolsInfo(el, env) {
   el.innerHTML = _infoRows(rows);
 }
 function renderNpuInfo(el, env) {
-  var rows = [['Product',_envProductLabel(env)||'-'],['DXRT',cleanVer(env.rt_version)],['RT Driver',cleanVer(env.rt_driver)],['PCIe Driver',cleanVer(env.pcie_driver)],['Firmware',cleanVer(env.firmware)],['Clock',env.npu_clock_mhz?env.npu_clock_mhz+' MHz':'-'],['Memory',env.memory],['Board',(env.board && env.board !== 'unknown') ? env.board : '-'],['PCIe',env.pcie]];
+  var rows = [['Product',env.npu_product||_envProductLabel(env)||'-'],[_t('SKU'),env.npu_sku||'-'],[_t('Modules'),_fmtNpuModules(env)],[_t('Device Count'),(env.npu_device_count!=null)?env.npu_device_count:'-'],['DXRT',cleanVer(env.rt_version)],['RT Driver',cleanVer(env.rt_driver)],['PCIe Driver',cleanVer(env.pcie_driver)],['Firmware',cleanVer(env.firmware)],['Clock',env.npu_clock_mhz?env.npu_clock_mhz+' MHz':'-'],['Memory',env.memory],['Board',(env.board && env.board !== 'unknown') ? env.board : '-'],['PCIe',env.pcie]];
   el.innerHTML = _infoRows(rows);
 }
 
