@@ -209,12 +209,12 @@
       {
         "year": "2025",
         "event": {
-          "en": "DX-M1 5nm mass production; Digi-Key & global distributors; Baidu & Naver Cloud; 2nm sample contract",
-          "ko": "DX-M1 5nm 양산; Digi-Key·글로벌 유통; Baidu·Naver Cloud; 2nm 샘플 계약",
-          "ja": "DX-M1 5nm量産；Digi-Key・グローバル流通；Baidu・Naver Cloud；2nmサンプル契約",
-          "zh-CN": "DX-M1 5nm量产；Digi-Key与全球分销；百度与Naver Cloud；2nm样品合同",
-          "zh-TW": "DX-M1 5nm量產；Digi-Key與全球分銷；百度與Naver Cloud；2nm樣品合約",
-          "es": "Producción en masa DX-M1 5nm; Digi-Key y distribuidores; Baidu y Naver Cloud; contrato muestra 2nm"
+          "en": "DX-M1 5nm mass production; Digi-Key & global distributors; Baidu & Naver Cloud; Samsung Foundry's first commercial 2nm (GAA) customer for DX-M2 with Gaonchips (Aug 2025) — MPW H1 2026, mass production 2027",
+          "ko": "DX-M1 5nm 양산; Digi-Key·글로벌 유통; Baidu·Naver Cloud; DX-M2 위해 삼성 파운드리 2nm(GAA) 첫 상용 고객 확보(가온칩스와 공동, 2025.08) — MPW 2026 상반기, 양산 2027",
+          "ja": "DX-M1 5nm量産；Digi-Key・グローバル流通；Baidu・Naver Cloud；DX-M2向けSamsungファウンドリ2nm（GAA）初の商用顧客に（Gaonchipsと共同、2025年8月）— MPW 2026年上半期、量産2027年",
+          "zh-CN": "DX-M1 5nm量产；Digi-Key与全球分销；百度与Naver Cloud；成为三星代工2nm（GAA）首位商用客户，为DX-M2打造（携手Gaonchips，2025年8月）— MPW定于2026上半年，量产2027年",
+          "zh-TW": "DX-M1 5nm量產；Digi-Key與全球分銷；百度與Naver Cloud；成為三星晶圓代工2nm（GAA）首位商用客戶，為DX-M2打造（攜手Gaonchips，2025年8月）— MPW訂於2026上半年，量產2027年",
+          "es": "Producción en masa DX-M1 5nm; Digi-Key y distribuidores; Baidu y Naver Cloud; primer cliente comercial del proceso 2nm (GAA) de Samsung Foundry para el DX-M2 junto con Gaonchips (ago. 2025) — MPW en 1S 2026, producción en masa en 2027"
         }
       },
       {
@@ -728,12 +728,12 @@
           "es": "Ubuntu 24.04"
         },
         "temp": {
-          "en": "0–70°C (Commercial)",
-          "ko": "0–70°C (상용)",
-          "ja": "0–70°C（商用）",
-          "zh-CN": "0–70°C（Commercial）",
-          "zh-TW": "0–70°C（Commercial）",
-          "es": "0–70°C (Comercial)"
+          "en": "0–70°C (Commercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotive, on request)",
+          "ko": "0–70°C (상용) · -40–85°C (산업용, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (차량용, 요청 시)",
+          "ja": "0–70°C（商用）· -40–85°C（産業用、AEC-Q100 Grade 3）· AEC-Q100 Grade 2（車載用、要相談）",
+          "zh-CN": "0–70°C（商用）· -40–85°C（工业级，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（车规级，可定制）",
+          "zh-TW": "0–70°C（商用）· -40–85°C（工業級，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（車用，可客製）",
+          "es": "0–70°C (Comercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotriz, bajo pedido)"
         }
       },
       {
@@ -1097,6 +1097,14 @@
           "zh-CN": "已完成",
           "zh-TW": "已完成",
           "es": "Completado"
+        },
+        "detail": {
+          "en": "Details not publicly disclosed",
+          "ko": "세부 내용 비공개",
+          "ja": "詳細は非公開",
+          "zh-CN": "详情未公开",
+          "zh-TW": "詳情未公開",
+          "es": "Detalles no revelados públicamente"
         }
       },
       {
@@ -1109,13 +1117,13 @@
           "zh-TW": "已完成",
           "es": "Completado"
         },
-        "note": {
-          "en": "~$15M · 2021",
-          "ko": "~1,500만 달러 · 2021",
-          "ja": "~1,500万ドル · 2021",
-          "zh-CN": "~1500万美元 · 2021",
-          "zh-TW": "~1500萬美元 · 2021",
-          "es": "~15M$ · 2021"
+        "detail": {
+          "en": "~$15M · Korea Development Bank, Shinhan Capital, InterValue Partners, SJ Investment Partners, TimeFolio & others · 2021",
+          "ko": "~1,500만 달러 · Korea Development Bank, Shinhan Capital, InterValue Partners, SJ Investment Partners, TimeFolio 외 참여 · 2021",
+          "ja": "~1,500万ドル · Korea Development Bank、Shinhan Capital、InterValue Partners、SJ Investment Partners、TimeFolioほか参加 · 2021年",
+          "zh-CN": "~1500万美元 · Korea Development Bank、Shinhan Capital、InterValue Partners、SJ Investment Partners、TimeFolio等参投 · 2021年",
+          "zh-TW": "~1500萬美元 · Korea Development Bank、Shinhan Capital、InterValue Partners、SJ Investment Partners、TimeFolio等參投 · 2021年",
+          "es": "~15M$ · Korea Development Bank, Shinhan Capital, InterValue Partners, SJ Investment Partners, TimeFolio y otros · 2021"
         }
       },
       {
@@ -1128,16 +1136,24 @@
           "zh-TW": "已完成",
           "es": "Completado"
         },
-        "note": {
-          "en": "$80.5M · $529M valuation · led by SkyLake Equity Partners (May 2024)",
-          "ko": "8,050만 달러 · 기업가치 5.29억 달러 · SkyLake Equity Partners 주도 (2024.05)",
-          "ja": "8,050万ドル · 評価額5.29億ドル · SkyLake Equity Partners主導（2024年5月）",
-          "zh-CN": "8050万美元 · 估值5.29亿美元 · SkyLake Equity Partners领投（2024年5月）",
-          "zh-TW": "8050萬美元 · 估值5.29億美元 · SkyLake Equity Partners領投（2024年5月）",
-          "es": "80,5M$ · valoración de 529M$ · liderada por SkyLake Equity Partners (mayo de 2024)"
+        "detail": {
+          "en": "$80.5M · $529M valuation · led by SkyLake Equity Partners with BNW Investments, AJU IB Investment & TimeFolio Asset Management · May 2024",
+          "ko": "8,050만 달러 · 기업가치 5.29억 달러 · SkyLake Equity Partners 주도, BNW Investments·AJU IB Investment·TimeFolio Asset Management 참여 · 2024.05",
+          "ja": "8,050万ドル · 評価額5.29億ドル · SkyLake Equity Partners主導、BNW Investments・AJU IB Investment・TimeFolio Asset Managementが参加 · 2024年5月",
+          "zh-CN": "8050万美元 · 估值5.29亿美元 · SkyLake Equity Partners领投，BNW Investments、AJU IB Investment及TimeFolio Asset Management跟投 · 2024年5月",
+          "zh-TW": "8050萬美元 · 估值5.29億美元 · SkyLake Equity Partners領投，BNW Investments、AJU IB Investment及TimeFolio Asset Management跟投 · 2024年5月",
+          "es": "80,5M$ · valoración de 529M$ · liderada por SkyLake Equity Partners con BNW Investments, AJU IB Investment y TimeFolio Asset Management · mayo de 2024"
         }
       }
     ],
+    "totalRaised": {
+      "en": "~$95M raised to date (Series A–C)",
+      "ko": "누적 투자 유치액 ~9,500만 달러 (시리즈 A–C)",
+      "ja": "累計調達額 ~9,500万ドル（シリーズA–C）",
+      "zh-CN": "累计融资约9500万美元（A轮至C轮）",
+      "zh-TW": "累計募資約9500萬美元（A輪至C輪）",
+      "es": "~95M$ recaudados hasta la fecha (Series A–C)"
+    },
     "awards": [
       {
         "name": "CES Innovation Awards 2026 — Double Honoree",
@@ -1185,7 +1201,7 @@
         "year": "2023"
       }
     ],
-    "showRounds": false
+    "showRounds": true
   },
   "partners": {
     "solutions": [
@@ -1376,6 +1392,18 @@
           "es": "Distribución en Japón"
         },
         "url": "https://www.koshida.co.jp/"
+      },
+      {
+        "name": "Endrich",
+        "role": {
+          "en": "Germany distribution",
+          "ko": "독일 유통",
+          "ja": "ドイツ流通",
+          "zh-CN": "德国分销",
+          "zh-TW": "德國經銷",
+          "es": "Distribución en Alemania"
+        },
+        "url": "https://www.endrich.com/en/product-categories/embedded-systems/ai-accelerator/deepx-dx-m1m"
       }
     ],
     "ecosystem": [
@@ -1390,7 +1418,40 @@
       "Renesas",
       "Raspberry Pi",
       "Naver Cloud",
-      "Sixfab"
+      "Sixfab",
+      {
+        "name": "QNAP",
+        "role": {
+          "en": "AI NAS co-dev",
+          "ko": "AI NAS 공동개발",
+          "ja": "AI NAS共同開発",
+          "zh-CN": "AI NAS联合开发",
+          "zh-TW": "AI NAS共同開發",
+          "es": "Codesarrollo de NAS con IA"
+        }
+      },
+      {
+        "name": "Lanner",
+        "role": {
+          "en": "DX-H1 accelerator-card co-dev",
+          "ko": "DX-H1 가속카드 공동개발",
+          "ja": "DX-H1アクセラレータカード共同開発",
+          "zh-CN": "DX-H1加速卡联合开发",
+          "zh-TW": "DX-H1加速卡共同開發",
+          "es": "Codesarrollo de tarjeta aceleradora DX-H1"
+        }
+      },
+      {
+        "name": "Network Optix",
+        "role": {
+          "en": "VMS integration",
+          "ko": "VMS 통합",
+          "ja": "VMS統合",
+          "zh-CN": "VMS集成",
+          "zh-TW": "VMS整合",
+          "es": "Integración VMS"
+        }
+      }
     ]
   },
   "news": {
@@ -1709,6 +1770,19 @@
         "date": "2026.01",
         "type": "award",
         "url": "https://deepx.ai/deepx-unveils-vision-as-a-physical-ai-infrastructure-company-at-ces-2026/"
+      },
+      {
+        "title": {
+          "en": "Partner Sixfab's DX-M1-powered ALPON X5 wins CES 2026 Best of Innovation",
+          "ko": "파트너 Sixfab의 DX-M1 탑재 ALPON X5, CES 2026 Best of Innovation 수상",
+          "ja": "パートナーSixfabのDX-M1搭載ALPON X5がCES 2026 Best of Innovationを受賞",
+          "zh-CN": "合作伙伴Sixfab搭载DX-M1的ALPON X5荣获CES 2026 Best of Innovation奖",
+          "zh-TW": "合作夥伴Sixfab搭載DX-M1的ALPON X5榮獲CES 2026 Best of Innovation獎",
+          "es": "El ALPON X5 de Sixfab, impulsado por DX-M1, gana el premio Best of Innovation en CES 2026"
+        },
+        "date": "2026.01",
+        "type": "award",
+        "url": "https://www.prnewswire.com/news-releases/deepx-wins-two-ces-2026-innovation-awards-its-dx-m1-powers-best-of-innovation-winner-alpon-x5-by-sixfab-302605681.html"
       },
       {
         "title": {

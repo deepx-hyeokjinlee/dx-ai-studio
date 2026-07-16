@@ -351,10 +351,11 @@
           <div class="about-round-card">
             <div class="about-round-name">${r.name}</div>
             <div class="about-round-status">✓ ${L(r.status)}</div>
-            ${r.note ? `<div class="about-round-note">${L(r.note)}</div>` : ''}
+            ${r.detail ? `<div class="about-round-note">${L(r.detail)}</div>` : (r.note ? `<div class="about-round-note">${L(r.note)}</div>` : '')}
           </div>
         `).join('')}
-      </div>` : ''}
+      </div>
+      ${inv.totalRaised ? `<p class="about-tech-desc about-fade-in">${L(inv.totalRaised)}</p>` : ''}` : ''}
 
       <div class="about-awards-grid">
         ${inv.awards.map(a => `
@@ -414,7 +415,11 @@
       ${pt.ecosystem && pt.ecosystem.length ? `
       <div class="about-partners-label about-fade-in">${T({en:'Ecosystem', ko:'생태계', ja:'エコシステム', 'zh-CN':'生态', 'zh-TW':'生態', es:'Ecosistema'})}</div>
       <div class="about-partners-grid about-fade-in">
-        ${pt.ecosystem.map(function (name) { return `<div class="about-partner-chip">${name}</div>`; }).join('')}
+        ${pt.ecosystem.map(function (item) {
+          if (typeof item === 'string') return `<div class="about-partner-chip">${item}</div>`;
+          var role = item.role ? ` — ${L(item.role)}` : '';
+          return `<div class="about-partner-chip">${item.name}${role}</div>`;
+        }).join('')}
       </div>` : (pt.logos ? `
       <div class="about-partners-label about-fade-in">${T({en:'Partner Ecosystem', ko:'파트너 생태계', ja:'パートナーエコシステム', 'zh-CN':'合作伙伴生态', 'zh-TW':'合作夥伴生態', es:'Ecosistema de socios'})}</div>
       <div class="about-partners-grid about-fade-in">
