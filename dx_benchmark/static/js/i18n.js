@@ -668,6 +668,205 @@ window._DX_I18N_DICT = {
 
 
   'Performance Analyzer': { ko: '성능 측정 도구', ja: 'パフォーマンスアナライザー', 'zh-CN': '性能分析器', 'zh-TW': '效能分析器',es:'Analizador de rendimiento'},
+
+  // --- Version filter / trend (5a) ---
+  'dx-all-suite Version': {
+    ko: 'dx-all-suite 버전',
+    ja: 'dx-all-suite バージョン',
+    'zh-CN': 'dx-all-suite 版本',
+    'zh-TW': 'dx-all-suite 版本',
+    es: 'Versión de dx-all-suite',
+  },
+  'None': {
+    ko: '없음',
+    ja: 'なし',
+    'zh-CN': '无',
+    'zh-TW': '無',
+    es: 'Ninguno',
+  },
+  'Compare key metrics across dx-all-suite versions for the same hardware': {
+    ko: '동일 하드웨어에서 dx-all-suite 버전별 주요 지표를 비교합니다',
+    ja: '同一ハードウェアで dx-all-suite バージョン間の主要指標を比較します',
+    'zh-CN': '在相同硬件上比较各 dx-all-suite 版本的关键指标',
+    'zh-TW': '在相同硬體上比較各 dx-all-suite 版本的關鍵指標',
+    es: 'Compare las métricas clave entre versiones de dx-all-suite para el mismo hardware',
+  },
+  'No version data available.': {
+    ko: '사용 가능한 버전 데이터가 없습니다.',
+    ja: '利用可能なバージョンデータがありません。',
+    'zh-CN': '没有可用的版本数据。',
+    'zh-TW': '沒有可用的版本資料。',
+    es: 'No hay datos de versión disponibles.',
+  },
+  'unknown': {
+    ko: '알 수 없음',
+    ja: '不明',
+    'zh-CN': '未知',
+    'zh-TW': '未知',
+    es: 'desconocido',
+  },
+  'All Sizes (N / S / M / L / X)': {
+    ko: '전체 크기 (N / S / M / L / X)',
+    ja: '全サイズ (N / S / M / L / X)',
+    'zh-CN': '所有尺寸 (N / S / M / L / X)',
+    'zh-TW': '所有尺寸 (N / S / M / L / X)',
+    es: 'Todos los tamaños (N / S / M / L / X)',
+  },
+
+  // --- ORT ON/OFF comparison (5b) ---
+  'ORT ON/OFF': {
+    ko: 'ORT ON/OFF',
+    ja: 'ORT ON/OFF',
+    'zh-CN': 'ORT ON/OFF',
+    'zh-TW': 'ORT ON/OFF',
+    es: 'ORT ON/OFF',
+  },
+  'ORT ON/OFF Comparison': {
+    ko: 'ORT ON/OFF 비교',
+    ja: 'ORT ON/OFF 比較',
+    'zh-CN': 'ORT ON/OFF 比较',
+    'zh-TW': 'ORT ON/OFF 比較',
+    es: 'Comparación ORT ON/OFF',
+  },
+  'ORT ON/OFF Detail': {
+    ko: 'ORT ON/OFF 상세',
+    ja: 'ORT ON/OFF 詳細',
+    'zh-CN': 'ORT ON/OFF 详情',
+    'zh-TW': 'ORT ON/OFF 詳情',
+    es: 'Detalle ORT ON/OFF',
+  },
+  'ORT changes the CPU/NPU balance — compare ON vs OFF for the same model and environment.': {
+    ko: 'ORT는 CPU/NPU 부하 분배를 변경합니다 — 동일한 모델과 환경에서 ON과 OFF를 비교하세요.',
+    ja: 'ORT は CPU/NPU の負荷分散を変更します — 同じモデルと環境で ON と OFF を比較してください。',
+    'zh-CN': 'ORT 会改变 CPU/NPU 的负载分配 — 请在相同模型和环境下比较 ON 与 OFF。',
+    'zh-TW': 'ORT 會改變 CPU/NPU 的負載分配 — 請在相同模型與環境下比較 ON 與 OFF。',
+    es: 'ORT cambia el equilibrio entre CPU/NPU — compare ON y OFF para el mismo modelo y entorno.',
+  },
+  'ORT ON': {
+    ko: 'ORT ON',
+    ja: 'ORT ON',
+    'zh-CN': 'ORT ON',
+    'zh-TW': 'ORT ON',
+    es: 'ORT ON',
+  },
+  'ORT OFF': {
+    ko: 'ORT OFF',
+    ja: 'ORT OFF',
+    'zh-CN': 'ORT OFF',
+    'zh-TW': 'ORT OFF',
+    es: 'ORT OFF',
+  },
+  'Delta': {
+    ko: '차이',
+    ja: '差分',
+    'zh-CN': '差值',
+    'zh-TW': '差值',
+    es: 'Diferencia',
+  },
+  'Delta %': {
+    ko: '차이 %',
+    ja: '差分 %',
+    'zh-CN': '差值 %',
+    'zh-TW': '差值 %',
+    es: 'Diferencia %',
+  },
+  'Throughput (FPS)': {
+    ko: '처리량 (FPS)',
+    ja: 'スループット (FPS)',
+    'zh-CN': '吞吐量 (FPS)',
+    'zh-TW': '吞吐量 (FPS)',
+    es: 'Rendimiento (FPS)',
+  },
+
+  // --- Thermal / throttle indicators (5c) ---
+  'NPU Temp (°C)': {
+    ko: 'NPU 온도 (°C)',
+    ja: 'NPU 温度 (°C)',
+    'zh-CN': 'NPU 温度 (°C)',
+    'zh-TW': 'NPU 溫度 (°C)',
+    es: 'Temp. NPU (°C)',
+  },
+  'NPU Clock (MHz)': {
+    ko: 'NPU 클럭 (MHz)',
+    ja: 'NPU クロック (MHz)',
+    'zh-CN': 'NPU 时钟频率 (MHz)',
+    'zh-TW': 'NPU 時脈 (MHz)',
+    es: 'Reloj NPU (MHz)',
+  },
+  'Throttled': {
+    ko: '스로틀링됨',
+    ja: 'スロットリング中',
+    'zh-CN': '限频',
+    'zh-TW': '降頻',
+    es: 'Limitado',
+  },
+  'NPU thermal throttling detected': {
+    ko: 'NPU 열 스로틀링이 감지되었습니다',
+    ja: 'NPU のサーマルスロットリングを検出しました',
+    'zh-CN': '检测到 NPU 温度限频',
+    'zh-TW': '偵測到 NPU 溫度降頻',
+    es: 'Se detectó limitación térmica de la NPU',
+  },
+
+  // --- NPU module/product/SKU detail (5d) ---
+  'Product Name': {
+    ko: '제품명',
+    ja: '製品名',
+    'zh-CN': '产品名称',
+    'zh-TW': '產品名稱',
+    es: 'Nombre del producto',
+  },
+  'SKU': {
+    ko: 'SKU',
+    ja: 'SKU',
+    'zh-CN': 'SKU',
+    'zh-TW': 'SKU',
+    es: 'SKU',
+  },
+  'Modules': {
+    ko: '모듈',
+    ja: 'モジュール',
+    'zh-CN': '模块',
+    'zh-TW': '模組',
+    es: 'Módulos',
+  },
+  'Device Count': {
+    ko: '디바이스 수',
+    ja: 'デバイス数',
+    'zh-CN': '设备数量',
+    'zh-TW': '裝置數量',
+    es: 'Número de dispositivos',
+  },
+
+  // --- Run/condition status (5e) ---
+  'OK': {
+    ko: '정상',
+    ja: '正常',
+    'zh-CN': '正常',
+    'zh-TW': '正常',
+    es: 'OK',
+  },
+  'Partial': {
+    ko: '부분',
+    ja: '一部',
+    'zh-CN': '部分',
+    'zh-TW': '部分',
+    es: 'Parcial',
+  },
+  'Timeout': {
+    ko: '시간 초과',
+    ja: 'タイムアウト',
+    'zh-CN': '超时',
+    'zh-TW': '逾時',
+    es: 'Tiempo agotado',
+  },
+  'runs completed': {
+    ko: '실행 완료',
+    ja: '実行完了',
+    'zh-CN': '运行完成',
+    'zh-TW': '執行完成',
+    es: 'ejecuciones completadas',
+  },
 };
 
 // Wrapper for single-arg dict lookup (used by existing code)
