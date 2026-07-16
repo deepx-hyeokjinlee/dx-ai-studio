@@ -40,6 +40,23 @@
     }
   }
 
+  // Compile-range node-selection UI (#ns-* buttons) is created on demand by
+  // ViewerPanel.enterNodeSelectionMode(). For the tutorial we spawn it so each
+  // range-configuration step can spotlight its own distinct control.
+  function ensureNodeSelectionUI() {
+    if (window.ViewerPanel && typeof window.ViewerPanel.enterNodeSelectionMode === 'function'
+        && !document.getElementById('ns-toolbar')) {
+      window.ViewerPanel.enterNodeSelectionMode({}, null);
+    }
+  }
+
+  function exitNodeSelectionUI() {
+    if (window.ViewerPanel && typeof window.ViewerPanel.exitNodeSelectionMode === 'function'
+        && document.getElementById('ns-toolbar')) {
+      window.ViewerPanel.exitNodeSelectionMode();
+    }
+  }
+
   function _scrollTo(sel) {
     var el = document.querySelector(sel);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -233,14 +250,14 @@
         if (det && !det.open) det.open = true;
       } },
     { target: '#node-selection', position: 'left', title: { en: 'Node Selection', ko: '노드 선택', ja: 'ノード選択', 'zh-CN': '节点选择', 'zh-TW': '節點選擇', es: 'Selección de nodos' }, content: { en: 'Enable compile range selection mode. Select nodes on graph after PREPARE phase.', ko: '컴파일 범위 선택 모드를 활성화합니다. PREPARE 완료 후 그래프에서 노드를 선택합니다.', ja: 'コンパイル範囲選択モードを有効にします。PREPAREフェーズ後にグラフ上でノードを選択します。', 'zh-CN': '启用编译范围选择模式。PREPARE阶段后在图上选择节点。', 'zh-TW': '啟用編譯範圍選擇模式。PREPARE階段後在圖上選擇節點。', es: 'Active el modo de selección de rango de compilación. Seleccione nodos en el gráfico tras la fase PREPARE.' } },
-    { target: '#node-selection', position: 'left', title: { en: 'Input Nodes', ko: '입력 노드', ja: '入力ノード', 'zh-CN': '输入节点', 'zh-TW': '輸入節點', es: 'Nodos de entrada' }, content: { en: 'After enabling, click the input node button (#ns-input-btn, appears after PREPARE) to select start nodes on the graph.', ko: '활성화 후, 입력 노드 설정 버튼(#ns-input-btn, PREPARE 후 표시)을 클릭하여 시작 노드를 선택합니다.', ja: '有効化後、入力ノードボタン(#ns-input-btn、PREPARE後に表示)をクリックしてグラフ上の開始ノードを選択します。', 'zh-CN': '启用后，点击输入节点按钮(#ns-input-btn，PREPARE后显示)以在图上选择起始节点。', 'zh-TW': '啟用後，點擊輸入節點按鈕(#ns-input-btn，PREPARE後顯示)以在圖上選擇起始節點。', es: 'Tras activarlo, haga clic en el botón de nodo de entrada (#ns-input-btn, visible tras PREPARE) para seleccionar nodos de inicio en el gráfico.' } },
-    { target: '#node-selection', position: 'left', title: { en: 'Output Nodes', ko: '출력 노드', ja: '出力ノード', 'zh-CN': '输出节点', 'zh-TW': '輸出節點', es: 'Nodos de salida' }, content: { en: 'Click the output node button (#ns-output-btn) to select end nodes on the graph.', ko: '출력 노드 설정 버튼(#ns-output-btn)을 클릭하여 끝 노드를 선택합니다.', ja: '出力ノードボタン(#ns-output-btn)をクリックしてグラフ上の終了ノードを選択します。', 'zh-CN': '点击输出节点按钮(#ns-output-btn)以在图上选择结束节点。', 'zh-TW': '點擊輸出節點按鈕(#ns-output-btn)以在圖上選擇結束節點。', es: 'Haga clic en el botón de nodo de salida (#ns-output-btn) para seleccionar nodos finales en el gráfico.' } },
-    { target: '#node-selection', position: 'left', title: { en: 'Calculate Range', ko: '범위 계산', ja: '範囲計算', 'zh-CN': '计算范围', 'zh-TW': '計算範圍', es: 'Calcular rango' }, content: { en: 'Click Calculate (#ns-calc-btn) to see included/excluded nodes highlighted by color.', ko: '범위 계산 버튼(#ns-calc-btn)을 클릭하면 포함/제외 노드가 색상으로 구분됩니다.', ja: '計算(#ns-calc-btn)をクリックすると、含まれる/除外されるノードが色で強調表示されます。', 'zh-CN': '点击计算(#ns-calc-btn)以通过颜色高亮显示包含/排除的节点。', 'zh-TW': '點擊計算(#ns-calc-btn)以透過顏色高亮顯示包含/排除的節點。', es: 'Haga clic en Calcular (#ns-calc-btn) para ver los nodos incluidos/excluidos resaltados por color.' } },
-    { target: '#node-selection', position: 'left', title: { en: 'Resume', ko: '재개', ja: '再開', 'zh-CN': '恢复', 'zh-TW': '恢復', es: 'Reanudar' }, content: { en: 'Click Resume Compilation (#ns-resume-btn) to continue with selected range.', ko: 'Resume Compilation(#ns-resume-btn)을 클릭하면 선택한 범위로 컴파일을 재개합니다.', ja: 'Resume Compilation(#ns-resume-btn)をクリックして選択した範囲でコンパイルを続行します。', 'zh-CN': '点击Resume Compilation(#ns-resume-btn)以选定范围继续编译。', 'zh-TW': '點擊Resume Compilation(#ns-resume-btn)以選定範圍繼續編譯。', es: 'Haga clic en Resume Compilation (#ns-resume-btn) para continuar con el rango seleccionado.' } },
+    { target: '#ns-input-btn', position: 'left', title: { en: 'Input Nodes', ko: '입력 노드', ja: '入力ノード', 'zh-CN': '输入节点', 'zh-TW': '輸入節點', es: 'Nodos de entrada' }, content: { en: 'After enabling, click the input node button (#ns-input-btn, appears after PREPARE) to select start nodes on the graph.', ko: '활성화 후, 입력 노드 설정 버튼(#ns-input-btn, PREPARE 후 표시)을 클릭하여 시작 노드를 선택합니다.', ja: '有効化後、入力ノードボタン(#ns-input-btn、PREPARE後に表示)をクリックしてグラフ上の開始ノードを選択します。', 'zh-CN': '启用后，点击输入节点按钮(#ns-input-btn，PREPARE后显示)以在图上选择起始节点。', 'zh-TW': '啟用後，點擊輸入節點按鈕(#ns-input-btn，PREPARE後顯示)以在圖上選擇起始節點。', es: 'Tras activarlo, haga clic en el botón de nodo de entrada (#ns-input-btn, visible tras PREPARE) para seleccionar nodos de inicio en el gráfico.' }, beforeStep: ensureNodeSelectionUI },
+    { target: '#ns-output-btn', position: 'left', title: { en: 'Output Nodes', ko: '출력 노드', ja: '出力ノード', 'zh-CN': '输出节点', 'zh-TW': '輸出節點', es: 'Nodos de salida' }, content: { en: 'Click the output node button (#ns-output-btn) to select end nodes on the graph.', ko: '출력 노드 설정 버튼(#ns-output-btn)을 클릭하여 끝 노드를 선택합니다.', ja: '出力ノードボタン(#ns-output-btn)をクリックしてグラフ上の終了ノードを選択します。', 'zh-CN': '点击输出节点按钮(#ns-output-btn)以在图上选择结束节点。', 'zh-TW': '點擊輸出節點按鈕(#ns-output-btn)以在圖上選擇結束節點。', es: 'Haga clic en el botón de nodo de salida (#ns-output-btn) para seleccionar nodos finales en el gráfico.' }, beforeStep: ensureNodeSelectionUI },
+    { target: '#ns-calc-btn', position: 'left', title: { en: 'Calculate Range', ko: '범위 계산', ja: '範囲計算', 'zh-CN': '计算范围', 'zh-TW': '計算範圍', es: 'Calcular rango' }, content: { en: 'Click Calculate (#ns-calc-btn) to see included/excluded nodes highlighted by color.', ko: '범위 계산 버튼(#ns-calc-btn)을 클릭하면 포함/제외 노드가 색상으로 구분됩니다.', ja: '計算(#ns-calc-btn)をクリックすると、含まれる/除外されるノードが色で強調表示されます。', 'zh-CN': '点击计算(#ns-calc-btn)以通过颜色高亮显示包含/排除的节点。', 'zh-TW': '點擊計算(#ns-calc-btn)以透過顏色高亮顯示包含/排除的節點。', es: 'Haga clic en Calcular (#ns-calc-btn) para ver los nodos incluidos/excluidos resaltados por color.' }, beforeStep: ensureNodeSelectionUI },
+    { target: '#ns-resume-btn', position: 'left', title: { en: 'Resume', ko: '재개', ja: '再開', 'zh-CN': '恢复', 'zh-TW': '恢復', es: 'Reanudar' }, content: { en: 'Click Resume Compilation (#ns-resume-btn) to continue with selected range.', ko: 'Resume Compilation(#ns-resume-btn)을 클릭하면 선택한 범위로 컴파일을 재개합니다.', ja: 'Resume Compilation(#ns-resume-btn)をクリックして選択した範囲でコンパイルを続行します。', 'zh-CN': '点击Resume Compilation(#ns-resume-btn)以选定范围继续编译。', 'zh-TW': '點擊Resume Compilation(#ns-resume-btn)以選定範圍繼續編譯。', es: 'Haga clic en Resume Compilation (#ns-resume-btn) para continuar con el rango seleccionado.' }, beforeStep: ensureNodeSelectionUI },
     { target: '#resume-card-header', position: 'left',
       title: { en: 'Resume from QXNN', ko: 'QXNN에서 재개', ja: 'QXNN から再開', 'zh-CN': '从 QXNN 恢复', 'zh-TW': '從 QXNN 恢復', es: 'Reanudar desde QXNN' },
       content: { en: 'Re-quantize from an existing .qxnn artifact to produce a new .dxnn — independent of compile-range resume.', ko: '기존 .qxnn에서 재양자화하여 새 .dxnn을 만듭니다. 컴파일 범위 재개와는 별개 기능입니다.', ja: '既存の .qxnn から再量子化して新しい .dxnn を生成します。コンパイル範囲再開とは別機能です。', 'zh-CN': '从现有 .qxnn 重新量化生成新 .dxnn——与编译范围恢复无关。', 'zh-TW': '從現有 .qxnn 重新量化產生新 .dxnn——與編譯範圍恢復無關。', es: 'Recuantice desde un .qxnn existente para un nuevo .dxnn; independiente de la reanudación por rango.' },
-      beforeStep: function () { openResumeCard(); } },
+      beforeStep: function () { exitNodeSelectionUI(); openResumeCard(); } },
     { target: '#qxnn_path', position: 'left',
       title: { en: 'QXNN Path', ko: 'QXNN 경로', ja: 'QXNN パス', 'zh-CN': 'QXNN 路径', 'zh-TW': 'QXNN 路徑', es: 'Ruta QXNN' },
       content: { en: 'Enter the server path to a .qxnn artifact. You can prefill it from the Quant Diagnosis tab after compile.', ko: '서버에 있는 .qxnn 아티팩트 경로를 입력합니다. 컴파일 후 Quant Diagnosis 탭에서 미리 채울 수 있습니다.', ja: 'サーバー上の .qxnn アーティファクトパスを入力します。コンパイル後の量子化診断タブから事前入力できます。', 'zh-CN': '输入服务器上 .qxnn 工件的路径。编译后可从量化诊断标签预填。', 'zh-TW': '輸入伺服器上 .qxnn 工件的路徑。編譯後可從量化診斷分頁預填。', es: 'Introduzca la ruta del servidor a un artefacto .qxnn. Puede rellenarla desde la pestaña de diagnóstico tras compilar.' },
