@@ -373,6 +373,17 @@
             "zh-TW": "端側AI",
             "es": "IA en dispositivo"
           }
+        },
+        {
+          "value": "GPU-level",
+          "label": {
+            "en": "Accuracy",
+            "ko": "정확도",
+            "ja": "精度",
+            "zh-CN": "精度",
+            "zh-TW": "精度",
+            "es": "Precisión"
+          }
         }
       ]
     },
@@ -662,6 +673,39 @@
             "zh-CN": "制程",
             "zh-TW": "製程",
             "es": "Nodo de proceso"
+          }
+        },
+        {
+          "value": "90%+",
+          "label": {
+            "en": "Wafer yield",
+            "ko": "웨이퍼 수율",
+            "ja": "ウェハ歩留まり",
+            "zh-CN": "晶圆良率",
+            "zh-TW": "晶圓良率",
+            "es": "Rendimiento de oblea"
+          }
+        },
+        {
+          "value": "1/10",
+          "label": {
+            "en": "Cost vs GPU",
+            "ko": "GPU 대비 비용",
+            "ja": "GPU比コスト",
+            "zh-CN": "相比GPU成本",
+            "zh-TW": "相比GPU成本",
+            "es": "Costo vs GPU"
+          }
+        },
+        {
+          "value": "1/4.3",
+          "label": {
+            "en": "Chip area vs peer",
+            "ko": "칩 면적(경쟁사 대비)",
+            "ja": "チップ面積（競合比）",
+            "zh-CN": "芯片面积（对比竞品）",
+            "zh-TW": "晶片面積（對比競品）",
+            "es": "Área de chip vs competencia"
           }
         }
       ]
