@@ -29,14 +29,14 @@
         }
       },
       {
-        "value": "50+",
+        "value": "27 / 8",
         "label": {
-          "en": "Deployment Projects",
-          "ko": "배포 프로젝트",
-          "ja": "導入プロジェクト",
-          "zh-CN": "部署项目",
-          "zh-TW": "部署專案",
-          "es": "Proyectos de despliegue"
+          "en": "Commercial Orders / Countries",
+          "ko": "상용 발주 / 국가",
+          "ja": "商用受注 / 国",
+          "zh-CN": "商业订单 / 国家",
+          "zh-TW": "商業訂單 / 國家",
+          "es": "Pedidos comerciales / países"
         }
       },
       {
@@ -473,7 +473,7 @@
           }
         },
         {
-          "value": "v2.3.0",
+          "value": "v2.3.3",
           "label": {
             "en": "DX-AllSuite",
             "ko": "DX-AllSuite",
@@ -1323,7 +1323,12 @@
       },
       "members": [
         "Ultralytics",
-        "Baidu PaddlePaddle"
+        "Baidu PaddlePaddle",
+        "Hyundai Motor Group Robotics Lab",
+        "Advantech",
+        "Supermicro",
+        "HP",
+        "Ampere"
       ]
     },
     "distribution": [
@@ -1941,7 +1946,7 @@
       }
     ],
     "sdkRelease": {
-      "version": "v2.3.0",
+      "version": "v2.3.3",
       "summary": {
         "en": "Runtime efficiency, security hardening, unified application architecture.",
         "ko": "런타임 효율, 보안 강화, 통합 애플리케이션 아키텍처.",
