@@ -18,7 +18,7 @@
     },
     "stats": [
       {
-        "value": "500+ / 114",
+        "value": "400+ / 114",
         "label": {
           "en": "Patents Filed / Granted",
           "ko": "특허 출원 / 등록",
@@ -709,17 +709,6 @@
           }
         },
         {
-          "value": "1/4.3",
-          "label": {
-            "en": "Chip area vs peer",
-            "ko": "칩 면적(경쟁사 대비)",
-            "ja": "チップ面積（競合比）",
-            "zh-CN": "芯片面积（对比竞品）",
-            "zh-TW": "晶片面積（對比競品）",
-            "es": "Área de chip vs competencia"
-          }
-        },
-        {
           "value": "9.1×",
           "label": {
             "en": "Speedup vs PyTorch (YOLO26n, RPi5)",
@@ -1304,11 +1293,6 @@
         "year": "2024"
       },
       {
-        "name": "#1 in U.S. NPU Patent Registrations",
-        "icon": "📑",
-        "year": "2024"
-      },
-      {
         "name": "WEF — Sustainable & Responsible AI Innovation Company",
         "icon": "🌍",
         "year": "2025"
@@ -1521,12 +1505,12 @@
       {
         "name": "Macnica",
         "role": {
-          "en": "Americas distribution",
-          "ko": "미주 유통",
-          "ja": "米州流通",
-          "zh-CN": "美洲分销",
-          "zh-TW": "美洲經銷",
-          "es": "Distribución en América"
+          "en": "North America distribution",
+          "ko": "북미 유통",
+          "ja": "北米流通",
+          "zh-CN": "北美分销",
+          "zh-TW": "北美經銷",
+          "es": "Distribución en Norteamérica"
         }
       },
       {
@@ -1541,7 +1525,7 @@
         }
       },
       {
-        "name": "Koshidaka Tech",
+        "name": "Koshida Tech",
         "role": {
           "en": "Japan distribution",
           "ko": "일본 유통",
@@ -1581,12 +1565,12 @@
       {
         "name": "QNAP",
         "role": {
-          "en": "AI NAS co-dev",
-          "ko": "AI NAS 공동개발",
-          "ja": "AI NAS共同開発",
-          "zh-CN": "AI NAS联合开发",
-          "zh-TW": "AI NAS共同開發",
-          "es": "Codesarrollo de NAS con IA"
+          "en": "AI NAS / storage ecosystem partner",
+          "ko": "AI NAS·스토리지 에코시스템 파트너",
+          "ja": "AI NAS・ストレージ エコシステムパートナー",
+          "zh-CN": "AI NAS/存储生态伙伴",
+          "zh-TW": "AI NAS/儲存生態夥伴",
+          "es": "Socio de ecosistema NAS/almacenamiento IA"
         }
       },
       {
@@ -1648,7 +1632,7 @@
         "name": "DFI",
         "role": {
           "en": "Rugged edge systems + DX-M1",
-          "ko": "강내구성 엣지 시스템 + DX-M1",
+          "ko": "강건형 엣지 시스템 + DX-M1",
           "ja": "堅牢型エッジシステム + DX-M1",
           "zh-CN": "坚固型边缘系统 + DX-M1",
           "zh-TW": "堅固型邊緣系統 + DX-M1",
@@ -1823,7 +1807,7 @@
           "zh-TW": "DEEPX獲NYSE與WEF認可",
           "es": "DEEPX es reconocida por la NYSE y el WEF"
         },
-        "date": "2025.11",
+        "date": "2025.10",
         "type": "news",
         "url": "https://www.prnewswire.com/news-releases/ai-semiconductor-innovator-deepx-recognized-by-nyse-and-wef-302600686.html"
       },
@@ -1881,25 +1865,25 @@
       },
       {
         "title": {
-          "en": "Baidu places initial 30,000-unit DX-M1 order",
-          "ko": "바이두, DX-M1 초도 3만 개 발주",
-          "ja": "百度がDX-M1を初回3万個発注",
-          "zh-CN": "百度首批下单3万颗DX-M1",
-          "zh-TW": "百度首批下單3萬顆DX-M1",
-          "es": "Baidu realiza pedido inicial de 30.000 unidades DX-M1"
+          "en": "Baidu places initial ~40,000-unit DX-M1 order",
+          "ko": "바이두, DX-M1 초도 약 4만 개 발주",
+          "ja": "百度がDX-M1を初回約4万個発注",
+          "zh-CN": "百度首批下单约4万颗DX-M1",
+          "zh-TW": "百度首批下單約4萬顆DX-M1",
+          "es": "Baidu realiza pedido inicial de ~40.000 unidades DX-M1"
         },
         "date": "2025.12",
         "type": "news",
-        "url": "https://www.newstheai.com/news/articleView.html?idxno=20548"
+        "url": "https://en.sedaily.com/technology/2026/04/15/deepx-secures-over-30-clients-aims-to-lead-koreas-physical"
       },
       {
         "title": {
-          "en": "Tokyo Physical AI Expo 2026 — DEEPX & Koshidaka, Booth S14-16",
-          "ko": "Tokyo Physical AI Expo 2026 — DEEPX & Koshidaka, 부스 S14-16",
-          "ja": "Tokyo Physical AI Expo 2026 — DEEPX & Koshidaka、ブース S14-16",
-          "zh-CN": "Tokyo Physical AI Expo 2026 — DEEPX与Koshidaka，展位 S14-16",
-          "zh-TW": "Tokyo Physical AI Expo 2026 — DEEPX與Koshidaka，展位 S14-16",
-          "es": "Tokyo Physical AI Expo 2026 — DEEPX y Koshidaka, stand S14-16"
+          "en": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, Booth S14-16",
+          "ko": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, 부스 S14-16",
+          "ja": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida、ブース S14-16",
+          "zh-CN": "Tokyo Physical AI Expo 2026 — DEEPX与Koshida，展位 S14-16",
+          "zh-TW": "Tokyo Physical AI Expo 2026 — DEEPX與Koshida，展位 S14-16",
+          "es": "Tokyo Physical AI Expo 2026 — DEEPX y Koshida, stand S14-16"
         },
         "date": "2026.07",
         "type": "event",
@@ -1949,12 +1933,12 @@
       },
       {
         "title": {
-          "en": "DEEPX × Koshidaka Tech — strategic partnership for Japan's Physical AI market",
+          "en": "DEEPX × Koshida Tech — strategic partnership for Japan's Physical AI market",
           "ko": "DEEPX × 고시다텍 — 일본 Physical AI 시장 전략적 파트너십",
           "ja": "DEEPX × コシダテック — 日本Physical AI市場での戦略的パートナーシップ",
-          "zh-CN": "DEEPX × Koshidaka Tech — 面向日本Physical AI市场的战略合作",
-          "zh-TW": "DEEPX × Koshidaka Tech — 面向日本Physical AI市場的戰略合作",
-          "es": "DEEPX × Koshidaka Tech — alianza estratégica para el mercado Physical AI de Japón"
+          "zh-CN": "DEEPX × Koshida Tech — 面向日本Physical AI市场的战略合作",
+          "zh-TW": "DEEPX × Koshida Tech — 面向日本Physical AI市場的戰略合作",
+          "es": "DEEPX × Koshida Tech — alianza estratégica para el mercado Physical AI de Japón"
         },
         "date": "2026.07",
         "type": "news",
