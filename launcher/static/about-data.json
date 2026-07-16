@@ -198,23 +198,23 @@
       {
         "year": "2024",
         "event": {
-          "en": "5nm DX-M1 samples verified by 300+ companies; Series C $80.5M at $529M valuation",
-          "ko": "5nm DX-M1 샘플 300+ 기업 검증; 시리즈 C 8,050만 달러 (기업가치 5.29억 달러)",
-          "ja": "5nm DX-M1サンプルを300社以上が検証; シリーズC 8,050万ドル（評価額5.29億ドル）",
-          "zh-CN": "5nm DX-M1样片获300+企业验证；C轮融资8050万美元（估值5.29亿美元）",
-          "zh-TW": "5nm DX-M1樣片獲300+企業驗證；C輪融資8050萬美元（估值5.29億美元）",
-          "es": "Muestras DX-M1 de 5nm verificadas por 300+ empresas; Serie C de 80,5M$ (valoración 529M$)"
+          "en": "5nm DX-M1 samples verified by 300+ companies; Series C $80.5M at $529M valuation; invited to WEF Summer Davos (Dalian) as the first AI-semiconductor company; LG Uplus NPU partnership for on-device LLMs",
+          "ko": "5nm DX-M1 샘플 300+ 기업 검증; 시리즈 C 8,050만 달러 (기업가치 5.29억 달러); WEF 하계 다보스(다롄) 초청 — AI 반도체 기업 최초; LG유플러스와 온디바이스 LLM용 NPU 파트너십",
+          "ja": "5nm DX-M1サンプルを300社以上が検証; シリーズC 8,050万ドル（評価額5.29億ドル）; WEFサマーダボス（大連）に招待——AI半導体企業として初; LG U+とのオンデバイスLLM向けNPUパートナーシップ",
+          "zh-CN": "5nm DX-M1样片获300+企业验证；C轮融资8050万美元（估值5.29亿美元）；受邀出席WEF夏季达沃斯论坛（大连）——首家参会的AI芯片企业；与LG U+达成端侧LLM用NPU合作",
+          "zh-TW": "5nm DX-M1樣片獲300+企業驗證；C輪融資8050萬美元（估值5.29億美元）；受邀出席WEF夏季達沃斯論壇（大連）——首家與會的AI晶片企業；與LG U+達成端側LLM用NPU合作",
+          "es": "Muestras DX-M1 de 5nm verificadas por 300+ empresas; Serie C de 80,5M$ (valoración 529M$); invitada al Foro Económico Mundial de Verano (Dalian) como primera empresa de semiconductores de IA; alianza NPU con LG Uplus para LLM en dispositivo"
         }
       },
       {
         "year": "2025",
         "event": {
-          "en": "DX-M1 5nm mass production; Digi-Key & global distributors; Baidu & Naver Cloud; Samsung Foundry's first commercial 2nm (GAA) customer for DX-M2 with Gaonchips (Aug 2025) — MPW H1 2026, mass production 2027",
-          "ko": "DX-M1 5nm 양산; Digi-Key·글로벌 유통; Baidu·Naver Cloud; DX-M2 위해 삼성 파운드리 2nm(GAA) 첫 상용 고객 확보(가온칩스와 공동, 2025.08) — MPW 2026 상반기, 양산 2027",
-          "ja": "DX-M1 5nm量産；Digi-Key・グローバル流通；Baidu・Naver Cloud；DX-M2向けSamsungファウンドリ2nm（GAA）初の商用顧客に（Gaonchipsと共同、2025年8月）— MPW 2026年上半期、量産2027年",
-          "zh-CN": "DX-M1 5nm量产；Digi-Key与全球分销；百度与Naver Cloud；成为三星代工2nm（GAA）首位商用客户，为DX-M2打造（携手Gaonchips，2025年8月）— MPW定于2026上半年，量产2027年",
-          "zh-TW": "DX-M1 5nm量產；Digi-Key與全球分銷；百度與Naver Cloud；成為三星晶圓代工2nm（GAA）首位商用客戶，為DX-M2打造（攜手Gaonchips，2025年8月）— MPW訂於2026上半年，量產2027年",
-          "es": "Producción en masa DX-M1 5nm; Digi-Key y distribuidores; Baidu y Naver Cloud; primer cliente comercial del proceso 2nm (GAA) de Samsung Foundry para el DX-M2 junto con Gaonchips (ago. 2025) — MPW en 1S 2026, producción en masa en 2027"
+          "en": "DX-M1 5nm mass production; Digi-Key & global distributors; Baidu & Naver Cloud; Samsung Foundry's first commercial 2nm (GAA) customer for DX-M2 with Gaonchips (Aug 2025) — MPW H1 2026, mass production 2027; DEEPX–Baidu AI ecosystem partnership (PaddlePaddle/PP-OCR); recognized by NYSE & WEF",
+          "ko": "DX-M1 5nm 양산; Digi-Key·글로벌 유통; Baidu·Naver Cloud; DX-M2 위해 삼성 파운드리 2nm(GAA) 첫 상용 고객 확보(가온칩스와 공동, 2025.08) — MPW 2026 상반기, 양산 2027; Baidu와 AI 생태계 파트너십(PaddlePaddle/PP-OCR); NYSE·WEF 인정",
+          "ja": "DX-M1 5nm量産；Digi-Key・グローバル流通；Baidu・Naver Cloud；DX-M2向けSamsungファウンドリ2nm（GAA）初の商用顧客に（Gaonchipsと共同、2025年8月）— MPW 2026年上半期、量産2027年；BaiduとのAIエコシステムパートナーシップ（PaddlePaddle/PP-OCR）；NYSE・WEFで評価",
+          "zh-CN": "DX-M1 5nm量产；Digi-Key与全球分销；百度与Naver Cloud；成为三星代工2nm（GAA）首位商用客户，为DX-M2打造（携手Gaonchips，2025年8月）— MPW定于2026上半年，量产2027年；与百度达成AI生态合作（PaddlePaddle/PP-OCR）；获NYSE与WEF认可",
+          "zh-TW": "DX-M1 5nm量產；Digi-Key與全球分銷；百度與Naver Cloud；成為三星晶圓代工2nm（GAA）首位商用客戶，為DX-M2打造（攜手Gaonchips，2025年8月）— MPW訂於2026上半年，量產2027年；與百度達成AI生態合作（PaddlePaddle/PP-OCR）；獲NYSE與WEF認可",
+          "es": "Producción en masa DX-M1 5nm; Digi-Key y distribuidores; Baidu y Naver Cloud; primer cliente comercial del proceso 2nm (GAA) de Samsung Foundry para el DX-M2 junto con Gaonchips (ago. 2025) — MPW en 1S 2026, producción en masa en 2027; alianza de ecosistema de IA con Baidu (PaddlePaddle/PP-OCR); reconocida por NYSE y el WEF"
         }
       },
       {
@@ -1201,14 +1201,6 @@
         }
       }
     ],
-    "totalRaised": {
-      "en": "~$95M raised to date (Series A–C)",
-      "ko": "누적 투자 유치액 ~9,500만 달러 (시리즈 A–C)",
-      "ja": "累計調達額 ~9,500万ドル（シリーズA–C）",
-      "zh-CN": "累计融资约9500万美元（A轮至C轮）",
-      "zh-TW": "累計募資約9500萬美元（A輪至C輪）",
-      "es": "~95M$ recaudados hasta la fecha (Series A–C)"
-    },
     "awards": [
       {
         "name": "CES Innovation Awards 2026 — Double Honoree",
@@ -1226,17 +1218,17 @@
         "year": "2024"
       },
       {
-        "name": "Forbes — #1 in U.S. NPU Patent Registrations",
+        "name": "#1 in U.S. NPU Patent Registrations",
         "icon": "📑",
         "year": "2024"
       },
       {
-        "name": "WEF MINDS Award — First Cohort Winner",
+        "name": "WEF — Sustainable & Responsible AI Innovation Company",
         "icon": "🌍",
         "year": "2025"
       },
       {
-        "name": "Frost & Sullivan — Company of the Year (AI Chip)",
+        "name": "Frost & Sullivan — 2024 Best Practices Award, AI Chip (Global)",
         "icon": "📊",
         "year": "2024"
       },
@@ -1244,6 +1236,16 @@
         "name": "CES Innovation Awards 2024 — Triple Honoree",
         "icon": "🏆",
         "year": "2024"
+      },
+      {
+        "name": "CTA — Must-See Company (CES 2025)",
+        "icon": "⭐",
+        "year": "2025"
+      },
+      {
+        "name": "NYSE International Day — Representative Company",
+        "icon": "🔔",
+        "year": "2025"
       },
       {
         "name": "InnoVEX Startup Terrace Awards (Computex Taipei) — 2nd Place",
@@ -1261,7 +1263,7 @@
         "year": "2023"
       }
     ],
-    "showRounds": true
+    "showRounds": false
   },
   "partners": {
     "solutions": [
@@ -1422,12 +1424,23 @@
       {
         "name": "Avnet Silica",
         "role": {
-          "en": "EMEA franchise",
-          "ko": "EMEA 프랜차이즈",
-          "ja": "EMEAフランチャイズ",
-          "zh-CN": "EMEA特许经营",
-          "zh-TW": "EMEA特許經營",
-          "es": "Franquicia EMEA"
+          "en": "EMEA & APAC franchise",
+          "ko": "EMEA·APAC 프랜차이즈",
+          "ja": "EMEA・APACフランチャイズ",
+          "zh-CN": "EMEA与APAC特许经营",
+          "zh-TW": "EMEA與APAC特許經營",
+          "es": "Franquicia EMEA y APAC"
+        }
+      },
+      {
+        "name": "Macnica",
+        "role": {
+          "en": "Americas distribution",
+          "ko": "미주 유통",
+          "ja": "米州流通",
+          "zh-CN": "美洲分销",
+          "zh-TW": "美洲經銷",
+          "es": "Distribución en América"
         }
       },
       {
@@ -1511,6 +1524,116 @@
           "zh-TW": "VMS整合",
           "es": "Integración VMS"
         }
+      },
+      {
+        "name": "Radxa",
+        "role": {
+          "en": "ROCK 5B/5B+ SBC + DX-M1 modules",
+          "ko": "ROCK 5B/5B+ SBC + DX-M1 모듈",
+          "ja": "ROCK 5B/5B+ SBC + DX-M1モジュール",
+          "zh-CN": "ROCK 5B/5B+ SBC + DX-M1模组",
+          "zh-TW": "ROCK 5B/5B+ SBC + DX-M1模組",
+          "es": "SBC ROCK 5B/5B+ + módulos DX-M1"
+        }
+      },
+      {
+        "name": "Nota AI",
+        "role": {
+          "en": "AI model optimization (NetsPresso)",
+          "ko": "AI 모델 최적화 (NetsPresso)",
+          "ja": "AIモデル最適化（NetsPresso）",
+          "zh-CN": "AI模型优化（NetsPresso）",
+          "zh-TW": "AI模型最佳化（NetsPresso）",
+          "es": "Optimización de modelos de IA (NetsPresso)"
+        }
+      },
+      {
+        "name": "Aetina",
+        "role": {
+          "en": "Edge AI platforms w/ swappable DX modules",
+          "ko": "교체 가능한 DX 모듈 탑재 엣지 AI 플랫폼",
+          "ja": "交換可能なDXモジュール搭載エッジAIプラットフォーム",
+          "zh-CN": "搭载可更换DX模组的边缘AI平台",
+          "zh-TW": "搭載可更換DX模組的邊緣AI平台",
+          "es": "Plataformas de IA de borde con módulos DX intercambiables"
+        }
+      },
+      {
+        "name": "DFI",
+        "role": {
+          "en": "Rugged edge systems + DX-M1",
+          "ko": "강내구성 엣지 시스템 + DX-M1",
+          "ja": "堅牢型エッジシステム + DX-M1",
+          "zh-CN": "坚固型边缘系统 + DX-M1",
+          "zh-TW": "堅固型邊緣系統 + DX-M1",
+          "es": "Sistemas de borde robustos + DX-M1"
+        }
+      },
+      {
+        "name": "Jahwa Electronics",
+        "role": {
+          "en": "AI smart camera modules",
+          "ko": "AI 스마트 카메라 모듈",
+          "ja": "AIスマートカメラモジュール",
+          "zh-CN": "AI智能摄像模组",
+          "zh-TW": "AI智慧攝影模組",
+          "es": "Módulos de cámara inteligente con IA"
+        }
+      },
+      {
+        "name": "Toradex",
+        "role": {
+          "en": "Embedded compute modules",
+          "ko": "임베디드 컴퓨트 모듈",
+          "ja": "組み込みコンピュートモジュール",
+          "zh-CN": "嵌入式计算模组",
+          "zh-TW": "嵌入式運算模組",
+          "es": "Módulos de cómputo embebido"
+        }
+      },
+      {
+        "name": "IEI",
+        "role": {
+          "en": "Industrial AI systems",
+          "ko": "산업용 AI 시스템",
+          "ja": "産業用AIシステム",
+          "zh-CN": "工业AI系统",
+          "zh-TW": "工業AI系統",
+          "es": "Sistemas de IA industrial"
+        }
+      },
+      {
+        "name": "Edge AI Foundation",
+        "role": {
+          "en": "Edge AI industry consortium (member)",
+          "ko": "엣지 AI 산업 컨소시엄 (회원)",
+          "ja": "エッジAI業界コンソーシアム（会員）",
+          "zh-CN": "边缘AI产业联盟（成员）",
+          "zh-TW": "邊緣AI產業聯盟（會員）",
+          "es": "Consorcio de la industria de IA de borde (miembro)"
+        }
+      },
+      {
+        "name": "Lotte Innovate",
+        "role": {
+          "en": "Vision AI for CCTV & smart retail",
+          "ko": "CCTV·스마트 리테일용 비전 AI",
+          "ja": "CCTV・スマートリテール向けビジョンAI",
+          "zh-CN": "面向CCTV与智能零售的视觉AI",
+          "zh-TW": "面向CCTV與智慧零售的視覺AI",
+          "es": "IA de visión para CCTV y retail inteligente"
+        }
+      },
+      {
+        "name": "Gwangju AI Appliance Platform",
+        "role": {
+          "en": "Smart-appliance NPU platform (~400 firms)",
+          "ko": "스마트 가전 NPU 플랫폼 (~400개사)",
+          "ja": "スマート家電NPUプラットフォーム（約400社）",
+          "zh-CN": "智能家电NPU平台（约400家企业）",
+          "zh-TW": "智慧家電NPU平台（約400家企業）",
+          "es": "Plataforma NPU para electrodomésticos inteligentes (~400 empresas)"
+        }
       }
     ]
   },
@@ -1566,6 +1689,110 @@
       }
     ],
     "past": [
+      {
+        "title": {
+          "en": "DEEPX launches DX-H1 V-NPU — 30W single-card video-AI chip",
+          "ko": "DEEPX, DX-H1 V-NPU 출시 — 30W 단일 카드 비디오 AI 칩",
+          "ja": "DEEPX、DX-H1 V-NPUを発売 — 30W単一カードのビデオAIチップ",
+          "zh-CN": "DEEPX推出DX-H1 V-NPU — 30W单卡视频AI芯片",
+          "zh-TW": "DEEPX推出DX-H1 V-NPU — 30W單卡視訊AI晶片",
+          "es": "DEEPX lanza DX-H1 V-NPU — chip de IA de vídeo de 30W en una sola tarjeta"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/deepx-launches-dx-h1-v-npu-the-30w-single-card-solution-that-challenges-gpu-dominance-302636052.html"
+      },
+      {
+        "title": {
+          "en": "Advantech launches EAI-1961 Edge AI module powered by DEEPX DX-M1",
+          "ko": "Advantech, DEEPX DX-M1 탑재 EAI-1961 엣지 AI 모듈 출시",
+          "ja": "Advantech、DEEPX DX-M1搭載EAI-1961エッジAIモジュールを発売",
+          "zh-CN": "Advantech推出搭载DEEPX DX-M1的EAI-1961边缘AI模组",
+          "zh-TW": "Advantech推出搭載DEEPX DX-M1的EAI-1961邊緣AI模組",
+          "es": "Advantech lanza el módulo de IA de borde EAI-1961 impulsado por DEEPX DX-M1"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/advantech-expands-global-edge-ai-partner-ecosystem-with-deepx-and-launches-first-joint-solution-302644173.html"
+      },
+      {
+        "title": {
+          "en": "Hyundai Motor/Kia Robotics LAB & DEEPX begin robot-platform commercialization (DAL-e)",
+          "ko": "현대차·기아 로보틱스랩 & DEEPX, 로봇 플랫폼 상용화 착수 (DAL-e)",
+          "ja": "Hyundai Motor・Kia Robotics LAB & DEEPX、ロボットプラットフォーム商用化開始（DAL-e）",
+          "zh-CN": "现代汽车/起亚机器人实验室与DEEPX启动机器人平台商用化（DAL-e）",
+          "zh-TW": "現代汽車/起亞機器人實驗室與DEEPX啟動機器人平台商用化（DAL-e）",
+          "es": "Hyundai Motor/Kia Robotics LAB y DEEPX inician la comercialización de la plataforma robótica (DAL-e)"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/hyundai-motor-kias-robotics-lab-and-deepx-begin-commercialization-for-next-generation-on-device-ai-robot-platform-302631644.html"
+      },
+      {
+        "title": {
+          "en": "DEEPX recognized by NYSE and WEF",
+          "ko": "DEEPX, NYSE·WEF로부터 인정받다",
+          "ja": "DEEPX、NYSEとWEFから評価される",
+          "zh-CN": "DEEPX获NYSE与WEF认可",
+          "zh-TW": "DEEPX獲NYSE與WEF認可",
+          "es": "DEEPX es reconocida por la NYSE y el WEF"
+        },
+        "date": "2025.11",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/ai-semiconductor-innovator-deepx-recognized-by-nyse-and-wef-302600686.html"
+      },
+      {
+        "title": {
+          "en": "Lotte Innovate partners with DEEPX to deploy NPU in vision AI (intelligent CCTV)",
+          "ko": "롯데이노베이트, 딥엑스와 비전 AI(지능형 CCTV)에 NPU 적용 협력",
+          "ja": "ロッテイノベート、DEEPXと提携しビジョンAI（インテリジェントCCTV）にNPUを導入",
+          "zh-CN": "乐天创新与DEEPX合作，在视觉AI（智能CCTV）中部署NPU",
+          "zh-TW": "樂天創新與DEEPX合作，於視覺AI（智慧CCTV）中部署NPU",
+          "es": "Lotte Innovate se asocia con DEEPX para desplegar NPU en IA de visión (CCTV inteligente)"
+        },
+        "date": "2026.04",
+        "type": "news",
+        "url": "https://www.sedaily.com/article/20027345"
+      },
+      {
+        "title": {
+          "en": "DEEPX expands APAC footprint via Avnet distribution deal (15 markets)",
+          "ko": "DEEPX, Avnet 유통 계약으로 APAC 15개국 시장 확대",
+          "ja": "DEEPX、Avnetとの流通契約でAPAC15市場に進出拡大",
+          "zh-CN": "DEEPX通过Avnet分销协议拓展APAC 15个市场",
+          "zh-TW": "DEEPX透過Avnet經銷協議拓展APAC 15個市場",
+          "es": "DEEPX amplía su presencia en APAC mediante un acuerdo de distribución con Avnet (15 mercados)"
+        },
+        "date": "2026.07",
+        "type": "news",
+        "url": "https://www.eetasia.com/deepx-strengthens-presence-in-apac-through-partnership-with-avnet/"
+      },
+      {
+        "title": {
+          "en": "DEEPX unveils All-in-4 AI Total Solution at CES 2024",
+          "ko": "DEEPX, CES 2024에서 'All-in-4 AI Total Solution' 공개",
+          "ja": "DEEPX、CES 2024で「All-in-4 AI Total Solution」を発表",
+          "zh-CN": "DEEPX在CES 2024发布All-in-4 AI Total Solution",
+          "zh-TW": "DEEPX於CES 2024發表All-in-4 AI Total Solution",
+          "es": "DEEPX presenta All-in-4 AI Total Solution en CES 2024"
+        },
+        "date": "2024.01",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/deepx-unveils-all-in-4-ai-total-solution-at-ces-2024-four-ai-chips-transforming-on-device-ai-market-302030982.html"
+      },
+      {
+        "title": {
+          "en": "DEEPX total AI solutions for NVRs & cameras at ISC West 2025 (Network Optix + CVEDIA)",
+          "ko": "DEEPX, ISC West 2025에서 NVR·카메라용 토탈 AI 솔루션 공개 (Network Optix + CVEDIA)",
+          "ja": "DEEPX、ISC West 2025でNVR・カメラ向けトータルAIソリューションを発表（Network Optix + CVEDIA）",
+          "zh-CN": "DEEPX在ISC West 2025展示NVR与摄像机整体AI解决方案（Network Optix + CVEDIA）",
+          "zh-TW": "DEEPX於ISC West 2025展示NVR與攝影機整體AI解決方案（Network Optix + CVEDIA）",
+          "es": "DEEPX presenta soluciones integrales de IA para NVR y cámaras en ISC West 2025 (Network Optix + CVEDIA)"
+        },
+        "date": "2025.03",
+        "type": "event",
+        "url": "https://deepx.ai/deepx-unveils-total-ai-solutions-for-nvrs-and-cameras-at-isc-west-elevates-on-device-ai-ecosystem-for-real-time-video-analysis/"
+      },
       {
         "title": {
           "en": "Baidu places initial 30,000-unit DX-M1 order",
