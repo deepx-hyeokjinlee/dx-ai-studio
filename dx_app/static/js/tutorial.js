@@ -40,11 +40,18 @@
 
   function _prepRunExportArea() {
     _prepRunSingleTab();
-    setTimeout(function () {
-      _scrollToTarget('#run-export-card');
-      var btn = document.getElementById('r-export-btn');
-      if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 350);
+    // Return a promise the engine awaits (see _showStep): the export card lives
+    // well below the fold, so we scroll it into view ONCE and wait for the
+    // smooth-scroll to settle before the spotlight is measured. Without this the
+    // engine placed the box mid-scroll on empty space (the "points at nothing"
+    // flash). One anchor (the card) keeps all three export steps consistent.
+    return new Promise(function (resolve) {
+      setTimeout(function () {
+        var card = document.getElementById('run-export-card');
+        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(resolve, 500);
+      }, 100);
+    });
   }
 
   function _mockLightbox() {
@@ -143,6 +150,20 @@
     if (row) row.classList.remove('hidden');
   }
 
+  // Confidence + NMS live in #r-params-detect, which updateRunParams() hides
+  // unless the category is a detection task. Force a detection category so the
+  // #r-conf / #r-nms spotlights have a visible target.
+  function _showDetectParams() {
+    var sel = document.getElementById('r-cat');
+    if (sel) {
+      sel.value = 'object_detection';
+      sel.dispatchEvent(new Event('change'));
+      if (typeof onRCat === 'function') onRCat();
+    }
+    var row = document.getElementById('r-params-detect');
+    if (row) row.classList.remove('hidden');
+  }
+
   /* ════════════════════════════════════════════════════════════
      SECTIONS
      ════════════════════════════════════════════════════════════ */
@@ -229,10 +250,12 @@
           content:{ ko: '추론을 실행할 <strong>NPU 디바이스 번호</strong>를 선택합니다. 여러 NPU가 장착된 시스템에서는 특정 디바이스를 지정할 수 있습니다.', en: 'Select the <strong>NPU device number</strong> for inference. On multi-NPU systems, you can target a specific device.', ja: '推論に使用する<strong>NPUデバイス番号</strong>を選択します。複数NPUシステムでは特定のデバイスを指定できます。', 'zh-CN': '选择推理所用的<strong>NPU设备编号</strong>。在多NPU系统中可指定特定设备。', 'zh-TW': '選擇推論所用的<strong>NPU裝置編號</strong>。在多NPU系統中可指定特定裝置。', es: 'Seleccione el <strong>número de dispositivo NPU</strong> para la inferencia. En sistemas con varias NPU, puede elegir un dispositivo concreto.' } },
         { target:'#r-conf', position:'right',
           title:{ ko: 'Confidence Threshold', en: 'Confidence Threshold', ja: '信頼度しきい値', 'zh-CN': '置信度阈值', 'zh-TW': '信賴度閾值', es: 'Umbral de confianza' },
-          content:{ ko: '모델 출력의 <strong>최소 신뢰도 임계값</strong>(0~1)입니다. 값이 높을수록 확실한 결과만 표시되고, 낮을수록 더 많은 결과가 표시됩니다. Detection에서 기본값은 <strong>0.25</strong>입니다.', en: '<strong>Minimum confidence threshold</strong> (0-1) for model output. Higher = fewer but more confident results. Default <strong>0.25</strong> for Detection.', ja: 'モデル出力の<strong>最小信頼度しきい値</strong>（0〜1）。値が高いほど確実な結果のみ表示されます。Detectionのデフォルトは<strong>0.25</strong>です。', 'zh-CN': '模型输出的<strong>最小置信度阈值</strong>（0-1）。值越高结果越少但越可靠。Detection默认值为<strong>0.25</strong>。', 'zh-TW': '模型輸出的<strong>最小信賴度閾值</strong>（0-1）。值越高結果越少但越可靠。Detection預設值為<strong>0.25</strong>。', es: '<strong>Umbral mínimo de confianza</strong> (0-1) para la salida del modelo. Un valor más alto = menos resultados pero más confiables. Valor predeterminado <strong>0.25</strong> para Detection.' } },
+          content:{ ko: '모델 출력의 <strong>최소 신뢰도 임계값</strong>(0~1)입니다. 값이 높을수록 확실한 결과만 표시되고, 낮을수록 더 많은 결과가 표시됩니다. Detection에서 기본값은 <strong>0.25</strong>입니다.', en: '<strong>Minimum confidence threshold</strong> (0-1) for model output. Higher = fewer but more confident results. Default <strong>0.25</strong> for Detection.', ja: 'モデル出力の<strong>最小信頼度しきい値</strong>（0〜1）。値が高いほど確実な結果のみ表示されます。Detectionのデフォルトは<strong>0.25</strong>です。', 'zh-CN': '模型输出的<strong>最小置信度阈值</strong>（0-1）。值越高结果越少但越可靠。Detection默认值为<strong>0.25</strong>。', 'zh-TW': '模型輸出的<strong>最小信賴度閾值</strong>（0-1）。值越高結果越少但越可靠。Detection預設值為<strong>0.25</strong>。', es: '<strong>Umbral mínimo de confianza</strong> (0-1) para la salida del modelo. Un valor más alto = menos resultados pero más confiables. Valor predeterminado <strong>0.25</strong> para Detection.' },
+          beforeStep: function() { _showDetectParams(); } },
         { target:'#r-nms', position:'right',
           title:{ ko: 'NMS IoU Threshold', en: 'NMS IoU Threshold', ja: 'NMS IoU しきい値', 'zh-CN': 'NMS IoU 阈值', 'zh-TW': 'NMS IoU 閾值', es: 'Umbral NMS IoU' },
-          content:{ ko: '<strong>Non-Maximum Suppression</strong>의 IoU 임계값입니다. 겹치는 바운딩 박스를 제거하는 기준으로, 값이 낮을수록 더 공격적으로 중복을 제거합니다. Detection 전용 파라미터입니다.', en: '<strong>Non-Maximum Suppression</strong> IoU threshold. Controls overlapping bounding box removal. Lower = more aggressive dedup. Detection only.', ja: '<strong>Non-Maximum Suppression</strong>のIoUしきい値。重複するバウンディングボックスの除去を制御します。値が低いほど積極的に重複を除去します。Detection専用パラメータです。', 'zh-CN': '<strong>Non-Maximum Suppression</strong> IoU阈值。控制重叠边界框的去除。值越低去重越积极。仅用于Detection。', 'zh-TW': '<strong>Non-Maximum Suppression</strong> IoU閾值。控制重疊邊界框的去除。值越低去重越積極。僅用於Detection。', es: 'Umbral IoU de <strong>Non-Maximum Suppression</strong>. Controla la eliminación de cajas delimitadoras superpuestas. Un valor más bajo = deduplicación más agresiva. Solo Detection.' } },
+          content:{ ko: '<strong>Non-Maximum Suppression</strong>의 IoU 임계값입니다. 겹치는 바운딩 박스를 제거하는 기준으로, 값이 낮을수록 더 공격적으로 중복을 제거합니다. Detection 전용 파라미터입니다.', en: '<strong>Non-Maximum Suppression</strong> IoU threshold. Controls overlapping bounding box removal. Lower = more aggressive dedup. Detection only.', ja: '<strong>Non-Maximum Suppression</strong>のIoUしきい値。重複するバウンディングボックスの除去を制御します。値が低いほど積極的に重複を除去します。Detection専用パラメータです。', 'zh-CN': '<strong>Non-Maximum Suppression</strong> IoU阈值。控制重叠边界框的去除。值越低去重越积极。仅用于Detection。', 'zh-TW': '<strong>Non-Maximum Suppression</strong> IoU閾值。控制重疊邊界框的去除。值越低去重越積極。僅用於Detection。', es: 'Umbral IoU de <strong>Non-Maximum Suppression</strong>. Controla la eliminación de cajas delimitadoras superpuestas. Un valor más bajo = deduplicación más agresiva. Solo Detection.' },
+          beforeStep: function() { _showDetectParams(); } },
         { target:'#r-topk', position:'right',
           title:{ ko: 'Top-K 결과 수', en: 'Top-K Results', ja: 'Top-K 結果数', 'zh-CN': 'Top-K 结果数', 'zh-TW': 'Top-K 結果數', es: 'Resultados Top-K' },
           content:{ ko: '<strong>Classification</strong> 카테고리 선택 시 표시되는 슬라이더입니다. 상위 <strong>K개의 분류 결과</strong>를 표시합니다. 값이 클수록 더 많은 후보 클래스가 결과에 포함됩니다 (기본값: 5).', en: 'Slider shown when <strong>Classification</strong> category is selected. Displays the top <strong>K classification results</strong>. Higher values include more candidate classes (default: 5).', ja: '<strong>Classification</strong>カテゴリ選択時に表示されるスライダーです。上位<strong>K個の分類結果</strong>を表示します。値が大きいほどより多くの候補クラスが含まれます（デフォルト：5）。', 'zh-CN': '选择<strong>Classification</strong>分类时显示的滑块。显示前<strong>K个分类结果</strong>。值越大包含的候选类别越多（默认：5）。', 'zh-TW': '選擇<strong>Classification</strong>分類時顯示的滑桿。顯示前<strong>K個分類結果</strong>。值越大包含的候選類別越多（預設：5）。', es: 'Control deslizante que aparece al seleccionar la categoría <strong>Classification</strong>. Muestra los <strong>K mejores resultados de clasificación</strong>. Valores más altos incluyen más clases candidatas (predeterminado: 5).' },
@@ -253,15 +276,15 @@
         { target:'#run-export-card', position:'top',
           title:{ ko: '📦 Export Model Package', en: '📦 Export Model Package', ja: '📦 モデルパッケージ エクスポート', 'zh-CN': '📦 导出模型包', 'zh-TW': '📦 匯出模型套件', es: '📦 Exportar paquete de modelo' },
           content:{ ko: '현재 선택한 모델의 <strong>소스 코드, config, 모델 파일을 패키징</strong>하여 Outputs 페이지에서 다운로드할 수 있습니다. C++/Python 또는 Both 중 선택 가능합니다.', en: '<strong>Package source code, config, and model file</strong> of current model for download on Outputs page. Choose C++/Python/Both.', ja: '現在のモデルの<strong>ソースコード、設定、モデルファイルをパッケージ化</strong>してOutputsページでダウンロード可能にします。C++/Python/Both から選択できます。', 'zh-CN': '将当前模型的<strong>源代码、配置和模型文件打包</strong>，可在Outputs页面下载。可选择C++/Python/Both。', 'zh-TW': '將當前模型的<strong>原始碼、配置和模型檔案打包</strong>，可在Outputs頁面下載。可選擇C++/Python/Both。', es: '<strong>Empaqueta el código fuente, la configuración y el archivo del modelo</strong> actual para descargarlo en la página Outputs. Elija C++/Python/Ambos.' },
-          beforeStep: function() { _prepRunExportArea(); } },
+          beforeStep: function() { return _prepRunExportArea(); } },
         { target:'#r-export-lang', position:'right',
           title:{ ko: 'Export 언어 선택', en: 'Export Language', ja: 'エクスポート言語', 'zh-CN': '导出语言', 'zh-TW': '匯出語言', es: 'Idioma de exportación' },
           content:{ ko: '내보낼 모델 패키지의 <strong>언어를 선택</strong>합니다. <strong>Both (C++ & Python)</strong>, <strong>C++ only</strong>, <strong>Python only</strong> 중 선택 가능합니다.', en: 'Select the <strong>language</strong> for the export package: <strong>Both (C++ & Python)</strong>, <strong>C++ only</strong>, or <strong>Python only</strong>.', ja: 'エクスポートパッケージの<strong>言語</strong>を選択します：<strong>Both (C++ & Python)</strong>、<strong>C++ only</strong>、<strong>Python only</strong>。', 'zh-CN': '选择导出包的<strong>语言</strong>：<strong>Both (C++ & Python)</strong>、<strong>C++ only</strong>或<strong>Python only</strong>。', 'zh-TW': '選擇匯出套件的<strong>語言</strong>：<strong>Both (C++ & Python)</strong>、<strong>C++ only</strong>或<strong>Python only</strong>。',           es: 'Seleccione el <strong>idioma</strong> del paquete de exportación: <strong>Ambos (C++ y Python)</strong>, <strong>solo C++</strong> o <strong>solo Python</strong>.' },
-          beforeStep: function() { _prepRunExportArea(); } },
+          beforeStep: function() { return _prepRunExportArea(); } },
         { target:'#r-export-btn', position:'right',
           title:{ ko: '📦 내보내기 실행', en: '📦 Run Export', ja: '📦 エクスポート実行', 'zh-CN': '📦 执行导出', 'zh-TW': '📦 執行匯出', es: '📦 Ejecutar exportación' },
           content:{ ko: '<strong>📦 내보내기</strong> 버튼을 클릭하면 선택한 언어로 모델 소스 코드, config, 바이너리를 패키징합니다. 결과는 <strong>Outputs 페이지</strong>에서 다운로드할 수 있습니다.', en: 'Click <strong>📦 Export</strong> to package model source code, config, and binary in the selected language. Download from the <strong>Outputs page</strong>.', ja: '<strong>📦 Export</strong>をクリックして、選択した言語でモデルのソースコード、設定、バイナリをパッケージ化します。<strong>Outputsページ</strong>からダウンロードできます。', 'zh-CN': '点击<strong>📦 Export</strong>以所选语言打包模型源代码、配置和二进制文件。从<strong>Outputs页面</strong>下载。', 'zh-TW': '點擊<strong>📦 Export</strong>以所選語言打包模型原始碼、配置和二進位檔案。從<strong>Outputs頁面</strong>下載。',           es: 'Haga clic en <strong>📦 Exportar</strong> para empaquetar el código fuente, la configuración y el binario del modelo en el idioma seleccionado. Descárguelo desde la <strong>página Outputs</strong>.' },
-          beforeStep: function() { _prepRunExportArea(); } },
+          beforeStep: function() { return _prepRunExportArea(); } },
         { target:'#r-stop-btn', position:'right',
           title:{ ko: '추론 중단', en: 'Stop Inference', ja: '推論中断', 'zh-CN': '停止推理', 'zh-TW': '停止推論', es: 'Detener inferencia' },
           content:{ ko: '추론이 실행 중일 때 이 버튼을 클릭하면 <strong>현재 추론을 즉시 중단</strong>합니다. 비디오 모드에서 긴 추론을 중간에 멈출 때 유용합니다.', en: 'Click to <strong>immediately stop the running inference</strong>. Useful for stopping long video inference midway.', ja: 'クリックして<strong>実行中の推論を即座に中断</strong>します。長時間のビデオ推論を途中で停止する際に便利です。', 'zh-CN': '点击以<strong>立即停止正在运行的推理</strong>。适用于中途停止较长的视频推理。', 'zh-TW': '點擊以<strong>立即停止正在執行的推論</strong>。適用於中途停止較長的影片推論。', es: 'Haga clic para <strong>detener de inmediato la inferencia en ejecución</strong>. Útil para interrumpir inferencia larga en video.' },
