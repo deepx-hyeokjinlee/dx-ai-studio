@@ -274,10 +274,10 @@ function _buildDashboardHTML() {
       '</section>' +
       '<section class="controls trend-version-filter-panel">' +
         '<div class="trend-version-filter-heading-row">' +
-          '<span class="control-heading">' + _t('dx-all-suite Version') + '</span>' +
+          '<span class="control-heading" data-i18n="dx-all-suite Version">' + _t('dx-all-suite Version') + '</span>' +
           '<span class="version-filter-actions">' +
-            '<button type="button" class="version-filter-btn" id="trendVersionAll">' + _t('All') + '</button>' +
-            '<button type="button" class="version-filter-btn" id="trendVersionNone">' + _t('None') + '</button>' +
+            '<button type="button" class="version-filter-btn" id="trendVersionAll" data-i18n="All">' + _t('All') + '</button>' +
+            '<button type="button" class="version-filter-btn" id="trendVersionNone" data-i18n="None">' + _t('None') + '</button>' +
           '</span>' +
         '</div>' +
         '<div id="trendVersionFilter" class="version-filter-chips"></div>' +
