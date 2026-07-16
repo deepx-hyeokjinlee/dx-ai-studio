@@ -1150,7 +1150,7 @@
         "year": "2026"
       },
       {
-        "name": "EE Times — Best Product of the Year",
+        "name": "Electronic Products / EE Times — 2024 Product of the Year (DX-M1)",
         "icon": "📰",
         "year": "2024"
       },
@@ -1170,7 +1170,7 @@
         "year": "2024"
       },
       {
-        "name": "Computex — Innovation Award 2nd Place",
+        "name": "InnoVEX Startup Terrace Awards (Computex Taipei) — 2nd Place",
         "icon": "🥇",
         "year": "2023"
       },
@@ -1419,6 +1419,29 @@
     "upcoming": [
       {
         "title": {
+          "en": "Avnet Edge & Beyond Tech Days 2026",
+          "ko": "Avnet Edge & Beyond Tech Days 2026",
+          "ja": "Avnet Edge & Beyond Tech Days 2026",
+          "zh-CN": "Avnet Edge & Beyond Tech Days 2026",
+          "zh-TW": "Avnet Edge & Beyond Tech Days 2026",
+          "es": "Avnet Edge & Beyond Tech Days 2026"
+        },
+        "date": "2026.07",
+        "type": "event",
+        "location": {
+          "en": "Jul 10 – 24, 2026",
+          "ko": "2026.07.10 – 24",
+          "ja": "2026年7月10–24日",
+          "zh-CN": "2026年7月10–24日",
+          "zh-TW": "2026年7月10–24日",
+          "es": "10–24 jul 2026"
+        },
+        "url": "https://deepx.ai/avnet-edge-beyond-tech-days-2026-10-jul-2026-24-jul-2026/"
+      }
+    ],
+    "past": [
+      {
+        "title": {
           "en": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, Booth S14-16",
           "ko": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, 부스 S14-16",
           "ja": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida、ブース S14-16",
@@ -1459,29 +1482,6 @@
         },
         "url": "https://deepx.ai/lets-meet-at-manufacturing-world-2026-tokyo-deepx-booth-s14-16/"
       },
-      {
-        "title": {
-          "en": "Avnet Edge & Beyond Tech Days 2026",
-          "ko": "Avnet Edge & Beyond Tech Days 2026",
-          "ja": "Avnet Edge & Beyond Tech Days 2026",
-          "zh-CN": "Avnet Edge & Beyond Tech Days 2026",
-          "zh-TW": "Avnet Edge & Beyond Tech Days 2026",
-          "es": "Avnet Edge & Beyond Tech Days 2026"
-        },
-        "date": "2026.07",
-        "type": "event",
-        "location": {
-          "en": "Jul 10 – 24, 2026",
-          "ko": "2026.07.10 – 24",
-          "ja": "2026年7月10–24日",
-          "zh-CN": "2026年7月10–24日",
-          "zh-TW": "2026年7月10–24日",
-          "es": "10–24 jul 2026"
-        },
-        "url": "https://deepx.ai/avnet-edge-beyond-tech-days-2026-10-jul-2026-24-jul-2026/"
-      }
-    ],
-    "past": [
       {
         "title": {
           "en": "DX-M1 now runs SLMs fully on-device",
