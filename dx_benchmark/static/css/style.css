@@ -1233,6 +1233,10 @@ body.lang-zh-TW .zh-CN { display: none; }
 }
 .trend-metric-panel .chart-container { height: clamp(260px, 32vh, 340px); }
 
+/* ═══ ORT ON/OFF comparison ═══ */
+.ort-delta-pos { color: var(--success); font-weight: 700; }
+.ort-delta-neg { color: var(--error); font-weight: 700; }
+
 /* ═══ Dashboard workspace responsive override ═══ */
 @media (max-width: 980px) {
   .dashboard-filter-grid { grid-template-columns: 1fr; }

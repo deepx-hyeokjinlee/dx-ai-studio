@@ -139,6 +139,7 @@ function _buildDashboardHTML() {
       '<button class="dashboard-tab" data-tab="overview" data-i18n="Full Metrics">' + _t('Full Metrics') + '</button>' +
       '<button class="dashboard-tab" data-tab="detail" data-i18n="Detailed Data">' + _t('Detailed Data') + '</button>' +
       '<button class="dashboard-tab" data-tab="version-trend" data-i18n="Version Trend">' + _t('Version Trend') + '</button>' +
+      '<button class="dashboard-tab" data-tab="ort-compare" data-i18n="ORT ON/OFF">' + _t('ORT ON/OFF') + '</button>' +
     '</nav>' +
     '<div id="tab-fps-compare" class="tab-content active dashboard-panel-stack">' +
       '<div class="dashboard-filter-grid">' +
@@ -300,6 +301,36 @@ function _buildDashboardHTML() {
         '</section>' +
       '</div>' +
     '</div>' +
+    '<div id="tab-ort-compare" class="tab-content dashboard-panel-stack">' +
+      '<section class="controls">' +
+        '<label>' + _t('Environment') + ' <select id="ortEnvFilter"></select></label>' +
+        '<label>' + _t('Task') + ' <select id="ortTaskFilter">' +
+          '<option value="object_detection">OD (' + _t('Object Detection') + ')</option>' +
+          '<option value="pose_estimation">Pose (' + _t('Pose Estimation') + ')</option>' +
+          '<option value="segmentation">Seg (' + _t('Segmentation') + ')</option>' +
+          '<option value="oriented_bbox">OBB (' + _t('Oriented BBox (OBB)') + ')</option>' +
+          '<option value="classification">Cls (' + _t('Classification') + ')</option>' +
+        '</select></label>' +
+        '<label>' + _t('Metric') + ' <select id="ortMetricFilter">' +
+          '<option value="throughput_fps" data-i18n="Throughput (FPS)">' + _t('Throughput (FPS)') + '</option>' +
+          '<option value="e2e_fps" data-i18n="E2E FPS (Single-Stream)">' + _t('E2E FPS (Single-Stream)') + '</option>' +
+          '<option value="latency_ms" data-i18n="Latency (ms)">' + _t('Latency (ms)') + '</option>' +
+          '<option value="capacity_streams" data-i18n="Max Channels">' + _t('Max Channels') + '</option>' +
+        '</select></label>' +
+      '</section>' +
+      '<section class="panel chart-panel dashboard-primary">' +
+        '<div class="chart-header">' +
+          '<h2 id="ortChartTitle" data-i18n="ORT ON/OFF Comparison">' + _t('ORT ON/OFF Comparison') + '</h2>' +
+          '<p class="chart-subtitle" id="ortChartSubtitle"></p>' +
+        '</div>' +
+        '<div class="chart-container"><canvas id="ortCompareChart"></canvas></div>' +
+        '<p class="chart-hint" data-i18n="ORT changes the CPU/NPU balance — compare ON vs OFF for the same model and environment.">' + _t('ORT changes the CPU/NPU balance — compare ON vs OFF for the same model and environment.') + '</p>' +
+      '</section>' +
+      '<section class="panel" id="ortCompareTableSection">' +
+        '<h2 data-i18n="ORT ON/OFF Detail">' + _t('ORT ON/OFF Detail') + '</h2>' +
+        '<div id="ortCompareTableContent"></div>' +
+      '</section>' +
+    '</div>' +
   '</div>';
 }
 
@@ -328,6 +359,15 @@ var TREND_METRICS = [
   { key: 'e2e', title: 'E2E FPS (Single-Channel) Trend', metricLabel: 'E2E FPS (Single-Channel)', axisLabel: 'E2E FPS', resultKind: 'e2e_single', valueKey: 'avg_e2e_fps', precision: 1 },
   { key: 'capacity', title: 'Max Channel Trend', metricLabel: 'Max Channel', axisLabel: 'Max Channel', resultKind: 'e2e_multi_capacity', valueKey: 'capacity_streams', precision: 0 },
 ];
+/* ORT ON/OFF comparison: keys/labels mirror summaries.ort_delta's `metric` values 1:1. */
+var ORT_METRICS = [
+  { key: 'throughput_fps',   label: 'Throughput (FPS)',            axisLabel: 'Throughput (FPS)', precision: 1, higherBetter: true  },
+  { key: 'e2e_fps',          label: 'E2E FPS (Single-Stream)',      axisLabel: 'E2E FPS',          precision: 1, higherBetter: true  },
+  { key: 'latency_ms',       label: 'Latency (ms)',                 axisLabel: 'Latency (ms)',     precision: 2, higherBetter: false },
+  { key: 'capacity_streams', label: 'Max Channels',                 axisLabel: 'Max Channels',     precision: 0, higherBetter: true  },
+];
+var ORT_ON_COLOR  = { fill: 'rgba(91,141,239,0.70)',  line: 'rgb(91,141,239)'  };
+var ORT_OFF_COLOR = { fill: 'rgba(245,158,11,0.70)',  line: 'rgb(245,158,11)' };
 
 function sizeOrd(key) { var v = SIZE_ORDER[key]; return v !== undefined ? v : 99; }
 
@@ -342,6 +382,7 @@ var state = {
   trendHwId: null, trendTask: 'object_detection', trendOrt: true,
   trendDataByMetric: {}, trendSelectedIdx: -1, trendCharts: {},
   trendVersions: [], trendVersionFilter: {},
+  ortEnvId: null, ortTask: 'object_detection', ortMetric: 'throughput_fps', ortChartData: [],
 };
 
 function getModelName(task, size) { return 'yolo26' + size + '-' + TASK_MAP[task].suffix + '.dxnn'; }
@@ -737,6 +778,7 @@ function initTabs() {
       if(target==='overview')Chart._resize();
       if(target==='detail')renderDetailTables();
       if(target==='version-trend')resizeTrendChart();
+      if(target==='ort-compare')OrtChart._resize();
       dispatchBenchmarkHelpSync();
     });
   });
@@ -1017,6 +1059,122 @@ function initTrendTab(){
   refreshTrend();
 }
 
+/* ═══ ORT ON/OFF comparison (5b) ═══
+   Reads state.dataset.summaries.ort_delta (one row per env_id/task/size/metric,
+   already precomputed ON vs OFF for the latest run) — no extra aggregation needed. */
+function _ortMetricByKey(key) { return ORT_METRICS.find(function(m) { return m.key === key; }) || ORT_METRICS[0]; }
+function _formatOrtValue(metric, v) { if (v == null) return '-'; return metric.precision === 0 ? String(Math.round(v)) : Number(v).toFixed(metric.precision); }
+/* true = ORT ON wins this metric, false = OFF wins, null = no meaningful delta */
+function _ortOnIsBetter(metric, delta) { if (delta == null || delta === 0) return null; return metric.higherBetter ? delta > 0 : delta < 0; }
+function getOrtCompareData(envId, task, metricKey) {
+  var rows = _history('ort_delta').filter(function(r) { return r.env_id === envId && r.task === task && r.metric === metricKey; });
+  var bySize = {}; rows.forEach(function(r) { bySize[r.size] = r; });
+  return SIZE_KEYS.filter(function(sz) { return bySize[sz]; }).map(function(sz) {
+    var r = bySize[sz];
+    return { size: sz, label: sz.toUpperCase(), on: r.ort_on, off: r.ort_off, delta: r.delta, deltaPct: r.delta_pct };
+  });
+}
+
+var OrtChart = {
+  _canvas: null, _metric: null, _data: [], _raf: null, _ro: null,
+  init: function(canvas) {
+    this._canvas = canvas;
+    this._ro = new ResizeObserver(this._resize.bind(this));
+    this._ro.observe(canvas.parentElement); this._resize();
+  },
+  setMetric: function(metric) { this._metric = metric; this._scheduleDraw(); },
+  update: function(data) { this._data = data; this._scheduleDraw(); },
+  _resize: function() { var el=this._canvas.parentElement,dpr=window.devicePixelRatio||1;var w=el.clientWidth,h=el.clientHeight;setBenchmarkCanvasSize(this._canvas,w,h,dpr);this._canvas.getContext('2d').setTransform(dpr,0,0,dpr,0,0);this._scheduleDraw(); },
+  _scheduleDraw: function() { var s=this;if(s._raf)cancelAnimationFrame(s._raf);s._raf=requestAnimationFrame(function(){s._draw();}); },
+  _layout: function() { var dpr=window.devicePixelRatio||1;var W=this._canvas.width/dpr,H=this._canvas.height/dpr;var P={top:60,right:30,bottom:60,left:72};return {W:W,H:H,P:P,CW:W-P.left-P.right,CH:H-P.top-P.bottom}; },
+  _niceMax: function(v) { if(v<=0)return 10;var e=Math.pow(10,Math.floor(Math.log10(v)));var f=v/e;return (f<=2?2:f<=5?5:10)*e; },
+  _draw: function() {
+    var data=this._data,metric=this._metric||ORT_METRICS[0],cv=this._canvas,ctx=cv.getContext('2d');
+    var lay=this._layout();var W=lay.W,H=lay.H,P=lay.P,CW=lay.CW,CH=lay.CH;var cc=_cc();
+    ctx.clearRect(0,0,W,H);
+    if(!data.length){ctx.fillStyle=cc.noData;ctx.font='14px sans-serif';ctx.textAlign='center';ctx.fillText(_t('No data for this selection'),W/2,H/2);return;}
+    var maxV=0;data.forEach(function(d){if(d.on!=null)maxV=Math.max(maxV,d.on);if(d.off!=null)maxV=Math.max(maxV,d.off);});
+    var ceilV=this._niceMax(maxV*1.25);
+    var n=data.length,gW=CW/n,barAreaW=gW*0.6,subW=barAreaW/2,padLeft=(gW-barAreaW)/2;
+    var yPos=function(v){return P.top+CH-(v/ceilV)*CH;};
+    var gX=function(i,si){return P.left+i*gW+padLeft+si*subW;};
+    var midX=function(i){return P.left+i*gW+gW/2;};
+    ctx.strokeStyle=cc.grid;ctx.lineWidth=1;for(var g=0;g<=5;g++){var gy=P.top+CH*g/5;ctx.beginPath();ctx.moveTo(P.left,gy);ctx.lineTo(P.left+CW,gy);ctx.stroke();}
+    ctx.strokeStyle=cc.axes;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(P.left,P.top);ctx.lineTo(P.left,P.top+CH);ctx.stroke();ctx.beginPath();ctx.moveTo(P.left,P.top+CH);ctx.lineTo(P.left+CW,P.top+CH);ctx.stroke();
+    ctx.textAlign='right';ctx.fillStyle=cc.dim;ctx.font='11px sans-serif';
+    for(var t=0;t<=5;t++){var tv=ceilV*(5-t)/5;ctx.fillText(_formatOrtValue(metric,tv),P.left-6,P.top+CH*t/5+4);}
+    ctx.save();ctx.fillStyle=cc.text;ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.translate(14,P.top+CH/2);ctx.rotate(-Math.PI/2);ctx.fillText(_t(metric.axisLabel),0,0);ctx.restore();
+    data.forEach(function(d,i){
+      if(d.on!=null){var bx=gX(i,0),by=yPos(d.on),bh=P.top+CH-by;ctx.fillStyle=ORT_ON_COLOR.fill;ctx.fillRect(bx+1,by,subW-2,bh);ctx.strokeStyle=ORT_ON_COLOR.line;ctx.lineWidth=1;ctx.strokeRect(bx+1,by,subW-2,bh);ctx.fillStyle=ORT_ON_COLOR.line;ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(_formatOrtValue(metric,d.on),bx+1+(subW-2)/2,by-4);}
+      if(d.off!=null){var bx2=gX(i,1),by2=yPos(d.off),bh2=P.top+CH-by2;ctx.fillStyle=ORT_OFF_COLOR.fill;ctx.fillRect(bx2+1,by2,subW-2,bh2);ctx.strokeStyle=ORT_OFF_COLOR.line;ctx.lineWidth=1;ctx.strokeRect(bx2+1,by2,subW-2,bh2);ctx.fillStyle=ORT_OFF_COLOR.line;ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(_formatOrtValue(metric,d.off),bx2+1+(subW-2)/2,by2-4);}
+      if(d.deltaPct!=null){
+        var onBetter=_ortOnIsBetter(metric,d.delta);
+        var color=onBetter===true?'rgb(46,204,113)':(onBetter===false?'rgb(231,76,60)':cc.text);
+        var topY=Math.min(d.on!=null?yPos(d.on):P.top+CH,d.off!=null?yPos(d.off):P.top+CH)-18;
+        ctx.fillStyle=color;ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+        var sign=d.deltaPct>0?'+':'';
+        ctx.fillText(sign+d.deltaPct.toFixed(1)+'%',midX(i),topY);
+      }
+    });
+    ctx.fillStyle=cc.text;ctx.font='600 11px sans-serif';ctx.textAlign='center';
+    data.forEach(function(d,i){ctx.fillText(d.label,midX(i),P.top+CH+18);});
+    var lx=P.left,ly=22;
+    [{c:ORT_ON_COLOR,label:_t('ORT ON')},{c:ORT_OFF_COLOR,label:_t('ORT OFF')}].forEach(function(it){
+      ctx.fillStyle=it.c.fill;ctx.fillRect(lx,ly-7,18,14);ctx.strokeStyle=it.c.line;ctx.lineWidth=1;ctx.strokeRect(lx,ly-7,18,14);
+      ctx.fillStyle=cc.text;ctx.font='12px sans-serif';ctx.textAlign='left';ctx.fillText(it.label,lx+24,ly+4);
+      lx+=ctx.measureText(it.label).width+44;
+    });
+  }
+};
+
+function renderOrtCompareTable(container,data,metric) {
+  if(!container) return;
+  if(!data.length){container.innerHTML='<p class="empty-state small">' + _t('No data for this selection') + '</p>';return;}
+  var html='<table class="summary-table"><thead><tr><th>' + _t('Size') + '</th><th>' + _t('ORT ON') + '</th><th>' + _t('ORT OFF') + '</th><th>' + _t('Delta') + '</th><th>' + _t('Delta %') + '</th></tr></thead><tbody>';
+  data.forEach(function(d){
+    var onBetter=_ortOnIsBetter(metric,d.delta);
+    var deltaCls=onBetter===true?'ort-delta-pos':(onBetter===false?'ort-delta-neg':'');
+    var sign=(d.delta!=null&&d.delta>0)?'+':'';
+    var pctSign=(d.deltaPct!=null&&d.deltaPct>0)?'+':'';
+    html+='<tr><td>'+escHtml(d.label)+'</td><td>'+_formatOrtValue(metric,d.on)+'</td><td>'+_formatOrtValue(metric,d.off)+'</td>'+
+      '<td class="'+deltaCls+'">'+(d.delta!=null?sign+_formatOrtValue(metric,d.delta):'-')+'</td>'+
+      '<td class="'+deltaCls+'">'+(d.deltaPct!=null?pctSign+d.deltaPct.toFixed(1)+'%':'-')+'</td></tr>';
+  });
+  html+='</tbody></table>';
+  container.innerHTML=html;
+}
+
+function refreshOrtCompare() {
+  if(!document.getElementById('ortCompareChart')) return;
+  var metric=_ortMetricByKey(state.ortMetric);
+  var data=getOrtCompareData(state.ortEnvId,state.ortTask,metric.key);
+  state.ortChartData=data;
+  var env=_envById(state.ortEnvId);
+  var subtitleEl=document.getElementById('ortChartSubtitle');
+  if(subtitleEl){
+    var envLbl=env?(env.hostname+' ('+(_envProductLabel(env)||'?')+')'):'';
+    subtitleEl.textContent=envLbl+'  ·  '+(TASK_MAP[state.ortTask]?TASK_MAP[state.ortTask].label:state.ortTask)+'  ·  '+_t(metric.label);
+  }
+  OrtChart.setMetric(metric);
+  OrtChart.update(data);
+  renderOrtCompareTable(document.getElementById('ortCompareTableContent'),data,metric);
+  dispatchBenchmarkHelpSync();
+}
+
+function initOrtCompareTab() {
+  var sel=document.getElementById('ortEnvFilter');if(!sel)return;
+  var envs=state.dataset.environments||[];
+  sel.innerHTML=envs.map(function(e){return '<option value="'+escHtml(e.env_id)+'">'+escHtml(e.hostname)+' ('+escHtml(_envProductLabel(e)||'?')+')</option>';}).join('');
+  if(envs.length){state.ortEnvId=envs[0].env_id;sel.value=state.ortEnvId;}
+  document.getElementById('ortTaskFilter').value=state.ortTask;
+  document.getElementById('ortMetricFilter').value=state.ortMetric;
+  sel.addEventListener('change',function(){state.ortEnvId=this.value;refreshOrtCompare();});
+  document.getElementById('ortTaskFilter').addEventListener('change',function(){state.ortTask=this.value;refreshOrtCompare();});
+  document.getElementById('ortMetricFilter').addEventListener('change',function(){state.ortMetric=this.value;refreshOrtCompare();});
+  OrtChart.init(document.getElementById('ortCompareChart'));
+  refreshOrtCompare();
+}
+
   return {
     init: function(dataset) {
       if (!dataset) return;
@@ -1045,6 +1203,7 @@ function initTrendTab(){
         initTrendChart();
         initTrendTab();
       }
+      initOrtCompareTab();
       dispatchBenchmarkHelpSync();
     },
     refresh: function() {
@@ -1058,6 +1217,7 @@ function initTrendTab(){
       refreshFpsCompare();
       refreshChart();
       if (Object.keys(state.trendCharts).length) refreshTrend();
+      refreshOrtCompare();
     },
     openEdgeGuide: function() {
       _navigateToEdgeGuide();
