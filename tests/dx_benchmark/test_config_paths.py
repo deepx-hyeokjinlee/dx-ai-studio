@@ -1,13 +1,6 @@
 """Tests for benchmark result path configuration and legacy fallback."""
 
-from pathlib import Path
 from unittest.mock import patch
-
-
-def test_config_output_dir_matches_benchmark_results():
-    from dx_benchmark.core.config import BenchmarkConfig
-    studio_root = Path(__file__).resolve().parents[2]
-    assert BenchmarkConfig().get_output_dir().resolve() == (studio_root / "outputs" / "benchmark").resolve()
 
 
 def test_legacy_core_results_is_read_only_fallback():

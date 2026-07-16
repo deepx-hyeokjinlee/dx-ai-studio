@@ -3,8 +3,8 @@
 
 YOLO26 하드웨어 벤치마크 대시보드 서버 (결과 조회·비교).
 이 서버는 순수 뷰어입니다: 번들된 dataset.json을 그대로 서빙하며 런타임 집계를
-수행하지 않습니다. 벤치마크 실행은 별도 CLI(`benchmark.sh` 또는 core 패키지의
-`run` 서브커맨드) 사용.
+수행하지 않습니다. 벤치마크 실행은 독립 실행형 dx-benchmark CLI에서 수행합니다
+(`cd dx-benchmark && ./run.sh run`).
 DXBaseHandler 기반.
 """
 
@@ -46,8 +46,8 @@ _chat_engine = ChatEngine(
     app_name="dx_benchmark",
     fallback_rules=[
         (["benchmark", "벤치마크", "run", "실행"], {
-            "ko": "벤치마크 실행은 CLI에서 수행합니다: `cd dx_benchmark && ./benchmark.sh` 또는 core 패키지의 `run` 서브커맨드. 웹 UI는 Dashboard/Results에서 결과를 조회합니다.",
-            "en": "Run benchmarks from the CLI: `cd dx_benchmark && ./benchmark.sh` or the core package's `run` subcommand. Use the web UI Dashboard/Results tabs to view results.",
+            "ko": "벤치마크 실행은 독립 실행형 dx-benchmark CLI에서 수행합니다: `cd dx-benchmark && ./run.sh run`. 웹 UI는 Dashboard/Results에서 결과를 조회하는 뷰어입니다.",
+            "en": "Run benchmarks from the standalone dx-benchmark CLI: `cd dx-benchmark && ./run.sh run`. This web UI is a viewer for the Dashboard/Results tabs only.",
         }),
         (["result", "결과", "report", "리포트", "대시보드", "dashboard"], {
             "ko": "Dashboard 탭에서 집계된 차트를, Results 탭에서 개별 실행 결과와 REPORT.md를 확인할 수 있습니다.",
