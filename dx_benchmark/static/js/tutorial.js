@@ -42,6 +42,143 @@
     }
   }
 
+  // ── Tutorial mock helpers ────────────────────────────────────────────
+  // Some panels/sections only appear after a transient interaction the tour
+  // cannot perform on demand: clicking a trend-chart POINT reveals the
+  // snapshot env-detail + model-meta panels; clicking a RUN ITEM renders the
+  // result sections (+ optional Markdown report). Mirror the dx_app /
+  // dx_modelzoo pattern: inject a clearly-labelled "Tutorial preview" into the
+  // REAL container so each step has a real, visible element to spotlight, then
+  // clear it on step exit (afterStep).
+  function _lang() { return localStorage.getItem('dx-lang') || 'en'; }
+  function _lc(m) { return m[_lang()] || m.en; }
+  var _PREVIEW = { ko:'튜토리얼 미리보기', en:'Tutorial preview', ja:'チュートリアルプレビュー', 'zh-CN':'教程预览', 'zh-TW':'教程預覽', es:'Vista previa del tutorial' };
+  function _previewBadge() {
+    return '<span class="tag tag--warn" style="font-size:11px;margin-left:6px">🔎 ' + _lc(_PREVIEW) + '</span>';
+  }
+  function _infoRowsHtml(rows) {
+    return rows.map(function (r) {
+      return '<div class="info-row"><span class="info-key">' + r[0] + '</span><span class="info-val">' + r[1] + '</span></div>';
+    }).join('');
+  }
+
+  // Issue 6 — shared, formatted command block (identical across all languages).
+  // The tooltip body has no <pre>/<code> styling, so a bare multi-line block
+  // rendered as run-on text. Style it inline as a real fenced code block.
+  var _RUN_CODE =
+    '<pre style="background:#0d1117;border:1px solid #30363d;border-radius:6px;' +
+    'padding:10px 12px;margin:8px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;' +
+    'font-size:12px;line-height:1.7;white-space:pre;overflow-x:auto;color:#c9d1d9"><code>cd dx_benchmark\n' +
+    'python -m dx_benchmark.core preflight\n' +
+    'python -m dx_benchmark.core run</code></pre>';
+
+  // Issues 1 & 2 — trend snapshot panels (revealed by clicking a chart point).
+  function _revealTrendSnapshot() {
+    var env = document.getElementById('trendEnvDetail');
+    if (env) {
+      env.style.display = '';
+      env.setAttribute('data-dxt-mock', '1');
+      var t = document.getElementById('trendEnvDetailTitle');
+      if (t) t.innerHTML = 'E2E FPS · DX-M1 · v2.9.0 · run_demo' + _previewBadge();
+      var host = document.getElementById('trendEnvHostInfo');
+      if (host) host.innerHTML = _infoRowsHtml([['Hostname', 'dx-host'], ['OS', 'Ubuntu 22.04'], ['CPU', 'x86_64'], ['RAM', '32 GB']]);
+      var npu = document.getElementById('trendEnvNpuInfo');
+      if (npu) npu.innerHTML = _infoRowsHtml([['Product', 'DX-M1'], ['DXRT', '2.9.0'], ['Firmware', '2.1.0'], ['Memory', '4 GB']]);
+      var tools = document.getElementById('trendEnvToolsInfo');
+      if (tools) tools.innerHTML = _infoRowsHtml([['dx_stream', '1.8.0'], ['GStreamer', '1.20.3']]);
+    }
+    var meta = document.getElementById('trendModelMetaPanel');
+    if (meta) {
+      meta.style.display = '';
+      meta.setAttribute('data-dxt-mock', '1');
+      var mt = document.getElementById('trendModelMetaTitle');
+      if (mt) mt.innerHTML = 'Benchmarked Models – Object Detection · run_demo' + _previewBadge();
+      var sec = document.getElementById('trendModelMetaSection');
+      if (sec) sec.innerHTML = '<table class="summary-table bench-table"><thead><tr><th>Model</th><th>Size</th><th>Input</th><th>NPU Mem (MB)</th><th>DXNN Format</th></tr></thead><tbody>' +
+        '<tr><td>YOLOv5</td><td>S</td><td>640×640</td><td>28</td><td>6</td></tr>' +
+        '<tr><td>YOLOv5</td><td>M</td><td>640×640</td><td>52</td><td>6</td></tr>' +
+        '</tbody></table>';
+    }
+  }
+  function _mockTrendSnapshot() {
+    switchTab('dashboard');
+    var tab = document.querySelector('.dashboard-tab[data-tab="version-trend"]');
+    if (tab) tab.click();
+    return new Promise(function (resolve) {
+      var tries = 0;
+      var poll = setInterval(function () {
+        tries++;
+        if (document.getElementById('trendEnvDetail') || tries > 25) {
+          clearInterval(poll);
+          _revealTrendSnapshot();
+          resolve();
+        }
+      }, 120);
+    });
+  }
+  function _clearTrendSnapshot() {
+    ['trendEnvDetail', 'trendModelMetaPanel'].forEach(function (id) {
+      var p = document.getElementById(id);
+      if (p && p.getAttribute('data-dxt-mock') === '1') {
+        p.style.display = 'none';
+        p.removeAttribute('data-dxt-mock');
+      }
+    });
+  }
+
+  // Issues 3 & 4 — result sections + Markdown report (revealed by clicking a run item).
+  var _savedRunDetail = null;
+  function _injectRunDetail(host) {
+    if (_savedRunDetail === null) _savedRunDetail = host.innerHTML;
+    var badge = _previewBadge();
+    var envJson = '{\n  "hostname": "dx-host",\n  "npu_sku": "DX-M1",\n  "dxrt": "2.9.0"\n}';
+    var modelJson = '{\n  "yolov5s": { "e2e_fps": 312.4, "latency_ms": 3.2 },\n  "yolov5m": { "e2e_fps": 188.1, "latency_ms": 5.3 }\n}';
+    host.innerHTML =
+      '<div class="run-detail" id="dxt-mock-rundetail">' +
+        '<section class="result-section result-section--report" data-help-id="bench-result-report">' +
+          '<h2>' + _tl('View Report') + badge + '</h2>' +
+          '<div class="report-content">' +
+            '<h3>DX-M1 · run_demo</h3>' +
+            '<p>Object Detection benchmark summary (2 models, ORT on).</p>' +
+            '<table class="summary-table bench-table"><thead><tr><th>Model</th><th>E2E FPS</th><th>Latency (ms)</th></tr></thead><tbody>' +
+              '<tr><td>YOLOv5-S</td><td>312.4</td><td>3.2</td></tr>' +
+              '<tr><td>YOLOv5-M</td><td>188.1</td><td>5.3</td></tr>' +
+            '</tbody></table>' +
+          '</div>' +
+        '</section>' +
+        '<section class="result-section result-section--raw" data-help-id="bench-result-raw">' +
+          '<h2>' + _tl('Raw Data') + '</h2>' +
+          '<details class="result-section" open><summary>environment</summary><pre class="json-view">' + envJson + '</pre></details>' +
+          '<details class="result-section" open><summary>model results</summary><pre class="json-view">' + modelJson + '</pre></details>' +
+          '<details class="result-section"><summary>pipeline results</summary><pre class="json-view">{ ... }</pre></details>' +
+          '<details class="result-section"><summary>multi stream results</summary><pre class="json-view">{ ... }</pre></details>' +
+        '</section>' +
+      '</div>';
+  }
+  function _mockRunDetail() {
+    switchTab('results');
+    return new Promise(function (resolve) {
+      var tries = 0;
+      var poll = setInterval(function () {
+        tries++;
+        var host = document.getElementById('runDetail');
+        if (host) { clearInterval(poll); _injectRunDetail(host); resolve(); }
+        else if (tries > 25) { clearInterval(poll); resolve(); }
+      }, 120);
+    });
+  }
+  function _clearRunDetail() {
+    var host = document.getElementById('runDetail');
+    if (host && _savedRunDetail !== null) { host.innerHTML = _savedRunDetail; _savedRunDetail = null; }
+  }
+
+  // _tl helper (translate label) is provided by the engine at runtime; provide
+  // a safe fallback used only during static parsing/tests.
+  function _tl(s) {
+    try { if (window._dxTutorial && typeof window._dxTutorial._tl === 'function') return window._dxTutorial._tl(s); } catch (e) {}
+    return s;
+  }
+
   var sections = [
 
     { id:'dashboard-fps', icon:'📊',
@@ -201,12 +338,14 @@
         { target:'#trendChart', position:'top',
           title:{ko:'트렌드 차트', en:'Trend Chart', ja:'トレンドチャート', 'zh-CN':'趋势图表', 'zh-TW':'趨勢圖表', es:'Gráfico de tendencia'},
           content:{ko:'모델 크기별 <strong>5개 라인(N/S/M/L/X)</strong>으로 버전 간 성능 추이를 표시합니다. 포인트를 클릭하면 해당 스냅샷의 상세 정보를 확인할 수 있습니다.', en:'Shows performance trends across versions with <strong>5 lines (N/S/M/L/X)</strong> by model size. Click points to see snapshot details.', ja:'モデルサイズ別の<strong>5本のライン（N/S/M/L/X）</strong>でバージョン間のパフォーマンス推移を表示します。ポイントをクリックするとそのスナップショットの詳細情報を確認できます。', 'zh-CN':'以按模型大小分类的<strong>5条折线（N/S/M/L/X）</strong>显示各版本间的性能趋势。点击数据点可查看该快照的详细信息。', 'zh-TW':'以按模型大小分類的<strong>5條折線（N/S/M/L/X）</strong>顯示各版本間的效能趨勢。點擊資料點可查看該快照的詳細資訊。', es:'Muestra la evolución del rendimiento por versiones con <strong>5 líneas (N/S/M/L/X)</strong> por tamaño de modelo. Haga clic en los puntos para ver detalles de la instantánea.'} },
-        { target:null, position:'top',
+        { target:'#trendEnvDetail', position:'top',
           title:{ko:'스냅샷 상세', en:'Snapshot Detail', ja:'スナップショット詳細', 'zh-CN':'快照详情', 'zh-TW':'快照詳情', es:'Detalle de instantánea'},
-          content:{ko:'트렌드 차트에서 <strong>포인트를 클릭</strong>하면 하단에 해당 시점의 <strong>환경 상세 정보</strong> 패널이 나타납니다. 포인트를 클릭하여 확인해 보세요.', en:'<strong>Click a point</strong> in the trend chart to reveal the <strong>environment details</strong> panel below for that snapshot.', ja:'トレンドチャートで<strong>ポイントをクリック</strong>すると下部にその時点の<strong>環境詳細情報</strong>パネルが表示されます。', 'zh-CN':'在趋势图表中<strong>点击数据点</strong>后，下方会出现该时间点的<strong>环境详细信息</strong>面板。', 'zh-TW':'在趨勢圖表中<strong>點擊資料點</strong>後，下方會出現該時間點的<strong>環境詳細資訊</strong>面板。', es:'<strong>Haga clic en un punto</strong> del gráfico de tendencia para mostrar abajo el panel de <strong>detalles del entorno</strong> de esa instantánea.'} },
-        { target:null, position:'top',
+          content:{ko:'트렌드 차트에서 <strong>포인트를 클릭</strong>하면 하단에 해당 시점의 <strong>환경 상세 정보</strong> 패널이 나타납니다. 포인트를 클릭하여 확인해 보세요.', en:'<strong>Click a point</strong> in the trend chart to reveal the <strong>environment details</strong> panel below for that snapshot.', ja:'トレンドチャートで<strong>ポイントをクリック</strong>すると下部にその時点の<strong>環境詳細情報</strong>パネルが表示されます。', 'zh-CN':'在趋势图表中<strong>点击数据点</strong>后，下方会出现该时间点的<strong>环境详细信息</strong>面板。', 'zh-TW':'在趨勢圖表中<strong>點擊資料點</strong>後，下方會出現該時間點的<strong>環境詳細資訊</strong>面板。', es:'<strong>Haga clic en un punto</strong> del gráfico de tendencia para mostrar abajo el panel de <strong>detalles del entorno</strong> de esa instantánea.'},
+          beforeStep:_mockTrendSnapshot, afterStep:_clearTrendSnapshot },
+        { target:'#trendModelMetaPanel', position:'top',
           title:{ko:'스냅샷 모델 정보', en:'Snapshot Model Info', ja:'スナップショットモデル情報', 'zh-CN':'快照模型信息', 'zh-TW':'快照模型資訊', es:'Información del modelo en la instantánea'},
-          content:{ko:'트렌드 차트 포인트를 클릭하면 환경 상세와 함께 <strong>모델 메타데이터</strong> 패널도 나타납니다. 해당 시점의 <strong>입력 해상도, NPU 메모리, 포맷</strong>을 확인할 수 있습니다.', en:'Clicking a trend chart point also reveals the <strong>model metadata</strong> panel. Check <strong>input resolution, NPU memory, format</strong> at that snapshot point.', ja:'トレンドチャートのポイントをクリックすると環境詳細とともに<strong>モデルメタデータ</strong>パネルも表示されます。その時点の<strong>入力解像度、NPUメモリ、フォーマット</strong>を確認できます。', 'zh-CN':'点击趋势图表数据点后，还会同时显示<strong>模型元数据</strong>面板。可以查看该时间点的<strong>输入分辨率、NPU内存、格式</strong>。', 'zh-TW':'點擊趨勢圖表資料點後，還會同時顯示<strong>模型中繼資料</strong>面板。可以查看該時間點的<strong>輸入解析度、NPU記憶體、格式</strong>。', es:'Al hacer clic en un punto del gráfico de tendencia también se muestra el panel de <strong>metadatos del modelo</strong>. Consulte la <strong>resolución de entrada, memoria NPU y formato</strong> en ese instante.'} },
+          content:{ko:'트렌드 차트 포인트를 클릭하면 환경 상세와 함께 <strong>모델 메타데이터</strong> 패널도 나타납니다. 해당 시점의 <strong>입력 해상도, NPU 메모리, 포맷</strong>을 확인할 수 있습니다.', en:'Clicking a trend chart point also reveals the <strong>model metadata</strong> panel. Check <strong>input resolution, NPU memory, format</strong> at that snapshot point.', ja:'トレンドチャートのポイントをクリックすると環境詳細とともに<strong>モデルメタデータ</strong>パネルも表示されます。その時点の<strong>入力解像度、NPUメモリ、フォーマット</strong>を確認できます。', 'zh-CN':'点击趋势图表数据点后，还会同时显示<strong>模型元数据</strong>面板。可以查看该时间点的<strong>输入分辨率、NPU内存、格式</strong>。', 'zh-TW':'點擊趨勢圖表資料點後，還會同時顯示<strong>模型中繼資料</strong>面板。可以查看該時間點的<strong>輸入解析度、NPU記憶體、格式</strong>。', es:'Al hacer clic en un punto del gráfico de tendencia también se muestra el panel de <strong>metadatos del modelo</strong>. Consulte la <strong>resolución de entrada, memoria NPU y formato</strong> en ese instante.'},
+          beforeStep:_mockTrendSnapshot, afterStep:_clearTrendSnapshot },
       ]
     },
 
@@ -248,12 +387,14 @@
         { target:'.run-item', position:'right',
           title:{ko:'Run 항목 선택', en:'Select Run Item', ja:'Run項目選択', 'zh-CN':'选择Run项目', 'zh-TW':'選擇Run項目', es:'Seleccionar elemento Run'},
           content:{ko:'개별 <strong>run 항목</strong>을 클릭하면 해당 실행의 상세 결과가 하단에 표시됩니다. <strong>📋 배지</strong>가 있으면 Markdown 리포트가 포함되어 있습니다.', en:'Click an individual <strong>run item</strong> to display detailed results below. A <strong>📋 badge</strong> indicates a Markdown report is included.', ja:'個別の<strong>run項目</strong>をクリックすると下部にその実行の詳細結果が表示されます。<strong>📋バッジ</strong>がある場合はMarkdownレポートが含まれています。', 'zh-CN':'点击单个<strong>run项目</strong>后，下方会显示该运行的详细结果。如果有<strong>📋标记</strong>则包含Markdown报告。', 'zh-TW':'點擊單個<strong>run項目</strong>後，下方會顯示該執行的詳細結果。如果有<strong>📋標記</strong>則包含Markdown報告。', es:'Haga clic en un <strong>elemento run</strong> para mostrar abajo los resultados detallados. Una <strong>insignia 📋</strong> indica que incluye un informe Markdown.'} },
-        { target:null, position:'top',
+        { target:'.result-section--raw', position:'top',
           title:{ko:'결과 섹션', en:'Result Section', ja:'結果セクション', 'zh-CN':'结果区域', 'zh-TW':'結果區域', es:'Sección de resultados'},
-          content:{ko:'Run 항목을 클릭하면 결과 섹션이 나타납니다. <strong>Environment, Model Results, Pipeline, Multi-Stream</strong> 등의 섹션을 접이식(<code>&lt;details&gt;</code>)으로 탐색할 수 있습니다.', en:'Click a run item to reveal result sections. Explore <strong>Environment, Model Results, Pipeline, Multi-Stream</strong> in collapsible (<code>&lt;details&gt;</code>) format.', ja:'Run項目をクリックすると結果セクションが表示されます。<strong>Environment、Model Results、Pipeline、Multi-Stream</strong>などのセクションを折りたたみ式（<code>&lt;details&gt;</code>）で探索できます。', 'zh-CN':'点击Run项目后会出现结果区域。可以折叠式（<code>&lt;details&gt;</code>）浏览<strong>Environment、Model Results、Pipeline、Multi-Stream</strong>等区域。', 'zh-TW':'點擊Run項目後會出現結果區域。可以折疊式（<code>&lt;details&gt;</code>）瀏覽<strong>Environment、Model Results、Pipeline、Multi-Stream</strong>等區域。', es:'Haga clic en un elemento run para mostrar las secciones de resultados. Explore <strong>Environment, Model Results, Pipeline, Multi-Stream</strong> en formato plegable (<code>&lt;details&gt;</code>).'} },
-        { target:null, position:'top',
+          content:{ko:'Run 항목을 클릭하면 결과 섹션이 나타납니다. <strong>Environment, Model Results, Pipeline, Multi-Stream</strong> 등의 섹션을 접이식(<code>&lt;details&gt;</code>)으로 탐색할 수 있습니다.', en:'Click a run item to reveal result sections. Explore <strong>Environment, Model Results, Pipeline, Multi-Stream</strong> in collapsible (<code>&lt;details&gt;</code>) format.', ja:'Run項目をクリックすると結果セクションが表示されます。<strong>Environment、Model Results、Pipeline、Multi-Stream</strong>などのセクションを折りたたみ式（<code>&lt;details&gt;</code>）で探索できます。', 'zh-CN':'点击Run项目后会出现结果区域。可以折叠式（<code>&lt;details&gt;</code>）浏览<strong>Environment、Model Results、Pipeline、Multi-Stream</strong>等区域。', 'zh-TW':'點擊Run項目後會出現結果區域。可以折疊式（<code>&lt;details&gt;</code>）瀏覽<strong>Environment、Model Results、Pipeline、Multi-Stream</strong>等區域。', es:'Haga clic en un elemento run para mostrar las secciones de resultados. Explore <strong>Environment, Model Results, Pipeline, Multi-Stream</strong> en formato plegable (<code>&lt;details&gt;</code>).'},
+          beforeStep:_mockRunDetail, afterStep:_clearRunDetail },
+        { target:'.result-section--report', position:'top',
           title:{ko:'Markdown 리포트', en:'Markdown Report', ja:'Markdownレポート', 'zh-CN':'Markdown报告', 'zh-TW':'Markdown報告', es:'Informe Markdown'},
-          content:{ko:'📋 배지가 있는 run을 선택하면 <strong>Markdown 형식의 리포트</strong>가 결과 섹션에 표시됩니다. 환경 정보, 모델별 성능, 요약 등이 구조화되어 표시됩니다. <em>(리포트는 run 선택 후 API에서 동적으로 로드됩니다)</em>', en:'Select a run with 📋 badge to view a <strong>Markdown-formatted report</strong> in the result section. Environment info, per-model performance, and summaries are displayed in structured format. <em>(Reports are dynamically loaded from API after run selection)</em>', ja:'📋バッジがあるrunを選択すると<strong>Markdown形式のレポート</strong>が結果セクションに表示されます。環境情報、モデル別パフォーマンス、サマリーが構造化されて表示されます。<em>（レポートはrun選択後にAPIから動的にロードされます）</em>', 'zh-CN':'选择带有📋标记的run后，<strong>Markdown格式的报告</strong>会显示在结果区域。环境信息、各模型性能、摘要以结构化形式显示。<em>（报告在选择run后从API动态加载）</em>', 'zh-TW':'選擇帶有📋標記的run後，<strong>Markdown格式的報告</strong>會顯示在結果區域。環境資訊、各模型效能、摘要以結構化形式顯示。<em>（報告在選擇run後從API動態載入）</em>', es:'Seleccione un run con insignia 📋 para ver un <strong>informe en formato Markdown</strong> en la sección de resultados. La información del entorno, el rendimiento por modelo y los resúmenes se muestran de forma estructurada. <em>(Los informes se cargan dinámicamente desde la API tras seleccionar el run)</em>'} },
+          content:{ko:'📋 배지가 있는 run을 선택하면 <strong>Markdown 형식의 리포트</strong>가 결과 섹션에 표시됩니다. 환경 정보, 모델별 성능, 요약 등이 구조화되어 표시됩니다. <em>(리포트는 run 선택 후 API에서 동적으로 로드됩니다)</em>', en:'Select a run with 📋 badge to view a <strong>Markdown-formatted report</strong> in the result section. Environment info, per-model performance, and summaries are displayed in structured format. <em>(Reports are dynamically loaded from API after run selection)</em>', ja:'📋バッジがあるrunを選択すると<strong>Markdown形式のレポート</strong>が結果セクションに表示されます。環境情報、モデル別パフォーマンス、サマリーが構造化されて表示されます。<em>（レポートはrun選択後にAPIから動的にロードされます）</em>', 'zh-CN':'选择带有📋标记的run后，<strong>Markdown格式的报告</strong>会显示在结果区域。环境信息、各模型性能、摘要以结构化形式显示。<em>（报告在选择run后从API动态加载）</em>', 'zh-TW':'選擇帶有📋標記的run後，<strong>Markdown格式的報告</strong>會顯示在結果區域。環境資訊、各模型效能、摘要以結構化形式顯示。<em>（報告在選擇run後從API動態載入）</em>', es:'Seleccione un run con insignia 📋 para ver un <strong>informe en formato Markdown</strong> en la sección de resultados. La información del entorno, el rendimiento por modelo y los resúmenes se muestran de forma estructurada. <em>(Los informes se cargan dinámicamente desde la API tras seleccionar el run)</em>'},
+          beforeStep:_mockRunDetail, afterStep:_clearRunDetail },
       ]
     },
 
@@ -262,12 +403,12 @@
       description:{ko:'웹 UI는 결과 조회 전용 — 터미널에서 벤치마크 실행', en:'Web UI is view-only — run benchmarks from the terminal', ja:'Web UIは結果閲覧専用 — ターミナルでベンチマーク実行', 'zh-CN':'Web UI 仅用于查看结果 — 请在终端运行基准测试', 'zh-TW':'Web UI 僅用於查看結果 — 請在終端機執行基準測試', es:'La UI web es solo de consulta — ejecute benchmarks en la terminal'},
       beforeStart:function(){ switchTab('dashboard'); },
       steps:[
-        { target:null, position:'bottom',
+        { target:'.main-tabs', position:'bottom',
           title:{ko:'CLI 전용 실행', en:'CLI-Only Execution', ja:'CLI専用実行', 'zh-CN':'仅 CLI 执行', 'zh-TW':'僅 CLI 執行', es:'Ejecución solo por CLI'},
           content:{ko:'이 모듈의 웹 화면은 <strong>결과 조회·비교</strong>용입니다. 새 벤치마크를 실행하려면 서버 호스트의 터미널에서 DX Benchmark CLI를 사용하세요.', en:'The web UI is for <strong>browsing and comparing results</strong> only. To run a new benchmark, use the DX Benchmark CLI on the server host terminal.', ja:'このモジュールのWeb画面は<strong>結果閲覧・比較</strong>用です。新しいベンチマークを実行するには、サーバーホストのターミナルでDX Benchmark CLIを使用してください。', 'zh-CN':'本模块 Web 界面仅用于<strong>浏览和比较结果</strong>。要运行新基准测试，请在服务器终端使用 DX Benchmark CLI。', 'zh-TW':'本模組 Web 介面僅用於<strong>瀏覽和比較結果</strong>。要執行新基準測試，請在伺服器終端機使用 DX Benchmark CLI。', es:'La UI web sirve solo para <strong>consultar y comparar resultados</strong>. Para ejecutar un nuevo benchmark, use DX Benchmark CLI en la terminal del servidor.'} },
-        { target:null, position:'bottom',
+        { target:'.main-tab[data-tab="results"]', position:'bottom',
           title:{ko:'실행 명령', en:'Run Commands', ja:'実行コマンド', 'zh-CN':'运行命令', 'zh-TW':'執行命令', es:'Comandos de ejecución'},
-          content:{ko:'<ol><li><code>cd dx_benchmark</code></li><li><code>python -m dx_benchmark.core preflight</code> 후 <code>python -m dx_benchmark.core run</code></li><li>완료 후 <strong>Results</strong> 탭에서 <code>results/</code> 데이터 확인</li></ol><p>자세한 내용은 Reference의 <strong>CLI Execution</strong> 문서를 참고하세요.</p>', en:'<ol><li><code>cd dx_benchmark</code></li><li><code>python -m dx_benchmark.core preflight</code> then <code>python -m dx_benchmark.core run</code></li><li>When finished, open the <strong>Results</strong> tab to view <code>results/</code> data</li></ol><p>See the <strong>CLI Execution</strong> reference doc for details.</p>', ja:'<ol><li><code>cd dx_benchmark</code></li><li><code>python -m dx_benchmark.core preflight</code> の後 <code>python -m dx_benchmark.core run</code></li><li>完了後 <strong>Results</strong> タブで <code>results/</code> を確認</li></ol><p>詳細はReferenceの<strong>CLI Execution</strong>を参照してください。</p>', 'zh-CN':'<ol><li><code>cd dx_benchmark</code></li><li><code>python -m dx_benchmark.core preflight</code> 再 <code>python -m dx_benchmark.core run</code></li><li>完成后在 <strong>Results</strong> 选项卡查看 <code>results/</code></li></ol><p>详见 Reference 中的 <strong>CLI Execution</strong> 文档。</p>', 'zh-TW':'<ol><li><code>cd dx_benchmark</code></li><li><code>python -m dx_benchmark.core preflight</code> 再 <code>python -m dx_benchmark.core run</code></li><li>完成後在 <strong>Results</strong> 分頁查看 <code>results/</code></li></ol><p>詳見 Reference 中的 <strong>CLI Execution</strong> 文件。</p>', es:'<ol><li><code>cd dx_benchmark</code></li><li><code>python -m dx_benchmark.core preflight</code> y luego <code>python -m dx_benchmark.core run</code></li><li>Al terminar, abra la pestaña <strong>Results</strong> para ver <code>results/</code></li></ol><p>Consulte la referencia <strong>CLI Execution</strong> para más detalles.</p>'} },
+          content:{ko:'<p>서버 호스트 터미널에서 새 벤치마크를 실행합니다:</p>' + _RUN_CODE + '<p>완료 후 <strong>Results</strong> 탭에서 <code>results/</code> 데이터를 확인하세요. 자세한 내용은 Reference의 <strong>CLI Execution</strong> 문서를 참고하세요.</p>', en:'<p>Run a new benchmark from the server host terminal:</p>' + _RUN_CODE + '<p>When finished, open the <strong>Results</strong> tab to view <code>results/</code> data. See the <strong>CLI Execution</strong> reference doc for details.</p>', ja:'<p>サーバーホストのターミナルで新しいベンチマークを実行します：</p>' + _RUN_CODE + '<p>完了後、<strong>Results</strong> タブで <code>results/</code> データを確認してください。詳細は Reference の <strong>CLI Execution</strong> ドキュメントを参照してください。</p>', 'zh-CN':'<p>在服务器主机终端运行新的基准测试：</p>' + _RUN_CODE + '<p>完成后，在 <strong>Results</strong> 选项卡查看 <code>results/</code> 数据。详见 Reference 中的 <strong>CLI Execution</strong> 文档。</p>', 'zh-TW':'<p>在伺服器主機終端機執行新的基準測試：</p>' + _RUN_CODE + '<p>完成後，在 <strong>Results</strong> 分頁查看 <code>results/</code> 資料。詳見 Reference 中的 <strong>CLI Execution</strong> 文件。</p>', es:'<p>Ejecute un nuevo benchmark desde la terminal del host del servidor:</p>' + _RUN_CODE + '<p>Al terminar, abra la pestaña <strong>Results</strong> para ver los datos de <code>results/</code>. Consulte la referencia <strong>CLI Execution</strong> para más detalles.</p>'} },
       ]
     },
 
