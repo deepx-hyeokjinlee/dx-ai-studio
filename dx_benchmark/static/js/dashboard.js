@@ -345,7 +345,22 @@ var state = {
 };
 
 function getModelName(task, size) { return 'yolo26' + size + '-' + TASK_MAP[task].suffix + '.dxnn'; }
-function envLabel(env) { return (env.hw_id || env.hostname) + '\n(' + (env.npu_sku || '?') + ')'; }
+/* Tolerant NPU product-label reader: prefers npu_sku, then npu_product, then the
+   first entry of the npu_modules block (new-tool shapes); null if none present. */
+function _envProductLabel(env) {
+  env = env || {};
+  if (env.npu_sku) return env.npu_sku;
+  if (env.npu_product) return env.npu_product;
+  if (Array.isArray(env.npu_modules) && env.npu_modules.length) {
+    var m = env.npu_modules[0];
+    if (m && m.product) return (m.count && m.count > 1) ? (m.product + ' ×' + m.count) : m.product;
+  }
+  return null;
+}
+function envLabel(env) { env = env || {}; return (env.hw_id || env.hostname || 'unknown') + '\n(' + (_envProductLabel(env) || '?') + ')'; }
+/* Tolerant suite-version reader: new dataset carries dx_all_suite_version on
+   both env and run objects; falls back to 'unknown' if absent (older shape). */
+function envVersion(env) { env = env || {}; return env.dx_all_suite_version || env.suite_version || env.version || 'unknown'; }
 function fmt(v, d) { if (v === null || v === undefined) return '-'; var n = Number(v); return Number.isNaN(n) ? '-' : n.toFixed(d === undefined ? 1 : d); }
 function modelSizeChar(name) { var m = String(name||'').match(/yolo26([nslmx])/i); return m ? m[1].toLowerCase() : ''; }
 function formatInputShape(shape) {
@@ -380,7 +395,7 @@ function renderRunSelectors(targetId){
   target.innerHTML=envs.map(function(env){
     var runs=_getRunOptions(env.env_id);if(!runs.length)return '';
     var options=runs.map(function(run){return '<option value="'+escHtml(run.run_id)+'">'+escHtml(run.run_id)+'</option>';}).join('');
-    return '<label><span>'+escHtml(env.hostname)+' ('+escHtml(env.npu_sku||'?')+')</span><select data-run-env="'+escHtml(env.env_id)+'">'+options+'</select></label>';
+    return '<label><span>'+escHtml(env.hostname)+' ('+escHtml(_envProductLabel(env)||'?')+')</span><select data-run-env="'+escHtml(env.env_id)+'">'+options+'</select></label>';
   }).join('');
   target.querySelectorAll('select[data-run-env]').forEach(function(sel){
     var envId=sel.dataset.runEnv;sel.value=_getSelectedRunId(envId)||sel.value;
@@ -400,7 +415,7 @@ function renderToolsInfo(el, env) {
   el.innerHTML = _infoRows(rows);
 }
 function renderNpuInfo(el, env) {
-  var rows = [['Product',env.npu_sku||'-'],['DXRT',cleanVer(env.rt_version)],['RT Driver',cleanVer(env.rt_driver)],['PCIe Driver',cleanVer(env.pcie_driver)],['Firmware',cleanVer(env.firmware)],['Clock',env.npu_clock_mhz?env.npu_clock_mhz+' MHz':'-'],['Memory',env.memory],['Board',(env.board && env.board !== 'unknown') ? env.board : '-'],['PCIe',env.pcie]];
+  var rows = [['Product',_envProductLabel(env)||'-'],['DXRT',cleanVer(env.rt_version)],['RT Driver',cleanVer(env.rt_driver)],['PCIe Driver',cleanVer(env.pcie_driver)],['Firmware',cleanVer(env.firmware)],['Clock',env.npu_clock_mhz?env.npu_clock_mhz+' MHz':'-'],['Memory',env.memory],['Board',(env.board && env.board !== 'unknown') ? env.board : '-'],['PCIe',env.pcie]];
   el.innerHTML = _infoRows(rows);
 }
 
@@ -655,7 +670,7 @@ function handleFpsEnvClick(idx,d,options) {
   options=options||{};
   state.fpsSelectedEnvId=d.envId;
   var panel=document.getElementById('fpsEnvDetail');panel.style.display='';
-  document.getElementById('fpsEnvDetailTitle').textContent=d.env.hostname+' ('+(d.env.npu_sku||'?')+')';
+  document.getElementById('fpsEnvDetailTitle').textContent=d.env.hostname+' ('+(_envProductLabel(d.env)||'?')+')';
   renderHostInfo(document.getElementById('fpsEnvHostInfo'),d.env);
   renderNpuInfo(document.getElementById('fpsEnvNpuInfo'),d.env);
   renderToolsInfo(document.getElementById('fpsEnvToolsInfo'),d.env);
@@ -691,7 +706,7 @@ function initFpsFilters() {
 function renderEnvDetail(env,options) {
   options=options||{};
   var panel=document.getElementById('envDetail');panel.style.display='';
-  document.getElementById('envDetailTitle').textContent=env.hostname+' ('+(env.npu_sku||'?')+')';
+  document.getElementById('envDetailTitle').textContent=env.hostname+' ('+(_envProductLabel(env)||'?')+')';
   renderHostInfo(document.getElementById('envHostInfo'),env);
   renderNpuInfo(document.getElementById('envNpuInfo'),env);
   renderToolsInfo(document.getElementById('envToolsInfo'),env);
@@ -739,7 +754,7 @@ function initOverviewFilters() {
 function initDetailTab() {
   var sel=document.getElementById('detailEnvFilter');
   var runSel=document.getElementById('detailRunFilter');
-  sel.innerHTML=(state.dataset.environments||[]).map(function(e){return '<option value="'+e.env_id+'">'+escHtml(e.hostname)+' ('+escHtml(e.npu_sku)+')</option>';}).join('');
+  sel.innerHTML=(state.dataset.environments||[]).map(function(e){return '<option value="'+e.env_id+'">'+escHtml(e.hostname)+' ('+escHtml(_envProductLabel(e)||'?')+')</option>';}).join('');
   if(state.dataset.environments.length){state.detailEnvId=state.dataset.environments[0].env_id;sel.value=state.detailEnvId;}
   syncDetailRunFilter();
   sel.addEventListener('change',function(){state.detailEnvId=this.value;syncDetailRunFilter();renderDetailTables();});
@@ -777,7 +792,7 @@ function renderMeta() {
 function _envToHwId(env){
   if(!env)return null;
   if(env.hw_id)return env.hw_id;
-  var h=env.hostname||'unknown',s=env.npu_sku||'unknown';
+  var h=env.hostname||'unknown',s=_envProductLabel(env)||'unknown';
   return (h+'_'+s).replace(/[^A-Za-z0-9_.\-]/g,'_').replace(/_+/g,'_').replace(/^_|_$/g,'');
 }
 function _hwIdHasSnapshots(hwId){
@@ -865,7 +880,7 @@ function getTrendData(hwId,task,useOrt,metricKey){
 }
 function hideTrendEnvDetail(){var panel=document.getElementById('trendEnvDetail');if(panel)panel.style.display='none';var metaPanel=document.getElementById('trendModelMetaPanel');if(metaPanel)metaPanel.style.display='none';dispatchBenchmarkHelpSync();}
 function renderTrendEnvDetail(snap,options){
-  options=options||{};var panel=document.getElementById('trendEnvDetail');if(!panel)return;var env=snap&&snap.environment;if(!env){panel.style.display='none';document.getElementById('trendModelMetaPanel').style.display='none';dispatchBenchmarkHelpSync();return;}panel.style.display='';var metric=_trendMetricByKey(state.trendMetric);var dateStr=snap.timestamp?snap.timestamp.substring(0,10):snap.run_id;document.getElementById('trendEnvDetailTitle').textContent=(metric.metricLabel||'Metric')+' \u00b7 '+(env.hostname||'Environment')+' ('+(env.npu_sku||'?')+') \u00b7 '+dateStr+' \u00b7 '+snap.run_id;renderHostInfo(document.getElementById('trendEnvHostInfo'),env);renderNpuInfo(document.getElementById('trendEnvNpuInfo'),env);renderToolsInfo(document.getElementById('trendEnvToolsInfo'),env);
+  options=options||{};var panel=document.getElementById('trendEnvDetail');if(!panel)return;var env=snap&&snap.environment;if(!env){panel.style.display='none';document.getElementById('trendModelMetaPanel').style.display='none';dispatchBenchmarkHelpSync();return;}panel.style.display='';var metric=_trendMetricByKey(state.trendMetric);var dateStr=snap.timestamp?snap.timestamp.substring(0,10):snap.run_id;document.getElementById('trendEnvDetailTitle').textContent=(metric.metricLabel||'Metric')+' \u00b7 '+(env.hostname||'Environment')+' ('+(_envProductLabel(env)||'?')+') \u00b7 '+dateStr+' \u00b7 '+snap.run_id;renderHostInfo(document.getElementById('trendEnvHostInfo'),env);renderNpuInfo(document.getElementById('trendEnvNpuInfo'),env);renderToolsInfo(document.getElementById('trendEnvToolsInfo'),env);
   var metaPanel=document.getElementById('trendModelMetaPanel');metaPanel.style.display='';document.getElementById('trendModelMetaTitle').textContent='Benchmarked Models \u2013 '+TASK_MAP[state.trendTask].label+' \u00b7 '+snap.run_id;renderModelMetaForTask(document.getElementById('trendModelMetaSection'),env,state.trendTask);
   if(options.scroll!==false)panel.scrollIntoView({behavior:'smooth',block:'nearest'});
   dispatchBenchmarkHelpSync();
