@@ -2076,7 +2076,7 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 .eco-sub {
   font-size: var(--fs-sm);
   font-weight: 600;
-  color: var(--accent);
+  color: var(--accent-light);
   margin: 0 0 4px;
 }
 .eco-intro {
@@ -2109,6 +2109,14 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 /* inline key-term highlight (metrics, product names) — shared by both overlays */
 .hl { color: var(--accent-light); font-weight: 700; }
 .eco-partner-desc .hl, .eco-intro .hl { font-style: normal; }
+
+/* Identical subtle accent glow on the emphasis text of BOTH overlays. */
+.pm-desc strong,
+.eco-sub,
+.eco-partner-name,
+.hl {
+  text-shadow: 0 0 10px rgba(138,172,255,0.35);
+}
 .eco-partner-desc {
   font-size: var(--fs-sm);
   line-height: 1.35;
