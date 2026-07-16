@@ -23,6 +23,37 @@
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
+  /* Instant (non-smooth) scroll so the target is settled before the engine measures
+     the spotlight ~150ms after beforeStep — smooth scroll would still be mid-flight. */
+  function _reveal(sel) {
+    var el = document.querySelector(sel);
+    if (el) el.scrollIntoView({ block: 'center' });
+  }
+
+  /* The priority drawer opens/closes with a ~0.42s CSS transition. If the spotlight is
+     captured mid-transition its box is mis-sized and never refreshed. Resolve only once
+     the drawer geometry has settled (transitionend, with a timeout fallback for the
+     no-transition / reduced-motion cases). */
+  function _awaitDrawerSettled() {
+    var drawer = document.getElementById('requirementsStep2');
+    return new Promise(function (resolve) {
+      if (!drawer) { setTimeout(resolve, 60); return; }
+      var done = false;
+      var onEnd = function (e) {
+        if (e.target !== drawer) return;
+        if (e.propertyName === 'width' || e.propertyName === 'max-width' || e.propertyName === 'transform') finish();
+      };
+      var finish = function () {
+        if (done) return;
+        done = true;
+        drawer.removeEventListener('transitionend', onEnd);
+        resolve();
+      };
+      drawer.addEventListener('transitionend', onEnd);
+      setTimeout(finish, 520);
+    });
+  }
+
   function _openPriorityPanel() {
     if (typeof WizardController !== 'undefined' && WizardController.goToSetupStep) {
       WizardController.goToSetupStep(2);
@@ -33,6 +64,24 @@
     }
     var stage = document.getElementById('requirementsWizardStage');
     if (stage) stage.classList.add('is-priority-open');
+    return _awaitDrawerSettled();
+  }
+
+  /* The "Next → priority" step spotlights #btnSetupNext, but once a recommendation has
+     run _syncSetupSteps() forces that button hidden (showBoth => both panels shown, no
+     Next). Restore the step-1 view: collapse the drawer and force the Next button visible
+     so the step has a real, aligned target, then wait for the collapse to settle. */
+  function _revealSetupNext() {
+    _ensureSetupStep1();
+    var stage = document.getElementById('requirementsWizardStage');
+    var step2 = document.getElementById('requirementsStep2');
+    var next = document.getElementById('btnSetupNext');
+    var back = document.getElementById('btnSetupBack');
+    if (stage) stage.classList.remove('is-priority-open');
+    if (step2) step2.setAttribute('aria-hidden', 'true');
+    if (next) next.hidden = false;
+    if (back) back.hidden = true;
+    return _awaitDrawerSettled();
   }
 
   function _ensureSetupStep1() {
@@ -66,7 +115,8 @@
           content: { ko: '시나리오 → 추천 → 근거 → 구매 순으로 진행합니다. 각 단계가 열리면 단계 표시가 갱신됩니다.', en: 'Progress through Scenario → Pick → Evidence → Buy. Step markers update as each panel opens.', ja: 'シナリオ → 推奨 → 根拠 → 購入の順に進みます。各パネルが開くとステップ表示が更新されます。', 'zh-CN': '按 场景 → 推荐 → 依据 → 购买 推进。每打开一个面板，步骤标记会更新。', 'zh-TW': '依 情境 → 推薦 → 依據 → 購買 推進。每開啟一個面板，步驟標記會更新。', es: 'Avance por Escenario → Elegir → Evidencia → Comprar. Los indicadores se actualizan al abrir cada panel.' } },
         { target: '#scopeBanner [data-open-methodology]', position: 'left',
           title: { ko: '추천 원리', en: 'How ranking works', ja: '推奨の仕組み', 'zh-CN': '推荐原理', 'zh-TW': '推薦原理', es: 'Cómo funciona el ranking' },
-          content: { ko: '노란 원리 버튼을 누르면 산출식, 데이터 출처, 면책 안내가 포함된 방법론 대화상자가 열립니다.', en: 'The yellow methodology button opens a dialog with formulas, data sources, and disclaimer notes.', ja: '黄色の原理解説ボタンで、計算式・データ出典・免責事項を含む方法論ダイアログが開きます。', 'zh-CN': '点击黄色原理按钮可打开含公式、数据来源与免责声明的方法论对话框。', 'zh-TW': '點擊黃色原理按鈕可開啟含公式、資料來源與免責聲明的方法論對話框。', es: 'El botón amarillo de metodología abre un diálogo con fórmulas, fuentes de datos y avisos legales.' } }
+          content: { ko: '노란 원리 버튼을 누르면 산출식, 데이터 출처, 면책 안내가 포함된 방법론 대화상자가 열립니다.', en: 'The yellow methodology button opens a dialog with formulas, data sources, and disclaimer notes.', ja: '黄色の原理解説ボタンで、計算式・データ出典・免責事項を含む方法論ダイアログが開きます。', 'zh-CN': '点击黄色原理按钮可打开含公式、数据来源与免责声明的方法论对话框。', 'zh-TW': '點擊黃色原理按鈕可開啟含公式、資料來源與免責聲明的方法論對話框。', es: 'El botón amarillo de metodología abre un diálogo con fórmulas, fuentes de datos y avisos legales.' },
+          beforeStep: function () { _reveal('#scopeBanner [data-open-methodology]'); } }
       ]
     },
 
@@ -99,15 +149,15 @@
         { target: '#btnSetupNext', position: 'right',
           title: { ko: '다음: 우선순위', en: 'Next: priority', ja: '次へ: 優先度', 'zh-CN': '下一步：优先级', 'zh-TW': '下一步：優先順序', es: 'Siguiente: prioridad' },
           content: { ko: '조건 입력 후 이 버튼으로 우선순위 패널을 오른쪽에서 슬라이드 인합니다. 1단계 조건 화면은 그대로 보입니다.', en: 'After entering requirements, this slides the priority panel in from the right while the requirements step stays visible.', ja: '要件入力後、このボタンで優先度パネルが右からスライドインします。条件ステップはそのまま表示されます。', 'zh-CN': '输入条件后，此按钮从右侧滑入优先级面板，条件步骤仍保持可见。', 'zh-TW': '輸入條件後，此按鈕從右側滑入優先順序面板，條件步驟仍保持可見。', es: 'Tras ingresar requisitos, desliza el panel de prioridad desde la derecha; el paso de condiciones sigue visible.' },
-          beforeStep: function () { _ensureSetupStep1(); _scrollTo('#btnSetupNext'); } },
+          beforeStep: function () { var p = _revealSetupNext(); _reveal('#btnSetupNext'); return p; } },
         { target: '#priority-card', position: 'left',
           title: { ko: '추천 우선순위', en: 'Ranking priority', ja: '推奨優先度', 'zh-CN': '推荐优先级', 'zh-TW': '推薦優先順序', es: 'Prioridad de clasificación' },
           content: { ko: '비용, 성능, 전력 중 무엇을 우선할지 선택한 뒤 추천 버튼으로 실행합니다.', en: 'Choose cost, performance, or power priority, then press Recommend.', ja: 'コスト、性能、電力の優先度を選び、推奨ボタンで実行します。', 'zh-CN': '选择成本、性能或功耗优先级后，点击推荐按钮执行。', 'zh-TW': '選擇成本、效能或功耗優先順序後，點擊推薦按鈕執行。', es: 'Elija prioridad de costo, rendimiento o consumo y pulse Recomendar.' },
-          beforeStep: function () { _openPriorityPanel(); _scrollTo('#priority-card'); } },
+          beforeStep: function () { return _openPriorityPanel().then(function () { _reveal('#priority-card'); }); } },
         { target: '#btnRecommend', position: 'top',
           title: { ko: '추천 실행', en: 'Run recommendation', ja: '推奨を実行', 'zh-CN': '执行推荐', 'zh-TW': '執行推薦', es: 'Ejecutar recomendación' },
           content: { ko: '우선순위까지 설정한 뒤 추천을 실행합니다. URL 파라미터로 들어오면 입력이 채워진 뒤 자동으로 추천이 실행됩니다(Benchmark 연동).', en: 'Run recommendation after priority is set. URL parameters prefill inputs and auto-run (Benchmark deeplink).', ja: '優先度設定後に推奨を実行します。URL パラメータでは入力を事前入力したうえで自動実行します（Benchmark 連携）。', 'zh-CN': '设置优先级后执行推荐。URL 参数会预填并自动运行（Benchmark 深链）。', 'zh-TW': '設定優先順序後執行推薦。URL 參數會預填並自動執行（Benchmark 深鏈）。', es: 'Ejecute la recomendación tras definir la prioridad. Los parámetros URL completan entradas y se ejecutan solos (enlace desde Benchmark).' },
-          beforeStep: function () { _openPriorityPanel(); _scrollTo('#btnRecommend'); } }
+          beforeStep: function () { return _openPriorityPanel().then(function () { _reveal('#btnRecommend'); }); } }
       ]
     },
 
@@ -130,7 +180,8 @@
           content: { ko: '추천 헤더의 노란 원리 버튼으로도 방법론과 면책 안내를 열 수 있습니다.', en: 'The yellow chip in the recommendations header also opens methodology and disclaimers.', ja: '推奨ヘッダーの黄色ボタンからも方法論と免責事項を開けます。', 'zh-CN': '推荐标题栏的黄色原理按钮也可打开方法论与免责声明。', 'zh-TW': '推薦標題列的黃色原理按鈕也可開啟方法論與免責聲明。', es: 'El botón amarillo del encabezado de recomendaciones también abre metodología y avisos.' } },
         { target: '#autoRefreshNote', position: 'bottom',
           title: { ko: '자동 갱신', en: 'Auto refresh', ja: '自動更新', 'zh-CN': '自动刷新', 'zh-TW': '自動重新整理', es: 'Actualización automática' },
-          content: { ko: '첫 추천 이후 조건을 바꾸면 결과가 자동으로 다시 계산됩니다.', en: 'After the first run, changing requirements automatically recalculates results.', ja: '初回実行後、条件を変更すると結果が自動で再計算されます。', 'zh-CN': '首次运行后，修改条件会自动重新计算结果。', 'zh-TW': '首次執行後，修改條件會自動重新計算結果。', es: 'Tras la primera ejecución, cambiar requisitos recalcula los resultados automáticamente.' } },
+          content: { ko: '첫 추천 이후 조건을 바꾸면 결과가 자동으로 다시 계산됩니다.', en: 'After the first run, changing requirements automatically recalculates results.', ja: '初回実行後、条件を変更すると結果が自動で再計算されます。', 'zh-CN': '首次运行后，修改条件会自动重新计算结果。', 'zh-TW': '首次執行後，修改條件會自動重新計算結果。', es: 'Tras la primera ejecución, cambiar requisitos recalcula los resultados automáticamente.' },
+          beforeStep: function () { ensureWorkspaceRecommendation(); _reveal('#autoRefreshNote'); } },
         { target: '#overviewChart', position: 'top',
           title: { ko: '처리량 차트', en: 'Throughput chart', ja: 'スループットチャート', 'zh-CN': '吞吐量图表', 'zh-TW': '吞吐量圖表', es: 'Gráfico de rendimiento' },
           content: { ko: '플랫폼별 throughput FPS를 비교합니다. 막대를 선택하면 해당 플랫폼 상세 패널이 열립니다.', en: 'Compares throughput FPS by platform. Select a bar to open that platform in the detail panel.', ja: 'プラットフォーム別throughput FPSを比較します。バーを選択すると詳細パネルが開きます。', 'zh-CN': '比较各平台throughput FPS。选择柱条可打开对应详情面板。', 'zh-TW': '比較各平台throughput FPS。選擇長條可打開對應詳情面板。', es: 'Compare el throughput FPS por plataforma. Al seleccionar una barra, se abre el panel de detalle de esa plataforma.' } },
