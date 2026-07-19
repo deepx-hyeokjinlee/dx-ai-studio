@@ -64,6 +64,7 @@ def test_cursor_build_command_skips_bracket_when_model_has_params():
 def test_copilot_exposes_effort(monkeypatch):
     # copilot CLI supports --effort/--reasoning-effort, so it now exposes effort options
     # (previously hidden with an empty list — runtime-verified the flag is accepted).
+    # Verbatim from `copilot --help`: none|low|medium|high|xhigh|max.
     from core import environment
     monkeypatch.setattr(
         environment.shutil, "which",
@@ -71,5 +72,15 @@ def test_copilot_exposes_effort(monkeypatch):
     )
     agents = environment.detect_available_agents()
     copilot = next(a for a in agents if a["name"] == "copilot")
-    assert copilot.get("reasoning_efforts") == ["low", "medium", "high", "xhigh", "max"]
+    assert copilot.get("reasoning_efforts") == ["none", "low", "medium", "high", "xhigh", "max"]
     assert copilot.get("default_effort") == "medium"
+
+
+def test_codex_build_command_includes_reasoning_effort_config_override():
+    """codex has NO --effort flag — effort goes via -c model_reasoning_effort=<level>."""
+    from core.adapters.codex import CodexAdapter
+    a = CodexAdapter(cli_path="/usr/bin/codex", model="gpt-5.6-terra", effort="high")
+    cmd = a.build_command("hi", Path("/tmp/s"), [])
+    assert "--effort" not in cmd
+    assert "-c" in cmd
+    assert "model_reasoning_effort=high" in cmd

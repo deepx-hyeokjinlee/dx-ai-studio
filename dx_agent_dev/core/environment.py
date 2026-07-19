@@ -1,4 +1,5 @@
 """에이전트 CLI / 하니스 디렉토리 감지."""
+import concurrent.futures
 import os
 import shutil
 import time
@@ -7,12 +8,16 @@ from dx_agent_dev.core.config import harness_search_paths
 
 _models_cache = {}      # name -> (ts, models) — CLI 조회 비용 절감용 단기 캐시
 _MODELS_TTL = 120.0
+# 어댑터별 list_models()가 자체 subprocess timeout(cursor/opencode: 20s)을 갖고 있지만,
+# 여기서도 상한을 둬 (미래의) 타임아웃 없는 구현이 /api/agent/models 응답을 막지 않게 한다.
+_MODELS_CALL_TIMEOUT = 15.0
 
 
 def list_agent_models(name):
     """agent의 모델 목록. 어댑터의 동적 조회(list_models) 우선, 실패 시 정적 config 폴백.
 
-    CLI 조회는 비용이 있어 짧게 캐시한다.
+    CLI 조회는 비용이 있어 짧게 캐시하고, 응답이 없는 CLI 호출이 엔드포인트를 막지
+    않도록 하드 타임아웃을 둔다(_MODELS_CALL_TIMEOUT). 타임아웃/예외 시 정적 목록으로 폴백.
     """
     from dx_agent_dev.core.agents_config import AGENTS
     from dx_agent_dev.core.adapters import make_adapter
@@ -24,7 +29,13 @@ def list_agent_models(name):
     try:
         adapter = make_adapter(name)
         if adapter is not None:
-            models = adapter.list_models()
+            # shutdown(wait=False): a hung adapter.list_models() (no internal timeout) must
+            # not block this call — don't wait for the worker thread to actually finish.
+            pool = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+            try:
+                models = pool.submit(adapter.list_models).result(timeout=_MODELS_CALL_TIMEOUT)
+            finally:
+                pool.shutdown(wait=False)
     except Exception:
         models = None
     if not models:
