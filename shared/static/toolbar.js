@@ -44,7 +44,9 @@
       var SHORT = (typeof DXI18n !== 'undefined') ? DXI18n.LANG_SHORT : { en: 'EN', ja: 'JA', ko: 'KO', es: 'ES', 'zh-CN': '简', 'zh-TW': '繁' };
       codeEl.textContent = SHORT[lang] || lang.toUpperCase();
     }
-    langEl.querySelectorAll('.dx-lang-item').forEach(function (it) {
+    // Query document-wide: the menu is re-parented to <body> while open (see _positionLangMenu),
+    // so it is not always a descendant of #langToggle.
+    document.querySelectorAll('.dx-lang-item').forEach(function (it) {
       it.classList.toggle('active', it.dataset.lang === lang);
     });
   }
@@ -99,6 +101,11 @@
 
     function _positionLangMenu() {
       if (!wrap.classList.contains('open')) return;
+      // Re-parent to <body> so position:fixed is resolved against the viewport. Inside a header
+      // with backdrop-filter/transform (module chrome, about-topbar, sdk-topbar) that ancestor
+      // becomes the containing block for fixed descendants, which would offset the menu downward
+      // (the "menu appears far below the button" bug in About). <body> has no such ancestor.
+      if (menu.parentNode !== document.body) document.body.appendChild(menu);
       var rect = btn.getBoundingClientRect();
       menu.style.display = 'block';
       menu.style.position = 'fixed';
@@ -126,6 +133,8 @@
       menu.style.left = '';
       menu.style.right = '';
       menu.style.zIndex = '';
+      // Return the menu under its dropdown when idle (keeps the DOM tidy and CSS base state).
+      if (menu.parentNode !== wrap) wrap.appendChild(menu);
     }
 
     btn.addEventListener('click', function (e) {
