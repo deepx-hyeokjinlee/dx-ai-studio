@@ -447,13 +447,34 @@
         "es": "Certificaciones independientes de cumplimiento y calidad global, gestionadas en el Trust Center de DEEPX."
       },
       "items": [
-        { "label": "ISO 9001", "detail": "Quality management system" },
-        { "label": "CE", "detail": "EN 55032 Class A, EN 55035" },
-        { "label": "FCC", "detail": "47 CFR Part 15B" },
-        { "label": "ISED", "detail": "ICES-003 Issue 7" },
-        { "label": "UKCA", "detail": "BS EN 55032 / BS EN 55035" },
-        { "label": "KC", "detail": "KS 9832 / KS 9835" },
-        { "label": "VCCI", "detail": "CISPR 32" }
+        {
+          "label": "ISO 9001",
+          "detail": "Quality management system"
+        },
+        {
+          "label": "CE",
+          "detail": "EN 55032 Class A, EN 55035"
+        },
+        {
+          "label": "FCC",
+          "detail": "47 CFR Part 15B"
+        },
+        {
+          "label": "ISED",
+          "detail": "ICES-003 Issue 7"
+        },
+        {
+          "label": "UKCA",
+          "detail": "BS EN 55032 / BS EN 55035"
+        },
+        {
+          "label": "KC",
+          "detail": "KS 9832 / KS 9835"
+        },
+        {
+          "label": "VCCI",
+          "detail": "CISPR 32"
+        }
       ],
       "longevity": {
         "en": "10-year minimum product lifecycle",
@@ -2514,7 +2535,7 @@
         },
         "date": "2026.01",
         "type": "news",
-        "url": "https://deepx.ai/company/news/"
+        "url": "https://deepx.ai/deepx-unveils-vision-as-a-physical-ai-infrastructure-company-at-ces-2026/"
       },
       {
         "title": {
@@ -2710,7 +2731,7 @@
           "zh-TW": "DEEPX與Avnet Silica簽署策略合作，加速EMEA市場拓展",
           "es": "DEEPX firma una alianza estratégica con Avnet Silica para acelerar su expansión en EMEA"
         },
-        "date": "2025.12",
+        "date": "2026.01",
         "type": "news",
         "url": "https://deepx.ai/avnet-silica-strengthens-ai-portfolio-through-new-franchise-agreement-with-deepx/"
       },
@@ -2752,6 +2773,175 @@
         "date": "2026.05",
         "type": "news",
         "url": "https://www.asiae.co.kr/en/article/2026052916063021955"
+      },
+      {
+        "title": {
+          "en": "South Korea's DEEPX to supply AI chips for Baidu's drones and robots",
+          "ko": "딥엑스, 바이두 드론·로봇에 AI 칩 공급",
+          "ja": "DEEPX、Baiduのドローン・ロボット向けにAIチップを供給",
+          "zh-CN": "DEEPX为百度无人机与机器人供应AI芯片",
+          "zh-TW": "DEEPX為百度無人機與機器人供應AI晶片",
+          "es": "DEEPX suministrará chips de IA para los drones y robots de Baidu"
+        },
+        "date": "2025.10",
+        "type": "news",
+        "url": "https://deepx.ai/south-koreas-deepx-to-supply-ai-chips-for-baidus-drones-and-robots/"
+      },
+      {
+        "title": {
+          "en": "DEEPX and Wind River to advance mission-critical edge AI",
+          "ko": "딥엑스·윈드리버, 미션 크리티컬 엣지 AI 고도화 협력",
+          "ja": "DEEPXとWind River、ミッションクリティカルなエッジAIを推進",
+          "zh-CN": "DEEPX与Wind River携手推进关键任务边缘AI",
+          "zh-TW": "DEEPX與Wind River攜手推進關鍵任務邊緣AI",
+          "es": "DEEPX y Wind River impulsan la IA de borde de misión crítica"
+        },
+        "date": "2025.07",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-and-wind-river-to-advance-mission-critical-edge-ai/"
+      },
+      {
+        "title": {
+          "en": "DEEPX and AIC sign strategic MOU at Computex",
+          "ko": "딥엑스·AIC, Computex에서 전략적 MOU 체결",
+          "ja": "DEEPXとAIC、Computexで戦略的MOUを締結",
+          "zh-CN": "DEEPX与AIC在Computex签署战略MOU",
+          "zh-TW": "DEEPX與AIC在Computex簽署戰略MOU",
+          "es": "DEEPX y AIC firman un MOU estratégico en Computex"
+        },
+        "date": "2025.07",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-and-aic-sign-strategic-mou-at-computex/"
+      },
+      {
+        "title": {
+          "en": "DEEPX and Nota AI sign MOU at Computex",
+          "ko": "딥엑스·노타AI, Computex에서 MOU 체결",
+          "ja": "DEEPXとNota AI、ComputexでMOUを締結",
+          "zh-CN": "DEEPX与Nota AI在Computex签署MOU",
+          "zh-TW": "DEEPX與Nota AI在Computex簽署MOU",
+          "es": "DEEPX y Nota AI firman un MOU en Computex"
+        },
+        "date": "2025.07",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-and-nota-ai-sign-mou-at-computex/"
+      },
+      {
+        "title": {
+          "en": "DEEPX ramps up mass-production chip supply for the global market",
+          "ko": "딥엑스, 글로벌 시장 대상 양산 칩 공급 본격화",
+          "ja": "DEEPX、グローバル市場向けに量産チップ供給を本格化",
+          "zh-CN": "DEEPX面向全球市场加速量产芯片供应",
+          "zh-TW": "DEEPX面向全球市場加速量產晶片供應",
+          "es": "DEEPX acelera el suministro de chips en producción en masa para el mercado global"
+        },
+        "date": "2025.04",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-ramps-up-mass-production-chip-supply-for-the-global-market-bolstering-tangible-business-expansion/"
+      },
+      {
+        "title": {
+          "en": "BIOSTAR showcases DEEPX partnership with new x86-based edge AI solutions",
+          "ko": "BIOSTAR, DEEPX 협력 기반 x86 엣지 AI 솔루션 공개",
+          "ja": "BIOSTAR、DEEPXとの協業によるx86ベースのエッジAIソリューションを発表",
+          "zh-CN": "BIOSTAR携手DEEPX展示基于x86的边缘AI解决方案",
+          "zh-TW": "BIOSTAR攜手DEEPX展示基於x86的邊緣AI解決方案",
+          "es": "BIOSTAR presenta soluciones de IA de borde basadas en x86 con DEEPX"
+        },
+        "date": "2025.04",
+        "type": "news",
+        "url": "https://deepx.ai/biostar-showcases-new-partnership-with-deepx-in-conjunction-with-new-x86-based-edge-ai-solutions/"
+      },
+      {
+        "title": {
+          "en": "Virtium / Embedded Artists integrate DEEPX DX-M1 with an i.MX8M Mini kit",
+          "ko": "Virtium/Embedded Artists, DEEPX DX-M1과 i.MX8M Mini 키트 통합",
+          "ja": "Virtium/Embedded Artists、DEEPX DX-M1とi.MX8M Miniキットを統合",
+          "zh-CN": "Virtium/Embedded Artists将DEEPX DX-M1与i.MX8M Mini套件集成",
+          "zh-TW": "Virtium/Embedded Artists將DEEPX DX-M1與i.MX8M Mini套件整合",
+          "es": "Virtium/Embedded Artists integra DEEPX DX-M1 con un kit i.MX8M Mini"
+        },
+        "date": "2025.04",
+        "type": "news",
+        "url": "https://deepx.ai/virtium-embedded-artists-introduces-integrated-ai-accelerator-deepx-dx-m1-and-imx8m-mini-kit/"
+      },
+      {
+        "title": {
+          "en": "DFI and DEEPX unveil edge AI at CES 2025 for smart cities and industry",
+          "ko": "DFI·딥엑스, CES 2025에서 스마트시티·산업용 엣지 AI 공개",
+          "ja": "DFIとDEEPX、CES 2025でスマートシティ・産業向けエッジAIを発表",
+          "zh-CN": "DFI与DEEPX在CES 2025发布面向智慧城市与产业的边缘AI",
+          "zh-TW": "DFI與DEEPX在CES 2025發布面向智慧城市與產業的邊緣AI",
+          "es": "DFI y DEEPX presentan IA de borde en CES 2025 para ciudades inteligentes e industria"
+        },
+        "date": "2025.01",
+        "type": "news",
+        "url": "https://deepx.ai/dfi-and-deepx-unveil-revolutionary-edge-ai-at-ces-2025-to-power-smart-cities-and-industries/"
+      },
+      {
+        "title": {
+          "en": "AI chips for all: CEO Lokwon Kim's vision to democratize AI",
+          "ko": "모두를 위한 AI 칩: 김록원 CEO의 AI 대중화 비전",
+          "ja": "すべての人にAIチップを：キム・ロクウォンCEOのAI民主化ビジョン",
+          "zh-CN": "让AI芯片惠及所有人：CEO金录源的AI普及愿景",
+          "zh-TW": "讓AI晶片惠及所有人：CEO金錄源的AI普及願景",
+          "es": "Chips de IA para todos: la visión del CEO Lokwon Kim de democratizar la IA"
+        },
+        "date": "2024.05",
+        "type": "news",
+        "url": "https://deepx.ai/ai-chips-for-all-deepx-ceo-lokwon-kims-vision-to-democratize-ai-technology/"
+      },
+      {
+        "title": {
+          "en": "DEEPX and POSCO DX jointly develop an industrial edge-AI solution",
+          "ko": "딥엑스·포스코DX, 산업용 엣지 AI 솔루션 공동 개발",
+          "ja": "DEEPXとPOSCO DX、産業用エッジAIソリューションを共同開発",
+          "zh-CN": "DEEPX与POSCO DX共同开发工业级边缘AI解决方案",
+          "zh-TW": "DEEPX與POSCO DX共同開發工業級邊緣AI解決方案",
+          "es": "DEEPX y POSCO DX desarrollan conjuntamente una solución de IA de borde industrial"
+        },
+        "date": "2024.04",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-posco-dx-jointly-develops-industrial-edge-ai-solution-technology/"
+      },
+      {
+        "title": {
+          "en": "DEEPX collaborates with Hyundai Motor and Kia on AI-semiconductor robot platforms",
+          "ko": "딥엑스, 현대자동차·기아와 AI 반도체 기반 로봇 플랫폼 협력",
+          "ja": "DEEPX、現代自動車・起亜とAI半導体ベースのロボットプラットフォームで協業",
+          "zh-CN": "DEEPX与现代汽车、起亚合作开发基于AI半导体的机器人平台",
+          "zh-TW": "DEEPX與現代汽車、起亞合作開發基於AI半導體的機器人平台",
+          "es": "DEEPX colabora con Hyundai Motor y Kia en plataformas robóticas basadas en semiconductores de IA"
+        },
+        "date": "2024.03",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-and-hyundai-motor-company-and-kia-corporation-are-collaborating-on-ai-semiconductor-based-robot-platforms-2/"
+      },
+      {
+        "title": {
+          "en": "DEEPX hosts its largest showcase at the Embedded Vision Summit",
+          "ko": "딥엑스, Embedded Vision Summit 최대 규모 전시",
+          "ja": "DEEPX、Embedded Vision Summitで最大規模の展示を実施",
+          "zh-CN": "DEEPX在Embedded Vision Summit举办最大规模展示",
+          "zh-TW": "DEEPX在Embedded Vision Summit舉辦最大規模展示",
+          "es": "DEEPX realiza su mayor exhibición en el Embedded Vision Summit"
+        },
+        "date": "2023.05",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-hosts-the-largest-showcase-at-the-embedded-vision-summit-continues-to-expand-global-footprint/"
+      },
+      {
+        "title": {
+          "en": "DEEPX partners with Jahwa Electronics on AI smart-camera modules",
+          "ko": "딥엑스, 자화전자와 협력해 AI 스마트 카메라 모듈 시장 공략",
+          "ja": "DEEPX、Jahwa ElectronicsとAIスマートカメラモジュールで協業",
+          "zh-CN": "DEEPX携手自华电子布局AI智能摄像头模组市场",
+          "zh-TW": "DEEPX攜手自華電子布局AI智慧攝影機模組市場",
+          "es": "DEEPX se asocia con Jahwa Electronics en módulos de cámara inteligente con IA"
+        },
+        "date": "2023.04",
+        "type": "news",
+        "url": "https://deepx.ai/%eb%94%a5%ec%97%91%ec%8a%a4-%ec%9e%90%ed%99%94%ec%a0%84%ec%9e%90%ec%99%80-%ed%98%91%eb%a0%a5%ed%95%b4-ai-%ea%b8%b0%eb%b0%98-%ec%8a%a4%eb%a7%88%ed%8a%b8-%ec%b9%b4%eb%a9%94%eb%9d%bc/"
       }
     ]
   },
