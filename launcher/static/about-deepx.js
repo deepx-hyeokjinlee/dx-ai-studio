@@ -165,6 +165,12 @@
         <div class="about-quote-author">— ${c.vision_quote.author}</div>
       </div>
 
+      ${c.vision ? `
+      <div class="about-quote about-fade-in">
+        <div class="about-quote-text">${L(c.vision.statement)}</div>
+        <div class="about-quote-author">— ${L(c.vision.label)}${c.vision.source ? `, ${c.vision.source}` : ''}</div>
+      </div>` : ''}
+
       <p class="about-overview-text about-fade-in">${L(c.overview)}</p>
 
       <div class="about-values-grid">
