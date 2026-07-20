@@ -45,6 +45,16 @@
     return s.replace(/\bDX-(?=[A-Za-z])/g, 'DX\u2011');
   }
 
+  // A timeline year that packs several achievements (separated by ; or the fullwidth \uff1b) reads
+  // as a wall of text in the narrow timeline column. Render those as a scannable bullet list;
+  // single-fact years stay a plain line.
+  function timelineEventHtml(ev) {
+    var parts = String(ev).split(/\s*[;\uff1b]\s*/).filter(function (p) { return p.trim(); });
+    if (parts.length <= 1) return '<div class="about-timeline-event">' + ev + '</div>';
+    return '<ul class="about-timeline-event about-timeline-list">' +
+      parts.map(function (p) { return '<li>' + p.trim() + '</li>'; }).join('') + '</ul>';
+  }
+
   function stripUrlHost(url) {
     return String(url).replace(/^https?:\/\//, '');
   }
@@ -210,7 +220,7 @@
           <div class="about-timeline-item">
             <div class="about-timeline-dot"></div>
             <div class="about-timeline-year">${t.year}</div>
-            <div class="about-timeline-event">${L(t.event)}</div>
+            ${timelineEventHtml(L(t.event))}
           </div>
         `).join('')}
       </div>
@@ -230,7 +240,7 @@
       <div class="about-alliance-block about-fade-in">
         <h3 class="about-tech-title">${L(c.certifications.title)}</h3>
         <p class="about-tech-desc">${L(c.certifications.subtitle)}</p>
-        <div class="about-partners-grid">
+        <div class="about-partners-grid about-cert-row">
           ${(c.certifications.items || []).map(function (it) {
             var detail = it.detail ? L(it.detail) : '';
             return `<div class="about-partner-chip"${detail ? ` title="${detail.replace(/"/g, '&quot;')}"` : ''}>${it.label}${detail ? `<span class="about-cert-detail"> — ${detail}</span>` : ''}</div>`;
