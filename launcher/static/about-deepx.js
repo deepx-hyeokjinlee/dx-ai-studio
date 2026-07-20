@@ -516,10 +516,18 @@
     container.appendChild(el);
   }
 
+  // Parse a "YYYY" / "YYYY.MM" news date into a sortable integer (YYYYMM; missing month = 00).
+  function newsDateKey(d) {
+    const m = String(d || '').match(/(\d{4})(?:\.(\d{1,2}))?/);
+    if (!m) return 0;
+    return parseInt(m[1], 10) * 100 + (m[2] ? parseInt(m[2], 10) : 0);
+  }
+
   function renderNews(container, data) {
     const n = data.news;
-    const upcoming = n.upcoming || [];
-    const past = n.past || n.events || [];
+    // Upcoming: soonest first. Recent news: newest first. (Stable copy — don't mutate data.)
+    const upcoming = (n.upcoming || []).slice().sort((a, b) => newsDateKey(a.date) - newsDateKey(b.date));
+    const past = (n.past || n.events || []).slice().sort((a, b) => newsDateKey(b.date) - newsDateKey(a.date));
     const el = document.createElement('section');
     el.className = 'about-section';
     el.id = 'aboutNews';
@@ -542,7 +550,7 @@
 
       <h3 class="about-tech-title about-fade-in">${T({en:'Media Coverage', ko:'미디어 보도', ja:'メディア報道', 'zh-CN':'媒体报道', 'zh-TW':'媒體報導', es:'Cobertura mediática'})}</h3>
       <div class="about-news-grid">
-        ${(n.media || []).map(m => `
+        ${(n.media || []).slice().sort((a, b) => newsDateKey(b.date) - newsDateKey(a.date)).map(m => `
           <div class="about-news-card about-fade-in${m.url ? ' about-news-card--linked' : ''}">
             <div class="about-news-type">${m.source}</div>
             <div class="about-news-title">${m.url ? `<a class="about-news-link" href="${m.url}" target="_blank" rel="noopener noreferrer">${L(m.title)} ↗</a>` : L(m.title)}</div>
