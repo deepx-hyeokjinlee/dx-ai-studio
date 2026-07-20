@@ -18,7 +18,7 @@
     },
     "stats": [
       {
-        "value": "400+ / 130+",
+        "value": "400+ / 114",
         "label": {
           "en": "Patents Filed / Granted",
           "ko": "특허 출원 / 등록",
@@ -29,14 +29,14 @@
         }
       },
       {
-        "value": "50+",
+        "value": "30 / 8",
         "label": {
-          "en": "Deployment Projects",
-          "ko": "배포 프로젝트",
-          "ja": "導入プロジェクト",
-          "zh-CN": "部署项目",
-          "zh-TW": "部署專案",
-          "es": "Proyectos de despliegue"
+          "en": "Commercial Orders / Countries",
+          "ko": "상용 발주 / 국가",
+          "ja": "商用受注 / 国",
+          "zh-CN": "商业订单 / 国家",
+          "zh-TW": "商業訂單 / 國家",
+          "es": "Pedidos comerciales / países"
         }
       },
       {
@@ -198,23 +198,23 @@
       {
         "year": "2024",
         "event": {
-          "en": "5nm DX-M1 samples verified by 300+ companies; Series C $80.5M at $529M valuation",
-          "ko": "5nm DX-M1 샘플 300+ 기업 검증; 시리즈 C 8,050만 달러 (기업가치 5.29억 달러)",
-          "ja": "5nm DX-M1サンプルを300社以上が検証; シリーズC 8,050万ドル（評価額5.29億ドル）",
-          "zh-CN": "5nm DX-M1样片获300+企业验证；C轮融资8050万美元（估值5.29亿美元）",
-          "zh-TW": "5nm DX-M1樣片獲300+企業驗證；C輪融資8050萬美元（估值5.29億美元）",
-          "es": "Muestras DX-M1 de 5nm verificadas por 300+ empresas; Serie C de 80,5M$ (valoración 529M$)"
+          "en": "5nm DX-M1 samples verified by 300+ companies; Series C $80.5M at $529M valuation; invited to WEF Summer Davos (Dalian) as the first AI-semiconductor company; LG Uplus NPU partnership for on-device LLMs",
+          "ko": "5nm DX-M1 샘플 300+ 기업 검증; 시리즈 C 8,050만 달러 (기업가치 5.29억 달러); WEF 하계 다보스(다롄) 초청 — AI 반도체 기업 최초; LG유플러스와 온디바이스 LLM용 NPU 파트너십",
+          "ja": "5nm DX-M1サンプルを300社以上が検証; シリーズC 8,050万ドル（評価額5.29億ドル）; WEFサマーダボス（大連）に招待——AI半導体企業として初; LG U+とのオンデバイスLLM向けNPUパートナーシップ",
+          "zh-CN": "5nm DX-M1样片获300+企业验证；C轮融资8050万美元（估值5.29亿美元）；受邀出席WEF夏季达沃斯论坛（大连）——首家参会的AI芯片企业；与LG U+达成端侧LLM用NPU合作",
+          "zh-TW": "5nm DX-M1樣片獲300+企業驗證；C輪融資8050萬美元（估值5.29億美元）；受邀出席WEF夏季達沃斯論壇（大連）——首家與會的AI晶片企業；與LG U+達成端側LLM用NPU合作",
+          "es": "Muestras DX-M1 de 5nm verificadas por 300+ empresas; Serie C de 80,5M$ (valoración 529M$); invitada al Foro Económico Mundial de Verano (Dalian) como primera empresa de semiconductores de IA; alianza NPU con LG Uplus para LLM en dispositivo"
         }
       },
       {
         "year": "2025",
         "event": {
-          "en": "DX-M1 5nm mass production; Digi-Key & global distributors; Baidu & Naver Cloud; 2nm sample contract",
-          "ko": "DX-M1 5nm 양산; Digi-Key·글로벌 유통; Baidu·Naver Cloud; 2nm 샘플 계약",
-          "ja": "DX-M1 5nm量産；Digi-Key・グローバル流通；Baidu・Naver Cloud；2nmサンプル契約",
-          "zh-CN": "DX-M1 5nm量产；Digi-Key与全球分销；百度与Naver Cloud；2nm样品合同",
-          "zh-TW": "DX-M1 5nm量產；Digi-Key與全球分銷；百度與Naver Cloud；2nm樣品合約",
-          "es": "Producción en masa DX-M1 5nm; Digi-Key y distribuidores; Baidu y Naver Cloud; contrato muestra 2nm"
+          "en": "DX-M1 5nm mass production; Digi-Key & global distributors; Baidu & Naver Cloud; Samsung Foundry's first commercial 2nm (GAA) customer for DX-M2 with Gaonchips (Aug 2025) — MPW H1 2026, mass production 2027; DEEPX–Baidu AI ecosystem partnership (PaddlePaddle/PP-OCR); recognized by NYSE & WEF",
+          "ko": "DX-M1 5nm 양산; Digi-Key·글로벌 유통; Baidu·Naver Cloud; DX-M2 위해 삼성 파운드리 2nm(GAA) 첫 상용 고객 확보(가온칩스와 공동, 2025.08) — MPW 2026 상반기, 양산 2027; Baidu와 AI 생태계 파트너십(PaddlePaddle/PP-OCR); NYSE·WEF 인정",
+          "ja": "DX-M1 5nm量産；Digi-Key・グローバル流通；Baidu・Naver Cloud；DX-M2向けSamsungファウンドリ2nm（GAA）初の商用顧客に（Gaonchipsと共同、2025年8月）— MPW 2026年上半期、量産2027年；BaiduとのAIエコシステムパートナーシップ（PaddlePaddle/PP-OCR）；NYSE・WEFで評価",
+          "zh-CN": "DX-M1 5nm量产；Digi-Key与全球分销；百度与Naver Cloud；成为三星代工2nm（GAA）首位商用客户，为DX-M2打造（携手Gaonchips，2025年8月）— MPW定于2026上半年，量产2027年；与百度达成AI生态合作（PaddlePaddle/PP-OCR）；获NYSE与WEF认可",
+          "zh-TW": "DX-M1 5nm量產；Digi-Key與全球分銷；百度與Naver Cloud；成為三星晶圓代工2nm（GAA）首位商用客戶，為DX-M2打造（攜手Gaonchips，2025年8月）— MPW訂於2026上半年，量產2027年；與百度達成AI生態合作（PaddlePaddle/PP-OCR）；獲NYSE與WEF認可",
+          "es": "Producción en masa DX-M1 5nm; Digi-Key y distribuidores; Baidu y Naver Cloud; primer cliente comercial del proceso 2nm (GAA) de Samsung Foundry para el DX-M2 junto con Gaonchips (ago. 2025) — MPW en 1S 2026, producción en masa en 2027; alianza de ecosistema de IA con Baidu (PaddlePaddle/PP-OCR); reconocida por NYSE y el WEF"
         }
       },
       {
@@ -226,6 +226,17 @@
           "zh-CN": "CES创新奖Double Honoree；DX-M2 2nm路线图；DX-M1量产及端侧SLM",
           "zh-TW": "CES創新獎Double Honoree；DX-M2 2nm路線圖；DX-M1量產及端側SLM",
           "es": "Doble galardón CES Innovation Awards; hoja de ruta DX-M2 2nm; producción en volumen DX-M1 y SLM en dispositivo"
+        }
+      },
+      {
+        "year": "2027–28",
+        "event": {
+          "en": "DX-M2 2nm mass production target (2027)",
+          "ko": "DX-M2 2nm 양산 목표(2027)",
+          "ja": "DX-M2 2nm量産目標（2027）",
+          "zh-CN": "DX-M2 2nm量产目标（2027）",
+          "zh-TW": "DX-M2 2nm量產目標（2027）",
+          "es": "Producción en masa DX-M2 2nm (2027)"
         }
       }
     ],
@@ -311,12 +322,12 @@
         "author": "DEEPX"
       },
       "description": {
-        "en": "IQ8 is DEEPX's Intelligent Quantization technology for GPU-level accuracy at INT8 efficiency on DEEPX NPUs.",
-        "ko": "IQ8은 DEEPX NPU에서 INT8 효율로 GPU 수준 정확도를 구현하는 Intelligent Quantization 기술입니다.",
-        "ja": "IQ8はDEEPX NPU上でINT8効率によりGPUレベルの精度を実現するIntelligent Quantization技術です。",
-        "zh-CN": "IQ8是DEEPX在NPU上以INT8效率实现GPU级精度的Intelligent Quantization技术。",
-        "zh-TW": "IQ8是DEEPX在NPU上以INT8效率實現GPU級精度的Intelligent Quantization技術。",
-        "es": "IQ8 es la tecnología Intelligent Quantization de DEEPX para precisión nivel GPU con eficiencia INT8 en NPUs DEEPX."
+        "en": "IQ8 is DEEPX's Intelligent Quantization technology for GPU-level accuracy at INT8 efficiency on DEEPX NPUs. It pinpoints exactly where quantization causes accuracy loss and applies proprietary hardware/software techniques to prevent it — no model retraining required.",
+        "ko": "IQ8은 DEEPX NPU에서 INT8 효율로 GPU 수준 정확도를 구현하는 Intelligent Quantization 기술입니다. 양자화로 인한 정확도 손실 지점을 정확히 찾아내고, 모델 재학습 없이 독자 하드웨어·소프트웨어 기법을 적용해 이를 방지합니다.",
+        "ja": "IQ8はDEEPX NPU上でINT8効率によりGPUレベルの精度を実現するIntelligent Quantization技術です。量子化による精度低下箇所を正確に特定し、モデルの再学習なしに独自ハードウェア・ソフトウェア技術を適用して防止します。",
+        "zh-CN": "IQ8是DEEPX在NPU上以INT8效率实现GPU级精度的Intelligent Quantization技术。它精确定位量化导致精度损失的位置，无需重新训练模型即可应用专有软硬件技术加以防止。",
+        "zh-TW": "IQ8是DEEPX在NPU上以INT8效率實現GPU級精度的Intelligent Quantization技術。它精確定位量化導致精度損失的位置，無需重新訓練模型即可套用專有軟硬體技術加以防止。",
+        "es": "IQ8 es la tecnología Intelligent Quantization de DEEPX para precisión nivel GPU con eficiencia INT8 en NPUs DEEPX. Identifica con precisión dónde la cuantización provoca pérdida de precisión y aplica técnicas propias de hardware/software para evitarlo, sin necesidad de reentrenar el modelo."
       },
       "stats": [
         {
@@ -361,6 +372,17 @@
             "zh-CN": "端侧AI",
             "zh-TW": "端側AI",
             "es": "IA en dispositivo"
+          }
+        },
+        {
+          "value": "GPU-level",
+          "label": {
+            "en": "Accuracy",
+            "ko": "정확도",
+            "ja": "精度",
+            "zh-CN": "精度",
+            "zh-TW": "精度",
+            "es": "Precisión"
           }
         }
       ]
@@ -473,7 +495,7 @@
           }
         },
         {
-          "value": "v2.3.0",
+          "value": "v2.3.3",
           "label": {
             "en": "DX-AllSuite",
             "ko": "DX-AllSuite",
@@ -503,6 +525,17 @@
             "zh-CN": "平台",
             "zh-TW": "平台",
             "es": "Plataformas"
+          }
+        },
+        {
+          "value": "OAAX",
+          "label": {
+            "en": "Open accelerator standard",
+            "ko": "오픈 가속기 표준",
+            "ja": "オープンアクセラレータ標準",
+            "zh-CN": "开放加速器标准",
+            "zh-TW": "開放加速器標準",
+            "es": "Estándar abierto de acelerador"
           }
         }
       ],
@@ -587,8 +620,7 @@
         }
       },
       "versions": {
-        "dxCom": "v2.3.0",
-        "dxRt": "v3.3.0"
+        "dxCom": "v2.3.0"
       }
     },
     "npu": {
@@ -652,6 +684,39 @@
             "zh-TW": "製程",
             "es": "Nodo de proceso"
           }
+        },
+        {
+          "value": "90%+",
+          "label": {
+            "en": "Wafer yield",
+            "ko": "웨이퍼 수율",
+            "ja": "ウェハ歩留まり",
+            "zh-CN": "晶圆良率",
+            "zh-TW": "晶圓良率",
+            "es": "Rendimiento de oblea"
+          }
+        },
+        {
+          "value": "1/10",
+          "label": {
+            "en": "Cost vs GPU",
+            "ko": "GPU 대비 비용",
+            "ja": "GPU比コスト",
+            "zh-CN": "相比GPU成本",
+            "zh-TW": "相比GPU成本",
+            "es": "Costo vs GPU"
+          }
+        },
+        {
+          "value": "9.1×",
+          "label": {
+            "en": "Speedup vs PyTorch (YOLO26n, RPi5)",
+            "ko": "PyTorch 대비 속도 향상 (YOLO26n, RPi5)",
+            "ja": "PyTorch比高速化（YOLO26n、RPi5）",
+            "zh-CN": "相比PyTorch提速（YOLO26n，RPi5）",
+            "zh-TW": "相比PyTorch提速（YOLO26n，RPi5）",
+            "es": "Aceleración vs PyTorch (YOLO26n, RPi5)"
+          }
         }
       ]
     }
@@ -668,7 +733,7 @@
           "zh-TW": "Gen AI NPU（開發中）",
           "es": "NPU Gen AI (en desarrollo)"
         },
-        "tops": "20B–100B LLM",
+        "tops": "Up to 20B-param MoE @ 20–30 tokens/s",
         "power": "sub-5W",
         "memory": {
           "en": "2nm process",
@@ -687,6 +752,18 @@
           "zh-TW": "端側LLM",
           "es": "LLM en dispositivo"
         },
+        "designPartner": "Gaonchips",
+        "architecture": "Transformer/MoE-optimized",
+        "notes": [
+          {
+            "en": "Samsung 2nm GAA — first AI customer",
+            "ko": "삼성 2nm GAA — 첫 AI 고객사",
+            "ja": "Samsung 2nm GAA — 初のAI顧客",
+            "zh-CN": "三星2nm GAA — 首位AI客户",
+            "zh-TW": "三星2nm GAA — 首位AI客戶",
+            "es": "Samsung 2nm GAA — primer cliente de IA"
+          }
+        ],
         "badge": {
           "en": "Roadmap",
           "ko": "로드맵",
@@ -709,31 +786,32 @@
         "tops": "25 TOPS",
         "power": "1~5W",
         "memory": {
-          "en": "Ext. LPDDR4x/5 up to 8GB",
-          "ko": "외장 LPDDR4x/5 최대 8GB",
-          "ja": "外付けLPDDR4x/5 最大8GB",
-          "zh-CN": "外置LPDDR4x/5 最大8GB",
-          "zh-TW": "外接LPDDR4x/5 最大8GB",
-          "es": "Ext. LPDDR4x/5 hasta 8GB"
+          "en": "Ext. LPDDR4x/5 up to 8GB (LPDDR4x 4266 / LPDDR5 6000 MT/s)",
+          "ko": "외장 LPDDR4x/5 최대 8GB (LPDDR4x 4266 / LPDDR5 6000 MT/s)",
+          "ja": "外付けLPDDR4x/5 最大8GB（LPDDR4x 4266 / LPDDR5 6000 MT/s）",
+          "zh-CN": "外置LPDDR4x/5 最大8GB（LPDDR4x 4266 / LPDDR5 6000 MT/s）",
+          "zh-TW": "外接LPDDR4x/5 最大8GB（LPDDR4x 4266 / LPDDR5 6000 MT/s）",
+          "es": "Ext. LPDDR4x/5 hasta 8GB (LPDDR4x 4266 / LPDDR5 6000 MT/s)"
         },
         "interface": "PCIe Gen3 x4",
-        "form": "FC-BGA 17×17mm",
+        "form": "FC-BGA 17×17mm, 625-ball, 0.65mm pitch",
         "highlight": true,
+        "frameworks": "Ultralytics, TensorFlow, PyTorch, ONNX, Keras",
         "os": {
-          "en": "Ubuntu 24.04",
-          "ko": "Ubuntu 24.04",
-          "ja": "Ubuntu 24.04",
-          "zh-CN": "Ubuntu 24.04",
-          "zh-TW": "Ubuntu 24.04",
-          "es": "Ubuntu 24.04"
+          "en": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
+          "ko": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
+          "ja": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
+          "zh-CN": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
+          "zh-TW": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
+          "es": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS"
         },
         "temp": {
-          "en": "0–70°C (Commercial)",
-          "ko": "0–70°C (상용)",
-          "ja": "0–70°C（商用）",
-          "zh-CN": "0–70°C（Commercial）",
-          "zh-TW": "0–70°C（Commercial）",
-          "es": "0–70°C (Comercial)"
+          "en": "0–70°C (Commercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotive, on request)",
+          "ko": "0–70°C (상용) · -40–85°C (산업용, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (차량용, 요청 시)",
+          "ja": "0–70°C（商用）· -40–85°C（産業用、AEC-Q100 Grade 3）· AEC-Q100 Grade 2（車載用、要相談）",
+          "zh-CN": "0–70°C（商用）· -40–85°C（工业级，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（车规级，可定制）",
+          "zh-TW": "0–70°C（商用）· -40–85°C（工業級，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（車用，可客製）",
+          "es": "0–70°C (Comercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotriz, bajo pedido)"
         }
       },
       {
@@ -757,7 +835,23 @@
           "es": "2GB LPDDR4x integrado"
         },
         "interface": "PCIe Gen3 x4",
-        "form": "FCL-BGA 21×21mm"
+        "form": "FCL-BGA 21×21mm, 396-ball",
+        "os": {
+          "en": "Windows · Ubuntu 24/22/20 LTS · Yocto · Docker",
+          "ko": "Windows · Ubuntu 24/22/20 LTS · Yocto · Docker",
+          "ja": "Windows · Ubuntu 24/22/20 LTS · Yocto · Docker",
+          "zh-CN": "Windows · Ubuntu 24/22/20 LTS · Yocto · Docker",
+          "zh-TW": "Windows · Ubuntu 24/22/20 LTS · Yocto · Docker",
+          "es": "Windows · Ubuntu 24/22/20 LTS · Yocto · Docker"
+        },
+        "security": {
+          "en": "Root-of-Trust + TRNG",
+          "ko": "Root-of-Trust + TRNG",
+          "ja": "Root-of-Trust + TRNG",
+          "zh-CN": "Root-of-Trust + TRNG",
+          "zh-TW": "Root-of-Trust + TRNG",
+          "es": "Root-of-Trust + TRNG"
+        }
       },
       {
         "name": "DX-M1ML",
@@ -803,7 +897,10 @@
           "es": "LPDDR4X/5 externa"
         },
         "interface": "CSI/DSI/USB3/GbE",
-        "form": "TSMC 12nm"
+        "form": "TSMC 12nm",
+        "cpu": "Cortex-A53 quad @1.2GHz",
+        "isp": "12MP ISP, 3A + noise reduction",
+        "codec": "H.264/H.265 enc/dec 4K@60fps"
       }
     ],
     "modules": [
@@ -869,7 +966,7 @@
         },
         "tops": "100 TOPS",
         "power": "20W",
-        "memory": "16GB LPDDR5",
+        "memory": "16GB LPDDR5 6000 MT/s",
         "interface": "PCIe Gen3 x16",
         "form": {
           "en": "Low Profile PCIe",
@@ -879,6 +976,17 @@
           "zh-TW": "低矮型PCIe",
           "es": "PCIe de perfil bajo"
         },
+        "channels": "128ch/card · 768ch per 2U (6 cards) (YOLOv5, 1080p@25fps)",
+        "notes": [
+          {
+            "en": "4× DX-M1, PCIe bifurcation",
+            "ko": "DX-M1 4개, PCIe 분기(bifurcation)",
+            "ja": "DX-M1 4個、PCIe分岐（bifurcation）",
+            "zh-CN": "4颗DX-M1，PCIe分叉（bifurcation）",
+            "zh-TW": "4顆DX-M1，PCIe分叉（bifurcation）",
+            "es": "4× DX-M1, bifurcación PCIe"
+          }
+        ],
         "highlight": true
       },
       {
@@ -903,6 +1011,8 @@
           "zh-TW": "低矮型PCIe",
           "es": "PCIe de perfil bajo"
         },
+        "channels": "64 decode / 32 encode (1080p30)",
+        "savings": "80% cost / 85% power vs GPU",
         "badge": "64CH Decode"
       }
     ],
@@ -1076,13 +1186,32 @@
         "memory": "8GB LPDDR5 + 4GB NPU · 64GB eMMC",
         "interface": "2× GbE · USB 3.2 · HDMI/DP",
         "form": {
-          "en": "95×95×45 mm · Intel N97",
-          "ko": "95×95×45 mm · Intel N97",
-          "ja": "95×95×45 mm · Intel N97",
-          "zh-CN": "95×95×45 mm · Intel N97",
-          "zh-TW": "95×95×45 mm · Intel N97",
-          "es": "95×95×45 mm · Intel N97"
-        }
+          "en": "95×95×45 mm",
+          "ko": "95×95×45 mm",
+          "ja": "95×95×45 mm",
+          "zh-CN": "95×95×45 mm",
+          "zh-TW": "95×95×45 mm",
+          "es": "95×95×45 mm"
+        },
+        "cpu": {
+          "en": "Intel N97 4-core @3.6GHz, 12W TDP",
+          "ko": "Intel N97 4코어 @3.6GHz, 12W TDP",
+          "ja": "Intel N97 4コア @3.6GHz、12W TDP",
+          "zh-CN": "Intel N97 四核 @3.6GHz，12W TDP",
+          "zh-TW": "Intel N97 四核 @3.6GHz，12W TDP",
+          "es": "Intel N97 4 núcleos @3.6GHz, 12W TDP"
+        },
+        "os": {
+          "en": "Windows 10/11 · Ubuntu 20/22/24 · Yocto 5.1",
+          "ko": "Windows 10/11 · Ubuntu 20/22/24 · Yocto 5.1",
+          "ja": "Windows 10/11 · Ubuntu 20/22/24 · Yocto 5.1",
+          "zh-CN": "Windows 10/11 · Ubuntu 20/22/24 · Yocto 5.1",
+          "zh-TW": "Windows 10/11 · Ubuntu 20/22/24 · Yocto 5.1",
+          "es": "Windows 10/11 · Ubuntu 20/22/24 · Yocto 5.1"
+        },
+        "frameworks": "PyTorch/TF/ONNX/Keras/YOLO",
+        "weight": "450g",
+        "temp": "0–60°C"
       }
     ]
   },
@@ -1097,6 +1226,14 @@
           "zh-CN": "已完成",
           "zh-TW": "已完成",
           "es": "Completado"
+        },
+        "detail": {
+          "en": "~$4M (KRW ~4.5B) · Shinhan Bank, Capstone Partners, Dongmun Partners, Pathfinder H & others · 2019",
+          "ko": "~400만 달러 (약 45억 원) · 신한은행·캡스톤파트너스·동문파트너스·패스파인더H 외 · 2019",
+          "ja": "~400万ドル（約45億ウォン）· 新韓銀行・キャップストーンパートナーズ・トンムンパートナーズ・パスファインダーH ほか · 2019",
+          "zh-CN": "~400万美元（约45亿韩元）· 新韩银行、Capstone Partners、Dongmun Partners、Pathfinder H等 · 2019",
+          "zh-TW": "~400萬美元（約45億韓元）· 新韓銀行、Capstone Partners、Dongmun Partners、Pathfinder H等 · 2019",
+          "es": "~4M$ (~4500M KRW) · Shinhan Bank, Capstone Partners, Dongmun Partners, Pathfinder H y otros · 2019"
         }
       },
       {
@@ -1109,13 +1246,13 @@
           "zh-TW": "已完成",
           "es": "Completado"
         },
-        "note": {
-          "en": "~$15M · 2021",
-          "ko": "~1,500만 달러 · 2021",
-          "ja": "~1,500万ドル · 2021",
-          "zh-CN": "~1500万美元 · 2021",
-          "zh-TW": "~1500萬美元 · 2021",
-          "es": "~15M$ · 2021"
+        "detail": {
+          "en": "~$15M · Korea Development Bank, Shinhan Capital, InterValue Partners, SJ Investment Partners, TimeFolio & others · 2021",
+          "ko": "~1,500만 달러 · Korea Development Bank, Shinhan Capital, InterValue Partners, SJ Investment Partners, TimeFolio 외 참여 · 2021",
+          "ja": "~1,500万ドル · Korea Development Bank、Shinhan Capital、InterValue Partners、SJ Investment Partners、TimeFolioほか参加 · 2021年",
+          "zh-CN": "~1500万美元 · Korea Development Bank、Shinhan Capital、InterValue Partners、SJ Investment Partners、TimeFolio等参投 · 2021年",
+          "zh-TW": "~1500萬美元 · Korea Development Bank、Shinhan Capital、InterValue Partners、SJ Investment Partners、TimeFolio等參投 · 2021年",
+          "es": "~15M$ · Korea Development Bank, Shinhan Capital, InterValue Partners, SJ Investment Partners, TimeFolio y otros · 2021"
         }
       },
       {
@@ -1128,13 +1265,13 @@
           "zh-TW": "已完成",
           "es": "Completado"
         },
-        "note": {
-          "en": "$80.5M · $529M valuation · led by SkyLake Equity Partners (May 2024)",
-          "ko": "8,050만 달러 · 기업가치 5.29억 달러 · SkyLake Equity Partners 주도 (2024.05)",
-          "ja": "8,050万ドル · 評価額5.29億ドル · SkyLake Equity Partners主導（2024年5月）",
-          "zh-CN": "8050万美元 · 估值5.29亿美元 · SkyLake Equity Partners领投（2024年5月）",
-          "zh-TW": "8050萬美元 · 估值5.29億美元 · SkyLake Equity Partners領投（2024年5月）",
-          "es": "80,5M$ · valoración de 529M$ · liderada por SkyLake Equity Partners (mayo de 2024)"
+        "detail": {
+          "en": "$80.5M · $529M valuation · led by SkyLake Equity Partners with BNW Investments, AJU IB Investment & TimeFolio Asset Management · May 2024",
+          "ko": "8,050만 달러 · 기업가치 5.29억 달러 · SkyLake Equity Partners 주도, BNW Investments·AJU IB Investment·TimeFolio Asset Management 참여 · 2024.05",
+          "ja": "8,050万ドル · 評価額5.29億ドル · SkyLake Equity Partners主導、BNW Investments・AJU IB Investment・TimeFolio Asset Managementが参加 · 2024年5月",
+          "zh-CN": "8050万美元 · 估值5.29亿美元 · SkyLake Equity Partners领投，BNW Investments、AJU IB Investment及TimeFolio Asset Management跟投 · 2024年5月",
+          "zh-TW": "8050萬美元 · 估值5.29億美元 · SkyLake Equity Partners領投，BNW Investments、AJU IB Investment及TimeFolio Asset Management跟投 · 2024年5月",
+          "es": "80,5M$ · valoración de 529M$ · liderada por SkyLake Equity Partners con BNW Investments, AJU IB Investment y TimeFolio Asset Management · mayo de 2024"
         }
       }
     ],
@@ -1150,17 +1287,17 @@
         "year": "2026"
       },
       {
-        "name": "EE Times — Best Product of the Year",
+        "name": "Electronic Products / EE Times — 2024 Product of the Year (DX-M1)",
         "icon": "📰",
         "year": "2024"
       },
       {
-        "name": "WEF MINDS Award — First Cohort Winner",
+        "name": "WEF — Sustainable & Responsible AI Innovation Company",
         "icon": "🌍",
         "year": "2025"
       },
       {
-        "name": "Frost & Sullivan — Company of the Year (AI Chip)",
+        "name": "Frost & Sullivan — 2024 Best Practices Award, AI Chip (Global)",
         "icon": "📊",
         "year": "2024"
       },
@@ -1170,7 +1307,17 @@
         "year": "2024"
       },
       {
-        "name": "Computex — Innovation Award 2nd Place",
+        "name": "CTA — Must-See Company (CES 2025)",
+        "icon": "⭐",
+        "year": "2025"
+      },
+      {
+        "name": "NYSE International Day — Representative Company",
+        "icon": "🔔",
+        "year": "2025"
+      },
+      {
+        "name": "InnoVEX Startup Terrace Awards (Computex Taipei) — 2nd Place",
         "icon": "🥇",
         "year": "2023"
       },
@@ -1323,7 +1470,12 @@
       },
       "members": [
         "Ultralytics",
-        "Baidu PaddlePaddle"
+        "Baidu PaddlePaddle",
+        "Hyundai Motor Group Robotics Lab",
+        "Advantech",
+        "Supermicro",
+        "HP",
+        "Ampere"
       ]
     },
     "distribution": [
@@ -1341,12 +1493,23 @@
       {
         "name": "Avnet Silica",
         "role": {
-          "en": "EMEA franchise",
-          "ko": "EMEA 프랜차이즈",
-          "ja": "EMEAフランチャイズ",
-          "zh-CN": "EMEA特许经营",
-          "zh-TW": "EMEA特許經營",
-          "es": "Franquicia EMEA"
+          "en": "EMEA & APAC franchise",
+          "ko": "EMEA·APAC 프랜차이즈",
+          "ja": "EMEA・APACフランチャイズ",
+          "zh-CN": "EMEA与APAC特许经营",
+          "zh-TW": "EMEA與APAC特許經營",
+          "es": "Franquicia EMEA y APAC"
+        }
+      },
+      {
+        "name": "Macnica",
+        "role": {
+          "en": "North America distribution",
+          "ko": "북미 유통",
+          "ja": "北米流通",
+          "zh-CN": "北美分销",
+          "zh-TW": "北美經銷",
+          "es": "Distribución en Norteamérica"
         }
       },
       {
@@ -1371,6 +1534,18 @@
           "es": "Distribución en Japón"
         },
         "url": "https://www.koshida.co.jp/"
+      },
+      {
+        "name": "Endrich",
+        "role": {
+          "en": "Germany distribution",
+          "ko": "독일 유통",
+          "ja": "ドイツ流通",
+          "zh-CN": "德国分销",
+          "zh-TW": "德國經銷",
+          "es": "Distribución en Alemania"
+        },
+        "url": "https://www.endrich.com/en/product-categories/embedded-systems/ai-accelerator/deepx-dx-m1m"
       }
     ],
     "ecosystem": [
@@ -1385,7 +1560,150 @@
       "Renesas",
       "Raspberry Pi",
       "Naver Cloud",
-      "Sixfab"
+      "Sixfab",
+      {
+        "name": "QNAP",
+        "role": {
+          "en": "AI NAS / storage ecosystem partner",
+          "ko": "AI NAS·스토리지 에코시스템 파트너",
+          "ja": "AI NAS・ストレージ エコシステムパートナー",
+          "zh-CN": "AI NAS/存储生态伙伴",
+          "zh-TW": "AI NAS/儲存生態夥伴",
+          "es": "Socio de ecosistema NAS/almacenamiento IA"
+        }
+      },
+      {
+        "name": "Lanner",
+        "role": {
+          "en": "DX-H1 accelerator-card co-dev",
+          "ko": "DX-H1 가속카드 공동개발",
+          "ja": "DX-H1アクセラレータカード共同開発",
+          "zh-CN": "DX-H1加速卡联合开发",
+          "zh-TW": "DX-H1加速卡共同開發",
+          "es": "Codesarrollo de tarjeta aceleradora DX-H1"
+        }
+      },
+      {
+        "name": "Network Optix",
+        "role": {
+          "en": "VMS integration",
+          "ko": "VMS 통합",
+          "ja": "VMS統合",
+          "zh-CN": "VMS集成",
+          "zh-TW": "VMS整合",
+          "es": "Integración VMS"
+        }
+      },
+      {
+        "name": "Radxa",
+        "role": {
+          "en": "ROCK 5B/5B+ SBC + DX-M1 modules",
+          "ko": "ROCK 5B/5B+ SBC + DX-M1 모듈",
+          "ja": "ROCK 5B/5B+ SBC + DX-M1モジュール",
+          "zh-CN": "ROCK 5B/5B+ SBC + DX-M1模组",
+          "zh-TW": "ROCK 5B/5B+ SBC + DX-M1模組",
+          "es": "SBC ROCK 5B/5B+ + módulos DX-M1"
+        }
+      },
+      {
+        "name": "Nota AI",
+        "role": {
+          "en": "AI model optimization (NetsPresso)",
+          "ko": "AI 모델 최적화 (NetsPresso)",
+          "ja": "AIモデル最適化（NetsPresso）",
+          "zh-CN": "AI模型优化（NetsPresso）",
+          "zh-TW": "AI模型最佳化（NetsPresso）",
+          "es": "Optimización de modelos de IA (NetsPresso)"
+        }
+      },
+      {
+        "name": "Aetina",
+        "role": {
+          "en": "Edge AI platforms w/ swappable DX modules",
+          "ko": "교체 가능한 DX 모듈 탑재 엣지 AI 플랫폼",
+          "ja": "交換可能なDXモジュール搭載エッジAIプラットフォーム",
+          "zh-CN": "搭载可更换DX模组的边缘AI平台",
+          "zh-TW": "搭載可更換DX模組的邊緣AI平台",
+          "es": "Plataformas de IA de borde con módulos DX intercambiables"
+        }
+      },
+      {
+        "name": "DFI",
+        "role": {
+          "en": "Rugged edge systems + DX-M1",
+          "ko": "강건형 엣지 시스템 + DX-M1",
+          "ja": "堅牢型エッジシステム + DX-M1",
+          "zh-CN": "坚固型边缘系统 + DX-M1",
+          "zh-TW": "堅固型邊緣系統 + DX-M1",
+          "es": "Sistemas de borde robustos + DX-M1"
+        }
+      },
+      {
+        "name": "Jahwa Electronics",
+        "role": {
+          "en": "AI smart camera modules",
+          "ko": "AI 스마트 카메라 모듈",
+          "ja": "AIスマートカメラモジュール",
+          "zh-CN": "AI智能摄像模组",
+          "zh-TW": "AI智慧攝影模組",
+          "es": "Módulos de cámara inteligente con IA"
+        }
+      },
+      {
+        "name": "Toradex",
+        "role": {
+          "en": "Embedded compute modules",
+          "ko": "임베디드 컴퓨트 모듈",
+          "ja": "組み込みコンピュートモジュール",
+          "zh-CN": "嵌入式计算模组",
+          "zh-TW": "嵌入式運算模組",
+          "es": "Módulos de cómputo embebido"
+        }
+      },
+      {
+        "name": "IEI",
+        "role": {
+          "en": "Industrial AI systems",
+          "ko": "산업용 AI 시스템",
+          "ja": "産業用AIシステム",
+          "zh-CN": "工业AI系统",
+          "zh-TW": "工業AI系統",
+          "es": "Sistemas de IA industrial"
+        }
+      },
+      {
+        "name": "Edge AI Foundation",
+        "role": {
+          "en": "Edge AI industry consortium (member)",
+          "ko": "엣지 AI 산업 컨소시엄 (회원)",
+          "ja": "エッジAI業界コンソーシアム（会員）",
+          "zh-CN": "边缘AI产业联盟（成员）",
+          "zh-TW": "邊緣AI產業聯盟（會員）",
+          "es": "Consorcio de la industria de IA de borde (miembro)"
+        }
+      },
+      {
+        "name": "Lotte Innovate",
+        "role": {
+          "en": "Vision AI for CCTV & smart retail",
+          "ko": "CCTV·스마트 리테일용 비전 AI",
+          "ja": "CCTV・スマートリテール向けビジョンAI",
+          "zh-CN": "面向CCTV与智能零售的视觉AI",
+          "zh-TW": "面向CCTV與智慧零售的視覺AI",
+          "es": "IA de visión para CCTV y retail inteligente"
+        }
+      },
+      {
+        "name": "Gwangju AI Appliance Platform",
+        "role": {
+          "en": "Smart-appliance NPU platform (~400 firms)",
+          "ko": "스마트 가전 NPU 플랫폼 (~400개사)",
+          "ja": "スマート家電NPUプラットフォーム（約400社）",
+          "zh-CN": "智能家电NPU平台（约400家企业）",
+          "zh-TW": "智慧家電NPU平台（約400家企業）",
+          "es": "Plataforma NPU para electrodomésticos inteligentes (~400 empresas)"
+        }
+      }
     ]
   },
   "news": {
@@ -1417,6 +1735,146 @@
       }
     ],
     "upcoming": [
+      {
+        "title": {
+          "en": "Avnet Edge & Beyond Tech Days 2026",
+          "ko": "Avnet Edge & Beyond Tech Days 2026",
+          "ja": "Avnet Edge & Beyond Tech Days 2026",
+          "zh-CN": "Avnet Edge & Beyond Tech Days 2026",
+          "zh-TW": "Avnet Edge & Beyond Tech Days 2026",
+          "es": "Avnet Edge & Beyond Tech Days 2026"
+        },
+        "date": "2026.07",
+        "type": "event",
+        "location": {
+          "en": "Jul 10 – 24, 2026",
+          "ko": "2026.07.10 – 24",
+          "ja": "2026年7月10–24日",
+          "zh-CN": "2026年7月10–24日",
+          "zh-TW": "2026年7月10–24日",
+          "es": "10–24 jul 2026"
+        },
+        "url": "https://deepx.ai/avnet-edge-beyond-tech-days-2026-10-jul-2026-24-jul-2026/"
+      }
+    ],
+    "past": [
+      {
+        "title": {
+          "en": "DEEPX launches DX-H1 V-NPU — 30W single-card video-AI chip",
+          "ko": "DEEPX, DX-H1 V-NPU 출시 — 30W 단일 카드 비디오 AI 칩",
+          "ja": "DEEPX、DX-H1 V-NPUを発売 — 30W単一カードのビデオAIチップ",
+          "zh-CN": "DEEPX推出DX-H1 V-NPU — 30W单卡视频AI芯片",
+          "zh-TW": "DEEPX推出DX-H1 V-NPU — 30W單卡視訊AI晶片",
+          "es": "DEEPX lanza DX-H1 V-NPU — chip de IA de vídeo de 30W en una sola tarjeta"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/deepx-launches-dx-h1-v-npu-the-30w-single-card-solution-that-challenges-gpu-dominance-302636052.html"
+      },
+      {
+        "title": {
+          "en": "Advantech launches EAI-1961 Edge AI module powered by DEEPX DX-M1",
+          "ko": "Advantech, DEEPX DX-M1 탑재 EAI-1961 엣지 AI 모듈 출시",
+          "ja": "Advantech、DEEPX DX-M1搭載EAI-1961エッジAIモジュールを発売",
+          "zh-CN": "Advantech推出搭载DEEPX DX-M1的EAI-1961边缘AI模组",
+          "zh-TW": "Advantech推出搭載DEEPX DX-M1的EAI-1961邊緣AI模組",
+          "es": "Advantech lanza el módulo de IA de borde EAI-1961 impulsado por DEEPX DX-M1"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/advantech-expands-global-edge-ai-partner-ecosystem-with-deepx-and-launches-first-joint-solution-302644173.html"
+      },
+      {
+        "title": {
+          "en": "Hyundai Motor/Kia Robotics LAB & DEEPX begin robot-platform commercialization (DAL-e)",
+          "ko": "현대차·기아 로보틱스랩 & DEEPX, 로봇 플랫폼 상용화 착수 (DAL-e)",
+          "ja": "Hyundai Motor・Kia Robotics LAB & DEEPX、ロボットプラットフォーム商用化開始（DAL-e）",
+          "zh-CN": "现代汽车/起亚机器人实验室与DEEPX启动机器人平台商用化（DAL-e）",
+          "zh-TW": "現代汽車/起亞機器人實驗室與DEEPX啟動機器人平台商用化（DAL-e）",
+          "es": "Hyundai Motor/Kia Robotics LAB y DEEPX inician la comercialización de la plataforma robótica (DAL-e)"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/hyundai-motor-kias-robotics-lab-and-deepx-begin-commercialization-for-next-generation-on-device-ai-robot-platform-302631644.html"
+      },
+      {
+        "title": {
+          "en": "DEEPX recognized by NYSE and WEF",
+          "ko": "DEEPX, NYSE·WEF로부터 인정받다",
+          "ja": "DEEPX、NYSEとWEFから評価される",
+          "zh-CN": "DEEPX获NYSE与WEF认可",
+          "zh-TW": "DEEPX獲NYSE與WEF認可",
+          "es": "DEEPX es reconocida por la NYSE y el WEF"
+        },
+        "date": "2025.10",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/ai-semiconductor-innovator-deepx-recognized-by-nyse-and-wef-302600686.html"
+      },
+      {
+        "title": {
+          "en": "Lotte Innovate partners with DEEPX to deploy NPU in vision AI (intelligent CCTV)",
+          "ko": "롯데이노베이트, 딥엑스와 비전 AI(지능형 CCTV)에 NPU 적용 협력",
+          "ja": "ロッテイノベート、DEEPXと提携しビジョンAI（インテリジェントCCTV）にNPUを導入",
+          "zh-CN": "乐天创新与DEEPX合作，在视觉AI（智能CCTV）中部署NPU",
+          "zh-TW": "樂天創新與DEEPX合作，於視覺AI（智慧CCTV）中部署NPU",
+          "es": "Lotte Innovate se asocia con DEEPX para desplegar NPU en IA de visión (CCTV inteligente)"
+        },
+        "date": "2026.04",
+        "type": "news",
+        "url": "https://www.sedaily.com/article/20027345"
+      },
+      {
+        "title": {
+          "en": "DEEPX expands APAC footprint via Avnet distribution deal (15 markets)",
+          "ko": "DEEPX, Avnet 유통 계약으로 APAC 15개국 시장 확대",
+          "ja": "DEEPX、Avnetとの流通契約でAPAC15市場に進出拡大",
+          "zh-CN": "DEEPX通过Avnet分销协议拓展APAC 15个市场",
+          "zh-TW": "DEEPX透過Avnet經銷協議拓展APAC 15個市場",
+          "es": "DEEPX amplía su presencia en APAC mediante un acuerdo de distribución con Avnet (15 mercados)"
+        },
+        "date": "2026.07",
+        "type": "news",
+        "url": "https://www.eetasia.com/deepx-strengthens-presence-in-apac-through-partnership-with-avnet/"
+      },
+      {
+        "title": {
+          "en": "DEEPX unveils All-in-4 AI Total Solution at CES 2024",
+          "ko": "DEEPX, CES 2024에서 'All-in-4 AI Total Solution' 공개",
+          "ja": "DEEPX、CES 2024で「All-in-4 AI Total Solution」を発表",
+          "zh-CN": "DEEPX在CES 2024发布All-in-4 AI Total Solution",
+          "zh-TW": "DEEPX於CES 2024發表All-in-4 AI Total Solution",
+          "es": "DEEPX presenta All-in-4 AI Total Solution en CES 2024"
+        },
+        "date": "2024.01",
+        "type": "news",
+        "url": "https://www.prnewswire.com/news-releases/deepx-unveils-all-in-4-ai-total-solution-at-ces-2024-four-ai-chips-transforming-on-device-ai-market-302030982.html"
+      },
+      {
+        "title": {
+          "en": "DEEPX total AI solutions for NVRs & cameras at ISC West 2025 (Network Optix + CVEDIA)",
+          "ko": "DEEPX, ISC West 2025에서 NVR·카메라용 토탈 AI 솔루션 공개 (Network Optix + CVEDIA)",
+          "ja": "DEEPX、ISC West 2025でNVR・カメラ向けトータルAIソリューションを発表（Network Optix + CVEDIA）",
+          "zh-CN": "DEEPX在ISC West 2025展示NVR与摄像机整体AI解决方案（Network Optix + CVEDIA）",
+          "zh-TW": "DEEPX於ISC West 2025展示NVR與攝影機整體AI解決方案（Network Optix + CVEDIA）",
+          "es": "DEEPX presenta soluciones integrales de IA para NVR y cámaras en ISC West 2025 (Network Optix + CVEDIA)"
+        },
+        "date": "2025.03",
+        "type": "event",
+        "url": "https://deepx.ai/deepx-unveils-total-ai-solutions-for-nvrs-and-cameras-at-isc-west-elevates-on-device-ai-ecosystem-for-real-time-video-analysis/"
+      },
+      {
+        "title": {
+          "en": "Baidu places initial ~40,000-unit DX-M1 order",
+          "ko": "바이두, DX-M1 초도 약 4만 개 발주",
+          "ja": "百度がDX-M1を初回約4万個発注",
+          "zh-CN": "百度首批下单约4万颗DX-M1",
+          "zh-TW": "百度首批下單約4萬顆DX-M1",
+          "es": "Baidu realiza pedido inicial de ~40.000 unidades DX-M1"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://en.sedaily.com/technology/2026/04/15/deepx-secures-over-30-clients-aims-to-lead-koreas-physical"
+      },
       {
         "title": {
           "en": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, Booth S14-16",
@@ -1459,29 +1917,6 @@
         },
         "url": "https://deepx.ai/lets-meet-at-manufacturing-world-2026-tokyo-deepx-booth-s14-16/"
       },
-      {
-        "title": {
-          "en": "Avnet Edge & Beyond Tech Days 2026",
-          "ko": "Avnet Edge & Beyond Tech Days 2026",
-          "ja": "Avnet Edge & Beyond Tech Days 2026",
-          "zh-CN": "Avnet Edge & Beyond Tech Days 2026",
-          "zh-TW": "Avnet Edge & Beyond Tech Days 2026",
-          "es": "Avnet Edge & Beyond Tech Days 2026"
-        },
-        "date": "2026.07",
-        "type": "event",
-        "location": {
-          "en": "Jul 10 – 24, 2026",
-          "ko": "2026.07.10 – 24",
-          "ja": "2026年7月10–24日",
-          "zh-CN": "2026年7月10–24日",
-          "zh-TW": "2026年7月10–24日",
-          "es": "10–24 jul 2026"
-        },
-        "url": "https://deepx.ai/avnet-edge-beyond-tech-days-2026-10-jul-2026-24-jul-2026/"
-      }
-    ],
-    "past": [
       {
         "title": {
           "en": "DX-M1 now runs SLMs fully on-device",
@@ -1704,6 +2139,19 @@
         "date": "2026.01",
         "type": "award",
         "url": "https://deepx.ai/deepx-unveils-vision-as-a-physical-ai-infrastructure-company-at-ces-2026/"
+      },
+      {
+        "title": {
+          "en": "Partner Sixfab's DX-M1-powered ALPON X5 wins CES 2026 Best of Innovation",
+          "ko": "파트너 Sixfab의 DX-M1 탑재 ALPON X5, CES 2026 Best of Innovation 수상",
+          "ja": "パートナーSixfabのDX-M1搭載ALPON X5がCES 2026 Best of Innovationを受賞",
+          "zh-CN": "合作伙伴Sixfab搭载DX-M1的ALPON X5荣获CES 2026 Best of Innovation奖",
+          "zh-TW": "合作夥伴Sixfab搭載DX-M1的ALPON X5榮獲CES 2026 Best of Innovation獎",
+          "es": "El ALPON X5 de Sixfab, impulsado por DX-M1, gana el premio Best of Innovation en CES 2026"
+        },
+        "date": "2026.01",
+        "type": "award",
+        "url": "https://www.prnewswire.com/news-releases/deepx-wins-two-ces-2026-innovation-awards-its-dx-m1-powers-best-of-innovation-winner-alpon-x5-by-sixfab-302605681.html"
       },
       {
         "title": {
@@ -1941,7 +2389,7 @@
       }
     ],
     "sdkRelease": {
-      "version": "v2.3.0",
+      "version": "v2.3.3",
       "summary": {
         "en": "Runtime efficiency, security hardening, unified application architecture.",
         "ko": "런타임 효율, 보안 강화, 통합 애플리케이션 아키텍처.",
