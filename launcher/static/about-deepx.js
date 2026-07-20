@@ -304,14 +304,31 @@
         <h3 class="about-tech-title">${L(t.sdk.title)}</h3>
         <p class="about-tech-desc">${typeset(L(t.sdk.description))}</p>
         ${t.sdk.components ? `<p class="about-tech-desc about-sdk-components">${t.sdk.components.map(function (c) { return L(c); }).join(' · ')}</p>` : ''}
-        <div class="about-sdk-steps">
-          ${t.sdk.steps.map(s => `
-            <div class="about-sdk-step">
-              <div class="about-sdk-step-num">${s.num}</div>
-              <div class="about-sdk-step-title">${L(s.title)}</div>
-              <div class="about-sdk-step-desc">${L(s.desc)}</div>
-            </div>
-          `).join('')}
+        <h4 class="about-sdk-howto-title">${T({en:'How to Use DXNN SDK', ko:'DXNN SDK 사용법', ja:'DXNN SDKの使い方', 'zh-CN':'DXNN SDK 使用方法', 'zh-TW':'DXNN SDK 使用方法', es:'Cómo usar el DXNN SDK'})}</h4>
+        ${t.sdk.prebuiltSteps ? `
+        <div class="about-sdk-path">
+          <div class="about-sdk-path-label">${T({en:'Pre-Built — start from DX Model Zoo', ko:'사전 구축 — DX Model Zoo에서 시작', ja:'ビルド済み — DX Model Zooから開始', 'zh-CN':'预构建 — 从 DX Model Zoo 开始', 'zh-TW':'預建 — 從 DX Model Zoo 開始', es:'Prediseñado — desde DX Model Zoo'})}</div>
+          <div class="about-sdk-steps">
+            ${t.sdk.prebuiltSteps.map(s => `
+              <div class="about-sdk-step">
+                <div class="about-sdk-step-num">${s.num}</div>
+                <div class="about-sdk-step-title">${L(s.title)}</div>
+                <div class="about-sdk-step-desc">${L(s.desc)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>` : ''}
+        <div class="about-sdk-path">
+          <div class="about-sdk-path-label">${T({en:'Custom — full workflow', ko:'커스텀 — 전체 워크플로', ja:'カスタム — フルワークフロー', 'zh-CN':'自定义 — 完整流程', 'zh-TW':'自訂 — 完整流程', es:'Personalizado — flujo completo'})}</div>
+          <div class="about-sdk-steps">
+            ${t.sdk.steps.map(s => `
+              <div class="about-sdk-step">
+                <div class="about-sdk-step-num">${s.num}</div>
+                <div class="about-sdk-step-title">${L(s.title)}</div>
+                <div class="about-sdk-step-desc">${L(s.desc)}</div>
+              </div>
+            `).join('')}
+          </div>
         </div>
         <div class="about-stats-row">
           ${t.sdk.stats.map(s => `

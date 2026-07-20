@@ -800,7 +800,66 @@
       },
       "versions": {
         "dxCom": "v2.3.0"
-      }
+      },
+      "prebuiltSteps": [
+        {
+          "num": "1",
+          "title": {
+            "en": "DX Model Zoo",
+            "ko": "DX Model Zoo",
+            "ja": "DX Model Zoo",
+            "zh-CN": "DX Model Zoo",
+            "zh-TW": "DX Model Zoo",
+            "es": "DX Model Zoo"
+          },
+          "desc": {
+            "en": "Pick a pre-built model from DX Model Zoo",
+            "ko": "DX Model Zoo에서 사전 구축 모델 선택",
+            "ja": "DX Model Zooから構築済みモデルを選択",
+            "zh-CN": "从DX Model Zoo选择预构建模型",
+            "zh-TW": "從DX Model Zoo選擇預建模型",
+            "es": "Elegir un modelo prediseñado de DX Model Zoo"
+          }
+        },
+        {
+          "num": "2",
+          "title": {
+            "en": "DX-RT",
+            "ko": "DX-RT",
+            "ja": "DX-RT",
+            "zh-CN": "DX-RT",
+            "zh-TW": "DX-RT",
+            "es": "DX-RT"
+          },
+          "desc": {
+            "en": "Run inference (C++ / Python)",
+            "ko": "추론 실행 (C++ / Python)",
+            "ja": "推論実行（C++ / Python）",
+            "zh-CN": "运行推理（C++ / Python）",
+            "zh-TW": "執行推理（C++ / Python）",
+            "es": "Ejecutar inferencia (C++ / Python)"
+          }
+        },
+        {
+          "num": "3",
+          "title": {
+            "en": "NPU Acceleration",
+            "ko": "NPU 가속",
+            "ja": "NPUアクセラレーション",
+            "zh-CN": "NPU加速",
+            "zh-TW": "NPU加速",
+            "es": "Aceleración NPU"
+          },
+          "desc": {
+            "en": "Real-time inference on DEEPX NPU",
+            "ko": "DEEPX NPU 실시간 추론",
+            "ja": "DEEPX NPU上でリアルタイム推論",
+            "zh-CN": "DEEPX NPU实时推理",
+            "zh-TW": "DEEPX NPU即時推理",
+            "es": "Inferencia en tiempo real en NPU DEEPX"
+          }
+        }
+      ]
     },
     "npu": {
       "title": {
