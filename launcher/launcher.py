@@ -1453,19 +1453,28 @@ def main():
 
     _load_widget_cache()
 
-    # Pre-sync the shared SDK chat knowledge ONCE, here in the launcher process, before any
-    # module server starts. This is the single writer: knowledge_sync.generate() writes
-    # atomically (temp file + os.replace), but we still want exactly one process regenerating
-    # it rather than all 8 module servers racing to lazily resync on first chat. Module servers
-    # just read the already-fresh file (see shared/chat/engine.py's env-gated lazy fallback for
-    # the standalone-without-launcher case). Best-effort: never let a knowledge-sync failure
-    # block launcher boot.
-    try:
-        from shared.chat.knowledge_sync import sync_if_stale
-        if sync_if_stale():
-            print("  [Launcher] SDK chat knowledge resynced (sources changed).")
-    except Exception as _e:
-        print(f"  [Launcher] SDK chat knowledge sync skipped ({_e}).")
+    # Pre-sync the shared SDK chat knowledge ONCE, here in the launcher process. This is the
+    # single writer: knowledge_sync.generate() writes atomically (temp file + os.replace), but
+    # we still want exactly one process regenerating it rather than all 8 module servers racing
+    # to lazily resync on first chat. Module servers just read the already-fresh file (see
+    # shared/chat/engine.py's env-gated lazy fallback for the standalone-without-launcher case).
+    #
+    # Run it in a daemon thread so it never blocks boot: walking the multi-GB .deepx source tree
+    # adds latency before the first module even starts, and boot correctness does not depend on
+    # it finishing first. The write is atomic, so a chat that arrives mid-sync reads either the
+    # previous complete file or the new one — never a torn read. Best-effort: a failure is
+    # logged and ignored.
+    def _presync_chat_knowledge():
+        try:
+            from shared.chat.knowledge_sync import sync_if_stale
+            if sync_if_stale():
+                print("  [Launcher] SDK chat knowledge resynced (sources changed).")
+        except Exception as _e:
+            print(f"  [Launcher] SDK chat knowledge sync skipped ({_e}).")
+
+    threading.Thread(
+        target=_presync_chat_knowledge, name="launcher-chat-presync", daemon=True
+    ).start()
 
     boot_modules = {
         "DX App": APP_PORT, "DX Stream": STREAM_PORT,
