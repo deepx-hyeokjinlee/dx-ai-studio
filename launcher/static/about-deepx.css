@@ -278,10 +278,8 @@
   font: 400 15px/1.7 var(--font);
   color: var(--about-text);
   margin-bottom: 48px;
-  max-width: 800px;
-  /* `pretty` avoids orphans/awkward last-line breaks without the ragged short
-     lines that `balance` produces on multi-sentence paragraphs. */
-  text-wrap: balance;
+  /* No narrow max-width: the text flows to the full section width and wraps normally,
+     instead of breaking early inside an 800px column while the page is much wider. */
 }
 .about-values-grid {
   display: grid;
@@ -400,10 +398,8 @@
 .about-tech-desc {
   font: 400 14px/1.7 var(--font);
   color: var(--about-text);
-  max-width: 720px;
   margin-bottom: 24px;
-  /* Avoid awkward orphan/mid-phrase last-line breaks (IQ8, DXNN SDK descriptions). */
-  text-wrap: balance;
+  /* No narrow max-width — flow to the full section width and wrap normally. */
 }
 .about-stats-row {
   display: flex;
