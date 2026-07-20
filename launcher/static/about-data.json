@@ -18,7 +18,7 @@
     },
     "stats": [
       {
-        "value": "500+ / 100+",
+        "value": "400+ / 130+",
         "label": {
           "en": "Patents Filed / Granted",
           "ko": "특허 출원 / 등록",
@@ -29,7 +29,7 @@
         }
       },
       {
-        "value": "30+ / 8+",
+        "value": "48+ / 8+",
         "label": {
           "en": "Commercial Orders / Countries",
           "ko": "상용 발주 / 국가",
@@ -317,7 +317,42 @@
         },
         "address": "Room 910, Block B, Sunshine Yuehai Building, No. 3388 Canghai Road, Nanshan District, Shenzhen, Guangdong, China"
       }
-    ]
+    ],
+    "certifications": {
+      "title": {
+        "en": "Trust & Certifications",
+        "ko": "인증 및 신뢰",
+        "ja": "認証と信頼",
+        "zh-CN": "认证与信任",
+        "zh-TW": "認證與信任",
+        "es": "Confianza y certificaciones"
+      },
+      "subtitle": {
+        "en": "Independently certified for global compliance and quality, tracked on DEEPX's Trust Center.",
+        "ko": "글로벌 규정 준수와 품질을 위한 독립 인증으로, DEEPX Trust Center에서 관리됩니다.",
+        "ja": "グローバルなコンプライアンスと品質のための第三者認証。DEEPX Trust Centerで管理されています。",
+        "zh-CN": "通过独立认证，符合全球合规与质量标准，详见DEEPX Trust Center。",
+        "zh-TW": "通過獨立認證，符合全球合規與品質標準，詳見DEEPX Trust Center。",
+        "es": "Certificaciones independientes de cumplimiento y calidad global, gestionadas en el Trust Center de DEEPX."
+      },
+      "items": [
+        { "label": "ISO 9001", "detail": "Quality management system" },
+        { "label": "CE", "detail": "EN 55032 Class A, EN 55035" },
+        { "label": "FCC", "detail": "47 CFR Part 15B" },
+        { "label": "ISED", "detail": "ICES-003 Issue 7" },
+        { "label": "UKCA", "detail": "BS EN 55032 / BS EN 55035" },
+        { "label": "KC", "detail": "KS 9832 / KS 9835" },
+        { "label": "VCCI", "detail": "CISPR 32" }
+      ],
+      "longevity": {
+        "en": "10-year minimum product lifecycle",
+        "ko": "최소 10년 제품 수명주기 보장",
+        "ja": "最低10年間の製品ライフサイクルを保証",
+        "zh-CN": "至少10年产品生命周期保障",
+        "zh-TW": "至少10年產品生命週期保障",
+        "es": "Ciclo de vida mínimo de 10 años del producto"
+      }
+    }
   },
   "technology": {
     "iq8": {
@@ -628,7 +663,7 @@
         }
       },
       "release": {
-        "version": "v2.3.0",
+        "version": "v2.3.3",
         "summary": {
           "en": "Runtime efficiency, security hardening, unified application architecture.",
           "ko": "런타임 효율, 보안 강화, 통합 애플리케이션 아키텍처.",
@@ -1031,7 +1066,14 @@
           "es": "PCIe de perfil bajo"
         },
         "channels": "64 decode / 32 encode (1080p30)",
-        "savings": "80% cost / 85% power vs GPU",
+        "savings": {
+          "en": "82% cost / 85% power vs GPU",
+          "ko": "GPU 대비 비용 82% · 전력 85% 절감",
+          "ja": "GPU比でコスト82%・電力85%削減",
+          "zh-CN": "相比GPU节省82%成本 / 85%功耗",
+          "zh-TW": "相比GPU節省82%成本 / 85%功耗",
+          "es": "82% menos costo / 85% menos consumo vs GPU"
+        },
         "badge": "64CH Decode"
       }
     ],
@@ -1565,6 +1607,234 @@
           "es": "Distribución en Alemania"
         },
         "url": "https://www.endrich.com/en/product-categories/embedded-systems/ai-accelerator/deepx-dx-m1m"
+      },
+      {
+        "name": "SkyNoon",
+        "role": {
+          "en": "China distribution",
+          "ko": "중국 유통",
+          "ja": "中国流通",
+          "zh-CN": "中国分销",
+          "zh-TW": "中國經銷",
+          "es": "Distribución en China"
+        },
+        "url": "http://www.skynoon.com/"
+      },
+      {
+        "name": "Digital China",
+        "role": {
+          "en": "China distribution",
+          "ko": "중국 유통",
+          "ja": "中国流通",
+          "zh-CN": "中国分销",
+          "zh-TW": "中國經銷",
+          "es": "Distribución en China"
+        },
+        "url": "https://www.digitalchina.com/"
+      },
+      {
+        "name": "Serial System",
+        "role": {
+          "en": "Asia distribution",
+          "ko": "아시아 유통",
+          "ja": "アジア流通",
+          "zh-CN": "亚洲分销",
+          "zh-TW": "亞洲經銷",
+          "es": "Distribución en Asia"
+        },
+        "url": "https://serialsystem.com/"
+      },
+      {
+        "name": "Ascend-Tek",
+        "role": {
+          "en": "Taiwan & China distribution",
+          "ko": "대만·중국 유통",
+          "ja": "台湾・中国流通",
+          "zh-CN": "台湾与中国分销",
+          "zh-TW": "台灣與中國經銷",
+          "es": "Distribución en Taiwán y China"
+        },
+        "url": "https://ascend-tek.com/"
+      },
+      {
+        "name": "SAS Dragon",
+        "role": {
+          "en": "Hong Kong & China distribution",
+          "ko": "홍콩·중국 유통",
+          "ja": "香港・中国流通",
+          "zh-CN": "香港与中国分销",
+          "zh-TW": "香港與中國經銷",
+          "es": "Distribución en Hong Kong y China"
+        },
+        "url": "https://www.sasdragon.com.hk/"
+      },
+      {
+        "name": "Jet One Technology",
+        "role": {
+          "en": "Taiwan distribution",
+          "ko": "대만 유통",
+          "ja": "台湾流通",
+          "zh-CN": "台湾分销",
+          "zh-TW": "台灣經銷",
+          "es": "Distribución en Taiwán"
+        },
+        "url": "https://www.jetone.com.tw/"
+      },
+      {
+        "name": "Solsta",
+        "role": {
+          "en": "UK distribution",
+          "ko": "영국 유통",
+          "ja": "英国流通",
+          "zh-CN": "英国分销",
+          "zh-TW": "英國經銷",
+          "es": "Distribución en el Reino Unido"
+        },
+        "url": "https://solsta.co.uk/"
+      },
+      {
+        "name": "Nisko Projects",
+        "role": {
+          "en": "Israel distribution",
+          "ko": "이스라엘 유통",
+          "ja": "イスラエル流通",
+          "zh-CN": "以色列分销",
+          "zh-TW": "以色列經銷",
+          "es": "Distribución en Israel"
+        },
+        "url": "https://nisko-projects.com/"
+      },
+      {
+        "name": "DWCTS",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://dwcts.co.kr/"
+      },
+      {
+        "name": "DaoLTS",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://www.daolts.co.kr/"
+      },
+      {
+        "name": "KIES (Korea Information Engineering)",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://www.kies.co.kr/"
+      },
+      {
+        "name": "Daejin",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "http://www.semidj.com/"
+      },
+      {
+        "name": "Hancomn Shop",
+        "role": {
+          "en": "Korea e-commerce",
+          "ko": "한국 이커머스",
+          "ja": "韓国EC",
+          "zh-CN": "韩国电商",
+          "zh-TW": "韓國電商",
+          "es": "E-commerce en Corea"
+        },
+        "url": "https://hancomnshop.co.kr/DEEPX"
+      },
+      {
+        "name": "Major Works",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://majorworks.co.kr/"
+      },
+      {
+        "name": "OSCO Korea",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://www.oscokorea.com/"
+      },
+      {
+        "name": "DX Solution",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://dxsolution.kr/"
+      },
+      {
+        "name": "InterAiKorea",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://www.iikr.co.kr/"
+      },
+      {
+        "name": "Y-NOT",
+        "role": {
+          "en": "Korea e-commerce",
+          "ko": "한국 이커머스",
+          "ja": "韓国EC",
+          "zh-CN": "韩国电商",
+          "zh-TW": "韓國電商",
+          "es": "E-commerce en Corea"
+        },
+        "url": "https://www.y-not.kr/aiaccel_deepx"
+      },
+      {
+        "name": "ELEParts",
+        "role": {
+          "en": "Korea e-commerce",
+          "ko": "한국 이커머스",
+          "ja": "韓国EC",
+          "zh-CN": "韩国电商",
+          "zh-TW": "韓國電商",
+          "es": "E-commerce en Corea"
+        },
+        "url": "https://www.eleparts.co.kr/main/index"
       }
     ],
     "ecosystem": [
@@ -1996,7 +2266,7 @@
           "zh-TW": "DEEPX任命前NXP總監Jaedoo Jun為美國子公司負責人",
           "es": "DEEPX nombra al exdirector de NXP Jaedoo Jun como responsable de su filial en EE. UU."
         },
-        "date": "2026",
+        "date": "2025.03",
         "type": "news",
         "url": "https://deepx.ai/deepx-appoints-former-nxp-product-marketing-director-jaedoo-jun-as-head-of-u-s-subsidiary-aims-to-rapidly-expand-global-on-device-ai-market-presence-and-accelerate-revenue-generation/"
       },
@@ -2197,6 +2467,58 @@
         "date": "2024.01",
         "type": "award",
         "url": "https://deepx.ai/company/our-story/"
+      },
+      {
+        "title": {
+          "en": "DEEPX signs strategic partnership with Avnet Silica, accelerating EMEA expansion",
+          "ko": "DEEPX, Avnet Silica와 전략적 파트너십 체결 — EMEA 확장 가속화",
+          "ja": "DEEPX、Avnet Silicaと戦略的パートナーシップ締結 — EMEA展開を加速",
+          "zh-CN": "DEEPX与Avnet Silica签署战略合作，加速EMEA市场拓展",
+          "zh-TW": "DEEPX與Avnet Silica簽署策略合作，加速EMEA市場拓展",
+          "es": "DEEPX firma una alianza estratégica con Avnet Silica para acelerar su expansión en EMEA"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://deepx.ai/avnet-silica-strengthens-ai-portfolio-through-new-franchise-agreement-with-deepx/"
+      },
+      {
+        "title": {
+          "en": "DEEPX surpasses 300 customer validations for DX-M1 (EECP)",
+          "ko": "DEEPX, DX-M1 고객 검증 300건 돌파 (EECP)",
+          "ja": "DEEPX、DX-M1の顧客検証が300件を突破（EECP）",
+          "zh-CN": "DEEPX的DX-M1客户验证突破300家（EECP）",
+          "zh-TW": "DEEPX的DX-M1客戶驗證突破300家（EECP）",
+          "es": "DEEPX supera las 300 validaciones de clientes para DX-M1 (EECP)"
+        },
+        "date": "2025.03",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-verifies-npu-technology-with-over-300-corporations-aiming-for-global-leadership/"
+      },
+      {
+        "title": {
+          "en": "CES 2026 Foundry: DEEPX declares the era of Physical AI with global partners",
+          "ko": "CES 2026 Foundry: DEEPX, 글로벌 파트너와 Physical AI 시대 선언",
+          "ja": "CES 2026 Foundry: DEEPX、グローバルパートナーとPhysical AI時代を宣言",
+          "zh-CN": "CES 2026 Foundry：DEEPX与全球合作伙伴共同宣告Physical AI时代",
+          "zh-TW": "CES 2026 Foundry：DEEPX與全球合作夥伴共同宣告Physical AI時代",
+          "es": "CES 2026 Foundry: DEEPX declara la era de la IA física junto a socios globales"
+        },
+        "date": "2026.01",
+        "type": "news",
+        "url": "https://deepx.ai/ces-2026-foundry-deepx-declares-the-era-of-physical-ai-with-global-partners/"
+      },
+      {
+        "title": {
+          "en": "DEEPX secures 48 commercial orders across 8 countries",
+          "ko": "DEEPX, 8개국에서 상용 발주 48건 확보",
+          "ja": "DEEPX、8か国で商用受注48件を確保",
+          "zh-CN": "DEEPX在8个国家获得48份商业订单",
+          "zh-TW": "DEEPX在8個國家獲得48份商業訂單",
+          "es": "DEEPX consigue 48 pedidos comerciales en 8 países"
+        },
+        "date": "2026.05",
+        "type": "news",
+        "url": "https://www.asiae.co.kr/en/article/2026052916063021955"
       }
     ]
   },
