@@ -557,7 +557,7 @@ ul.about-timeline-list li::before {
   display: block;
   border-radius: var(--radius);
 }
-.about-sdk-env-fig img:nth-of-type(1) { flex: 2054 1 0; }  /* environments 1150×560 */
+.about-sdk-env-fig img:nth-of-type(1) { flex: 1620 1 0; }  /* environments — trimmed so the left isn't bigger than the right */
 .about-sdk-env-fig img:nth-of-type(2) { flex: 1389 1 0; }  /* architecture 1500×1080 */
 
 /* ── 9. Products Section ── */
