@@ -385,6 +385,7 @@
         </div>` : ''}
         <div class="about-product-name">${item.name}</div>
         <div class="about-product-type">${L(item.type)}</div>
+        <div class="about-product-specs">
         <div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Performance', ko:'성능', ja:'性能', 'zh-CN':'性能', 'zh-TW':'效能', es:'Rendimiento'})}</span><span class="about-product-spec-value">${item.tops}</span></div>
         <div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Power', ko:'전력', ja:'電力', 'zh-CN':'功耗', 'zh-TW':'功耗', es:'Potencia'})}</span><span class="about-product-spec-value">${item.power}</span></div>
         <div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Memory', ko:'메모리', ja:'メモリ', 'zh-CN':'内存', 'zh-TW':'記憶體', es:'Memoria'})}</span><span class="about-product-spec-value">${L(item.memory)}</span></div>
@@ -395,7 +396,8 @@
         html += `<div class="about-product-spec"><span class="about-product-spec-label">${T(PRODUCT_SPEC_FIELD_LABELS[key])}</span><span class="about-product-spec-value">${L(item[key])}</span></div>`;
       });
       if (item.temp) html += `<div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Temp', ko:'온도', ja:'温度', 'zh-CN':'温度', 'zh-TW':'溫度', es:'Temp.'})}</span><span class="about-product-spec-value">${L(item.temp)}</span></div>`;
-      html += `<div class="about-product-spec" style="border:none"><span class="about-product-spec-label">${T({en:'Form Factor', ko:'폼팩터', ja:'フォームファクタ', 'zh-CN':'规格', 'zh-TW':'規格', es:'Formato'})}</span><span class="about-product-spec-value">${L(item.form)}</span></div>`;
+      html += `<div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Form Factor', ko:'폼팩터', ja:'フォームファクタ', 'zh-CN':'规格', 'zh-TW':'規格', es:'Formato'})}</span><span class="about-product-spec-value">${L(item.form)}</span></div>
+        </div>`;
       if (item.notes && item.notes.length) {
         html += `<div class="about-product-notes">${item.notes.map(function (n) { return `<div class="about-product-note">${L(n)}</div>`; }).join('')}</div>`;
       }
