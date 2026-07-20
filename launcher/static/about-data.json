@@ -995,7 +995,7 @@
           "es": "0–70°C (Comercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotriz, bajo pedido)"
         },
         "specUrl": "https://deepx.ai/products/dx-m1/",
-        "image": "/static/img/about/products/dx-m1.jpg",
+        "image": "/static/img/about/products/dx-m1-chip.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1144,7 +1144,7 @@
         "interface": "PCIe Gen3 x4",
         "form": "M.2 2280 (M Key)",
         "specUrl": "https://deepx.ai/products/dx-m1/",
-        "image": "/static/img/about/products/dx-m1.jpg",
+        "image": "/static/img/about/products/dx-m1-module.png",
         "buyUrl": "https://www.digikey.com/en/products/detail/deepx/DX-M1BNM5604/26858313",
         "buyLabel": {
           "en": "Buy on Digi-Key",
