@@ -570,17 +570,16 @@ ul.about-timeline-list li::before {
   margin: -4px -4px 12px;
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--about-bg-alt);
+  /* All product shots are now on a white studio background, so give the band a white backing
+     and use object-fit:contain — the whole product shows, letterbox padding is white and
+     therefore invisible, and every card top reads as a clean product-on-white photo. */
+  background: #ffffff;
   aspect-ratio: 16 / 10;
 }
 .about-product-image {
   width: 100%;
   height: 100%;
-  /* cover, not contain: the product shots have mismatched source backgrounds (some dark chip
-     renders, some white-background photos). contain left white images floating inside dark
-     letterbox bars — visually inconsistent. cover fills the band uniformly so every card top
-     reads the same; centered products keep their subject while only margins are cropped. */
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   display: block;
 }

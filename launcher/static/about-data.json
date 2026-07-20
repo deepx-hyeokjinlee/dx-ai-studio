@@ -995,7 +995,7 @@
           "es": "0–70°C (Comercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotriz, bajo pedido)"
         },
         "specUrl": "https://deepx.ai/products/dx-m1/",
-        "image": "/static/img/about/products/dx-m1-chip.png",
+        "image": "/static/img/about/products/dx-m1.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1045,7 +1045,7 @@
           "es": "Root-of-Trust + TRNG"
         },
         "specUrl": "https://deepx.ai/products/dx-m1m/",
-        "image": "/static/img/about/products/dx-m1m.jpg",
+        "image": "/static/img/about/products/dx-m1m2.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1087,7 +1087,8 @@
           "zh-CN": "申请报价",
           "zh-TW": "申請報價",
           "es": "Solicitar cotización"
-        }
+        },
+        "image": "/static/img/about/products/dx-m1.png"
       },
       {
         "name": "DX-V3",
@@ -1144,7 +1145,7 @@
         "interface": "PCIe Gen3 x4",
         "form": "M.2 2280 (M Key)",
         "specUrl": "https://deepx.ai/products/dx-m1/",
-        "image": "/static/img/about/products/dx-m1-module.png",
+        "image": "/static/img/about/products/dx-m1-m2.png",
         "buyUrl": "https://www.digikey.com/en/products/detail/deepx/DX-M1BNM5604/26858313",
         "buyLabel": {
           "en": "Buy on Digi-Key",
@@ -1171,7 +1172,7 @@
         "interface": "PCIe Gen3 x2",
         "form": "M.2 2242 (M+B Key)",
         "specUrl": "https://deepx.ai/products/dx-m1m/",
-        "image": "/static/img/about/products/dx-m1m.jpg",
+        "image": "/static/img/about/products/dx-m1m-m2.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1206,7 +1207,8 @@
           "zh-CN": "申请报价",
           "zh-TW": "申請報價",
           "es": "Solicitar cotización"
-        }
+        },
+        "image": "/static/img/about/products/dx-m1-m2.png"
       }
     ],
     "cards": [
@@ -1245,7 +1247,7 @@
         ],
         "highlight": true,
         "specUrl": "https://deepx.ai/products/dx-h1-quattro/",
-        "image": "/static/img/about/products/dx-h1-quattro.jpg",
+        "image": "/static/img/about/products/dx-quattro.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1289,7 +1291,7 @@
         },
         "badge": "64CH Decode",
         "specUrl": "https://deepx.ai/products/dx-h1-v-npu/",
-        "image": "/static/img/about/products/dx-h1-v-npu.jpg",
+        "image": "/static/img/about/products/dx-vnpu.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1499,7 +1501,7 @@
         "weight": "450g",
         "temp": "0–60°C",
         "specUrl": "https://deepx.ai/products/dx-aiplayer/",
-        "image": "/static/img/about/products/dx-aiplayer.jpg",
+        "image": "/static/img/about/products/dx-aiplayer2.png",
         "buyUrl": "https://www.digikey.com/en/products/detail/deepx/DX-AIBOX-M1-N97/29209017",
         "buyLabel": {
           "en": "Buy on Digi-Key",
