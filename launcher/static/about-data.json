@@ -180,6 +180,98 @@
         }
       }
     ],
+    "culture": {
+      "title": {
+        "en": "Our Culture",
+        "ko": "우리의 문화",
+        "ja": "私たちの文化",
+        "zh-CN": "我们的文化",
+        "zh-TW": "我們的文化",
+        "es": "Nuestra cultura"
+      },
+      "subtitle": {
+        "en": "The principles that guide how DEEPX works, every day.",
+        "ko": "DEEPX가 매일 일하는 방식을 이끄는 원칙입니다.",
+        "ja": "DEEPXが日々どのように働くかを導く原則です。",
+        "zh-CN": "指引DEEPX日常工作方式的原则。",
+        "zh-TW": "指引DEEPX日常工作方式的原則。",
+        "es": "Los principios que guían la forma de trabajar de DEEPX, cada día."
+      },
+      "items": [
+        {
+          "name": {
+            "en": "Think Deeply",
+            "ko": "깊이 생각하기",
+            "ja": "深く考える",
+            "zh-CN": "深度思考",
+            "zh-TW": "深度思考",
+            "es": "Pensar en profundidad"
+          },
+          "desc": {
+            "en": "A challenger's spirit grounded in deeper thought and preparation — becoming world-class requires thinking harder, not just moving faster.",
+            "ko": "세계적 수준의 기업이 되려면 더 깊이 생각하고 철저히 준비하는 도전자 정신이 필요합니다.",
+            "ja": "世界クラスの企業になるには、より深く考え抜き、周到に準備するチャレンジャー精神が必要です。",
+            "zh-CN": "要成为世界一流企业，需要以更深入的思考和充分的准备为基础的挑战者精神。",
+            "zh-TW": "要成為世界一流企業，需要以更深入的思考和充分的準備為基礎的挑戰者精神。",
+            "es": "Convertirse en una empresa de clase mundial exige el espíritu de un retador, basado en un pensamiento y una preparación más profundos."
+          }
+        },
+        {
+          "name": {
+            "en": "Best Ideas Over Titles",
+            "ko": "직급이 아닌 아이디어 중심",
+            "ja": "肩書きより最良のアイデア",
+            "zh-CN": "创意重于职级",
+            "zh-TW": "創意重於職級",
+            "es": "Las mejores ideas, no los títulos"
+          },
+          "desc": {
+            "en": "Power belongs to ideas that maximize the success of all members, not to titles.",
+            "ko": "권한은 직급이 아니라 구성원 모두의 성공을 극대화하는 아이디어에 주어집니다.",
+            "ja": "力は肩書きではなく、メンバー全員の成功を最大化するアイデアに与えられます。",
+            "zh-CN": "权力属于能最大化全体成员成功的想法，而非职级本身。",
+            "zh-TW": "權力屬於能最大化全體成員成功的想法，而非職級本身。",
+            "es": "El poder pertenece a las ideas que maximizan el éxito de todos los miembros, no a los títulos."
+          }
+        },
+        {
+          "name": {
+            "en": "Own Your Work",
+            "ko": "자기 일에 대한 오너십",
+            "ja": "仕事のオーナーシップ",
+            "zh-CN": "为工作负责到底",
+            "zh-TW": "為工作負責到底",
+            "es": "Responsabilízate de tu trabajo"
+          },
+          "desc": {
+            "en": "Full responsibility for every project, from start to finish.",
+            "ko": "프로젝트의 시작부터 끝까지 온전한 책임을 집니다.",
+            "ja": "プロジェクトの始まりから終わりまで、全責任を持ちます。",
+            "zh-CN": "对每个项目从始至终全权负责。",
+            "zh-TW": "對每個專案從始至終全權負責。",
+            "es": "Responsabilidad total por cada proyecto, de principio a fin."
+          }
+        },
+        {
+          "name": {
+            "en": "MVBRP in Action",
+            "ko": "실행하는 MVBRP",
+            "ja": "MVBRPの実践",
+            "zh-CN": "践行MVBRP",
+            "zh-TW": "踐行MVBRP",
+            "es": "MVBRP en acción"
+          },
+          "desc": {
+            "en": "Prioritize and execute by Mission, Value, Beneficiary, Result, and Planning — maximizing meaningful impact.",
+            "ko": "미션(Mission), 가치(Value), 수혜자(Beneficiary), 결과(Result), 계획(Planning)을 기준으로 우선순위를 정하고 실행하여 의미 있는 임팩트를 극대화합니다.",
+            "ja": "ミッション（Mission）、価値（Value）、受益者（Beneficiary）、結果（Result）、計画（Planning）に基づいて優先順位を決め実行し、意義あるインパクトを最大化します。",
+            "zh-CN": "依据使命（Mission）、价值（Value）、受益者（Beneficiary）、成果（Result）与计划（Planning）来确定优先级并执行，最大化有意义的影响力。",
+            "zh-TW": "依據使命（Mission）、價值（Value）、受益者（Beneficiary）、成果（Result）與計畫（Planning）來確定優先順序並執行，最大化有意義的影響力。",
+            "es": "Prioriza y ejecuta según Misión, Valor, Beneficiario, Resultado y Planificación (MVBRP), maximizando el impacto significativo."
+          }
+        }
+      ]
+    },
     "timeline": [
       {
         "year": "2018",

@@ -183,6 +183,18 @@
         `).join('')}
       </div>
 
+      ${c.culture ? `
+      <h3 class="about-tech-title about-fade-in">${L(c.culture.title)}</h3>
+      <p class="about-tech-desc about-fade-in">${L(c.culture.subtitle)}</p>
+      <div class="about-values-grid">
+        ${c.culture.items.map(v => `
+          <div class="about-value-card about-fade-in">
+            <div class="about-value-title">${L(v.name)}</div>
+            <div class="about-value-desc">${L(v.desc)}</div>
+          </div>
+        `).join('')}
+      </div>` : ''}
+
       <h3 class="about-tech-title about-fade-in">${T({en:'Milestones', ko:'마일스톤', ja:'マイルストーン', 'zh-CN':'里程碑', 'zh-TW':'里程碑', es:'Hitos'})}</h3>
       <div class="about-timeline about-fade-in">
         ${c.timeline.map(t => `
