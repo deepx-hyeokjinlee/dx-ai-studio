@@ -1063,7 +1063,8 @@
           "zh-CN": "申请报价",
           "zh-TW": "申請報價",
           "es": "Solicitar cotización"
-        }
+        },
+        "diagram": "/static/img/about/products/dx-m1-diagram.jpg"
       },
       {
         "name": "DX-M1M",
@@ -1113,41 +1114,8 @@
           "zh-CN": "申请报价",
           "zh-TW": "申請報價",
           "es": "Solicitar cotización"
-        }
-      },
-      {
-        "name": "DX-M1ML",
-        "type": {
-          "en": "AI Accelerator",
-          "ko": "AI 가속기",
-          "ja": "AIアクセラレータ",
-          "zh-CN": "AI加速器",
-          "zh-TW": "AI加速器",
-          "es": "Acelerador de IA"
         },
-        "tops": "13 TOPS",
-        "power": "3W",
-        "memory": {
-          "en": "Integrated 512MB LPDDR4x",
-          "ko": "내장 512MB LPDDR4x",
-          "ja": "内蔵512MB LPDDR4x",
-          "zh-CN": "内置512MB LPDDR4x",
-          "zh-TW": "內建512MB LPDDR4x",
-          "es": "512MB LPDDR4x integrado"
-        },
-        "interface": "PCIe Gen3 x4",
-        "form": "FCL-BGA 21×21mm",
-        "specUrl": "https://deepx.ai/products/dx-m1m/",
-        "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
-        "buyLabel": {
-          "en": "Request a Quote",
-          "ko": "견적 요청",
-          "ja": "見積もり依頼",
-          "zh-CN": "申请报价",
-          "zh-TW": "申請報價",
-          "es": "Solicitar cotización"
-        },
-        "image": "/static/img/about/products/dx-m1.png"
+        "diagram": "/static/img/about/products/dx-m1m-diagram.jpg"
       }
     ],
     "modules": [
@@ -1176,7 +1144,8 @@
           "zh-CN": "在Digi-Key购买",
           "zh-TW": "在Digi-Key購買",
           "es": "Comprar en Digi-Key"
-        }
+        },
+        "diagram": "/static/img/about/products/dx-m1-m2-diagram.png"
       },
       {
         "name": "DX-M1M M.2",
@@ -1203,34 +1172,8 @@
           "zh-CN": "申请报价",
           "zh-TW": "申請報價",
           "es": "Solicitar cotización"
-        }
-      },
-      {
-        "name": "DX-M1ML M.2",
-        "type": {
-          "en": "M.2 Module",
-          "ko": "M.2 모듈",
-          "ja": "M.2モジュール",
-          "zh-CN": "M.2模组",
-          "zh-TW": "M.2模組",
-          "es": "Módulo M.2"
         },
-        "tops": "13 TOPS",
-        "power": "3W",
-        "memory": "512MB LPDDR4x",
-        "interface": "PCIe Gen3 x2",
-        "form": "M.2 2242 (M+B Key)",
-        "specUrl": "https://deepx.ai/products/dx-m1m/",
-        "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
-        "buyLabel": {
-          "en": "Request a Quote",
-          "ko": "견적 요청",
-          "ja": "見積もり依頼",
-          "zh-CN": "申请报价",
-          "zh-TW": "申請報價",
-          "es": "Solicitar cotización"
-        },
-        "image": "/static/img/about/products/dx-m1-m2.png"
+        "diagram": "/static/img/about/products/dx-m1m-m2-diagram.png"
       }
     ],
     "cards": [
@@ -1269,7 +1212,7 @@
         ],
         "highlight": true,
         "specUrl": "https://deepx.ai/products/dx-h1-quattro/",
-        "image": "/static/img/about/products/dx-quattro.png",
+        "image": "/static/img/about/products/dx-quattro-real.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1278,7 +1221,8 @@
           "zh-CN": "申请报价",
           "zh-TW": "申請報價",
           "es": "Solicitar cotización"
-        }
+        },
+        "diagram": "/static/img/about/products/dx-quattro-diagram.jpg"
       },
       {
         "name": "DX-H1 V-NPU",
@@ -1313,7 +1257,7 @@
         },
         "badge": "64CH Decode",
         "specUrl": "https://deepx.ai/products/dx-h1-v-npu/",
-        "image": "/static/img/about/products/dx-vnpu.png",
+        "image": "/static/img/about/products/dx-vnpu-real.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1323,7 +1267,8 @@
           "zh-TW": "申請報價",
           "es": "Solicitar cotización"
         },
-        "scale": "1×→64CH · 3×→192CH · 6×→384CH (YOLOv5 FHD30)"
+        "scale": "1×→64CH · 3×→192CH · 6×→384CH (YOLOv5 FHD30)",
+        "diagram": "/static/img/about/products/dx-vnpu-diagram.jpg"
       }
     ],
     "useCases": [

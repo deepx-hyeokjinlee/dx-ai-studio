@@ -572,11 +572,22 @@ ul.about-timeline-list li::before {
   margin-bottom: 16px;
 }
 .about-products-scroll {
-  /* Grid that wraps to fill the section width — no horizontal scroll slider. Cards are at least
-     ~300px and stretch to share the row evenly; extra cards flow onto the next row. */
+  /* Grid that wraps to fill the section width — no horizontal scroll slider. Wider min (380px)
+     so cards that carry a photo + block diagram side by side have room for both. */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: var(--sp-4);
+}
+/* photo (+ optional block diagram) side by side at the top of a product card */
+.about-product-media {
+  display: flex;
+  gap: 8px;
+  margin: -4px -4px 12px;
+}
+.about-product-media .about-product-image-wrap {
+  margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
 }
 .about-product-card {
   background: var(--about-card-bg);
