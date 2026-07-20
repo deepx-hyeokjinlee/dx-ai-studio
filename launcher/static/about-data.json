@@ -2467,6 +2467,58 @@
         "date": "2024.01",
         "type": "award",
         "url": "https://deepx.ai/company/our-story/"
+      },
+      {
+        "title": {
+          "en": "DEEPX signs strategic partnership with Avnet Silica, accelerating EMEA expansion",
+          "ko": "DEEPX, Avnet Silica와 전략적 파트너십 체결 — EMEA 확장 가속화",
+          "ja": "DEEPX、Avnet Silicaと戦略的パートナーシップ締結 — EMEA展開を加速",
+          "zh-CN": "DEEPX与Avnet Silica签署战略合作，加速EMEA市场拓展",
+          "zh-TW": "DEEPX與Avnet Silica簽署策略合作，加速EMEA市場拓展",
+          "es": "DEEPX firma una alianza estratégica con Avnet Silica para acelerar su expansión en EMEA"
+        },
+        "date": "2025.12",
+        "type": "news",
+        "url": "https://deepx.ai/avnet-silica-strengthens-ai-portfolio-through-new-franchise-agreement-with-deepx/"
+      },
+      {
+        "title": {
+          "en": "DEEPX surpasses 300 customer validations for DX-M1 (EECP)",
+          "ko": "DEEPX, DX-M1 고객 검증 300건 돌파 (EECP)",
+          "ja": "DEEPX、DX-M1の顧客検証が300件を突破（EECP）",
+          "zh-CN": "DEEPX的DX-M1客户验证突破300家（EECP）",
+          "zh-TW": "DEEPX的DX-M1客戶驗證突破300家（EECP）",
+          "es": "DEEPX supera las 300 validaciones de clientes para DX-M1 (EECP)"
+        },
+        "date": "2025.03",
+        "type": "news",
+        "url": "https://deepx.ai/deepx-verifies-npu-technology-with-over-300-corporations-aiming-for-global-leadership/"
+      },
+      {
+        "title": {
+          "en": "CES 2026 Foundry: DEEPX declares the era of Physical AI with global partners",
+          "ko": "CES 2026 Foundry: DEEPX, 글로벌 파트너와 Physical AI 시대 선언",
+          "ja": "CES 2026 Foundry: DEEPX、グローバルパートナーとPhysical AI時代を宣言",
+          "zh-CN": "CES 2026 Foundry：DEEPX与全球合作伙伴共同宣告Physical AI时代",
+          "zh-TW": "CES 2026 Foundry：DEEPX與全球合作夥伴共同宣告Physical AI時代",
+          "es": "CES 2026 Foundry: DEEPX declara la era de la IA física junto a socios globales"
+        },
+        "date": "2026.01",
+        "type": "news",
+        "url": "https://deepx.ai/ces-2026-foundry-deepx-declares-the-era-of-physical-ai-with-global-partners/"
+      },
+      {
+        "title": {
+          "en": "DEEPX secures 48 commercial orders across 8 countries",
+          "ko": "DEEPX, 8개국에서 상용 발주 48건 확보",
+          "ja": "DEEPX、8か国で商用受注48件を確保",
+          "zh-CN": "DEEPX在8个国家获得48份商业订单",
+          "zh-TW": "DEEPX在8個國家獲得48份商業訂單",
+          "es": "DEEPX consigue 48 pedidos comerciales en 8 países"
+        },
+        "date": "2026.05",
+        "type": "news",
+        "url": "https://www.asiae.co.kr/en/article/2026052916063021955"
       }
     ]
   },
