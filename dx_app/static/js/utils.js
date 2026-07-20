@@ -120,7 +120,8 @@ const LOCALE_BY_LANG={
   ko:'ko-KR',
   ja:'ja-JP',
   'zh-CN':'zh-CN',
-  'zh-TW':'zh-TW'
+  'zh-TW':'zh-TW',
+  es:'es-ES'
 };
 function getLang(){return (window.DXI18n&&DXI18n.lang)||localStorage.getItem('dx-lang')||'en'}
 function getLocale(){return LOCALE_BY_LANG[getLang()]||'en-US'}

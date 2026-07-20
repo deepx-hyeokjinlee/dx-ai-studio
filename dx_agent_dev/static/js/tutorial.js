@@ -260,4 +260,16 @@
     }
   });
 
+  // Re-run the active step on language change so its dynamically-rendered console/gallery
+  // content (written in beforeStep/afterStep) is redrawn in the new language, not just the
+  // tooltip text the engine already refreshes.
+  if (window.DXI18n && typeof DXI18n.onLangChange === 'function') {
+    DXI18n.onLangChange(function () {
+      var engine = window._dxTutorial;
+      if (engine && engine._curSection && typeof engine._showStep === 'function') {
+        engine._showStep();
+      }
+    });
+  }
+
 })();

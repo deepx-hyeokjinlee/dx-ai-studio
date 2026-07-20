@@ -590,7 +590,7 @@
     }
 
     var _splLang = localStorage.getItem('dx-lang') || 'en';
-    var _splTexts = { en: 'ALL SYSTEMS ONLINE', ko: '전체 시스템 가동', ja: '全システム起動', 'zh-CN': '全系统启动', 'zh-TW': '全系統啟動' };
+    var _splTexts = { en: 'ALL SYSTEMS ONLINE', ko: '전체 시스템 가동', ja: '全システム起動', 'zh-CN': '全系统启动', 'zh-TW': '全系統啟動', es: 'TODOS LOS SISTEMAS EN LÍNEA' };
     var fullText = _splTexts[_splLang] || _splTexts.en;
     textEl.innerHTML = '';
     textEl.style.opacity = '1';

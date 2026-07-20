@@ -33,7 +33,7 @@ function T(en, ko) {
 }
 
 function getLang() { return (typeof DXI18n !== 'undefined') ? DXI18n.lang : (localStorage.getItem('dx-lang') || 'en'); }
-function localeForLang(lang) { var map = { en: 'en-US', ko: 'ko-KR', ja: 'ja-JP', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW' }; return map[lang || getLang()] || 'en-US'; }
+function localeForLang(lang) { var map = { en: 'en-US', ko: 'ko-KR', ja: 'ja-JP', 'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', es: 'es-ES' }; return map[lang || getLang()] || 'en-US'; }
 function formatTime(ts) { var d = ts instanceof Date ? ts : new Date(ts); return d.toLocaleTimeString(localeForLang(), { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
 
 var CHART_LABEL_KEYS = { temp: 'NPU Temp (C)', volt: 'Voltage (mV)', clock: 'Clock (MHz)', dram: 'NPU DRAM (%)', util: 'NPU Util (%)', ctemp: 'Core Temp (C)', cpu: 'CPU Load', mem: 'Memory (%)', cpucores: 'CPU Cores (%)' };
