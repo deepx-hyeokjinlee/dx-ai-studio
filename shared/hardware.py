@@ -167,7 +167,10 @@ def get_sysinfo():
         i[lbl] = p.read_text().strip() if p.exists() else "N/A"
     try:
         from dx_engine.configuration import Configuration
-        cfg = Configuration.get_instance()
+        # dx_engine's Configuration has no get_instance(); it's instantiated directly
+        # (it manages its own internal singleton). The old get_instance() call raised
+        # AttributeError, silently falling through to the N/A branch on real boards.
+        cfg = Configuration()
         i["sdk_version"] = cfg.get_version()
         i["driver_version"] = cfg.get_driver_version()
         i["pcie_driver_version"] = cfg.get_pcie_driver_version()
