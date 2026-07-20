@@ -1298,7 +1298,8 @@
           "zh-CN": "申请报价",
           "zh-TW": "申請報價",
           "es": "Solicitar cotización"
-        }
+        },
+        "scale": "1×→64CH · 3×→192CH · 6×→384CH (YOLOv5 FHD30)"
       }
     ],
     "useCases": [

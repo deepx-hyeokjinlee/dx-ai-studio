@@ -344,6 +344,7 @@
     isp:          { en: 'ISP',            ko: 'ISP',             ja: 'ISP',              'zh-CN': 'ISP',        'zh-TW': 'ISP',        es: 'ISP' },
     codec:        { en: 'Codec',          ko: '코덱',            ja: 'コーデック',         'zh-CN': '编解码',     'zh-TW': '編解碼',     es: 'Códec' },
     channels:     { en: 'Channels',       ko: '채널',            ja: 'チャンネル',         'zh-CN': '通道',       'zh-TW': '通道',       es: 'Canales' },
+    scale:        { en: 'Scale',          ko: '확장',            ja: 'スケール',           'zh-CN': '扩展',       'zh-TW': '擴展',       es: 'Escala' },
     savings:      { en: 'Savings',        ko: '절감',            ja: '削減',              'zh-CN': '节省',       'zh-TW': '節省',       es: 'Ahorro' },
     weight:       { en: 'Weight',         ko: '무게',            ja: '重量',              'zh-CN': '重量',       'zh-TW': '重量',       es: 'Peso' }
   };
