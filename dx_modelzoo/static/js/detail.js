@@ -955,7 +955,7 @@ function renderDownloadButtons(model, scope = 'inline') {
       ⬇ ${T('Download Q-Pro')}</button>`;
   }
   if (!_dxAppAlive) {
-    html += `<span style="font-size:12px;color:var(--warning)">${T('DX App is not running')}</span>`;
+    html += `<span style="font-size:12px;color:var(--warning)">${T('DX App is not running. Run Inference needs the DX App module (port 8080) — launch DX AI Studio (it auto-starts DX App) or start the DX App module, then retry.')}</span>`;
   }
   return html;
 }

@@ -57,7 +57,7 @@ function renderInferencePanel(model) {
   const disabled = !_dxAppAlive;
   const disabledAttr = disabled ? 'disabled' : '';
   const disabledMsg = disabled
-    ? `<p style="color:var(--warning);font-size:13px;margin-top:8px">⚠️ ${T('DX App is not running')}</p>`
+    ? `<p style="color:var(--warning);font-size:13px;margin-top:8px">⚠️ ${T('DX App is not running. Run Inference needs the DX App module (port 8080) — launch DX AI Studio (it auto-starts DX App) or start the DX App module, then retry.')}</p>`
     : '';
   // Inference needs the .dxnn locally. Without it the backend returns a confusing
   // "File not found" — gate the run controls and tell the user to download first.
@@ -349,7 +349,7 @@ async function runInference(modelId, category, modelFile, imagePath, imageBase64
     const dxAppUnavailable = ((!data.ok && data.code === 'DX_APP_UNAVAILABLE') ||
       data.error === 'DX_APP_UNAVAILABLE');
     if (dxAppUnavailable) {
-      resultDiv.innerHTML = `<p style="color:var(--error)">⚠️ ${T('DX App is not running')}</p>`;
+      resultDiv.innerHTML = `<p style="color:var(--error)">⚠️ ${T('DX App is not running. Run Inference needs the DX App module (port 8080) — launch DX AI Studio (it auto-starts DX App) or start the DX App module, then retry.')}</p>`;
       _dxAppAlive = false;
       document.getElementById('dxAppStatus')?.classList.remove('alive');
       return;
