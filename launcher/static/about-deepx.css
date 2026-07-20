@@ -15,7 +15,9 @@
   --about-divider: var(--border);
   --about-hero-grad-1: #1a0533;
   --about-hero-grad-2: #0a1628;
-  --about-hero-grad-3: #0a0a0f;
+  /* Bottom stop matches the Developer Hub's top colour (--about-bg-alt) so the hero melts
+     into the section below with no seam and no purple→blue hue jump at the boundary. */
+  --about-hero-grad-3: var(--about-bg-alt);
 }
 
 /* ── 2. View Layout (matches SDK Library shell offset) ── */
