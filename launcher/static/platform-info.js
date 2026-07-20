@@ -107,6 +107,17 @@
     }
   });
 
+  // Backdrop click closes the overlay — only when the click lands on the overlay
+  // itself (outside the panel), so clicks inside the panel don't dismiss it.
+  [['platformInfoOverlay', closePlatformInfo],
+   ['ecosystemOverlay', closeEcosystemInfo]].forEach(function(pair) {
+    var ov = document.getElementById(pair[0]);
+    if (!ov) return;
+    ov.addEventListener('click', function(e) {
+      if (e.target === ov) pair[1]();
+    });
+  });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initPlatformModuleClicks);
   } else {
