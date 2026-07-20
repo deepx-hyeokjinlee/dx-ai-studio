@@ -1572,6 +1572,234 @@
           "es": "Distribución en Alemania"
         },
         "url": "https://www.endrich.com/en/product-categories/embedded-systems/ai-accelerator/deepx-dx-m1m"
+      },
+      {
+        "name": "SkyNoon",
+        "role": {
+          "en": "China distribution",
+          "ko": "중국 유통",
+          "ja": "中国流通",
+          "zh-CN": "中国分销",
+          "zh-TW": "中國經銷",
+          "es": "Distribución en China"
+        },
+        "url": "http://www.skynoon.com/"
+      },
+      {
+        "name": "Digital China",
+        "role": {
+          "en": "China distribution",
+          "ko": "중국 유통",
+          "ja": "中国流通",
+          "zh-CN": "中国分销",
+          "zh-TW": "中國經銷",
+          "es": "Distribución en China"
+        },
+        "url": "https://www.digitalchina.com/"
+      },
+      {
+        "name": "Serial System",
+        "role": {
+          "en": "Asia distribution",
+          "ko": "아시아 유통",
+          "ja": "アジア流通",
+          "zh-CN": "亚洲分销",
+          "zh-TW": "亞洲經銷",
+          "es": "Distribución en Asia"
+        },
+        "url": "https://serialsystem.com/"
+      },
+      {
+        "name": "Ascend-Tek",
+        "role": {
+          "en": "Taiwan & China distribution",
+          "ko": "대만·중국 유통",
+          "ja": "台湾・中国流通",
+          "zh-CN": "台湾与中国分销",
+          "zh-TW": "台灣與中國經銷",
+          "es": "Distribución en Taiwán y China"
+        },
+        "url": "https://ascend-tek.com/"
+      },
+      {
+        "name": "SAS Dragon",
+        "role": {
+          "en": "Hong Kong & China distribution",
+          "ko": "홍콩·중국 유통",
+          "ja": "香港・中国流通",
+          "zh-CN": "香港与中国分销",
+          "zh-TW": "香港與中國經銷",
+          "es": "Distribución en Hong Kong y China"
+        },
+        "url": "https://www.sasdragon.com.hk/"
+      },
+      {
+        "name": "Jet One Technology",
+        "role": {
+          "en": "Taiwan distribution",
+          "ko": "대만 유통",
+          "ja": "台湾流通",
+          "zh-CN": "台湾分销",
+          "zh-TW": "台灣經銷",
+          "es": "Distribución en Taiwán"
+        },
+        "url": "https://www.jetone.com.tw/"
+      },
+      {
+        "name": "Solsta",
+        "role": {
+          "en": "UK distribution",
+          "ko": "영국 유통",
+          "ja": "英国流通",
+          "zh-CN": "英国分销",
+          "zh-TW": "英國經銷",
+          "es": "Distribución en el Reino Unido"
+        },
+        "url": "https://solsta.co.uk/"
+      },
+      {
+        "name": "Nisko Projects",
+        "role": {
+          "en": "Israel distribution",
+          "ko": "이스라엘 유통",
+          "ja": "イスラエル流通",
+          "zh-CN": "以色列分销",
+          "zh-TW": "以色列經銷",
+          "es": "Distribución en Israel"
+        },
+        "url": "https://nisko-projects.com/"
+      },
+      {
+        "name": "DWCTS",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://dwcts.co.kr/"
+      },
+      {
+        "name": "DaoLTS",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://www.daolts.co.kr/"
+      },
+      {
+        "name": "KIES (Korea Information Engineering)",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://www.kies.co.kr/"
+      },
+      {
+        "name": "Daejin",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "http://www.semidj.com/"
+      },
+      {
+        "name": "Hancomn Shop",
+        "role": {
+          "en": "Korea e-commerce",
+          "ko": "한국 이커머스",
+          "ja": "韓国EC",
+          "zh-CN": "韩国电商",
+          "zh-TW": "韓國電商",
+          "es": "E-commerce en Corea"
+        },
+        "url": "https://hancomnshop.co.kr/DEEPX"
+      },
+      {
+        "name": "Major Works",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://majorworks.co.kr/"
+      },
+      {
+        "name": "OSCO Korea",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://www.oscokorea.com/"
+      },
+      {
+        "name": "DX Solution",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://dxsolution.kr/"
+      },
+      {
+        "name": "InterAiKorea",
+        "role": {
+          "en": "Korea distribution",
+          "ko": "한국 유통",
+          "ja": "韓国流通",
+          "zh-CN": "韩国分销",
+          "zh-TW": "韓國經銷",
+          "es": "Distribución en Corea"
+        },
+        "url": "https://www.iikr.co.kr/"
+      },
+      {
+        "name": "Y-NOT",
+        "role": {
+          "en": "Korea e-commerce",
+          "ko": "한국 이커머스",
+          "ja": "韓国EC",
+          "zh-CN": "韩国电商",
+          "zh-TW": "韓國電商",
+          "es": "E-commerce en Corea"
+        },
+        "url": "https://www.y-not.kr/aiaccel_deepx"
+      },
+      {
+        "name": "ELEParts",
+        "role": {
+          "en": "Korea e-commerce",
+          "ko": "한국 이커머스",
+          "ja": "韓国EC",
+          "zh-CN": "韩国电商",
+          "zh-TW": "韓國電商",
+          "es": "E-commerce en Corea"
+        },
+        "url": "https://www.eleparts.co.kr/main/index"
       }
     ],
     "ecosystem": [
