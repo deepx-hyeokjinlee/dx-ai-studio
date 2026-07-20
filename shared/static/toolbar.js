@@ -116,6 +116,11 @@
 
     function _closeLangMenu() {
       wrap.classList.remove('open');
+      // _positionLangMenu set display:block + position:fixed on open. Reset BOTH — clearing only
+      // position leaves display:block inline, which overrides the CSS `display:none` and keeps the
+      // 140px menu rendered as position:absolute (CSS fallback). That stray absolute box overflows
+      // the toolbar's overflow-x:auto and leaves it stuck with a horizontal scrollbar after close.
+      menu.style.display = '';
       menu.style.position = '';
       menu.style.top = '';
       menu.style.left = '';
