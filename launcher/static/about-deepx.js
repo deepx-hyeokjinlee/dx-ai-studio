@@ -581,40 +581,46 @@
     const nav = document.getElementById('aboutNav');
     if (!nav) return;
     const tabs = nav.querySelectorAll('.about-nav-tab');
+    const dotRail = document.querySelector('.about-dotnav');
+    const dots = dotRail ? dotRail.querySelectorAll('.about-dot') : [];
     const sections = Array.from(tabs).map(t =>
       document.getElementById(t.dataset.section)
     ).filter(Boolean);
 
+    // Highlight the active section in both the top nav and the side dot rail.
+    function setActive(id) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.section === id));
+      dots.forEach(d => d.classList.toggle('active', d.dataset.section === id));
+    }
+
     _scrollSpyObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          tabs.forEach(t => t.classList.remove('active'));
-          const tab = nav.querySelector(`[data-section="${entry.target.id}"]`);
-          if (tab) tab.classList.add('active');
-        }
+        if (entry.isIntersecting) setActive(entry.target.id);
       });
     }, { root: scrollEl, rootMargin: '-20% 0px -60% 0px', threshold: 0 });
 
     sections.forEach(s => _scrollSpyObserver.observe(s));
 
-    tabs.forEach(tab => {
-      if (!tab.dataset.clickBound) {
-        tab.addEventListener('click', () => {
-          const target = document.getElementById(tab.dataset.section);
+    function bindNav(el) {
+      if (!el.dataset.clickBound) {
+        el.addEventListener('click', () => {
+          const target = document.getElementById(el.dataset.section);
           if (target) target.scrollIntoView({ behavior: 'smooth' });
         });
-        tab.dataset.clickBound = '1';
+        el.dataset.clickBound = '1';
       }
-      if (!tab.dataset.keyboardBound) {
-        tab.addEventListener('keydown', function(e) {
+      if (!el.dataset.keyboardBound) {
+        el.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            tab.click();
+            el.click();
           }
         });
-        tab.dataset.keyboardBound = '1';
+        el.dataset.keyboardBound = '1';
       }
-    });
+    }
+    tabs.forEach(bindNav);
+    dots.forEach(bindNav);
   }
 
   function setupFadeIn(scrollEl) {
@@ -663,6 +669,31 @@
       var labels = ABOUT_NAV_LABELS[section];
       if (labels) tab.textContent = labels[lang] || labels.en || tab.textContent;
     });
+  }
+
+  // Vertical section dots for the wide-screen side gutter — a scroll-spy rail that mirrors
+  // the top nav (same sections/labels/order) and lives in the empty space beside the 1680
+  // content column. CSS hides it below the width where that gutter exists.
+  function renderSectionDots() {
+    var view = document.getElementById('about-view');
+    var nav = document.getElementById('aboutNav');
+    if (!view || !nav) return;
+    var old = view.querySelector('.about-dotnav');
+    if (old) old.remove();
+    var tabs = nav.querySelectorAll('.about-nav-tab');
+    if (!tabs.length) return;
+    var rail = document.createElement('nav');
+    rail.className = 'about-dotnav';
+    rail.setAttribute('aria-label', T({en:'Section navigation', ko:'섹션 탐색', ja:'セクションナビゲーション', 'zh-CN':'章节导航', 'zh-TW':'章節導覽', es:'Navegación de secciones'}));
+    var html = '';
+    tabs.forEach(function(tab) {
+      var sec = tab.dataset.section;
+      var label = tab.textContent.trim().replace(/"/g, '&quot;');
+      html += '<button type="button" class="about-dot" data-section="' + sec + '" aria-label="' + label + '">' +
+              '<span class="about-dot-label">' + label + '</span></button>';
+    });
+    rail.innerHTML = html;
+    view.appendChild(rail);
   }
 
   function renderAboutLoading() {
@@ -740,9 +771,10 @@
     renderPartners(scrollEl, _aboutData);
     renderNews(scrollEl, _aboutData);
 
+    renderAboutNavLabels();
+    renderSectionDots();
     setupScrollSpy(scrollEl);
     setupFadeIn(scrollEl);
-    renderAboutNavLabels();
 
     if (options.preserveScroll) scrollEl.scrollTop = scrollPos;
   }
