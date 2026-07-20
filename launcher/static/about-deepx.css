@@ -178,57 +178,50 @@
   margin-bottom: 32px;
 }
 
-/* ── Section dot rail (wide-screen side gutter) ── */
+/* ── Section table-of-contents rail (wide-screen side gutter) ── */
 .about-dotnav {
   position: fixed;
-  right: 22px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 2px;
   z-index: 60;
-  padding: 8px 6px;
+}
+.about-dotnav-title {
+  font: 700 10px/1 var(--font);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--about-text-muted);
+  opacity: 0.7;
+  padding: 0 8px 8px 12px;
 }
 .about-dot {
-  position: relative;
-  width: 11px;
-  height: 11px;
-  padding: 0;
-  border: 1.5px solid var(--about-text-muted);
-  border-radius: 50%;
-  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px 5px 12px;
+  background: none;
+  border: none;
+  border-left: 2px solid var(--about-card-border);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
-}
-.about-dot:hover { border-color: var(--about-accent); }
-.about-dot.active {
-  border-color: var(--about-accent);
-  background: var(--about-accent);
-  transform: scale(1.25);
-  box-shadow: 0 0 0 4px var(--about-accent-glow);
-}
-/* Label chip, revealed on hover to the left of its dot (into the gutter). */
-.about-dot-label {
-  position: absolute;
-  right: calc(100% + 12px);
-  top: 50%;
-  transform: translateY(-50%);
+  color: var(--about-text-muted);
+  font: 500 11px/1.3 var(--font);
   white-space: nowrap;
-  font: 500 12px/1 var(--font);
-  color: var(--about-heading);
-  background: var(--about-card-bg);
-  border: 1px solid var(--about-card-border);
-  border-radius: 6px;
-  padding: 5px 9px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.18s;
+  text-align: left;
+  transition: color 0.2s, border-color 0.2s;
 }
-.about-dot:hover .about-dot-label { opacity: 1; }
+.about-dot:hover { color: var(--about-heading); }
+.about-dot.active {
+  color: var(--about-accent);
+  font-weight: 700;
+  border-left-color: var(--about-accent);
+}
+.about-dot-label { display: inline; }
 /* Only show once the viewport is wide enough that the rail sits in the empty gutter
    beside the 1680 content column (below this it would overlap the content). */
-@media (max-width: 1799px) {
+@media (max-width: 1899px) {
   .about-dotnav { display: none; }
 }
 

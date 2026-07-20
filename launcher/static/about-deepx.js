@@ -685,7 +685,7 @@
     var rail = document.createElement('nav');
     rail.className = 'about-dotnav';
     rail.setAttribute('aria-label', T({en:'Section navigation', ko:'섹션 탐색', ja:'セクションナビゲーション', 'zh-CN':'章节导航', 'zh-TW':'章節導覽', es:'Navegación de secciones'}));
-    var html = '';
+    var html = '<div class="about-dotnav-title">' + T({en:'On this page', ko:'목차', ja:'目次', 'zh-CN':'目录', 'zh-TW':'目錄', es:'En esta página'}) + '</div>';
     tabs.forEach(function(tab) {
       var sec = tab.dataset.section;
       var label = tab.textContent.trim().replace(/"/g, '&quot;');
