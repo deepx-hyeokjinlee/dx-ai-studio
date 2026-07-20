@@ -316,6 +316,14 @@ class DXTutorialEngine {
   hideTOC() {
     if (this._tocEl) this._tocEl.classList.remove('open');
     if (this._tocBackdrop) this._tocBackdrop.classList.remove('open');
+    this._resetToolbarScroll();
+  }
+
+  /** scrollIntoView() on a step target inside the (scrollable) shared toolbar can leave the
+   *  toolbar horizontally scrolled after the tour/TOC closes. Snap any .dx-toolbar back to 0. */
+  _resetToolbarScroll() {
+    var bars = document.querySelectorAll('.dx-toolbar');
+    for (var i = 0; i < bars.length; i++) bars[i].scrollLeft = 0;
   }
 
   toggleTOC() {
@@ -831,6 +839,7 @@ class DXTutorialEngine {
     this._curSection = null;
     this._curStep = 0;
     this._stepToken++;
+    this._resetToolbarScroll();
     if (this._overlay) this._overlay.classList.remove('active');
     if (this._spotlight) this._spotlight.classList.remove('active');
     if (this._tooltip) {

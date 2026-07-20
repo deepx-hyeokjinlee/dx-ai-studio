@@ -9,8 +9,14 @@
   gap: 6px;
   flex-shrink: 0;
   max-width: 100%;
+  /* overflow-x:auto lets the toolbar scroll (instead of clipping) on a narrow header / high zoom.
+     But flex-wrap:wrap made the few controls wrap to a 2nd line at the width boundary, producing a
+     phantom horizontal overflow; a tutorial step that scrollIntoView()s a button INSIDE the toolbar
+     (e.g. #dxToolbarTutorial) then scrolled the toolbar and left it stuck scrolled after the tour
+     closed — the "buttons scroll" bug. nowrap keeps them on one row: at normal width there is no
+     overflow (so scrollLeft can't move), and when genuinely narrow it scrolls as one row. */
   overflow-x: auto;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 /* ── Single icon button (🎓 ❓ ⚙️ etc.) ── */
