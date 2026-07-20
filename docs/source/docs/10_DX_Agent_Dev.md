@@ -8,19 +8,35 @@ ready-made showcases.
 
 ## Using it
 
-1. **Connect an agent** — the console detects installed coding CLIs (e.g. Claude,
-   Cursor). A badge shows whether each is signed in; if a login is needed it shows the
-   exact command to run, then re-checks.
-2. **Set the run** — choose the **target** (which repo the agent works in: Suite,
-   dx-runtime, dx_app, dx_stream, dx-compiler), the **interaction mode** (Interactive vs
-   Autopilot), and the **reasoning effort**. A hint warns if the chosen model is too weak
-   and suggests a stronger one.
+1. **Connect an agent** — the console detects installed coding CLIs. Five are supported:
+   **Claude Code** (`claude`), **GitHub Copilot CLI** (`copilot`), **Cursor**
+   (`cursor-agent`), **Codex** (`codex`), and **OpenCode** (`opencode`). A badge shows
+   whether each is signed in; if a login is needed it shows the exact command to run,
+   then re-checks.
+2. **Set the run** using the console controls:
+      - **Agent picker** — which of the 5 CLIs to use.
+      - **Model picker** — a dropdown of that agent's models; for CLIs that support
+        listing them (Cursor, OpenCode) it's enumerated live from the CLI, otherwise it
+        falls back to a built-in list. A hint warns if the chosen model is too weak and
+        suggests a stronger one.
+      - **Reasoning-effort picker** — the effort levels that agent's CLI supports.
+      - **Target workdir** — which repo the agent works in: Suite, dx-runtime, dx_app,
+        dx_stream, dx-compiler.
+      - **Interaction mode** — Interactive (asks questions) or Autopilot (no questions).
 3. **Describe your task** in the prompt — the agent works and streams its progress live;
    an expandable **activity panel** shows each turn's shell / tool output next to the reply.
-4. **Chat** — ask questions in the assistant; besides the coding agents you can point it
-   at a **local LLM** (Ollama / vLLM / LM Studio — any OpenAI-compatible endpoint) or use
-   a signed-in coding CLI as the chat backend.
+4. **Chat** — the main console chat is for building NPU apps via the connected coding
+   agent. The **💬 button** (bottom-right) is a separate affordance: a general SDK Q&A
+   assistant, not part of the Agent Console run.
 5. **Showcases** — browse the gallery of example NPU apps for reference.
+
+### If no CLI is available, or the harness isn't found
+
+- **No coding-agent CLI installed/authenticated** — install and log into one of the 5
+  above, then reload the page. (The 💬 chat still works — it doesn't need a CLI.)
+- **`.deepx` harness directory not found** — the agent knowledge/skills directory is
+  missing. Set the `DX_HARNESS_ROOT` environment variable to your dx-all-suite checkout,
+  or run DX AI Studio from within the suite, then reload the page.
 
 ## Key features
 
