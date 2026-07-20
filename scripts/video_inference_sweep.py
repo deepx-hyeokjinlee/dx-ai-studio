@@ -238,6 +238,8 @@ def main() -> int:
             if args.job_delay > 0:
                 time.sleep(args.job_delay)
 
+    with csv_path.open(encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
     summary = {
         "total": len(rows),
         "pending_this_run": len(jobs),
@@ -245,8 +247,6 @@ def main() -> int:
         "finished_at": datetime.now().isoformat(),
         "csv": str(csv_path),
     }
-    with csv_path.open(encoding="utf-8") as fh:
-        rows = list(csv.DictReader(fh))
     summary["ok"] = sum(1 for r in rows if str(r.get("ok")).lower() == "true")
     summary["failed"] = len(rows) - summary["ok"]
     summary["crashes"] = sum(1 for r in rows if str(r.get("crash")).lower() == "true")

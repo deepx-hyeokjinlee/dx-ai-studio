@@ -1155,10 +1155,10 @@ class DXServer:
 
     def _print_banner(self, port: int):
         url = f"http://localhost:{port}"
-        print(f"╔══════════════════════════════════════════════╗")
+        print("╔══════════════════════════════════════════════╗")
         print(f"║  {self.name:<42s}  ║")
         print(f"║  {url:<42s}  ║")
-        print(f"╚══════════════════════════════════════════════╝")
+        print("╚══════════════════════════════════════════════╝")
 
     @staticmethod
     def _is_port_open(port: int) -> bool:

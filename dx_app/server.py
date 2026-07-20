@@ -573,7 +573,7 @@ def _watchdog(srv):
     while True:
         time.sleep(5)
         if time.time()-config._HEARTBEAT>_HB_TIMEOUT:
-            print(f"\n[AUTO] No heartbeat — shutting down.")
+            print("\n[AUTO] No heartbeat — shutting down.")
             stop_inference();shutdown_live_processes();srv.shutdown();return
 
 def create_server(port=DEFAULT_PORT):

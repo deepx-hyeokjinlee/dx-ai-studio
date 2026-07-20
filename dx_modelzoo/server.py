@@ -48,7 +48,12 @@ def _collect_demo_files(demo):
 
 def _is_safe_demo_dir(path, root):
     """경로가 root 하위인지 resolve 기반으로 검증. symlink/prefix 우회 방지."""
-    return Path(path).resolve().is_relative_to(Path(root).resolve())
+    # Python 3.8-safe (Path.is_relative_to는 3.9+): relative_to + ValueError로 판정.
+    try:
+        Path(path).resolve().relative_to(Path(root).resolve())
+        return True
+    except ValueError:
+        return False
 
 # 메타데이터 sync 런타임 상태
 _sync_state = {
@@ -152,8 +157,7 @@ class ModelZooHandler(DXBaseHandler):
                     return self.send_error(400, "Filename required")
                 try:
                     target = (SAMPLE_IMG_DIR / filename).resolve()
-                    if not target.is_relative_to(SAMPLE_IMG_DIR.resolve()):
-                        return self.send_error(403, "Forbidden")
+                    target.relative_to(SAMPLE_IMG_DIR.resolve())  # 3.8-safe; raises ValueError if outside root
                 except Exception:
                     return self.send_error(403, "Forbidden")
                 if not target.is_file():
