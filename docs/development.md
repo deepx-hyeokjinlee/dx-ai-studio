@@ -56,8 +56,10 @@ started with `./launcher.sh`.
 
 Common flags for every module server: `--port/-p <N>`, `--no-browser`.
 
-> **Note:** `dx_benchmark`'s server is a read-only dashboard. Actually *running*
-> benchmarks is a separate CLI: `python -m dx_benchmark.core run` (needs the NPU stack).
+> **Note:** `dx_benchmark`'s server is a pure viewer — it serves the bundled
+> `dataset.json` as-is and does not perform runtime aggregation. Actually *running*
+> benchmarks happens in the standalone `dx-benchmark` CLI (sibling repo, not part of
+> this studio): `cd dx-benchmark && ./run.sh run` (needs the NPU stack).
 
 ### Live editing
 
@@ -77,6 +79,7 @@ needed. Only Python changes require a restart.
 | `DX_NO_BROWSER=1` | Suppress browser auto-open (also implied under SSH/VS Code remote) |
 | `DX_MONITOR_SKIP_HARDWARE_INIT=1` | DX Monitor mock mode (no `dx_engine`) |
 | `DX_AGENT_ADAPTER=mock` | DX Agent Dev deterministic mock adapter (closed-net) |
+| `DX_HARNESS_ROOT=<path>` | Path to the `dx-all-suite` checkout root, for the `.deepx` harness (agent knowledge/skills) that `dx_agent_dev` needs. Defaults to the auto-detected suite root when run from within the suite; without it (and no discoverable default) agent-dev degrades to a harness-missing notice. |
 | `DX_CHAT_KNOWLEDGE_SYNC=1` | Regenerate the chat SDK-knowledge cache from the suite docs |
 
 ## i18n workflow
@@ -117,3 +120,6 @@ via Playwright (`bash scripts/run_ci.sh --browser`).
 - The product is **dark-mode only** (light mode was removed).
 - Do not stage runtime artifacts (`launcher/.ports/`, `*.launcher-*`, generated
   catalogs); see `.gitignore`.
+- Gotcha: avoid `Path.is_relative_to()` (3.9+) — the studio supports Python 3.8, so
+  use `path.resolve().relative_to(root.resolve())` and catch `ValueError` instead
+  (see `dx_modelzoo/server.py`).
