@@ -36,19 +36,13 @@
     return T(field);
   }
 
-  // Typographic cleanup for prose paragraphs: keep short function words (in, is, of, by, and,
-  // the …) from stranding at a line end, and prevent a lone last word (widow). Uses U+00A0
-  // non-breaking spaces. Only rebinds ASCII words, so CJK text is left untouched. Apply ONLY to
-  // wide description paragraphs — never to narrow product-spec cells (would force overflow).
+  // Keep DX-* product names (DX-COM, DX-RT, DX-AllSuite) from splitting across lines at their
+  // hyphen: U+2011 is a non-breaking hyphen that renders identically. Line-length evenness is
+  // handled by CSS `text-wrap: balance`; chasing individual short words with non-breaking spaces
+  // only shifts the break elsewhere, so we deliberately do NOT do that. ASCII-only, CJK untouched.
   function typeset(s) {
     if (typeof s !== 'string' || !s) return s;
-    s = s.replace(/(^|[\s(])([A-Za-z]{1,2}|and|or|of|the|for|by|as|at|on|to|in|is)\s+(?=\S)/g,
-      function (m, pre, w) { return pre + w + '\u00A0'; });
-    // Keep DX-* product names (DX-COM, DX-RT, DX-AllSuite \u2026) from splitting at the hyphen:
-    // U+2011 is a non-breaking hyphen that renders identically.
-    s = s.replace(/\bDX-(?=[A-Za-z])/g, 'DX\u2011');
-    s = s.replace(/\s+(\S+)\s*$/, '\u00A0$1');
-    return s;
+    return s.replace(/\bDX-(?=[A-Za-z])/g, 'DX\u2011');
   }
 
   function stripUrlHost(url) {

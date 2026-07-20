@@ -281,7 +281,7 @@
   max-width: 800px;
   /* `pretty` avoids orphans/awkward last-line breaks without the ragged short
      lines that `balance` produces on multi-sentence paragraphs. */
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 .about-values-grid {
   display: grid;
@@ -403,7 +403,7 @@
   max-width: 720px;
   margin-bottom: 24px;
   /* Avoid awkward orphan/mid-phrase last-line breaks (IQ8, DXNN SDK descriptions). */
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 .about-stats-row {
   display: flex;
