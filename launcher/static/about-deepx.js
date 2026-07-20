@@ -36,6 +36,21 @@
     return T(field);
   }
 
+  // Typographic cleanup for prose paragraphs: keep short function words (in, is, of, by, and,
+  // the …) from stranding at a line end, and prevent a lone last word (widow). Uses U+00A0
+  // non-breaking spaces. Only rebinds ASCII words, so CJK text is left untouched. Apply ONLY to
+  // wide description paragraphs — never to narrow product-spec cells (would force overflow).
+  function typeset(s) {
+    if (typeof s !== 'string' || !s) return s;
+    s = s.replace(/(^|[\s(])([A-Za-z]{1,2}|and|or|of|the|for|by|as|at|on|to|in|is)\s+(?=\S)/g,
+      function (m, pre, w) { return pre + w + '\u00A0'; });
+    // Keep DX-* product names (DX-COM, DX-RT, DX-AllSuite \u2026) from splitting at the hyphen:
+    // U+2011 is a non-breaking hyphen that renders identically.
+    s = s.replace(/\bDX-(?=[A-Za-z])/g, 'DX\u2011');
+    s = s.replace(/\s+(\S+)\s*$/, '\u00A0$1');
+    return s;
+  }
+
   function stripUrlHost(url) {
     return String(url).replace(/^https?:\/\//, '');
   }
@@ -171,7 +186,7 @@
         <div class="about-quote-author">— ${L(c.vision.label)}${c.vision.source ? `, ${c.vision.source}` : ''}</div>
       </div>` : ''}
 
-      <p class="about-overview-text about-fade-in">${L(c.overview)}</p>
+      <p class="about-overview-text about-fade-in">${typeset(L(c.overview))}</p>
 
       <div class="about-values-grid">
         ${c.values.map(v => `
@@ -185,7 +200,7 @@
 
       ${c.culture ? `
       <h3 class="about-tech-title about-fade-in">${L(c.culture.title)}</h3>
-      <p class="about-tech-desc about-fade-in">${L(c.culture.subtitle)}</p>
+      <p class="about-tech-desc about-fade-in">${typeset(L(c.culture.subtitle))}</p>
       <div class="about-values-grid">
         ${c.culture.items.map(v => `
           <div class="about-value-card about-fade-in">
@@ -256,7 +271,7 @@
           <div class="about-quote-text">"${L(t.iq8.quote.text)}"</div>
           <div class="about-quote-author">— ${t.iq8.quote.author}</div>
         </div>
-        <p class="about-tech-desc">${L(t.iq8.description)}</p>
+        <p class="about-tech-desc">${typeset(L(t.iq8.description))}</p>
         <div class="about-stats-row">
           ${t.iq8.stats.map(s => `
             <div class="about-stat-card">
@@ -270,7 +285,7 @@
       ${t.npu ? `
       <div class="about-tech-block about-fade-in">
         <h3 class="about-tech-title">${L(t.npu.title)}</h3>
-        <p class="about-tech-desc">${L(t.npu.description)}</p>
+        <p class="about-tech-desc">${typeset(L(t.npu.description))}</p>
         <div class="about-stats-row">
           ${t.npu.stats.map(s => `
             <div class="about-stat-card">
@@ -283,7 +298,7 @@
 
       <div class="about-tech-block about-fade-in">
         <h3 class="about-tech-title">${L(t.sdk.title)}</h3>
-        <p class="about-tech-desc">${L(t.sdk.description)}</p>
+        <p class="about-tech-desc">${typeset(L(t.sdk.description))}</p>
         ${t.sdk.components ? `<p class="about-tech-desc about-sdk-components">${t.sdk.components.map(function (c) { return L(c); }).join(' · ')}</p>` : ''}
         <div class="about-sdk-steps">
           ${t.sdk.steps.map(s => `
