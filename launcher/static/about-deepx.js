@@ -75,8 +75,6 @@
   function renderDeveloperHub(container, data) {
     const d = data.developer;
     if (!d) return;
-    const mz = d.modelZooSnapshot || {};
-    const rel = d.sdkRelease || {};
     const el = document.createElement('section');
     el.className = 'about-section about-developer-hub';
     el.id = 'aboutDeveloper';
@@ -84,18 +82,6 @@
       <div class="about-section-divider"></div>
       <h2 class="about-section-title">${L(d.title)}</h2>
       <p class="about-section-subtitle">${L(d.subtitle)}</p>
-
-      <div class="about-dev-banner about-fade-in">
-        <div class="about-dev-banner-item">
-          <span class="about-dev-banner-k">${rel.version || '—'}</span>
-          <span class="about-dev-banner-v">${L(rel.summary)}</span>
-        </div>
-        <div class="about-dev-banner-item">
-          <span class="about-dev-banner-k">${mz.count || '—'}</span>
-          <span class="about-dev-banner-v">${T({en:'Model Zoo models',ko:'Model Zoo 모델',ja:'Model Zooモデル','zh-CN':'Model Zoo 模型','zh-TW':'Model Zoo 模型',es:'Modelos Model Zoo'})} · ${T({en:'as of',ko:'기준',ja:'時点', 'zh-CN':'截至','zh-TW':'截至',es:'a'})} ${mz.asOf || '—'}</span>
-        </div>
-        <a class="about-dev-support" href="mailto:${d.supportEmail}">${d.supportEmail}</a>
-      </div>
 
       <div class="about-action-grid">
         ${d.links.map(function (link) {
@@ -335,16 +321,6 @@
           <img src="/static/img/about/dx-allsuite-environments.png" alt="DX-AllSuite supported environments and integrations: DEEPX Developers, GitHub, AWS IoT Greengrass; Docker and local install" loading="lazy">
           <img src="/static/img/about/dxnn-sdk-architecture.png" alt="DXNN SDK full-stack software architecture diagram" loading="lazy">
         </figure>
-        <div class="about-stats-row">
-          ${t.sdk.stats.map(s => `
-            <div class="about-stat-card">
-              <div class="about-stat-value">${s.value}</div>
-              <div class="about-stat-label">${L(s.label)}</div>
-            </div>
-          `).join('')}
-        </div>
-        ${t.sdk.release ? `<p class="about-sdk-release about-fade-in"><strong>${t.sdk.release.version}</strong> — ${L(t.sdk.release.summary)}</p>` : ''}
-        ${t.sdk.versions ? `<p class="about-sdk-versions about-fade-in">${[t.sdk.versions.dxCom ? 'dx-com ' + t.sdk.versions.dxCom : '', t.sdk.versions.dxRt ? 'dx-rt ' + t.sdk.versions.dxRt : ''].filter(Boolean).join(' · ')}</p>` : ''}
         <div class="about-sdk-links about-fade-in">
           ${t.sdk.startHere ? `<a class="about-start-here" href="${t.sdk.startHere.url}" target="_blank" rel="noopener noreferrer">${L(t.sdk.startHere.label)} →</a>` : ''}
           ${t.sdk.productUrl ? `<a class="about-start-here about-start-here--secondary" href="${t.sdk.productUrl}" target="_blank" rel="noopener noreferrer">${T({en:'Product page', ko:'제품 페이지', ja:'製品ページ', 'zh-CN':'产品页面', 'zh-TW':'產品頁面', es:'Página del producto'})} →</a>` : ''}

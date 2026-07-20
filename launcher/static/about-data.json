@@ -668,63 +668,6 @@
           }
         }
       ],
-      "stats": [
-        {
-          "value": "271",
-          "label": {
-            "en": "Model Zoo Models",
-            "ko": "Model Zoo 모델",
-            "ja": "Model Zooモデル",
-            "zh-CN": "Model Zoo模型",
-            "zh-TW": "Model Zoo模型",
-            "es": "Modelos Model Zoo"
-          }
-        },
-        {
-          "value": "v2.3.3",
-          "label": {
-            "en": "DX-AllSuite",
-            "ko": "DX-AllSuite",
-            "ja": "DX-AllSuite",
-            "zh-CN": "DX-AllSuite",
-            "zh-TW": "DX-AllSuite",
-            "es": "DX-AllSuite"
-          }
-        },
-        {
-          "value": "C++/Py",
-          "label": {
-            "en": "Languages",
-            "ko": "언어",
-            "ja": "言語",
-            "zh-CN": "语言",
-            "zh-TW": "語言",
-            "es": "Lenguajes"
-          }
-        },
-        {
-          "value": "x86/ARM",
-          "label": {
-            "en": "Platforms",
-            "ko": "플랫폼",
-            "ja": "プラットフォーム",
-            "zh-CN": "平台",
-            "zh-TW": "平台",
-            "es": "Plataformas"
-          }
-        },
-        {
-          "value": "OAAX",
-          "label": {
-            "en": "Open accelerator standard",
-            "ko": "오픈 가속기 표준",
-            "ja": "オープンアクセラレータ標準",
-            "zh-CN": "开放加速器标准",
-            "zh-TW": "開放加速器標準",
-            "es": "Estándar abierto de acelerador"
-          }
-        }
-      ],
       "components": [
         {
           "en": "DX-COM",
@@ -786,20 +729,6 @@
           "zh-TW": "前往開發者入口",
           "es": "Empezar en Developer Portal"
         }
-      },
-      "release": {
-        "version": "v2.3.3",
-        "summary": {
-          "en": "Runtime efficiency, security hardening, unified application architecture.",
-          "ko": "런타임 효율, 보안 강화, 통합 애플리케이션 아키텍처.",
-          "ja": "ランタイム効率、セキュリティ強化、統合アプリアーキテクチャ。",
-          "zh-CN": "运行时效率、安全加固与统一应用架构。",
-          "zh-TW": "執行階段效率、安全強化與統一應用架構。",
-          "es": "Eficiencia runtime, seguridad reforzada, arquitectura unificada."
-        }
-      },
-      "versions": {
-        "dxCom": "v2.3.0"
       },
       "prebuiltSteps": [
         {
@@ -2884,7 +2813,6 @@
       "zh-TW": "從官方工具開始 — 模型目錄、SDK、硬體與支援。",
       "es": "Empiece con herramientas oficiales: catálogo, SDK, hardware y soporte."
     },
-    "supportEmail": "tech_support@deepx.ai",
     "links": [
       {
         "id": "portal",
@@ -3055,21 +2983,6 @@
         "url": "https://deepx.ai/contact-us/career-support/"
       }
     ],
-    "sdkRelease": {
-      "version": "v2.3.3",
-      "summary": {
-        "en": "Runtime efficiency, security hardening, unified application architecture.",
-        "ko": "런타임 효율, 보안 강화, 통합 애플리케이션 아키텍처.",
-        "ja": "ランタイム効率、セキュリティ強化、統合アプリアーキテクチャ。",
-        "zh-CN": "运行时效率、安全加固与统一应用架构。",
-        "zh-TW": "執行階段效率、安全強化與統一應用架構。",
-        "es": "Eficiencia runtime, seguridad reforzada, arquitectura unificada."
-      }
-    },
-    "modelZooSnapshot": {
-      "count": "271",
-      "asOf": "2026-07-13"
-    },
     "ctas": [
       {
         "id": "schedule-meeting",
