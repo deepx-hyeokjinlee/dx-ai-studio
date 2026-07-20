@@ -18,7 +18,9 @@ address.
   overview, and a shortcut to the DEEPX store / "Buy now".
 - **Global AI assistant** — a floating help button (bottom-right) opens **DX AI Studio
   Help**, an assistant available across the whole studio; set or clear its API key from
-  the panel.
+  the panel. It supports multiple providers, including fully offline options (a local
+  server or a signed-in coding CLI) — see
+  [SDK Library & About](11_SDK_Library_and_About.md) for the full provider list.
 - **Hub views** — besides the eight tools, the hub hosts the **SDK Library** (in-app
   DEEPX documentation and brochures) and the **About DEEPX** page. See
   [SDK Library & About](11_SDK_Library_and_About.md).
