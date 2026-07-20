@@ -103,7 +103,7 @@ def test_static_response_uses_http11_cache_headers_and_validators(static_server)
     body = resp.read()
     assert resp.version == 11
     assert body == b"window.answer = 42;\n"
-    assert resp.headers["Cache-Control"] == "public, max-age=3600, must-revalidate"
+    assert resp.headers["Cache-Control"] == "no-cache, must-revalidate"
     assert resp.headers["ETag"].startswith('W/"')
     assert resp.headers["Last-Modified"]
     assert resp.headers["Access-Control-Allow-Origin"] == "*"

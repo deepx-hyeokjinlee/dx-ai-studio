@@ -310,6 +310,13 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
         last_modified = email.utils.formatdate(mtime_sec, usegmt=True)
 
         # Cache-Control 정책 (override via cache_control= for shell assets)
+        #
+        # JS/CSS/JSON/SVG는 no-cache(매 요청 재검증, ETag로 304). max-age로 캐시하면
+        # 삭제/이동된 비버전 리소스를 옛 캐시가 참조해 첫 로드에서 404 → 화면 blank가
+        # 되고, 일반 새로고침은 max-age 만료 전이라 캐시를 그대로 써 고쳐지지 않는다
+        # (하드 리프레시만 회피). launcher가 자기 에셋에 이미 쓰는 정책과 일치.
+        # 폰트/이미지(immutable)는 내용이 안정적이고 무거우며, 프레시 HTML/CSS/JSON이
+        # 참조할 때만 로드되므로 장기 캐시 유지.
         base_ct = content_type.split(";")[0].strip().lower()
         suffix = p.suffix.lower()
         if cache_control is None:
@@ -318,7 +325,7 @@ class DXBaseHandler(SimpleHTTPRequestHandler):
             elif suffix in self._IMMUTABLE_SUFFIXES:
                 cache_control = "public, max-age=86400, must-revalidate"
             else:
-                cache_control = "public, max-age=3600, must-revalidate"
+                cache_control = "no-cache, must-revalidate"
 
         gzip_eligible = False
         if base_ct not in ("text/html", "text/event-stream"):
