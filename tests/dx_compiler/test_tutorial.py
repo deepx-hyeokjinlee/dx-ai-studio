@@ -16,10 +16,6 @@ JS_DIR = APP / "static" / "js"
 RUNTIME_SELECTOR_ALLOWLIST = {
     "#dxToolbar",
     "#langToggle",
-    ".dx-chat-fab",
-    ".dx-chat-window",
-    ".dx-chat-input",
-    ".dx-chat-input-area",
     ".progress-container",
     "#ns-toolbar",
     "#ns-input-btn",
