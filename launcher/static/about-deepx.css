@@ -181,6 +181,13 @@
 /* ── 6. Hero ── */
 .about-hero {
   position: relative;
+  /* Same centered 1680 column as .about-section so the hero's coloured band lines up in
+     width with every section below it (on wide screens the hero used to bleed full-width
+     while the sections stayed 1680, leaving the edges misaligned). */
+  max-width: 1680px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
   min-height: 70vh;
   display: flex;
   flex-direction: column;
