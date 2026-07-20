@@ -306,28 +306,28 @@
         ${t.sdk.components ? `<p class="about-tech-desc about-sdk-components">${t.sdk.components.map(function (c) { return L(c); }).join(' · ')}</p>` : ''}
         <h4 class="about-sdk-howto-title">${T({en:'How to Use DXNN SDK', ko:'DXNN SDK 사용법', ja:'DXNN SDKの使い方', 'zh-CN':'DXNN SDK 使用方法', 'zh-TW':'DXNN SDK 使用方法', es:'Cómo usar el DXNN SDK'})}</h4>
         ${t.sdk.prebuiltSteps ? `
-        <div class="about-sdk-path">
-          <div class="about-sdk-path-label">${T({en:'Pre-Built — start from DX Model Zoo', ko:'사전 구축 — DX Model Zoo에서 시작', ja:'ビルド済み — DX Model Zooから開始', 'zh-CN':'预构建 — 从 DX Model Zoo 开始', 'zh-TW':'預建 — 從 DX Model Zoo 開始', es:'Prediseñado — desde DX Model Zoo'})}</div>
-          <div class="about-sdk-steps">
+        <div class="about-sdk-flow">
+          <div class="about-sdk-flow-label">${T({en:'Pre-Built — start from DX Model Zoo', ko:'사전 구축 — DX Model Zoo에서 시작', ja:'ビルド済み — DX Model Zooから開始', 'zh-CN':'预构建 — 从 DX Model Zoo 开始', 'zh-TW':'預建 — 從 DX Model Zoo 開始', es:'Prediseñado — desde DX Model Zoo'})}</div>
+          <div class="about-sdk-flow-row">
             ${t.sdk.prebuiltSteps.map(s => `
-              <div class="about-sdk-step">
-                <div class="about-sdk-step-num">${s.num}</div>
-                <div class="about-sdk-step-title">${L(s.title)}</div>
-                <div class="about-sdk-step-desc">${L(s.desc)}</div>
+              <div class="sdk-flow-card">
+                <span class="sdk-flow-step">Step ${s.num}</span>
+                <div class="sdk-flow-name">${L(s.title)}</div>
+                <div class="sdk-flow-text">${L(s.desc)}</div>
               </div>
-            `).join('')}
+            `).join('<span class="sdk-flow-arrow">&rarr;</span>')}
           </div>
         </div>` : ''}
-        <div class="about-sdk-path">
-          <div class="about-sdk-path-label">${T({en:'Custom — full workflow', ko:'커스텀 — 전체 워크플로', ja:'カスタム — フルワークフロー', 'zh-CN':'自定义 — 完整流程', 'zh-TW':'自訂 — 完整流程', es:'Personalizado — flujo completo'})}</div>
-          <div class="about-sdk-steps">
+        <div class="about-sdk-flow">
+          <div class="about-sdk-flow-label">${T({en:'Custom — full workflow', ko:'커스텀 — 전체 워크플로', ja:'カスタム — フルワークフロー', 'zh-CN':'自定义 — 完整流程', 'zh-TW':'自訂 — 完整流程', es:'Personalizado — flujo completo'})}</div>
+          <div class="about-sdk-flow-row">
             ${t.sdk.steps.map(s => `
-              <div class="about-sdk-step">
-                <div class="about-sdk-step-num">${s.num}</div>
-                <div class="about-sdk-step-title">${L(s.title)}</div>
-                <div class="about-sdk-step-desc">${L(s.desc)}</div>
+              <div class="sdk-flow-card">
+                <span class="sdk-flow-step">Step ${s.num}</span>
+                <div class="sdk-flow-name">${L(s.title)}</div>
+                <div class="sdk-flow-text">${L(s.desc)}</div>
               </div>
-            `).join('')}
+            `).join('<span class="sdk-flow-arrow">&rarr;</span>')}
           </div>
         </div>
         <h4 class="about-sdk-howto-title">${T({en:'Supported Environments & Integrations', ko:'지원 환경 및 연동', ja:'対応環境と連携', 'zh-CN':'支持的环境与集成', 'zh-TW':'支援的環境與整合', es:'Entornos e integraciones compatibles'})}</h4>

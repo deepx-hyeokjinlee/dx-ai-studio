@@ -482,21 +482,64 @@ ul.about-timeline-list li::before {
   color: var(--about-text-muted);
 }
 
-/* How to Use DXNN SDK — two labeled step paths (recreated as HTML, matching deepx.ai) */
+/* How to Use DXNN SDK — HTML recreation of deepx.ai's dark-gradient step flow (the source
+   images carry a personal watermark, so this is rebuilt as crisp, localized HTML). */
 .about-sdk-howto-title {
   font: 600 15px/1.3 var(--font);
   color: var(--about-heading);
   margin: 28px 0 14px;
 }
-.about-sdk-path {
-  margin-bottom: 18px;
+.about-sdk-flow {
+  margin-bottom: 22px;
 }
-.about-sdk-path-label {
+.about-sdk-flow-label {
   font: 600 12px/1 var(--font);
   color: var(--about-accent);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+}
+.about-sdk-flow-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.sdk-flow-card {
+  flex: 1 1 0;
+  min-width: 150px;
+  padding: 16px 16px 18px;
+  border-radius: var(--radius);
+  background: linear-gradient(155deg, #16305e 0%, #0d1c3a 55%, #0a1428 100%);
+  border: 1px solid rgba(120,150,220,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sdk-flow-step {
+  align-self: flex-start;
+  font: 600 10px/1 var(--font);
+  color: #cdd8f5;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  border: 1px solid rgba(160,185,240,0.45);
+  border-radius: var(--radius-xs);
+}
+.sdk-flow-name {
+  font: 700 16px/1.25 var(--font);
+  color: #ffffff;
+  margin-top: 4px;
+}
+.sdk-flow-text {
+  font: 400 12px/1.5 var(--font);
+  color: #aeb9d6;
+}
+.sdk-flow-arrow {
+  align-self: center;
+  color: var(--about-accent);
+  font-size: 20px;
+  font-weight: 700;
+  flex: 0 0 auto;
 }
 .about-sdk-env-fig {
   margin: 20px 0 0;
