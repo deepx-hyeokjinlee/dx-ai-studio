@@ -979,33 +979,27 @@ class TestWave2D_SplashSpanishSpans:
 
 
 class TestAboutSubtitleLocalization:
-    """About DEEPX topbar subtitle must not be raw Korean; must use localized spans."""
+    """About DEEPX header uses the shared DXBrand component; its subtitle must stay localized
+    across all UI languages (rendered by DXBrand.mount in about-deepx.js, not static HTML)."""
 
-    def test_about_subtitle_not_raw_korean(self):
-        """index.html must not contain raw '회사 소개' outside a localized span structure."""
+    def test_about_uses_shared_brand_slot(self):
+        """index.html must host the shared brand slot (unified with modules), not bespoke logo."""
         html = (STATIC / "index.html").read_text(encoding="utf-8")
-        # The subtitle element must use data-i18n or per-language spans, not raw Korean
-        raw_korean_sub = re.search(
-            r'<small[^>]*class="about-logo-sub"[^>]*>\s*회사 소개\s*</small>',
-            html,
+        assert 'id="aboutBrand"' in html and "dx-brand-slot" in html, (
+            "About header must use the shared dx-brand-slot (#aboutBrand)"
         )
-        assert not raw_korean_sub, (
-            "About subtitle uses raw Korean '회사 소개'; must be localized with "
-            "per-language spans or data-i18n"
+        assert "about-logo-sub" not in html, (
+            "bespoke about-logo markup must be gone; use DXBrand instead"
         )
 
-    def test_about_subtitle_has_all_required_langs(self):
-        """About subtitle must contain spans for en, ko, ja, zh-CN, zh-TW."""
-        html = (STATIC / "index.html").read_text(encoding="utf-8")
-        sub_match = re.search(
-            r'<small[^>]*class="about-logo-sub"[^>]*>(.*?)</small>',
-            html, re.DOTALL,
-        )
-        assert sub_match, "about-logo-sub element not found"
-        content = sub_match.group(1)
-        for lang in ("en", "ko", "ja", "zh-CN", "zh-TW"):
-            assert f'class="{lang}"' in content, (
-                f"About subtitle missing span for language '{lang}'"
+    def test_about_brand_subtitle_has_all_required_langs(self):
+        """DXBrand.mount for About must pass a subtitle object covering every UI language."""
+        js = (STATIC / "about-deepx.js").read_text(encoding="utf-8")
+        assert "target: '#aboutBrand'" in js, "mountAboutBrand must target #aboutBrand"
+        for lang in ("en", "ko", "ja", "zh-CN", "zh-TW", "es"):
+            key = f"'{lang}'" if "-" in lang else lang
+            assert re.search(rf"{re.escape(key)}\s*:\s*'", js), (
+                f"About brand subtitle missing language '{lang}'"
             )
 
 

@@ -726,7 +726,27 @@
     }
   }
 
+  function mountAboutBrand() {
+    if (typeof DXBrand === 'undefined') return;
+    // Same shared brand as modules + SDK Library (DX prefix + name + localized subtitle),
+    // replacing About's former bespoke logo markup for a consistent header design.
+    DXBrand.mount({
+      target: '#aboutBrand',
+      name: 'About DEEPX',
+      subtitle: {
+        ko: '회사 소개',
+        en: 'About Us',
+        ja: '会社概要',
+        'zh-CN': '关于我们',
+        'zh-TW': '關於我們',
+        es: 'Acerca de'
+      },
+      accent: 'var(--accent)'
+    });
+  }
+
   async function initAboutView() {
+    mountAboutBrand();
     var scrollEl = document.getElementById('aboutScroll');
     if (_aboutInitialized && scrollEl && scrollEl.querySelector('.about-hero')) {
       revealAboutFadeIns();

@@ -762,10 +762,8 @@
         nameEl.innerHTML = _moduleLabelSpanHtml(MODULE_LABEL_MATRIX[key]);
       }
     });
-    var aboutTitle = document.getElementById('aboutLogoTitle');
-    if (aboutTitle && MODULE_LABEL_MATRIX.about) {
-      aboutTitle.innerHTML = _moduleLabelSpanHtml(MODULE_LABEL_MATRIX.about);
-    }
+    // About header now uses the shared DXBrand component (mounted in about-deepx.js), so the old
+    // #aboutLogoTitle hook is gone.
   }
 
   var STATUS_DOT_LABELS = {

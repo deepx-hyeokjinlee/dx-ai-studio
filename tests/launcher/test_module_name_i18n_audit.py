@@ -141,9 +141,13 @@ def test_platform_modal_pm_names_wired_for_i18n(frame_js: str):
         assert f'data-help-id="{help_id}"' in html
 
 
-def test_about_view_logo_title_has_i18n_hook():
+def test_about_view_uses_shared_brand():
+    """About DEEPX header uses the shared DXBrand slot (unified with modules), mounted from
+    about-deepx.js — its name/subtitle localization lives there, not in a bespoke logo title."""
     html = _read("launcher/static/index.html")
-    assert 'id="aboutLogoTitle"' in html
+    assert 'id="aboutBrand"' in html and "dx-brand-slot" in html
+    js = _read("launcher/static/about-deepx.js")
+    assert "target: '#aboutBrand'" in js
 
 
 def test_dx_brand_subtitles_have_six_langs_for_core_modules():

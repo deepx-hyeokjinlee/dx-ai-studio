@@ -70,6 +70,13 @@ body.app-frame-visible #launcherToolbar {
   display: none;
 }
 
+/* On SDK/About the shared toolbar is relocated into the view's own header, leaving this slot
+   empty. An empty-but-present flex child still consumes a gap in .top-bar-right, nudging the Buy
+   button left and making the bar visibly reflow ("slide") on entry. Collapse it when empty. */
+#launcherToolbar:empty {
+  display: none;
+}
+
 
 .logo {
   display: flex; align-items: center; gap: 10px;
