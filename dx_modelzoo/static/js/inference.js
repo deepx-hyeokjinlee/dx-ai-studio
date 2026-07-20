@@ -23,6 +23,28 @@ const _VARIANT_LABELS = {
 };
 const _LANG_LABELS = { cpp: 'C++', python: 'Python' };
 
+/* -----------------------------------------------------------------------
+ * Special-input categories — these models don't take a single ordinary photo
+ * (image pair / point cloud / etc.), so they never ship a browsable sample
+ * gallery (model.sample_dir is unset). Without an explanation the "Sample not
+ * available" message reads like a bug; clarify that "Use Default" still works
+ * because the built-in default input matches what the model actually expects.
+ * ---------------------------------------------------------------------- */
+const _SPECIAL_INPUT_MESSAGES = {
+  embedding: 'This model compares an image pair (two images) instead of a single photo — that is expected, not an error. Use "Use Default" below to run it with the built-in sample.',
+  reid: 'This model compares a person image pair (two person crops) instead of a single photo — that is expected, not an error. Use "Use Default" below to run it with the built-in sample.',
+  object_pose_estimation: 'This model needs a specialized pose-estimation input (DOPE format), not a regular photo — that is expected, not an error. Use "Use Default" below to run it with the built-in sample.',
+  '3d_object_detection': 'This model needs a LiDAR point cloud (.bin file), not a photo — that is expected, not an error. Use "Use Default" below to run it with the built-in sample.',
+  hand_landmark: 'This model needs a specialized hand-landmark input, not a regular photo — that is expected, not an error. Use "Use Default" below to run it with the built-in sample.',
+  hand_detection: 'This model needs a specialized hand-detection input, not a regular photo — that is expected, not an error. Use "Use Default" below to run it with the built-in sample.',
+  attribute_recognition: 'This model needs a person-attribute recognition input, not a regular photo — that is expected, not an error. Use "Use Default" below to run it with the built-in sample.',
+};
+
+function _specialInputSampleMsg(category) {
+  const key = _SPECIAL_INPUT_MESSAGES[category];
+  return key ? T(key) : null;
+}
+
 function _buildExecPathOptions(model) {
   const v = (model && model.variants) || {};
   const opts = [];
@@ -57,7 +79,7 @@ function renderInferencePanel(model) {
   const disabled = !_dxAppAlive;
   const disabledAttr = disabled ? 'disabled' : '';
   const disabledMsg = disabled
-    ? `<p style="color:var(--warning);font-size:13px;margin-top:8px">⚠️ ${T('DX App is not running')}</p>`
+    ? `<p style="color:var(--warning);font-size:13px;margin-top:8px">⚠️ ${T('DX App is not running. Run Inference needs the DX App module (port 8080) — launch DX AI Studio (it auto-starts DX App) or start the DX App module, then retry.')}</p>`
     : '';
   // Inference needs the .dxnn locally. Without it the backend returns a confusing
   // "File not found" — gate the run controls and tell the user to download first.
@@ -73,9 +95,10 @@ function renderInferencePanel(model) {
   const samplePath = demoInput || model.sample_image || (model.example_images?.original) || '';
   const hasSampleMetadata = !!model.sample_dir;
   const sampleDisabledAttr = disabled || !hasSampleMetadata || !isDownloaded ? 'disabled' : '';
+  const specialInputMsg = _specialInputSampleMsg(model.category);
   const sampleUnavailableMsg = hasSampleMetadata
     ? ''
-    : `<p style="color:var(--text-3);font-size:13px;margin-top:8px">ℹ️ ${T('Sample not available for this model')}</p>`;
+    : `<p style="color:var(--text-3);font-size:13px;margin-top:8px">ℹ️ ${specialInputMsg || T('Sample not available for this model')}</p>`;
   const eId = _escAttr(model.id);
   const eCat = _escAttr(model.category);
   const eFile = _escAttr(model.model_file);
@@ -225,7 +248,8 @@ async function loadSampleImages(modelId, category, modelFile) {
     }
 
     if (!data.sample_dir) {
-      grid.innerHTML = `<span style="color:var(--text-3);font-size:13px">${T('Sample not available for this model')}</span>`;
+      const specialInputMsg = _specialInputSampleMsg(category);
+      grid.innerHTML = `<span style="color:var(--text-3);font-size:13px">${specialInputMsg || T('Sample not available for this model')}</span>`;
       return;
     }
     const sampleDir = data.sample_dir;
@@ -349,7 +373,7 @@ async function runInference(modelId, category, modelFile, imagePath, imageBase64
     const dxAppUnavailable = ((!data.ok && data.code === 'DX_APP_UNAVAILABLE') ||
       data.error === 'DX_APP_UNAVAILABLE');
     if (dxAppUnavailable) {
-      resultDiv.innerHTML = `<p style="color:var(--error)">⚠️ ${T('DX App is not running')}</p>`;
+      resultDiv.innerHTML = `<p style="color:var(--error)">⚠️ ${T('DX App is not running. Run Inference needs the DX App module (port 8080) — launch DX AI Studio (it auto-starts DX App) or start the DX App module, then retry.')}</p>`;
       _dxAppAlive = false;
       document.getElementById('dxAppStatus')?.classList.remove('alive');
       return;

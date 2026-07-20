@@ -596,7 +596,7 @@ function renderCompileGuide(model) {
     const href = _artifactEndpoint(model.id, 'onnx');
     html += `<a href="${escapeHtml(href)}" target="_blank" rel="noopener" class="mz-btn mz-btn-outline" id="btnOnnxLink">📦 ${T('ONNX Model Link')}</a>`;
   }
-  html += `<button class="mz-btn mz-btn-outline" id="btnDxtronCompiler" onclick="openModelzooGraph('${escapeHtml(model.id)}')">📊 ${T('View Model Graph')}</button>`;
+  html += `<button class="mz-btn mz-btn-primary" id="btnDxtronCompiler" onclick="openModelzooGraph('${escapeHtml(model.id)}')">📊 ${T('View Model Graph')}</button>`;
   html += `</div>`;
   return html;
 }
@@ -613,35 +613,63 @@ function _modelzooLauncherLaunch() {
   return null;
 }
 
-function _navigateToCompilerGraph(viewerPath) {
-  const query = viewerPath ? new URLSearchParams({ viewer_path: viewerPath }).toString() : '';
+function _navigateToCompilerGraph(viewerPath, notice) {
+  // notice: optional reason code shown by the compiler's empty-viewer state when
+  // there is no viewerPath to render (e.g. 'onnx_missing' — see openModelzooGraph).
   const launchFn = _modelzooLauncherLaunch();
-  if (launchFn) {
-    launchFn('compiler', query);
+  if (viewerPath) {
+    const query = new URLSearchParams({ viewer_path: viewerPath }).toString();
+    if (launchFn) {
+      launchFn('compiler', query);
+      return;
+    }
+    // Standalone (no parent launcher): fall back to the previous new-tab behavior.
+    window.open('/compiler/?viewer_path=' + encodeURIComponent(viewerPath), '_blank', 'noopener');
     return;
   }
-  // Standalone (no parent launcher): fall back to the previous new-tab behavior.
-  if (viewerPath) {
-    window.open('/compiler/?viewer_path=' + encodeURIComponent(viewerPath), '_blank', 'noopener');
-  } else {
-    window.open('/compiler/', '_blank', 'noopener');
+  if (notice) {
+    const query = new URLSearchParams({ viewer_notice: notice }).toString();
+    if (launchFn) {
+      launchFn('compiler', query);
+      return;
+    }
+    window.open('/compiler/?viewer_notice=' + encodeURIComponent(notice), '_blank', 'noopener');
+    return;
   }
+  if (launchFn) {
+    launchFn('compiler', '');
+    return;
+  }
+  window.open('/compiler/', '_blank', 'noopener');
 }
 
 function openModelzooGraph(modelId) {
   // DX-TRON removed this release → open the model's ONNX graph in the dx-compiler viewer.
   // Resolve the absolute local ONNX path first; if it isn't downloaded, fall back to opening
   // the compiler so the user can fetch/compile it there.
+  //
+  // NOTE: the compiler's graph viewer (dx_compiler/static/js/viewer_panel.js loadModel() ->
+  // POST /viewer/parse -> dx_compiler/core/onnx_parser.py:parse_onnx_model()) parses ONNX
+  // protobuf via `onnx.load()` exclusively. Model Zoo's compiled artifacts (qlite_dxnn /
+  // qpro_dxnn, the *.dxnn files) use a distinct DEEPX binary container (magic header
+  // b"DXNN...") that is not valid ONNX wire format — onnx.load() raises DecodeError on it
+  // (verified empirically). There is no dxnn parser anywhere in dx_compiler; the compiler's
+  // "DXNN" tab is only ever populated from a live compile job's SSE progress
+  // (handleModelReady), never by pointing loadModel() at an arbitrary .dxnn file on disk.
+  // So a dxnn artifact can NOT be handed to this viewer as a substitute for onnx — doing so
+  // would surface a parse error instead of a graph. When onnx isn't downloaded locally we
+  // land on the compiler with an explicit "download/compile to view the graph" notice
+  // instead of silently showing nothing.
   fetch(modelzooApiUrl(`/api/catalog/${encodeURIComponent(modelId)}/artifacts/onnx/localpath`))
     .then((r) => r.json())
     .then((j) => {
       if (j && j.ok && j.path) {
         _navigateToCompilerGraph(j.path);
       } else {
-        _navigateToCompilerGraph(null);
+        _navigateToCompilerGraph(null, 'onnx_missing');
       }
     })
-    .catch(() => _navigateToCompilerGraph(null));
+    .catch(() => _navigateToCompilerGraph(null, 'onnx_missing'));
 }
 
 function openInferencePanelFromDemo() {
@@ -927,7 +955,7 @@ function renderDownloadButtons(model, scope = 'inline') {
       ⬇ ${T('Download Q-Pro')}</button>`;
   }
   if (!_dxAppAlive) {
-    html += `<span style="font-size:12px;color:var(--warning)">${T('DX App is not running')}</span>`;
+    html += `<span style="font-size:12px;color:var(--warning)">${T('DX App is not running. Run Inference needs the DX App module (port 8080) — launch DX AI Studio (it auto-starts DX App) or start the DX App module, then retry.')}</span>`;
   }
   return html;
 }

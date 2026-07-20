@@ -72,6 +72,13 @@ window._DX_I18N_DICT = {
     'zh-TW': '載入模型以進行視覺化',
     es: 'Cargue un modelo para visualizar',
   },
+  "This model's ONNX file isn't downloaded yet. Download or compile it in DX Model Zoo, then reopen this graph.": {
+    ko: '이 모델의 ONNX 파일이 아직 다운로드되지 않았습니다. DX Model Zoo에서 다운로드하거나 컴파일한 후 이 그래프를 다시 여세요.',
+    ja: 'このモデルの ONNX ファイルはまだダウンロードされていません。DX Model Zoo でダウンロードまたはコンパイルしてから、このグラフを再度開いてください。',
+    'zh-CN': '该模型的 ONNX 文件尚未下载。请在 DX Model Zoo 中下载或编译后，再重新打开此图。',
+    'zh-TW': '該模型的 ONNX 檔案尚未下載。請在 DX Model Zoo 中下載或編譯後，再重新開啟此圖。',
+    es: 'El archivo ONNX de este modelo aún no se ha descargado. Descárguelo o compílelo en DX Model Zoo y vuelva a abrir este gráfico.',
+  },
 
   'Node Details': {
     ko: '노드 상세',

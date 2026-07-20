@@ -66,6 +66,27 @@
             '<span>' + tr('Load a model to visualize') + '</span>';
     }
 
+    // Deep-link handoff notice (e.g. from dx_modelzoo when the model's ONNX artifact
+    // isn't downloaded locally, so there's nothing to hand this viewer to load). Kept
+    // separate from renderDefaultEmpty() so a language switch (refreshLanguage) can
+    // re-render it in the new language instead of reverting to the generic message.
+    var deepLinkNotice = null;
+
+    var DEEP_LINK_NOTICE_TEXT = {
+        onnx_missing: 'This model\'s ONNX file isn\'t downloaded yet. Download or compile it in DX Model Zoo, then reopen this graph.',
+    };
+
+    function renderDeepLinkNotice(noticeCode) {
+        var empty = document.getElementById('viewer-empty');
+        if (!empty) return;
+        var text = DEEP_LINK_NOTICE_TEXT[noticeCode];
+        if (!text) return renderDefaultEmpty();
+        empty.style.display = '';
+        empty.innerHTML =
+            '<span class="viewer-empty-icon">⬇️</span>' +
+            '<span>' + tr(text) + '</span>';
+    }
+
     function showNodeInfo(nodeData) {
         selectedNode = nodeData;
         var graphData = activePhase ? graphCache[activePhase] : null;
@@ -334,9 +355,21 @@
         // Deep-link: /compiler/?viewer_path=<absolute .onnx path>  → auto-parse + render
         // the model's graph on the "input" tab. Lets other Studio modules (dx_app, modelzoo)
         // hand off an ONNX model and land the user straight on its graph, replacing DX-TRON.
+        // ?viewer_notice=<code> is used instead when the caller has no artifact to hand off
+        // (e.g. modelzoo's ONNX isn't downloaded locally) so the empty state explains why,
+        // rather than showing the generic "Load a model to visualize" message.
         try {
-            var _dl = new URLSearchParams(window.location.search).get('viewer_path');
-            if (_dl) loadModel('input', _dl);
+            var _params = new URLSearchParams(window.location.search);
+            var _dl = _params.get('viewer_path');
+            if (_dl) {
+                loadModel('input', _dl);
+            } else {
+                var _notice = _params.get('viewer_notice');
+                if (_notice) {
+                    deepLinkNotice = _notice;
+                    renderDeepLinkNotice(_notice);
+                }
+            }
         } catch (e) { /* no-op: deep-link is best-effort */ }
     }
 
@@ -678,6 +711,7 @@
         collapsedStates = {};
         zoomStates = {};
         activePhase = null;
+        deepLinkNotice = null;
         document.querySelectorAll('.viewer-tab').forEach(function(t) {
             t.classList.remove('active');
             if (t.dataset.phase !== 'input') t.classList.add('disabled');
@@ -1507,6 +1541,10 @@
                 renderWaitingEmpty(activePhase);
             }
             populateExplorer(graphCache[activePhase] || null);
+        } else if (deepLinkNotice) {
+            renderDeepLinkNotice(deepLinkNotice);
+            updateStatusBar(null, null);
+            populateExplorer(null);
         } else {
             renderDefaultEmpty();
             updateStatusBar(null, null);
