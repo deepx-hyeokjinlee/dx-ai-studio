@@ -99,7 +99,7 @@
       "ko": "딥엑스(DEEPX)는 일상의 디바이스에 신뢰할 수 있는 지능을 제공하는 온디바이스 AI 반도체를 개발합니다. 2018년 전 Apple·IBM·Cisco 반도체 엔지니어 김록원 박사(CEO)가 설립했으며, 한국 성남에 본사를 두고 있습니다.",
       "ja": "DEEPXは日常デバイスに信頼性の高い知能をもたらすオンデバイスAI半導体を開発しています。2018年、元Apple・IBM・Ciscoの半導体エンジニアであるキム・ロクウォン博士（CEO）が設立し、韓国・城南に本社を置いています。",
       "zh-CN": "DEEPX开发为日常设备带来可靠智能的端侧AI半导体。2018年由前Apple、IBM、Cisco半导体工程师金录源博士（CEO）创立，总部位于韩国城南。",
-      "zh-TW": "DEEPX開發為日常裝置帶來可靠智能的端側AI半導體。2018年由前Apple、IBM、Cisco半導體工程師金錄源博士（CEO）創立，總部位於韓國城南。",
+      "zh-TW": "DEEPX開發為日常裝置帶來可靠智慧的端側AI半導體。2018年由前Apple、IBM、Cisco半導體工程師金錄源博士（CEO）創立，總部位於韓國城南。",
       "es": "DEEPX desarrolla semiconductores de IA en dispositivo que aportan inteligencia fiable a dispositivos cotidianos. Fundada en 2018 por el CEO Lokwon Kim, Ph.D., ex ingeniero de semiconductores de Apple, IBM y Cisco, con sede en Seongnam, Corea del Sur."
     },
     "values": [
@@ -138,7 +138,7 @@
           "ja": "GPGPU比5年間の電気代約94%削減；GPU導入コスト約10%；AIエネルギー使用約90%削減",
           "zh-CN": "相比GPGPU，5年电费约降低94%；部署成本约为GPU的10%；AI能耗约降低90%",
           "zh-TW": "相比GPGPU，5年電費約降低94%；部署成本約為GPU的10%；AI能耗約降低90%",
-          "es": "~94% menos coste eléctrico en 5 años vs GPGPU; ~10% del coste GPU; ~90% menos energía en IA"
+          "es": "~94% menos costo eléctrico en 5 años vs GPGPU; ~10% del costo GPU; ~90% menos energía en IA"
         }
       },
       {
@@ -152,12 +152,12 @@
           "es": "Colaboración"
         },
         "desc": {
-          "en": "DX-M1 deployed in 50+ projects across robotics, defense, and industrial sectors (deepx.ai).",
-          "ko": "로보틱스·방산·산업 등 50+ 프로젝트에 DX-M1 배포 (deepx.ai)",
-          "ja": "ロボティクス・防衛・産業など50以上のプロジェクトにDX-M1を展開（deepx.ai）",
-          "zh-CN": "DX-M1已部署于机器人、国防、工业等50多个项目（deepx.ai）",
-          "zh-TW": "DX-M1已部署於機器人、國防、工業等50多個專案（deepx.ai）",
-          "es": "DX-M1 desplegado en más de 50 proyectos en robótica, defensa e industria (deepx.ai)"
+          "en": "DX-M1 deployed in 50+ projects across robotics, defense, and industrial sectors.",
+          "ko": "로보틱스·방산·산업 등 50+ 프로젝트에 DX-M1 배포",
+          "ja": "ロボティクス・防衛・産業など50以上のプロジェクトにDX-M1を展開",
+          "zh-CN": "DX-M1已部署于机器人、国防、工业等50多个项目",
+          "zh-TW": "DX-M1已部署於機器人、國防、工業等50多個專案",
+          "es": "DX-M1 desplegado en más de 50 proyectos en robótica, defensa e industria"
         }
       },
       {
@@ -644,7 +644,7 @@
             "ko": "추론 실행 (C++ / Python)",
             "ja": "推論実行（C++ / Python）",
             "zh-CN": "运行推理（C++ / Python）",
-            "zh-TW": "執行推理（C++ / Python）",
+            "zh-TW": "執行推論（C++ / Python）",
             "es": "Ejecutar inferencia (C++ / Python)"
           }
         },
@@ -663,7 +663,7 @@
             "ko": "DEEPX NPU 실시간 추론",
             "ja": "DEEPX NPU上でリアルタイム推論",
             "zh-CN": "DEEPX NPU实时推理",
-            "zh-TW": "DEEPX NPU即時推理",
+            "zh-TW": "DEEPX NPU即時推論",
             "es": "Inferencia en tiempo real en NPU DEEPX"
           }
         }
@@ -836,7 +836,7 @@
             "ko": "추론 실행 (C++ / Python)",
             "ja": "推論実行（C++ / Python）",
             "zh-CN": "运行推理（C++ / Python）",
-            "zh-TW": "執行推理（C++ / Python）",
+            "zh-TW": "執行推論（C++ / Python）",
             "es": "Ejecutar inferencia (C++ / Python)"
           }
         },
@@ -855,7 +855,7 @@
             "ko": "DEEPX NPU 실시간 추론",
             "ja": "DEEPX NPU上でリアルタイム推論",
             "zh-CN": "DEEPX NPU实时推理",
-            "zh-TW": "DEEPX NPU即時推理",
+            "zh-TW": "DEEPX NPU即時推論",
             "es": "Inferencia en tiempo real en NPU DEEPX"
           }
         }
@@ -872,11 +872,11 @@
       },
       "description": {
         "en": "DX-M1 outperforms 40W GPGPU by 240%, provides 20× efficiency improvement, and consumes up to 5W.",
-        "ko": "DX-M1은 40W GPGPU 대비 240% 성능, 20× 효율 향상, 최대 5W 소비 (deepx.ai)",
-        "ja": "DX-M1は40W GPGPU比240%性能、20倍の効率向上、最大5W消費（deepx.ai）",
-        "zh-CN": "DX-M1对比40W GPGPU性能240%，效率提升20倍，功耗最高5W（deepx.ai）",
-        "zh-TW": "DX-M1對比40W GPGPU效能240%，效率提升20倍，功耗最高5W（deepx.ai）",
-        "es": "DX-M1 supera a GPGPU de 40W un 240%, 20× eficiencia, hasta 5W (deepx.ai)"
+        "ko": "DX-M1은 40W GPGPU 대비 240% 성능, 20× 효율 향상, 최대 5W 소비",
+        "ja": "DX-M1は40W GPGPU比240%性能、20倍の効率向上、最大5W消費",
+        "zh-CN": "DX-M1对比40W GPGPU性能240%，效率提升20倍，功耗最高5W",
+        "zh-TW": "DX-M1對比40W GPGPU效能240%，效率提升20倍，功耗最高5W",
+        "es": "DX-M1 supera a GPGPU de 40W un 240%, 20× eficiencia, hasta 5W"
       },
       "stats": [
         {
@@ -1410,7 +1410,7 @@
           "ko": "스마트 모빌리티",
           "ja": "スマートモビリティ",
           "zh-CN": "智能出行",
-          "zh-TW": "智能出行",
+          "zh-TW": "智慧移動",
           "es": "Movilidad inteligente"
         },
         "desc": {
@@ -1456,7 +1456,7 @@
           "ko": "최소 전력의 고성능 엣지 추론",
           "ja": "最小電力の高性能エッジ推論",
           "zh-CN": "边缘低功耗高性能推理",
-          "zh-TW": "邊緣低功耗高效能推理",
+          "zh-TW": "邊緣低功耗高效能推論",
           "es": "Inferencia de alto rendimiento en el borde"
         }
       },
@@ -2626,10 +2626,10 @@
         "title": {
           "en": "Webinar: DEEPX & Avnet Silica — Edge AI at GPU-level performance",
           "ko": "웨비나: DEEPX & Avnet Silica — GPU급 엣지 AI",
-          "ja": "ウェビナー: DEEPX & Avnet Silica",
+          "ja": "ウェビナー: DEEPX & Avnet Silica — GPU級性能のエッジAI",
           "zh-CN": "网络研讨会：DEEPX与Avnet Silica",
           "zh-TW": "網路研討會：DEEPX與Avnet Silica",
-          "es": "Webinar: DEEPX y Avnet Silica"
+          "es": "Webinar: DEEPX y Avnet Silica — IA en el borde con rendimiento nivel GPU"
         },
         "date": "2026.02",
         "type": "webinar",
@@ -2647,7 +2647,7 @@
         "title": {
           "en": "Hyundai Motor Group Robotics LAB × DEEPX — DX-M2 Physical AI platform",
           "ko": "현대차 로보틱스랩 × DEEPX — DX-M2 Physical AI 플랫폼",
-          "ja": "Hyundai Motor Group Robotics LAB × DEEPX — DX-M2 Physical AI",
+          "ja": "Hyundai Motor Group Robotics LAB × DEEPX — DX-M2 Physical AIプラットフォーム",
           "zh-CN": "现代汽车集团机器人实验室 × DEEPX — DX-M2 Physical AI平台",
           "zh-TW": "現代汽車集團機器人實驗室 × DEEPX — DX-M2 Physical AI平台",
           "es": "Hyundai Motor Group Robotics LAB × DEEPX — plataforma Physical AI DX-M2"
