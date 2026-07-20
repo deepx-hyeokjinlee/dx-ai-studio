@@ -501,7 +501,9 @@ ul.about-timeline-list li::before {
   scroll-snap-type: x mandatory;
 }
 .about-product-card {
-  flex: 0 0 280px;
+  /* 320px (was 280): long spec values (OS, temp, memory strings) wrapped awkwardly in a narrow
+     card. Wider gives them room to breathe; the row scrolls horizontally so extra width is fine. */
+  flex: 0 0 320px;
   background: var(--about-card-bg);
   border: 1px solid var(--about-card-border);
   border-radius: var(--radius-lg);
