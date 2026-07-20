@@ -17,6 +17,27 @@ An in-app library of DEEPX documentation and marketing material, reachable from 
   **architecture diagram** overlay. The open document, view mode, and query are captured
   in the URL, so a link reopens exactly that state.
 
+## Chat / AI Assistant
+
+The **💬 assistant** is available in every DX AI Studio module (not just this one). Click
+it anytime to ask about DeepX models, the SDK, the compiler, or how any module works — it
+draws on bundled DEEPX SDK knowledge to answer.
+
+In chat settings (⚙️) you can pick from **seven providers**:
+
+- **API-key providers** — OpenAI, Anthropic, Google, GitHub Models, or a **Custom**
+  (OpenAI-compatible) endpoint.
+- **Fully offline, no cloud key needed** — **Local** (your own Ollama-compatible server)
+  or **Coding-agent CLI** (reuse an already-logged-in `claude` / `copilot` / `cursor-agent`
+  / `codex` / `opencode` session — no separate API key).
+
+With no provider configured, the assistant falls back to built-in keyword-based guidance
+rather than failing outright. Use **Refresh knowledge** (⚙️) to re-sync the assistant's
+SDK knowledge with the latest `.deepx` docs.
+
+The in-app tutorial's chatbot walkthrough (providers, offline options, refresh knowledge)
+is now centralized in the launcher's onboarding tour, rather than repeated per-module.
+
 ## About DEEPX
 
 The **About DEEPX** page presents company and product information across a sticky
