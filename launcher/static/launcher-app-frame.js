@@ -450,10 +450,24 @@
       else history.replaceState(state, '', url);
     }
 
+    // The launcher builds one shared toolbar (#dxToolbar: language + tutorial) inside
+    // #launcherToolbar in the global top bar. Every module carries these controls in its own
+    // chrome, so on the launcher-native views (SDK Library, About DEEPX) we RELOCATE the same
+    // element into that view's own header — unifying "each view owns its lang+tutorial" and
+    // leaving the global bar's slot empty, just like it is hidden in module views. Moving (not
+    // cloning) preserves every binding; tutorial spotlights targeting #dxToolbar follow it.
+    function _relocateToolbar(target) {
+      var toolbar = document.getElementById('dxToolbar');
+      var dest = typeof target === 'string' ? document.querySelector(target) : target;
+      if (!toolbar || !dest || toolbar.parentNode === dest) return;
+      dest.appendChild(toolbar);
+    }
+
     function _showHome(opts) {
       ns.currentApp = null;
       if (typeof ns.syncLangFromStorage === 'function') ns.syncLangFromStorage();
       setVisibleView('home');
+      _relocateToolbar('#launcherToolbar');
       updateNavTabs();
       _commitHistory(opts && opts.push ? 'push' : 'replace', {}, '/');
     }
@@ -462,6 +476,7 @@
       opts = opts || {};
       ns.currentApp = 'about';
       setVisibleView('about');
+      _relocateToolbar('#aboutTopbarSlot');
       updateNavTabs();
       if (!opts.skipHistory) {
         _commitHistory(opts.push ? 'push' : 'replace', { app: 'about' }, '/about');
@@ -478,6 +493,8 @@
       ns.currentApp = 'sdk-library';
       setVisibleView('sdk-library');
       if (window.SDKLibrary) window.SDKLibrary.init();
+      // init() builds .sdk-topbar, so relocate the toolbar after it exists.
+      _relocateToolbar('.sdk-topbar-right');
       updateNavTabs();
       var source = opts.source || 'restore';
       var url = '/sdk-library';
@@ -540,6 +557,9 @@
       activateModuleIframe(iframe);
 
       setVisibleView('app');
+      // Return the shared toolbar to the (CSS-hidden) global slot so it isn't stranded inside a
+      // now-hidden SDK/About header; the module supplies its own lang+tutorial inside its iframe.
+      _relocateToolbar('#launcherToolbar');
       updateNavTabs();
 
       var iframePath = ns.APP_PATHS[appKey] || ('/' + appKey + '/');

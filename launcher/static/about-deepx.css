@@ -55,6 +55,9 @@
   height: 48px;
   min-height: 48px;
   flex-shrink: 0;
+  /* nowrap so the relocated toolbar can't push a 2nd row; .about-nav (flex:1, overflow-x:auto)
+     absorbs any shortfall by scrolling its tabs internally. */
+  flex-wrap: nowrap;
   background: var(--dx-module-header-bg);
   border-bottom: 1px solid var(--dx-module-header-border);
   backdrop-filter: var(--glass-blur);
@@ -97,6 +100,12 @@
   overflow-y: hidden;
   white-space: nowrap;
   scrollbar-width: none;
+}
+/* Holds the relocated shared toolbar (#dxToolbar: lang + tutorial) at the far right. */
+.about-topbar-right {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
 }
 .about-nav::-webkit-scrollbar {
   display: none;

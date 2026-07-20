@@ -238,8 +238,22 @@
   function renderView(data) {
     const container = document.getElementById('sdkCabinet');
     if (!container || !data.drawers) return;
+    // The launcher relocates the shared lang+tutorial toolbar (#dxToolbar) into this header. The
+    // header is rebuilt on every render (view toggle, lang change, refresh), so preserve the live
+    // toolbar node across the innerHTML wipe and re-attach it to the fresh .sdk-topbar-right —
+    // otherwise it would be destroyed and lost. The variable keeps the detached node alive.
+    //
+    // Only re-claim it when SDK is the visible view: onLangChange re-renders regardless of the
+    // active view, and grabbing #dxToolbar while another view owns it would steal it away.
+    const sdkView = document.getElementById('sdk-library-view');
+    const sdkVisible = sdkView && sdkView.classList.contains('visible');
+    const toolbar = sdkVisible ? document.getElementById('dxToolbar') : null;
     container.innerHTML = '';
     container.appendChild(buildModuleHeader());
+    if (toolbar) {
+      const slot = container.querySelector('.sdk-topbar-right');
+      if (slot) slot.appendChild(toolbar);
+    }
     mountSdkBrand();
 
     const body = document.createElement('div');
