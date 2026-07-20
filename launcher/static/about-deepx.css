@@ -542,30 +542,23 @@ ul.about-timeline-list li::before {
   flex: 0 0 auto;
 }
 .about-sdk-env-fig {
-  /* Stacked (not side by side): the environments graphic is now a transparent PNG that blends
-     into the dark page, while the architecture diagram has a light baked-in background — pairing
-     them side by side clashed. Stacking gives each its own full-width row and its own treatment. */
+  /* Two diagrams side by side, together spanning the section width, with EQUAL heights.
+     Each flex-grow is set to the image's aspect ratio and flex-basis is 0, so the column
+     widths come out proportional to aspect — which makes width/aspect (the rendered height)
+     identical for both. No border/background so there's no uneven white framing. */
   margin: 20px 0 32px;
   display: flex;
-  flex-direction: column;
-  gap: 22px;
+  gap: 16px;
+  align-items: flex-start;
 }
 .about-sdk-env-fig img {
+  min-width: 0;
   height: auto;
   display: block;
-}
-/* environments — transparent, sits directly on the dark page, no frame */
-.about-sdk-env-a {
-  width: 100%;
-  max-width: 820px;
-}
-/* architecture — light-background diagram, framed so it reads as a distinct figure */
-.about-sdk-env-b {
-  width: 100%;
-  max-width: 820px;
   border-radius: var(--radius);
-  border: 1px solid var(--about-card-border);
 }
+.about-sdk-env-fig img:nth-of-type(1) { flex: 1620 1 0; }  /* environments — trimmed so the left isn't bigger than the right */
+.about-sdk-env-fig img:nth-of-type(2) { flex: 1389 1 0; margin-top: -14px; }  /* architecture 1500×1080 — nudged up slightly */
 
 /* ── 9. Products Section ── */
 .about-product-category {
