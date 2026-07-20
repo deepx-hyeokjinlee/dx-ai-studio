@@ -1621,6 +1621,25 @@
           "zh-TW": "裝置端人臉辨識和威脅偵測",
           "es": "Reconocimiento facial en el dispositivo y detección de amenazas"
         }
+      },
+      {
+        "icon": "🎥",
+        "title": {
+          "en": "Video Management Systems",
+          "ko": "영상관제시스템(VMS)",
+          "ja": "映像管理システム（VMS）",
+          "zh-CN": "视频管理系统（VMS）",
+          "zh-TW": "影像管理系統（VMS）",
+          "es": "Sistemas de gestión de video (VMS)"
+        },
+        "desc": {
+          "en": "Edge AI analytics integrated into VMS platforms for real-time detection and monitoring at scale",
+          "ko": "대규모 실시간 탐지 및 모니터링을 위해 VMS 플랫폼에 통합된 엣지 AI 분석",
+          "ja": "大規模なリアルタイム検知・監視のためVMSプラットフォームに統合されたエッジAI分析",
+          "zh-CN": "集成于VMS平台的边缘AI分析，实现大规模实时检测与监控",
+          "zh-TW": "整合於VMS平台的邊緣AI分析，實現大規模即時偵測與監控",
+          "es": "Análisis de IA en el borde integrado en plataformas VMS para detección y monitoreo en tiempo real a gran escala"
+        }
       }
     ],
     "alliance": {
