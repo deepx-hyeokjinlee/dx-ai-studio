@@ -1148,43 +1148,6 @@
           "es": "Solicitar cotización"
         },
         "image": "/static/img/about/products/dx-m1.png"
-      },
-      {
-        "name": "DX-V3",
-        "type": {
-          "en": "AI Vision SoC",
-          "ko": "AI 비전 SoC",
-          "ja": "AIビジョンSoC",
-          "zh-CN": "AI视觉SoC",
-          "zh-TW": "AI視覺SoC",
-          "es": "SoC de visión IA"
-        },
-        "tops": "13 TOPS + A53 Quad + 75 GFLOPS DSP",
-        "power": "5W",
-        "memory": {
-          "en": "Ext. LPDDR4X/5",
-          "ko": "외장 LPDDR4X/5",
-          "ja": "外付けLPDDR4X/5",
-          "zh-CN": "外置LPDDR4X/5",
-          "zh-TW": "外接LPDDR4X/5",
-          "es": "LPDDR4X/5 externa"
-        },
-        "interface": "CSI/DSI/USB3/GbE",
-        "form": "TSMC 12nm",
-        "cpu": "Cortex-A53 quad @1.2GHz",
-        "isp": "12MP ISP, 3A + noise reduction",
-        "codec": "H.264/H.265 enc/dec 4K@60fps",
-        "specUrl": "https://deepx.ai/products/dx-v3/",
-        "image": "/static/img/about/products/dx-v3.jpg",
-        "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
-        "buyLabel": {
-          "en": "Request a Quote",
-          "ko": "견적 요청",
-          "ja": "見積もり依頼",
-          "zh-CN": "申请报价",
-          "zh-TW": "申請報價",
-          "es": "Solicitar cotización"
-        }
       }
     ],
     "modules": [
