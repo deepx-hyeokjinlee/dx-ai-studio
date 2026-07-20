@@ -1104,7 +1104,7 @@
           "es": "Root-of-Trust + TRNG"
         },
         "specUrl": "https://deepx.ai/products/dx-m1m/",
-        "image": "/static/img/about/products/dx-m1m2.png",
+        "image": "/static/img/about/products/dx-m1m.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1560,7 +1560,7 @@
         "weight": "450g",
         "temp": "0–60°C",
         "specUrl": "https://deepx.ai/products/dx-aiplayer/",
-        "image": "/static/img/about/products/dx-aiplayer2.png",
+        "image": "/static/img/about/products/dx-aiplayer.png",
         "buyUrl": "https://www.digikey.com/en/products/detail/deepx/DX-AIBOX-M1-N97/29209017",
         "buyLabel": {
           "en": "Buy on Digi-Key",

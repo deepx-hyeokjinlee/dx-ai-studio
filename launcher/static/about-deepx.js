@@ -330,6 +330,12 @@
             `).join('')}
           </div>
         </div>
+        <h4 class="about-sdk-howto-title">${T({en:'Supported Environments & Integrations', ko:'지원 환경 및 연동', ja:'対応環境と連携', 'zh-CN':'支持的环境与集成', 'zh-TW':'支援的環境與整合', es:'Entornos e integraciones compatibles'})}</h4>
+        <div class="about-sdk-env">
+          <div class="about-sdk-env-row"><span class="about-sdk-env-label">${T({en:'OS', ko:'OS', ja:'OS', 'zh-CN':'操作系统', 'zh-TW':'作業系統', es:'SO'})}</span><span class="about-sdk-env-chips">${['Linux','Windows','macOS'].map(function(c){return '<span class="about-partner-chip">'+c+'</span>';}).join('')}</span></div>
+          <div class="about-sdk-env-row"><span class="about-sdk-env-label">${T({en:'Host', ko:'호스트', ja:'ホスト', 'zh-CN':'主机', 'zh-TW':'主機', es:'Host'})}</span><span class="about-sdk-env-chips">${['x86_64','AArch64 (ARM)'].map(function(c){return '<span class="about-partner-chip">'+c+'</span>';}).join('')}</span></div>
+          <div class="about-sdk-env-row"><span class="about-sdk-env-label">${T({en:'Integrations', ko:'연동', ja:'連携', 'zh-CN':'集成', 'zh-TW':'整合', es:'Integraciones'})}</span><span class="about-sdk-env-chips">${['Developer Portal','GitHub','AWS Edge','Debian packages'].map(function(c){return '<span class="about-partner-chip">'+c+'</span>';}).join('')}</span></div>
+        </div>
         <div class="about-stats-row">
           ${t.sdk.stats.map(s => `
             <div class="about-stat-card">
