@@ -1009,7 +1009,7 @@ function initBeforeAfterSliders() {
     let pct = ((clientX - rect.left) / rect.width) * 100;
     pct = Math.max(0, Math.min(100, pct));
     slider.style.left = pct + '%';
-    after.style.width = pct + '%';
+    after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
   }
 
   let sliderRaf = null;
