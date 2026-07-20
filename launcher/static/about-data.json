@@ -964,7 +964,7 @@
           "zh-TW": "AI加速器",
           "es": "Acelerador de IA"
         },
-        "tops": "25 TOPS",
+        "tops": "25 TOPS (INT8)",
         "power": "1~5W",
         "memory": {
           "en": "Ext. LPDDR4x/5 up to 8GB (LPDDR4x 4266 / LPDDR5 6000 MT/s)",
@@ -979,12 +979,12 @@
         "highlight": true,
         "frameworks": "Ultralytics, TensorFlow, PyTorch, ONNX, Keras",
         "os": {
-          "en": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
-          "ko": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
-          "ja": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
-          "zh-CN": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
-          "zh-TW": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS",
-          "es": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS"
+          "en": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS · Yocto · Docker",
+          "ko": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS · Yocto · Docker",
+          "ja": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS · Yocto · Docker",
+          "zh-CN": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS · Yocto · Docker",
+          "zh-TW": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS · Yocto · Docker",
+          "es": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS · Yocto · Docker"
         },
         "temp": {
           "en": "0–70°C (Commercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotive, on request)",

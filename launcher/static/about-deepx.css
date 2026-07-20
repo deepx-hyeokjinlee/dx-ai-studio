@@ -494,21 +494,17 @@ ul.about-timeline-list li::before {
   margin-bottom: 16px;
 }
 .about-products-scroll {
-  display: flex;
+  /* Grid that wraps to fill the section width — no horizontal scroll slider. Cards are at least
+     ~300px and stretch to share the row evenly; extra cards flow onto the next row. */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--sp-4);
-  overflow-x: auto;
-  padding-bottom: 12px;
-  scroll-snap-type: x mandatory;
 }
 .about-product-card {
-  /* 320px (was 280): long spec values (OS, temp, memory strings) wrapped awkwardly in a narrow
-     card. Wider gives them room to breathe; the row scrolls horizontally so extra width is fine. */
-  flex: 0 0 320px;
   background: var(--about-card-bg);
   border: 1px solid var(--about-card-border);
   border-radius: var(--radius-lg);
   padding: var(--sp-5);
-  scroll-snap-align: start;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .about-product-card:hover {
