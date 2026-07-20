@@ -170,6 +170,16 @@ body{overflow-x:auto;overflow-y:auto}
 .mz-example-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--sp-3)}
 .mz-example-gallery-image{border:2px solid var(--accent)}
 
+/* ═══ Missing image placeholder (detail-page thumbnails/examples) ═══
+   Replaces a broken <img> (see handleImageFallback in catalog.js) so a missing
+   asset reads as intentional rather than a broken-image icon or blank gap. */
+.mz-img-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  min-height:180px;background:var(--bg-2);border:1px dashed var(--border);color:var(--text-4);
+  text-align:center;padding:var(--sp-4);box-sizing:border-box}
+.mz-img-placeholder-icon{font-size:32px;line-height:1}
+.mz-img-placeholder-label{font-size:12px;color:var(--text-3);max-width:100%;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+
 /* ═══ Inference Panel ═══ */
 .mz-inference-panel{background: var(--surface-raised-bg);border:1px solid var(--border);
   border-radius:var(--radius-lg);padding:var(--sp-5);margin-bottom:var(--sp-4);box-shadow: var(--surface-raised-shadow)}
@@ -207,7 +217,8 @@ body{overflow-x:auto;overflow-y:auto}
 /* ═══ Before/After Slider ═══ */
 .mz-ba-container{position:relative;overflow:hidden;border-radius:var(--radius);width:100%}
 .mz-ba-container img{display:block;width:100%}
-.mz-ba-after{position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden}
+.mz-ba-after{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;clip-path:inset(0 50% 0 0)}
+.mz-ba-after img{width:100%}
 .mz-ba-slider{position:absolute;top:0;bottom:0;width:4px;background:var(--accent);
   cursor:ew-resize;z-index:2}
 .mz-ba-slider::after{content:'⟨⟩';position:absolute;top:50%;left:50%;
@@ -287,7 +298,8 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 
 /* ═══ Explorer Shell ═══ */
 .mz-explorer-shell{display:grid;grid-template-columns:280px minmax(0,1fr);gap:var(--sp-5);width:100%;max-width:none;margin:0;padding:var(--sp-5);box-sizing:border-box}
-.mz-filter-rail{position:sticky;top:72px;align-self:start;display:flex;flex-direction:column;gap:var(--sp-4)}
+.mz-filter-rail{position:sticky;top:72px;align-self:start;display:flex;flex-direction:column;gap:var(--sp-4);
+  max-height:calc(100vh - 88px);overflow-y:auto;overflow-x:hidden;padding-right:var(--sp-2);scrollbar-gutter:stable}
 .mz-filter-section{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--sp-4);box-shadow:var(--shadow)}
 .mz-filter-title{font-size:var(--fs-sm);font-weight:700;text-transform:uppercase;color:var(--text-3);margin-bottom:var(--sp-3);letter-spacing:.04em}
 .mz-category-list{display:flex;flex-direction:column;gap:var(--sp-2)}
@@ -312,7 +324,7 @@ body.lang-zh-TW .zh-CN { display: none !important; }
 .mz-explorer-shell.is-detail{grid-template-columns:minmax(0,1fr)}
 .mz-explorer-shell.is-detail .mz-filter-rail{display:none}
 
-@media(max-width:900px){.mz-explorer-shell{grid-template-columns:1fr} .mz-filter-rail{position:static}}
+@media(max-width:900px){.mz-explorer-shell{grid-template-columns:1fr} .mz-filter-rail{position:static;max-height:none;overflow:visible}}
 @media(max-width:1360px){
   .mz-detail-two-by-two{grid-template-columns:1fr}
   .mz-detail-col-left,.mz-detail-col-right{grid-column:1}
