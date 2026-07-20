@@ -701,7 +701,7 @@
     if (!scrollEl) return;
     scrollEl.innerHTML = '<div class="about-loading" role="status" aria-live="polite">' +
       '<div class="about-loading-spinner" aria-hidden="true"></div>' +
-      '<span>' + T({en:'Loading About DEEPX…', ko:'DEEPX 소개 불러오는 중…', ja:'DEEPXについてを読み込み中…', 'zh-CN':'正在加载关于 DEEPX…', 'zh-TW':'正在載入關於 DEEPX…', es:'Cargando Acerca de DEEPX…'}) + '</span>' +
+      '<span>' + T({en:'Loading About DEEPX…', ko:'DEEPX 소개 불러오는 중…', ja:'DEEPXの概要を読み込み中…', 'zh-CN':'正在加载关于 DEEPX…', 'zh-TW':'正在載入關於 DEEPX…', es:'Cargando Acerca de DEEPX…'}) + '</span>' +
       '</div>';
   }
   function renderAboutError(error) {
@@ -709,7 +709,7 @@
     if (!scrollEl) return;
     scrollEl.innerHTML = '<div class="about-error" style="text-align:center;padding:4rem 1rem;">' +
       '<p style="font-size:1.2rem;color:var(--text-muted,#888);">' +
-      T({en:'Failed to load About data.', ko:'데이터 로드에 실패했습니다.', ja:'データの読み込みに失敗しました。', 'zh-CN':'数据加载失败。', 'zh-TW':'資料載入失敗。', es:'No se pudieron cargar los datos de About.'}) +
+      T({en:'Failed to load About data.', ko:'데이터 로드에 실패했습니다.', ja:'データの読み込みに失敗しました。', 'zh-CN':'数据加载失败。', 'zh-TW':'資料載入失敗。', es:'No se pudieron cargar los datos de la página Acerca de.'}) +
       '</p>' +
       '<p style="color:var(--text-muted,#666);font-size:0.9rem;">' + (error || '') + '</p>' +
       '<button class="about-retry-btn" style="margin-top:1rem;padding:0.5rem 1.5rem;cursor:pointer;">' +

@@ -78,17 +78,17 @@
     "vision": {
       "label": {
         "en": "Physical AI Infrastructure",
-        "ko": "피지컬 AI 인프라",
+        "ko": "Physical AI 인프라",
         "ja": "Physical AI インフラ",
-        "zh-CN": "物理AI基础设施",
-        "zh-TW": "物理AI基礎設施",
+        "zh-CN": "Physical AI 基础设施",
+        "zh-TW": "Physical AI 基礎設施",
         "es": "Infraestructura de Physical AI"
       },
       "statement": {
         "en": "At CES 2026, DEEPX unveiled its vision to become a Physical AI Infrastructure Company — pioneering a new AI-infrastructure paradigm built for the physical world, as intelligence expands beyond data centers into robots, mobility, smart cities, and factories. Much like Arm reshaped the CPU industry through low-power innovation, DEEPX aims to set the global standard for Physical AI with ultra-efficient AI accelerators.",
         "ko": "DEEPX는 CES 2026에서 'Physical AI Infrastructure Company'로의 비전을 공개했습니다 — AI가 데이터센터를 넘어 로봇, 모빌리티, 스마트 시티, 공장으로 확장됨에 따라 물리적 세계를 위한 새로운 AI 인프라 패러다임을 개척합니다. Arm이 저전력 혁신으로 CPU 산업을 재편했듯, DEEPX는 초고효율 AI 가속기로 Physical AI의 글로벌 표준을 세우고자 합니다.",
         "ja": "DEEPXはCES 2026で「Physical AI Infrastructure Company」というビジョンを発表しました——AIがデータセンターを超えてロボット、モビリティ、スマートシティ、工場へと広がる中、物理世界のために設計された新しいAIインフラのパラダイムを切り拓きます。Armが低消費電力革新でCPU業界を再編したように、DEEPXは超高効率AIアクセラレータでPhysical AIのグローバル標準を確立することを目指します。",
-        "zh-CN": "DEEPX在CES 2026上公布了成为「Physical AI 基础设施公司」的愿景——随着AI从数据中心扩展到机器人、出行、智慧城市和工厂，DEEPX正在开创专为物理世界打造的全新AI基础设施范式。正如Arm凭借低功耗创新重塑了CPU产业，DEEPX的目标是以超高能效的AI加速器，为Physical AI树立全球标准。",
+        "zh-CN": "DEEPX在CES 2026上公布了成为“Physical AI 基础设施公司”的愿景——随着AI从数据中心扩展到机器人、出行、智慧城市和工厂，DEEPX正在开创专为物理世界打造的全新AI基础设施范式。正如Arm凭借低功耗创新重塑了CPU产业，DEEPX的目标是以超高能效的AI加速器，为Physical AI树立全球标准。",
         "zh-TW": "DEEPX在CES 2026上公布了成為「Physical AI 基礎設施公司」的願景——隨著AI從資料中心擴展到機器人、移動出行、智慧城市和工廠，DEEPX正在開創專為實體世界打造的全新AI基礎設施典範。正如Arm憑藉低功耗創新重塑了CPU產業，DEEPX的目標是以超高能效的AI加速器，為Physical AI樹立全球標準。",
         "es": "En CES 2026, DEEPX presentó su visión de convertirse en una Physical AI Infrastructure Company, pionera en un nuevo paradigma de infraestructura de IA diseñado para el mundo físico, a medida que la inteligencia se expande más allá de los centros de datos hacia robots, movilidad, ciudades inteligentes y fábricas. Así como Arm transformó la industria de CPU mediante la innovación de bajo consumo, DEEPX aspira a establecer el estándar global para la Physical AI con aceleradores de IA ultraeficientes."
       },
@@ -393,7 +393,7 @@
       {
         "city": {
           "en": "Taipei",
-          "ko": "타이페이",
+          "ko": "타이베이",
           "ja": "台北",
           "zh-CN": "台北",
           "zh-TW": "台北",
@@ -803,7 +803,7 @@
         "en": "DX-M1 outperforms 40W GPGPU by 240%, provides 20× efficiency improvement, and consumes up to 5W.",
         "ko": "DX-M1은 40W GPGPU 대비 240% 성능, 20× 효율 향상, 최대 5W 소비",
         "ja": "DX-M1は40W GPGPU比240%性能、20倍の効率向上、最大5W消費",
-        "zh-CN": "DX-M1对比40W GPGPU性能240%，效率提升20倍，功耗最高5W",
+        "zh-CN": "DX-M1相比40W GPGPU性能达240%，效率提升20倍，功耗最高5W",
         "zh-TW": "DX-M1對比40W GPGPU效能240%，效率提升20倍，功耗最高5W",
         "es": "DX-M1 supera a GPGPU de 40W un 240%, 20× eficiencia, hasta 5W"
       },
@@ -925,7 +925,7 @@
           "en": "0–70°C (Commercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotive, on request)",
           "ko": "0–70°C (상용) · -40–85°C (산업용, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (차량용, 요청 시)",
           "ja": "0–70°C（商用）· -40–85°C（産業用、AEC-Q100 Grade 3）· AEC-Q100 Grade 2（車載用、要相談）",
-          "zh-CN": "0–70°C（商用）· -40–85°C（工业级，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（车规级，可定制）",
+          "zh-CN": "0–70°C（商用）· -40–85°C（工业级，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（车规级，可按需提供）",
           "zh-TW": "0–70°C（商用）· -40–85°C（工業級，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（車用，可客製）",
           "es": "0–70°C (Comercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotriz, bajo pedido)"
         },
@@ -1182,7 +1182,7 @@
           "ja": "過酷環境でのオンサイト品質検査",
           "zh-CN": "恶劣环境下的现场质检",
           "zh-TW": "惡劣環境下的現場品檢",
-          "es": "Control de calidad in situ"
+          "es": "Control de calidad in situ en entornos exigentes"
         }
       },
       {
@@ -1277,7 +1277,7 @@
           "ja": "最小電力の高性能エッジ推論",
           "zh-CN": "边缘低功耗高性能推理",
           "zh-TW": "邊緣低功耗高效能推論",
-          "es": "Inferencia de alto rendimiento en el borde"
+          "es": "Inferencia de alto rendimiento con bajo consumo en el borde"
         }
       },
       {
@@ -1371,7 +1371,7 @@
         "detail": {
           "en": "~$4M (KRW ~4.5B) · Shinhan Bank, Capstone Partners, Dongmun Partners, Pathfinder H & others · 2019",
           "ko": "~400만 달러 (약 45억 원) · 신한은행·캡스톤파트너스·동문파트너스·패스파인더H 외 · 2019",
-          "ja": "~400万ドル（約45億ウォン）· 新韓銀行・キャップストーンパートナーズ・トンムンパートナーズ・パスファインダーH ほか · 2019",
+          "ja": "~400万ドル（約45億ウォン） · Shinhan Bank、Capstone Partners、Dongmun Partners、Pathfinder H ほか · 2019",
           "zh-CN": "~400万美元（约45亿韩元）· 新韩银行、Capstone Partners、Dongmun Partners、Pathfinder H等 · 2019",
           "zh-TW": "~400萬美元（約45億韓元）· 新韓銀行、Capstone Partners、Dongmun Partners、Pathfinder H等 · 2019",
           "es": "~4M$ (~4500M KRW) · Shinhan Bank, Capstone Partners, Dongmun Partners, Pathfinder H y otros · 2019"
@@ -1626,7 +1626,7 @@
         "ja": "フレームワーク開発者向けネイティブエッジデプロイ — Ultralytics YOLO、Baidu PaddlePaddle。",
         "zh-CN": "面向框架开发者的原生边缘部署 — Ultralytics YOLO 与 Baidu PaddlePaddle。",
         "zh-TW": "面向框架開發者的原生邊緣部署 — Ultralytics YOLO 與 Baidu PaddlePaddle。",
-        "es": "Despliegue nativo en el borde para desarrolladores de frameworks."
+        "es": "Rutas de despliegue nativo en el borde para desarrolladores de frameworks: Ultralytics YOLO (format=deepx) y Baidu PaddlePaddle."
       },
       "members": [
         "Ultralytics",
@@ -2263,7 +2263,7 @@
         "type": "event",
         "location": {
           "en": "Jul 1–3, 2026 · Tokyo Big Sight",
-          "ko": "2026.07.01–03 · 東京ビッグサイト",
+          "ko": "2026.07.01–03 · 도쿄 빅사이트",
           "ja": "2026年7月1–3日 · 東京ビッグサイト",
           "zh-CN": "2026年7月1–3日 · 东京Big Sight",
           "zh-TW": "2026年7月1–3日 · 東京Big Sight",
@@ -2284,11 +2284,11 @@
         "type": "event",
         "location": {
           "en": "Tokyo Big Sight",
-          "ko": "東京ビッグサイト",
+          "ko": "도쿄 빅사이트",
           "ja": "東京ビッグサイト",
           "zh-CN": "东京Big Sight",
           "zh-TW": "東京Big Sight",
-          "es": "Tokio Big Sight"
+          "es": "Tokyo Big Sight"
         },
         "url": "https://deepx.ai/lets-meet-at-manufacturing-world-2026-tokyo-deepx-booth-s14-16/"
       },
@@ -2361,9 +2361,9 @@
           "en": "DEEPX repositions as a 'Physical AI Infrastructure Company' at CES 2026",
           "ko": "DEEPX, CES 2026에서 'Physical AI 인프라 기업'으로 리포지셔닝",
           "ja": "DEEPX、CES 2026で「Physical AIインフラ企業」へとリポジショニング",
-          "zh-CN": "DEEPX在CES 2026重新定位为“物理AI基础设施公司”",
-          "zh-TW": "DEEPX於CES 2026重新定位為「實體AI基礎設施公司」",
-          "es": "DEEPX se reposiciona como empresa de infraestructura de IA física en CES 2026"
+          "zh-CN": "DEEPX在CES 2026重新定位为“Physical AI 基础设施公司”",
+          "zh-TW": "DEEPX於CES 2026重新定位為「Physical AI 基礎設施公司」",
+          "es": "DEEPX se reposiciona como empresa de infraestructura de Physical AI en CES 2026"
         },
         "date": "2026.01",
         "type": "news",
@@ -2587,7 +2587,7 @@
           "ja": "CES 2026 Foundry: DEEPX、グローバルパートナーとPhysical AI時代を宣言",
           "zh-CN": "CES 2026 Foundry：DEEPX与全球合作伙伴共同宣告Physical AI时代",
           "zh-TW": "CES 2026 Foundry：DEEPX與全球合作夥伴共同宣告Physical AI時代",
-          "es": "CES 2026 Foundry: DEEPX declara la era de la IA física junto a socios globales"
+          "es": "CES 2026 Foundry: DEEPX declara la era de la Physical AI junto a socios globales"
         },
         "date": "2026.01",
         "type": "news",
