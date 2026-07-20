@@ -542,22 +542,23 @@ ul.about-timeline-list li::before {
   flex: 0 0 auto;
 }
 .about-sdk-env-fig {
-  /* two diagrams side by side (environments + SDK architecture) via a 2-col grid that drops to
-     one column when narrow; bottom margin keeps the stats/release/links from butting up below. */
+  /* Two diagrams side by side, together spanning the section width, with EQUAL heights.
+     Each flex-grow is set to the image's aspect ratio and flex-basis is 0, so the column
+     widths come out proportional to aspect — which makes width/aspect (the rendered height)
+     identical for both. No border/background so there's no uneven white framing. */
   margin: 20px 0 32px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
   gap: 16px;
-  align-items: start;
+  align-items: flex-start;
 }
 .about-sdk-env-fig img {
-  width: 100%;
+  min-width: 0;
   height: auto;
   display: block;
   border-radius: var(--radius);
-  border: 1px solid var(--about-card-border);
-  background: #ffffff;
 }
+.about-sdk-env-fig img:nth-of-type(1) { flex: 2054 1 0; }  /* environments 1150×560 */
+.about-sdk-env-fig img:nth-of-type(2) { flex: 1389 1 0; }  /* architecture 1500×1080 */
 
 /* ── 9. Products Section ── */
 .about-product-category {
