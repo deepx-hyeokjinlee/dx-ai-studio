@@ -547,6 +547,50 @@
 .about-product-note::before {
   content: "* ";
 }
+.about-product-image-wrap {
+  margin: -4px -4px 12px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--about-bg-alt);
+  aspect-ratio: 16 / 10;
+}
+.about-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.about-product-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.about-product-spec-link,
+.about-product-buy-link {
+  flex: 1 1 auto;
+  text-align: center;
+  padding: 8px 12px;
+  font: 600 12px/1 var(--font);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: opacity 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.about-product-spec-link {
+  color: var(--about-accent);
+  border: 1px solid var(--about-card-border);
+  background: transparent;
+}
+.about-product-spec-link:hover {
+  border-color: var(--about-accent);
+  background: var(--about-accent-glow);
+}
+.about-product-buy-link {
+  color: #fff;
+  background: var(--about-accent);
+}
+.about-product-buy-link:hover { opacity: 0.9; }
 
 /* ── 10. Investment Section ── */
 .about-rounds-row {

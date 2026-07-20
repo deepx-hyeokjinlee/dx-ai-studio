@@ -334,6 +334,7 @@
 
     function productCard(item) {
       let html = `<div class="about-product-card ${item.highlight ? 'highlight' : ''} about-fade-in">
+        ${item.image ? `<div class="about-product-image-wrap"><img class="about-product-image" src="${item.image}" alt="${item.name}" loading="lazy"></div>` : ''}
         <div class="about-product-name">${item.name}</div>
         <div class="about-product-type">${L(item.type)}</div>
         <div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Performance', ko:'성능', ja:'性能', 'zh-CN':'性能', 'zh-TW':'效能', es:'Rendimiento'})}</span><span class="about-product-spec-value">${item.tops}</span></div>
@@ -351,6 +352,16 @@
         html += `<div class="about-product-notes">${item.notes.map(function (n) { return `<div class="about-product-note">${L(n)}</div>`; }).join('')}</div>`;
       }
       if (item.badge) html += `<div class="about-product-badge">${typeof item.badge === 'object' ? L(item.badge) : item.badge}</div>`;
+      if (item.specUrl || (item.buyUrl && item.buyLabel)) {
+        html += `<div class="about-product-links">`;
+        if (item.specUrl) {
+          html += `<a class="about-product-spec-link" href="${item.specUrl}" target="_blank" rel="noopener noreferrer">${T({en:'View Specs', ko:'스펙 보기', ja:'仕様を見る', 'zh-CN':'查看规格', 'zh-TW':'查看規格', es:'Ver especificaciones'})} →</a>`;
+        }
+        if (item.buyUrl && item.buyLabel) {
+          html += `<a class="about-product-buy-link" href="${item.buyUrl}" target="_blank" rel="noopener noreferrer">${L(item.buyLabel)}</a>`;
+        }
+        html += `</div>`;
+      }
       html += `</div>`;
       return html;
     }
