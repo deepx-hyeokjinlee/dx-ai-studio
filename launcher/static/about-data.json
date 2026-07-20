@@ -18,7 +18,7 @@
     },
     "stats": [
       {
-        "value": "400+ / 130+",
+        "value": "500+ / 130+",
         "label": {
           "en": "Patents Filed / Granted",
           "ko": "특허 출원 / 등록",
@@ -712,14 +712,6 @@
           "zh-CN": "DX-COM",
           "zh-TW": "DX-COM",
           "es": "DX-COM"
-        },
-        {
-          "en": "DX-TRON",
-          "ko": "DX-TRON",
-          "ja": "DX-TRON",
-          "zh-CN": "DX-TRON",
-          "zh-TW": "DX-TRON",
-          "es": "DX-TRON"
         },
         {
           "en": "DX-RT",
