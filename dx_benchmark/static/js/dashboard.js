@@ -139,6 +139,7 @@ function _buildDashboardHTML() {
       '<button class="dashboard-tab" data-tab="overview" data-i18n="Full Metrics">' + _t('Full Metrics') + '</button>' +
       '<button class="dashboard-tab" data-tab="detail" data-i18n="Detailed Data">' + _t('Detailed Data') + '</button>' +
       '<button class="dashboard-tab" data-tab="version-trend" data-i18n="Version Trend">' + _t('Version Trend') + '</button>' +
+      '<button class="dashboard-tab" data-tab="ort-compare" data-i18n="ORT ON/OFF">' + _t('ORT ON/OFF') + '</button>' +
     '</nav>' +
     '<div id="tab-fps-compare" class="tab-content active dashboard-panel-stack">' +
       '<div class="dashboard-filter-grid">' +
@@ -271,21 +272,20 @@ function _buildDashboardHTML() {
           '<option value="on">ON</option>' +
           '<option value="off">OFF</option>' +
         '</select></label>' +
-        '<label>' + _t('Metric') + ' <select id="trendMetricFilter">' +
-          '<option value="e2e">' + _t('E2E FPS (Single-Channel)') + '</option>' +
-          '<option value="capacity">' + _t('Max Channel') + '</option>' +
-          '<option value="latency">' + _t('Model Latency') + '</option>' +
-          '<option value="throughput">' + _t('Model Throughput') + '</option>' +
-        '</select></label>' +
       '</section>' +
-      '<section class="panel chart-panel dashboard-primary">' +
-        '<div class="chart-header">' +
-          '<h2 id="trendChartTitle" data-i18n="E2E FPS (Single-Channel) Trend">' + _t('E2E FPS (Single-Channel) Trend') + '</h2>' +
-          '<p class="chart-subtitle" id="trendChartSubtitle"></p>' +
+      '<section class="controls trend-version-filter-panel">' +
+        '<div class="trend-version-filter-heading-row">' +
+          '<span class="control-heading" data-i18n="dx-all-suite Version">' + _t('dx-all-suite Version') + '</span>' +
+          '<span class="version-filter-actions">' +
+            '<button type="button" class="version-filter-btn" id="trendVersionAll" data-i18n="All">' + _t('All') + '</button>' +
+            '<button type="button" class="version-filter-btn" id="trendVersionNone" data-i18n="None">' + _t('None') + '</button>' +
+          '</span>' +
         '</div>' +
-        '<div class="chart-container"><canvas id="trendChart"></canvas></div>' +
-        '<p class="chart-hint" id="trendChartHint" data-i18n="Click on a data point group to view snapshot environment details">' + _t('Click on a data point group to view snapshot environment details') + '</p>' +
+        '<div id="trendVersionFilter" class="version-filter-chips"></div>' +
       '</section>' +
+      '<p class="chart-hint" data-i18n="Compare key metrics across dx-all-suite versions for the same hardware">' + _t('Compare key metrics across dx-all-suite versions for the same hardware') + '</p>' +
+      '<div class="trend-charts-grid" id="trendChartsGrid"></div>' +
+      '<p class="chart-hint" data-i18n="Click on a data point group to view snapshot environment details">' + _t('Click on a data point group to view snapshot environment details') + '</p>' +
       '<div class="dashboard-detail-grid">' +
         '<section class="panel env-detail" id="trendEnvDetail" data-help-id="bench-trend-env-detail" style="display:none">' +
           '<h2 id="trendEnvDetailTitle" data-i18n="Environment Details">' + _t('Environment Details') + '</h2>' +
@@ -300,6 +300,36 @@ function _buildDashboardHTML() {
           '<div id="trendModelMetaSection"></div>' +
         '</section>' +
       '</div>' +
+    '</div>' +
+    '<div id="tab-ort-compare" class="tab-content dashboard-panel-stack">' +
+      '<section class="controls">' +
+        '<label>' + _t('Environment') + ' <select id="ortEnvFilter"></select></label>' +
+        '<label>' + _t('Task') + ' <select id="ortTaskFilter">' +
+          '<option value="object_detection">OD (' + _t('Object Detection') + ')</option>' +
+          '<option value="pose_estimation">Pose (' + _t('Pose Estimation') + ')</option>' +
+          '<option value="segmentation">Seg (' + _t('Segmentation') + ')</option>' +
+          '<option value="oriented_bbox">OBB (' + _t('Oriented BBox (OBB)') + ')</option>' +
+          '<option value="classification">Cls (' + _t('Classification') + ')</option>' +
+        '</select></label>' +
+        '<label>' + _t('Metric') + ' <select id="ortMetricFilter">' +
+          '<option value="throughput_fps" data-i18n="Throughput (FPS)">' + _t('Throughput (FPS)') + '</option>' +
+          '<option value="e2e_fps" data-i18n="E2E FPS (Single-Stream)">' + _t('E2E FPS (Single-Stream)') + '</option>' +
+          '<option value="latency_ms" data-i18n="Latency (ms)">' + _t('Latency (ms)') + '</option>' +
+          '<option value="capacity_streams" data-i18n="Max Channels">' + _t('Max Channels') + '</option>' +
+        '</select></label>' +
+      '</section>' +
+      '<section class="panel chart-panel dashboard-primary">' +
+        '<div class="chart-header">' +
+          '<h2 id="ortChartTitle" data-i18n="ORT ON/OFF Comparison">' + _t('ORT ON/OFF Comparison') + '</h2>' +
+          '<p class="chart-subtitle" id="ortChartSubtitle"></p>' +
+        '</div>' +
+        '<div class="chart-container"><canvas id="ortCompareChart"></canvas></div>' +
+        '<p class="chart-hint" data-i18n="ORT changes the CPU/NPU balance — compare ON vs OFF for the same model and environment.">' + _t('ORT changes the CPU/NPU balance — compare ON vs OFF for the same model and environment.') + '</p>' +
+      '</section>' +
+      '<section class="panel" id="ortCompareTableSection">' +
+        '<h2 data-i18n="ORT ON/OFF Detail">' + _t('ORT ON/OFF Detail') + '</h2>' +
+        '<div id="ortCompareTableContent"></div>' +
+      '</section>' +
     '</div>' +
   '</div>';
 }
@@ -327,8 +357,17 @@ var TREND_METRICS = [
   { key: 'latency', title: 'Model Latency Trend', metricLabel: 'Model Latency', axisLabel: 'Latency (ms)', resultKind: 'model', family: 'latency', valueKey: 'latency_ms', precision: 2 },
   { key: 'throughput', title: 'Model Throughput Trend', metricLabel: 'Model Throughput', axisLabel: 'Throughput (FPS)', resultKind: 'model', family: 'throughput', valueKey: 'fps', precision: 1 },
   { key: 'e2e', title: 'E2E FPS (Single-Channel) Trend', metricLabel: 'E2E FPS (Single-Channel)', axisLabel: 'E2E FPS', resultKind: 'e2e_single', valueKey: 'avg_e2e_fps', precision: 1 },
-  { key: 'capacity', title: 'Max Channel Trend', metricLabel: 'Max Channel', axisLabel: 'Max Channel', resultKind: 'e2e_multi_capacity', valueKey: 'capacity_streams', precision: 0 },
+  { key: 'capacity', title: 'Max Channel Trend', metricLabel: 'Max Channels', axisLabel: 'Max Channels', resultKind: 'e2e_multi_capacity', valueKey: 'capacity_streams', precision: 0 },
 ];
+/* ORT ON/OFF comparison: keys/labels mirror summaries.ort_delta's `metric` values 1:1. */
+var ORT_METRICS = [
+  { key: 'throughput_fps',   label: 'Throughput (FPS)',            axisLabel: 'Throughput (FPS)', precision: 1, higherBetter: true  },
+  { key: 'e2e_fps',          label: 'E2E FPS (Single-Stream)',      axisLabel: 'E2E FPS',          precision: 1, higherBetter: true  },
+  { key: 'latency_ms',       label: 'Latency (ms)',                 axisLabel: 'Latency (ms)',     precision: 2, higherBetter: false },
+  { key: 'capacity_streams', label: 'Max Channels',                 axisLabel: 'Max Channels',     precision: 0, higherBetter: true  },
+];
+var ORT_ON_COLOR  = { fill: 'rgba(91,141,239,0.70)',  line: 'rgb(91,141,239)'  };
+var ORT_OFF_COLOR = { fill: 'rgba(245,158,11,0.70)',  line: 'rgb(245,158,11)' };
 
 function sizeOrd(key) { var v = SIZE_ORDER[key]; return v !== undefined ? v : 99; }
 
@@ -340,12 +379,29 @@ var state = {
   fpsSelectedEnvId: null, fpsChartData: [],
   selectedRunIds: {},
   detailEnvId: null, detailTask: 'all', detailOrt: 'all',
-  trendHwId: null, trendTask: 'object_detection', trendOrt: true, trendMetric: 'e2e',
-  trendData: [], trendSelectedIdx: -1, trendChart: null,
+  trendHwId: null, trendTask: 'object_detection', trendOrt: true,
+  trendDataByMetric: {}, trendSelectedIdx: -1, trendCharts: {},
+  trendVersions: [], trendVersionFilter: {},
+  ortEnvId: null, ortTask: 'object_detection', ortMetric: 'throughput_fps', ortChartData: [],
 };
 
 function getModelName(task, size) { return 'yolo26' + size + '-' + TASK_MAP[task].suffix + '.dxnn'; }
-function envLabel(env) { return (env.hw_id || env.hostname) + '\n(' + (env.npu_sku || '?') + ')'; }
+/* Tolerant NPU product-label reader: prefers npu_sku, then npu_product, then the
+   first entry of the npu_modules block (new-tool shapes); null if none present. */
+function _envProductLabel(env) {
+  env = env || {};
+  if (env.npu_sku) return env.npu_sku;
+  if (env.npu_product) return env.npu_product;
+  if (Array.isArray(env.npu_modules) && env.npu_modules.length) {
+    var m = env.npu_modules[0];
+    if (m && m.product) return (m.count && m.count > 1) ? (m.product + ' ×' + m.count) : m.product;
+  }
+  return null;
+}
+function envLabel(env) { env = env || {}; return (env.hw_id || env.hostname || 'unknown') + '\n(' + (_envProductLabel(env) || '?') + ')'; }
+/* Tolerant suite-version reader: new dataset carries dx_all_suite_version on
+   both env and run objects; falls back to 'unknown' if absent (older shape). */
+function envVersion(env) { env = env || {}; return env.dx_all_suite_version || env.suite_version || env.version || 'unknown'; }
 function fmt(v, d) { if (v === null || v === undefined) return '-'; var n = Number(v); return Number.isNaN(n) ? '-' : n.toFixed(d === undefined ? 1 : d); }
 function modelSizeChar(name) { var m = String(name||'').match(/yolo26([nslmx])/i); return m ? m[1].toLowerCase() : ''; }
 function formatInputShape(shape) {
@@ -357,6 +413,21 @@ function formatMemMB(mb) { if (mb == null) return '-'; return Number(mb).toFixed
 function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 function _fmtTemp(lo,hi){if(lo==null&&hi==null)return'-';var a=lo!=null?Math.round(lo):'?';var b=hi!=null?Math.round(hi):'?';return a===b?String(a):a+'~'+b;}
 function _fmtClock(lo,hi){if(lo==null&&hi==null)return'\u2014';var a=lo!=null?Math.round(lo):'?';var b=hi!=null?Math.round(hi):'?';return a===b?String(a):a+'~'+b;}
+/* Resume/retry status badges: dataset carries per-condition `status` in
+   summaries.model / e2e_single / e2e_multi_capacity (observed values: ok,
+   partial, timeout, error). No `reason` field exists in the dataset \u2014 for
+   e2e_single 'partial' the closest available detail is runs/requested_runs. */
+var STATUS_SEVERITY = { ok: 0, partial: 1, timeout: 2, error: 2 };
+var STATUS_BADGE_CLASS = { partial: 'tag--warn', timeout: 'tag--err', error: 'tag--err' };
+var STATUS_LABEL_KEY = { ok: 'OK', partial: 'Partial', timeout: 'Timeout', error: 'Error' };
+function _statusLabel(status) { return STATUS_LABEL_KEY[status] || status; }
+function _statusSeverity(status) { var v = STATUS_SEVERITY[status]; return v === undefined ? 1 : v; }
+function _statusBadge(status, detail) {
+  if (!status || status === 'ok') return '-';
+  var cls = STATUS_BADGE_CLASS[status] || 'tag--warn';
+  var titleAttr = detail ? ' title="' + escHtml(detail) + '"' : '';
+  return '<span class="tag ' + cls + '"' + titleAttr + '>' + _t(_statusLabel(status)) + '</span>';
+}
 function stripAnsi(s) { return typeof s === 'string' ? s.replace(/\x1b\[[0-9;]*m/g, '') : s; }
 function _history(kind){return ((state.dataset.history||{})[kind])||((state.dataset.summaries||{})[kind])||[];}
 /* Selected-run comparisons are driven from state.dataset.history.e2e_single and friends. */
@@ -380,7 +451,7 @@ function renderRunSelectors(targetId){
   target.innerHTML=envs.map(function(env){
     var runs=_getRunOptions(env.env_id);if(!runs.length)return '';
     var options=runs.map(function(run){return '<option value="'+escHtml(run.run_id)+'">'+escHtml(run.run_id)+'</option>';}).join('');
-    return '<label><span>'+escHtml(env.hostname)+' ('+escHtml(env.npu_sku||'?')+')</span><select data-run-env="'+escHtml(env.env_id)+'">'+options+'</select></label>';
+    return '<label><span>'+escHtml(env.hostname)+' ('+escHtml(_envProductLabel(env)||'?')+')</span><select data-run-env="'+escHtml(env.env_id)+'">'+options+'</select></label>';
   }).join('');
   target.querySelectorAll('select[data-run-env]').forEach(function(sel){
     var envId=sel.dataset.runEnv;sel.value=_getSelectedRunId(envId)||sel.value;
@@ -389,10 +460,21 @@ function renderRunSelectors(targetId){
 }
 
 
-function _infoRows(r) { return r.map(function(row) { return '<div class="info-row"><span class="info-key">'+escHtml(row[0])+'</span><span class="info-val">'+escHtml(String(row[1]||'-'))+'</span></div>'; }).join(''); }
+function _infoRows(r) { return r.map(function(row) { return '<div class="info-row"><span class="info-key">'+escHtml(row[0])+'</span><span class="info-val">'+escHtml(row[1]!=null?String(row[1]):'-')+'</span></div>'; }).join(''); }
 function cleanVer(v) { if (typeof v !== 'string') return v; return v.replace(/^DXRT\s+/i,'').replace(/^v(?=\d)/i,''); }
+/* Formats the npu_modules block (new-tool shape: [{product,count},...]) into a
+   single readable string, e.g. "H1-Quattro ×1" or "M1 ×2, M1M ×1". */
+function _fmtNpuModules(env) {
+  var mods = (env && Array.isArray(env.npu_modules)) ? env.npu_modules : [];
+  if (!mods.length) return '-';
+  return mods.map(function(m) {
+    if (!m) return '?';
+    var p = m.product || '?';
+    return (m.count != null) ? (p + ' ×' + m.count) : p;
+  }).join(', ');
+}
 function renderHostInfo(el, env) {
-  var rows = [['Hostname',env.hostname],['OS',env.os],['Kernel',env.kernel],['Architecture',env.arch],['CPU',env.cpu],['CPU Cores',env.cpu_count],['RAM',env.ram_gb?env.ram_gb+' GB':'-']];
+  var rows = [[_t('Product Name'),env.product_name||'-'],['Hostname',env.hostname],['OS',env.os],['Kernel',env.kernel],['Architecture',env.arch],['CPU',env.cpu],['CPU Cores',env.cpu_count],['RAM',env.ram_gb?env.ram_gb+' GB':'-']];
   el.innerHTML = _infoRows(rows);
 }
 function renderToolsInfo(el, env) {
@@ -400,7 +482,7 @@ function renderToolsInfo(el, env) {
   el.innerHTML = _infoRows(rows);
 }
 function renderNpuInfo(el, env) {
-  var rows = [['Product',env.npu_sku||'-'],['DXRT',cleanVer(env.rt_version)],['RT Driver',cleanVer(env.rt_driver)],['PCIe Driver',cleanVer(env.pcie_driver)],['Firmware',cleanVer(env.firmware)],['Clock',env.npu_clock_mhz?env.npu_clock_mhz+' MHz':'-'],['Memory',env.memory],['Board',(env.board && env.board !== 'unknown') ? env.board : '-'],['PCIe',env.pcie]];
+  var rows = [['Product',env.npu_product||_envProductLabel(env)||'-'],[_t('SKU'),env.npu_sku||'-'],[_t('Modules'),_fmtNpuModules(env)],[_t('Device Count'),(env.npu_device_count!=null)?env.npu_device_count:'-'],['DXRT',cleanVer(env.rt_version)],['RT Driver',cleanVer(env.rt_driver)],['PCIe Driver',cleanVer(env.pcie_driver)],['Firmware',cleanVer(env.firmware)],['Clock',env.npu_clock_mhz?env.npu_clock_mhz+' MHz':'-'],['Memory',env.memory],['Board',(env.board && env.board !== 'unknown') ? env.board : '-'],['PCIe',env.pcie]];
   el.innerHTML = _infoRows(rows);
 }
 
@@ -451,7 +533,8 @@ function renderE2eTable(container, envId, task, useOrt, runId) {
     var fpsS=fmt(r.avg_e2e_fps,1);if(r.fps_std!=null)fpsS+=' \u00b1'+fmt(r.fps_std,1);
     var tempS=_fmtTemp(r.npu_temp_min_c,r.npu_temp_max_c);
     var clkS=_fmtClock(r.npu_clock_mhz_min,r.npu_clock_mhz_max);
-    html += '<tr><td>'+escHtml(r.model)+'</td><td>'+fpsS+'</td><td>'+fmt(r.avg_cpu_pct,0)+'</td><td>'+fmt(r.npu_total_avg_pct,1)+'</td><td>'+fmt(r.npu_total_max_pct,1)+'</td><td>'+tempS+'</td><td>'+clkS+'</td><td>'+fmt(r.max_rss_mib,0)+'</td><td>'+(r.runs||'-')+'/'+(r.requested_runs||'-')+'</td><td>'+escHtml(r.status||'-')+'</td></tr>';
+    var statusDetail=(r.status&&r.status!=='ok'&&r.runs!=null&&r.requested_runs!=null)?((r.runs)+'/'+(r.requested_runs)+' '+_t('runs completed')):null;
+    html += '<tr><td>'+escHtml(r.model)+'</td><td>'+fpsS+'</td><td>'+fmt(r.avg_cpu_pct,0)+'</td><td>'+fmt(r.npu_total_avg_pct,1)+'</td><td>'+fmt(r.npu_total_max_pct,1)+'</td><td>'+tempS+'</td><td>'+clkS+'</td><td>'+fmt(r.max_rss_mib,0)+'</td><td>'+(r.runs||'-')+'/'+(r.requested_runs||'-')+'</td><td>'+_statusBadge(r.status,statusDetail)+'</td></tr>';
   });
   html += '</tbody></table>';
   container.innerHTML = html;
@@ -655,7 +738,7 @@ function handleFpsEnvClick(idx,d,options) {
   options=options||{};
   state.fpsSelectedEnvId=d.envId;
   var panel=document.getElementById('fpsEnvDetail');panel.style.display='';
-  document.getElementById('fpsEnvDetailTitle').textContent=d.env.hostname+' ('+(d.env.npu_sku||'?')+')';
+  document.getElementById('fpsEnvDetailTitle').textContent=d.env.hostname+' ('+(_envProductLabel(d.env)||'?')+')';
   renderHostInfo(document.getElementById('fpsEnvHostInfo'),d.env);
   renderNpuInfo(document.getElementById('fpsEnvNpuInfo'),d.env);
   renderToolsInfo(document.getElementById('fpsEnvToolsInfo'),d.env);
@@ -691,7 +774,7 @@ function initFpsFilters() {
 function renderEnvDetail(env,options) {
   options=options||{};
   var panel=document.getElementById('envDetail');panel.style.display='';
-  document.getElementById('envDetailTitle').textContent=env.hostname+' ('+(env.npu_sku||'?')+')';
+  document.getElementById('envDetailTitle').textContent=env.hostname+' ('+(_envProductLabel(env)||'?')+')';
   renderHostInfo(document.getElementById('envHostInfo'),env);
   renderNpuInfo(document.getElementById('envNpuInfo'),env);
   renderToolsInfo(document.getElementById('envToolsInfo'),env);
@@ -722,6 +805,7 @@ function initTabs() {
       if(target==='overview')Chart._resize();
       if(target==='detail')renderDetailTables();
       if(target==='version-trend')resizeTrendChart();
+      if(target==='ort-compare')OrtChart._resize();
       dispatchBenchmarkHelpSync();
     });
   });
@@ -739,7 +823,7 @@ function initOverviewFilters() {
 function initDetailTab() {
   var sel=document.getElementById('detailEnvFilter');
   var runSel=document.getElementById('detailRunFilter');
-  sel.innerHTML=(state.dataset.environments||[]).map(function(e){return '<option value="'+e.env_id+'">'+escHtml(e.hostname)+' ('+escHtml(e.npu_sku)+')</option>';}).join('');
+  sel.innerHTML=(state.dataset.environments||[]).map(function(e){return '<option value="'+e.env_id+'">'+escHtml(e.hostname)+' ('+escHtml(_envProductLabel(e)||'?')+')</option>';}).join('');
   if(state.dataset.environments.length){state.detailEnvId=state.dataset.environments[0].env_id;sel.value=state.detailEnvId;}
   syncDetailRunFilter();
   sel.addEventListener('change',function(){state.detailEnvId=this.value;syncDetailRunFilter();renderDetailTables();});
@@ -752,17 +836,17 @@ function renderDetailTables() {
   var target=document.getElementById('detailTables');var envId=state.detailEnvId;
   if(!envId){target.innerHTML='<div class="empty-state">' + _t('No environment selected.') + '</div>';dispatchBenchmarkHelpSync();return;}
   var runId=_getSelectedRunId(envId);
-  var latMap={},tpMap={},e2eMap={},capMap={},taskModels={};
-  _history('model').forEach(function(r){if(r.env_id!==envId||r.run_id!==runId)return;var k=r.model+'|'+(r.use_ort?'on':'off');if(r.family==='latency')latMap[k]=r.latency_ms;if(r.family==='throughput')tpMap[k]=r.fps;if(!taskModels[r.task])taskModels[r.task]={};taskModels[r.task][r.model]=true;});
+  var latMap={},tpMap={},e2eMap={},capMap={},taskModels={},thermMap={},statusMap={},capStatusMap={};
+  _history('model').forEach(function(r){if(r.env_id!==envId||r.run_id!==runId)return;var k=r.model+'|'+(r.use_ort?'on':'off');if(r.family==='latency')latMap[k]=r.latency_ms;if(r.family==='throughput')tpMap[k]=r.fps;if(!taskModels[r.task])taskModels[r.task]={};taskModels[r.task][r.model]=true;var th=thermMap[k]||{tMin:null,tMax:null,cMin:null,cMax:null,throttled:false};if(r.npu_temp_min_c!=null)th.tMin=(th.tMin==null)?r.npu_temp_min_c:Math.min(th.tMin,r.npu_temp_min_c);if(r.npu_temp_max_c!=null)th.tMax=(th.tMax==null)?r.npu_temp_max_c:Math.max(th.tMax,r.npu_temp_max_c);if(r.npu_clock_mhz_min!=null)th.cMin=(th.cMin==null)?r.npu_clock_mhz_min:Math.min(th.cMin,r.npu_clock_mhz_min);if(r.npu_clock_mhz_max!=null)th.cMax=(th.cMax==null)?r.npu_clock_mhz_max:Math.max(th.cMax,r.npu_clock_mhz_max);if(r.npu_throttled)th.throttled=true;thermMap[k]=th;var stm=statusMap[k]||{};if(r.family==='latency')stm.lat=r.status;if(r.family==='throughput')stm.tp=r.status;statusMap[k]=stm;});
   _history('e2e_single').forEach(function(r){if(r.env_id!==envId||r.run_id!==runId)return;e2eMap[r.model+'|'+(r.use_ort?'on':'off')]=r;if(!taskModels[r.task])taskModels[r.task]={};taskModels[r.task][r.model]=true;});
-  _history('e2e_multi_capacity').forEach(function(r){if(r.env_id!==envId||r.run_id!==runId)return;capMap[r.model+'|'+(r.use_ort?'on':'off')]=r.capacity_streams;if(!taskModels[r.task])taskModels[r.task]={};taskModels[r.task][r.model]=true;});
+  _history('e2e_multi_capacity').forEach(function(r){if(r.env_id!==envId||r.run_id!==runId)return;var k=r.model+'|'+(r.use_ort?'on':'off');capMap[k]=r.capacity_streams;capStatusMap[k]=r.status;if(!taskModels[r.task])taskModels[r.task]={};taskModels[r.task][r.model]=true;});
   var tasks=Object.keys(taskModels).sort(function(a,b){var oa=TASK_ORDER[a],ob=TASK_ORDER[b];return(oa!==undefined?oa:99)-(ob!==undefined?ob:99);});
   if(state.detailTask!=='all')tasks=tasks.filter(function(t){return t===state.detailTask;});
   if(!tasks.length){target.innerHTML='<div class="empty-state">' + _t('No data.') + '</div>';dispatchBenchmarkHelpSync();return;}
   target.innerHTML=tasks.map(function(task){
     var models=Object.keys(taskModels[task]).sort(function(a,b){var d=sizeOrd(modelSizeChar(a))-sizeOrd(modelSizeChar(b));return d!==0?d:a.localeCompare(b);});
-    var body=models.map(function(model){var ortRows=[true,false].filter(function(useOrt){return state.detailOrt==='all'||state.detailOrt===(useOrt?'on':'off');});var fpsOn=null,fpsOff=null,capOn=null,capOff=null;ortRows.forEach(function(useOrt){var k=model+'|'+(useOrt?'on':'off');var e2e=e2eMap[k]||{};if(useOrt){fpsOn=e2e.avg_e2e_fps!=null?Number(e2e.avg_e2e_fps):null;capOn=capMap[k]!=null?Number(capMap[k]):null;}else{fpsOff=e2e.avg_e2e_fps!=null?Number(e2e.avg_e2e_fps):null;capOff=capMap[k]!=null?Number(capMap[k]):null;}});var bestFpsOrt=null,bestCapOrt=null;if(fpsOn!=null&&fpsOff!=null){bestFpsOrt=fpsOn>=fpsOff?'on':'off';}else if(fpsOn!=null){bestFpsOrt='on';}else if(fpsOff!=null){bestFpsOrt='off';}if(capOn!=null&&capOff!=null){bestCapOrt=capOn>=capOff?'on':'off';}else if(capOn!=null){bestCapOrt='on';}else if(capOff!=null){bestCapOrt='off';}var sz=modelSizeChar(model);var szLabel=sz?sz.toUpperCase():'-';return ortRows.map(function(useOrt){var k=model+'|'+(useOrt?'on':'off');var e2e=e2eMap[k]||{};var ortKey=useOrt?'on':'off';var fpsVal=fmt(e2e.avg_e2e_fps,1);var capVal=capMap[k]!=null?capMap[k]:null;var fpsTd=bestFpsOrt===ortKey?'<td class="cell-best">'+fpsVal+'</td>':'<td>'+fpsVal+'</td>';var capTd=bestCapOrt===ortKey?'<td class="cell-best">'+(capVal!=null?capVal:'-')+'</td>':'<td>'+(capVal!=null?capVal:'-')+'</td>';return '<tr><td>'+escHtml(model)+'</td><td>'+szLabel+'</td><td>'+(useOrt?'ON':'OFF')+'</td><td>'+fmt(latMap[k],2)+'</td><td>'+fmt(tpMap[k],1)+'</td>'+fpsTd+capTd+'</tr>';}).join('');}).join('');
-    return '<section class="task-section"><h3>'+(TASK_MAP[task]?TASK_MAP[task].label:task)+'</h3><table class="summary-table detail-table"><colgroup><col style="width:28%"><col style="width:7%"><col style="width:7%"><col style="width:15%"><col style="width:16%"><col style="width:13%"><col style="width:14%"></colgroup><thead><tr><th>' + _t('Model') + '</th><th>' + _t('Size') + '</th><th>ORT</th><th>' + _t('Latency (ms)') + '</th><th>' + _t('Throughput') + ' (FPS)</th><th>' + _t('E2E FPS') + '</th><th>' + _t('Max Channels') + '</th></tr></thead><tbody>'+body+'</tbody></table></section>';
+    var body=models.map(function(model){var ortRows=[true,false].filter(function(useOrt){return state.detailOrt==='all'||state.detailOrt===(useOrt?'on':'off');});var fpsOn=null,fpsOff=null,capOn=null,capOff=null;ortRows.forEach(function(useOrt){var k=model+'|'+(useOrt?'on':'off');var e2e=e2eMap[k]||{};if(useOrt){fpsOn=e2e.avg_e2e_fps!=null?Number(e2e.avg_e2e_fps):null;capOn=capMap[k]!=null?Number(capMap[k]):null;}else{fpsOff=e2e.avg_e2e_fps!=null?Number(e2e.avg_e2e_fps):null;capOff=capMap[k]!=null?Number(capMap[k]):null;}});var bestFpsOrt=null,bestCapOrt=null;if(fpsOn!=null&&fpsOff!=null){bestFpsOrt=fpsOn>=fpsOff?'on':'off';}else if(fpsOn!=null){bestFpsOrt='on';}else if(fpsOff!=null){bestFpsOrt='off';}if(capOn!=null&&capOff!=null){bestCapOrt=capOn>=capOff?'on':'off';}else if(capOn!=null){bestCapOrt='on';}else if(capOff!=null){bestCapOrt='off';}var sz=modelSizeChar(model);var szLabel=sz?sz.toUpperCase():'-';return ortRows.map(function(useOrt){var k=model+'|'+(useOrt?'on':'off');var e2e=e2eMap[k]||{};var ortKey=useOrt?'on':'off';var fpsVal=fmt(e2e.avg_e2e_fps,1);var capVal=capMap[k]!=null?capMap[k]:null;var fpsTd=bestFpsOrt===ortKey?'<td class="cell-best">'+fpsVal+'</td>':'<td>'+fpsVal+'</td>';var capTd=bestCapOrt===ortKey?'<td class="cell-best">'+(capVal!=null?capVal:'-')+'</td>':'<td>'+(capVal!=null?capVal:'-')+'</td>';var th=thermMap[k]||{};var tempS=_fmtTemp(th.tMin,th.tMax);var clkS=_fmtClock(th.cMin,th.cMax);var tempTd='<td>'+tempS+(th.throttled?' <span class="tag tag--warn" title="'+_t('NPU thermal throttling detected')+'">'+_t('Throttled')+'</span>':'')+'</td>';var conds=[];var stm=statusMap[k]||{};if(stm.lat&&stm.lat!=='ok')conds.push({metric:_t('Latency (ms)'),status:stm.lat});if(stm.tp&&stm.tp!=='ok')conds.push({metric:_t('Throughput'),status:stm.tp});var e2eRow=e2eMap[k];if(e2eRow&&e2eRow.status&&e2eRow.status!=='ok')conds.push({metric:_t('E2E FPS'),status:e2eRow.status,extra:(e2eRow.runs!=null&&e2eRow.requested_runs!=null)?(e2eRow.runs+'/'+e2eRow.requested_runs+' '+_t('runs completed')):null});var capSt=capStatusMap[k];if(capSt&&capSt!=='ok')conds.push({metric:_t('Max Channels'),status:capSt});var statusTd='<td>-</td>';if(conds.length){var worst=conds[0];conds.forEach(function(c){if(_statusSeverity(c.status)>_statusSeverity(worst.status))worst=c;});var title=conds.map(function(c){return c.metric+': '+_t(_statusLabel(c.status))+(c.extra?' ('+c.extra+')':'');}).join('; ');statusTd='<td>'+_statusBadge(worst.status,title)+'</td>';}return '<tr><td>'+escHtml(model)+'</td><td>'+szLabel+'</td><td>'+(useOrt?'ON':'OFF')+'</td><td>'+fmt(latMap[k],2)+'</td><td>'+fmt(tpMap[k],1)+'</td>'+fpsTd+capTd+tempTd+'<td>'+clkS+'</td>'+statusTd+'</tr>';}).join('');}).join('');
+    return '<section class="task-section"><h3>'+(TASK_MAP[task]?TASK_MAP[task].label:task)+'</h3><table class="summary-table detail-table"><colgroup><col style="width:20%"><col style="width:5%"><col style="width:5%"><col style="width:11%"><col style="width:12%"><col style="width:10%"><col style="width:11%"><col style="width:9%"><col style="width:9%"><col style="width:8%"></colgroup><thead><tr><th>' + _t('Model') + '</th><th>' + _t('Size') + '</th><th>ORT</th><th>' + _t('Latency (ms)') + '</th><th>' + _t('Throughput') + ' (FPS)</th><th>' + _t('E2E FPS') + '</th><th>' + _t('Max Channels') + '</th><th>' + _t('NPU Temp (°C)') + '</th><th>' + _t('NPU Clock (MHz)') + '</th><th>' + _t('Status') + '</th></tr></thead><tbody>'+body+'</tbody></table></section>';
   }).join('');
   dispatchBenchmarkHelpSync();
 }
@@ -777,7 +861,7 @@ function renderMeta() {
 function _envToHwId(env){
   if(!env)return null;
   if(env.hw_id)return env.hw_id;
-  var h=env.hostname||'unknown',s=env.npu_sku||'unknown';
+  var h=env.hostname||'unknown',s=_envProductLabel(env)||'unknown';
   return (h+'_'+s).replace(/[^A-Za-z0-9_.\-]/g,'_').replace(/_+/g,'_').replace(/^_|_$/g,'');
 }
 function _hwIdHasSnapshots(hwId){
@@ -791,6 +875,51 @@ function _getUniqueHwIds(){
   snaps.forEach(function(s){if(!seen[s.hw_id]){seen[s.hw_id]=true;ids.push(s.hw_id);}});
   return ids;
 }
+/* dx-all-suite version ordering: numeric-ish (v2.3.3 < v2.4.0), 'unknown' bucket always sorts last. */
+function _compareVersions(a,b){
+  a=a==null?'unknown':String(a);b=b==null?'unknown':String(b);
+  if(a==='unknown'&&b==='unknown')return 0;
+  if(a==='unknown')return 1;
+  if(b==='unknown')return -1;
+  var pa=a.replace(/^v/i,'').split('.').map(Number);
+  var pb=b.replace(/^v/i,'').split('.').map(Number);
+  for(var i=0;i<Math.max(pa.length,pb.length);i++){
+    var xa=pa[i]||0,xb=pb[i]||0;
+    if(xa!==xb)return xa-xb;
+  }
+  return 0;
+}
+/* Distinct dx_all_suite_version values across this HW's snapshots, oldest-to-newest ('unknown' last). */
+function _getAvailableVersions(hwId){
+  var snaps=(state.dataset.snapshots||[]).filter(function(s){return s.hw_id===hwId;});
+  var seen={},vers=[];
+  snaps.forEach(function(s){var v=envVersion(s.environment);if(!seen[v]){seen[v]=true;vers.push(v);}});
+  vers.sort(_compareVersions);
+  return vers;
+}
+function _resetTrendVersionFilter(hwId){
+  var vers=_getAvailableVersions(hwId);
+  var filter={};
+  vers.forEach(function(v){filter[v]=true;});
+  state.trendVersions=vers;
+  state.trendVersionFilter=filter;
+}
+function renderTrendVersionFilter(){
+  var container=document.getElementById('trendVersionFilter');if(!container)return;
+  var vers=state.trendVersions||[];
+  if(!vers.length){container.innerHTML='<p class="empty-state small">' + _t('No version data available.') + '</p>';return;}
+  container.innerHTML=vers.map(function(v){
+    var checked=state.trendVersionFilter[v]?' checked':'';
+    var label=v==='unknown'?_t('unknown'):v;
+    return '<label class="version-chip"><input type="checkbox" data-version="'+escHtml(v)+'"'+checked+'> '+escHtml(label)+'</label>';
+  }).join('');
+  container.querySelectorAll('input[data-version]').forEach(function(cb){
+    cb.addEventListener('change',function(){
+      state.trendVersionFilter[this.dataset.version]=this.checked;
+      refreshTrend();
+    });
+  });
+}
 function _switchToTrend(hwId){
   document.querySelectorAll('.dashboard-tab').forEach(function(b){b.classList.remove('active');});
   document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active');});
@@ -798,6 +927,7 @@ function _switchToTrend(hwId){
   document.getElementById('tab-version-trend').classList.add('active');
   var sel=document.getElementById('trendEnvFilter');
   sel.value=hwId;state.trendHwId=hwId;
+  _resetTrendVersionFilter(hwId);renderTrendVersionFilter();
   refreshTrend();resizeTrendChart();
   dispatchBenchmarkHelpSync();
 }
@@ -846,7 +976,9 @@ function createTrendChart(canvas,onClick){
     if(hasSelection){var selectedX=xPos(self._selectedIdx);var groupLeft=Math.max(P.left,Math.min(selectedX-groupWidth/2,P.left+CW-groupWidth));ctx.save();ctx.fillStyle=cc.sel;ctx.fillRect(groupLeft,P.top-2,groupWidth,CH+4);ctx.strokeStyle=cc.selBdr;ctx.lineWidth=3;ctx.setLineDash([6,3]);ctx.strokeRect(groupLeft,P.top-2,groupWidth,CH+4);ctx.setLineDash([]);ctx.restore();}
     var _labelGap=13;function _spreadLabels(items){items.sort(function(a,b){return a.baseY-b.baseY;});for(var pass=0;pass<4;pass++){for(var j=1;j<items.length;j++){var gap=items[j].y-items[j-1].y;if(gap<_labelGap){var shift=(_labelGap-gap)/2;items[j-1].y-=Math.ceil(shift);items[j].y+=Math.ceil(shift);}}items.sort(function(a,b){return a.y-b.y;});}return items;}
     var colLabels={};data.forEach(function(line,li){line.points.forEach(function(point,i){if(point.value==null)return;if(!colLabels[i])colLabels[i]=[];colLabels[i].push({lineIdx:li,baseY:yPos(point.value)-10,y:yPos(point.value)-10,value:point.value});});});Object.keys(colLabels).forEach(function(k){_spreadLabels(colLabels[k]);});
-    data.forEach(function(line,li){var sc=SIZE_COLORS[line.size]||SIZE_COLORS.n;ctx.save();ctx.globalAlpha=hasSelection?0.72:1;ctx.strokeStyle=sc.line;ctx.lineWidth=2.5;ctx.beginPath();var started=false;line.points.forEach(function(point,i){if(point.value==null)return;var x=xPos(i),y=yPos(point.value);if(!started){ctx.moveTo(x,y);started=true;}else{ctx.lineTo(x,y);}});ctx.stroke();ctx.restore();line.points.forEach(function(point,i){if(point.value==null)return;var x=xPos(i),y=yPos(point.value);var isSelectedColumn=i===self._selectedIdx;var isHoveredColumn=i===self._hoverIdx;var r=isSelectedColumn?7:(isHoveredColumn?6:5);ctx.fillStyle=hasSelection?(isSelectedColumn?sc.hi:(isHoveredColumn?sc.fill:sc.dim)):(isHoveredColumn?sc.hi:sc.fill);ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.strokeStyle=sc.line;ctx.lineWidth=isSelectedColumn?3:1.5;ctx.stroke();var labelY=y-10;var cl=colLabels[i];if(cl){for(var ci=0;ci<cl.length;ci++){if(cl[ci].lineIdx===li){labelY=cl[ci].y;break;}}}var isEmphasized=isSelectedColumn||isHoveredColumn;var labelText=_formatTrendValue(self._metric,point.value);ctx.font=isEmphasized?'bold 11px sans-serif':'10px sans-serif';ctx.textAlign='center';ctx.globalAlpha=hasSelection?(isEmphasized?1:0.7):1;ctx.strokeStyle=cc.outline;ctx.lineWidth=3;ctx.lineJoin='round';ctx.strokeText(labelText,x,labelY);ctx.fillStyle=cc.emph;ctx.fillText(labelText,x,labelY);ctx.globalAlpha=1;});});
+    data.forEach(function(line,li){var sc=SIZE_COLORS[line.size]||SIZE_COLORS.n;ctx.save();ctx.globalAlpha=hasSelection?0.72:1;ctx.strokeStyle=sc.line;ctx.lineWidth=2.5;ctx.beginPath();var started=false;line.points.forEach(function(point,i){if(point.value==null)return;var x=xPos(i),y=yPos(point.value);if(!started){ctx.moveTo(x,y);started=true;}else{ctx.lineTo(x,y);}});ctx.stroke();ctx.restore();line.points.forEach(function(point,i){if(point.value==null)return;var x=xPos(i),y=yPos(point.value);var isSelectedColumn=i===self._selectedIdx;var isHoveredColumn=i===self._hoverIdx;var r=isSelectedColumn?7:(isHoveredColumn?6:5);ctx.fillStyle=hasSelection?(isSelectedColumn?sc.hi:(isHoveredColumn?sc.fill:sc.dim)):(isHoveredColumn?sc.hi:sc.fill);ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.strokeStyle=sc.line;ctx.lineWidth=isSelectedColumn?3:1.5;ctx.stroke();});});
+    /* value labels in a final pass so no other series' line/marker occludes them */
+    data.forEach(function(line,li){line.points.forEach(function(point,i){if(point.value==null)return;var x=xPos(i),y=yPos(point.value);var isSelectedColumn=i===self._selectedIdx;var isHoveredColumn=i===self._hoverIdx;var labelY=y-10;var cl=colLabels[i];if(cl){for(var ci=0;ci<cl.length;ci++){if(cl[ci].lineIdx===li){labelY=cl[ci].y;break;}}}var isEmphasized=isSelectedColumn||isHoveredColumn;var labelText=_formatTrendValue(self._metric,point.value);ctx.font=isEmphasized?'bold 11px sans-serif':'10px sans-serif';ctx.textAlign='center';ctx.globalAlpha=hasSelection?(isEmphasized?1:0.7):1;ctx.strokeStyle=cc.outline;ctx.lineWidth=3;ctx.lineJoin='round';ctx.strokeText(labelText,x,labelY);ctx.fillStyle=cc.emph;ctx.fillText(labelText,x,labelY);ctx.globalAlpha=1;});});
     if(data[0]&&data[0].points){data[0].points.forEach(function(point,i){var x=xPos(i);var isSelectedColumn=i===self._selectedIdx;var isHoveredColumn=i===self._hoverIdx;ctx.fillStyle=hasSelection?(isSelectedColumn?cc.text:(isHoveredColumn?cc.dim:'rgba(93,101,114,0.55)')):cc.text;ctx.font=isSelectedColumn?'600 11px sans-serif':'11px sans-serif';ctx.textAlign='center';ctx.fillText(point.dateLabel||'',x,P.top+CH+16);if(point.swLabel){ctx.fillStyle=hasSelection?(isSelectedColumn?cc.noData:'rgba(93,101,114,0.45)'):cc.noData;ctx.font='10px sans-serif';ctx.fillText(point.swLabel,x,P.top+CH+30);}});}
     var lx=P.left,ly=22;SIZE_KEYS.forEach(function(sz){var sc=SIZE_COLORS[sz];ctx.fillStyle=sc.fill;ctx.beginPath();ctx.arc(lx+6,ly,5,0,Math.PI*2);ctx.fill();ctx.strokeStyle=sc.line;ctx.lineWidth=1.5;ctx.stroke();var label=sz.toUpperCase()+' ('+SIZE_LABELS[sz]+')';ctx.fillStyle=cc.text;ctx.font='12px sans-serif';ctx.textAlign='left';ctx.fillText(label,lx+16,ly+4);lx+=ctx.measureText(label).width+35;});
   };
@@ -857,30 +989,219 @@ function createTrendChart(canvas,onClick){
   chart._ro=new ResizeObserver(chart._resize.bind(chart));chart._ro.observe(canvas.parentElement);canvas.addEventListener('click',chart._handleClick.bind(chart));canvas.addEventListener('mousemove',chart._handleHover.bind(chart));canvas.addEventListener('mouseleave',chart._handleLeave.bind(chart));chart._resize();
   return chart;
 }
-function resizeTrendChart(){if(state.trendChart)state.trendChart._resize();}
+function resizeTrendChart(){Object.keys(state.trendCharts).forEach(function(k){state.trendCharts[k]._resize();});}
+/* Small-multiples: same x-axis (dx_all_suite_version, oldest\u2192newest) and same run-set for every
+   metric panel, so a point index selected on one chart lines up with the same run on all others. */
 function getTrendData(hwId,task,useOrt,metricKey){
-  var metric=_trendMetricByKey(metricKey);var snaps=(state.dataset.snapshots||[]).filter(function(s){return s.hw_id===hwId;});snaps.sort(function(a,b){return(a.run_id||'').localeCompare(b.run_id||'');});if(!snaps.length)return[];var lines=SIZE_KEYS.map(function(sz){return{size:sz,points:[]};});
-  snaps.forEach(function(snap){var ts=snap.timestamp?snap.timestamp.substring(0,10):(snap.run_id||'').replace(/(\d{4})(\d{2})(\d{2}).*/,'$1-$2-$3');var sw=snap.sw_versions||{};var swLabel='dxs '+(sw.dx_stream||'?');SIZE_KEYS.forEach(function(sz,si){var value=_snapshotMetricValue(snap,task,useOrt,metric,sz);lines[si].points.push({value:value!=null?Number(value):null,dateLabel:ts,swLabel:swLabel,run_id:snap.run_id,snap:snap});});});
+  var metric=_trendMetricByKey(metricKey);
+  var snaps=(state.dataset.snapshots||[]).filter(function(s){
+    if(s.hw_id!==hwId)return false;
+    var v=envVersion(s.environment);
+    if(state.trendVersionFilter&&state.trendVersionFilter[v]===false)return false;
+    return true;
+  });
+  snaps.sort(function(a,b){return _compareVersions(envVersion(a.environment),envVersion(b.environment));});
+  if(!snaps.length)return[];
+  var lines=SIZE_KEYS.map(function(sz){return{size:sz,points:[]};});
+  snaps.forEach(function(snap){
+    var ver=envVersion(snap.environment);
+    var ts=snap.timestamp?snap.timestamp.substring(0,10):(snap.run_id||'').replace(/(\d{4})(\d{2})(\d{2}).*/,'$1-$2-$3');
+    SIZE_KEYS.forEach(function(sz,si){
+      var value=_snapshotMetricValue(snap,task,useOrt,metric,sz);
+      lines[si].points.push({value:value!=null?Number(value):null,dateLabel:ver,swLabel:ts,run_id:snap.run_id,snap:snap});
+    });
+  });
   return lines;
 }
 function hideTrendEnvDetail(){var panel=document.getElementById('trendEnvDetail');if(panel)panel.style.display='none';var metaPanel=document.getElementById('trendModelMetaPanel');if(metaPanel)metaPanel.style.display='none';dispatchBenchmarkHelpSync();}
 function renderTrendEnvDetail(snap,options){
-  options=options||{};var panel=document.getElementById('trendEnvDetail');if(!panel)return;var env=snap&&snap.environment;if(!env){panel.style.display='none';document.getElementById('trendModelMetaPanel').style.display='none';dispatchBenchmarkHelpSync();return;}panel.style.display='';var metric=_trendMetricByKey(state.trendMetric);var dateStr=snap.timestamp?snap.timestamp.substring(0,10):snap.run_id;document.getElementById('trendEnvDetailTitle').textContent=(metric.metricLabel||'Metric')+' \u00b7 '+(env.hostname||'Environment')+' ('+(env.npu_sku||'?')+') \u00b7 '+dateStr+' \u00b7 '+snap.run_id;renderHostInfo(document.getElementById('trendEnvHostInfo'),env);renderNpuInfo(document.getElementById('trendEnvNpuInfo'),env);renderToolsInfo(document.getElementById('trendEnvToolsInfo'),env);
+  options=options||{};var panel=document.getElementById('trendEnvDetail');if(!panel)return;var env=snap&&snap.environment;if(!env){panel.style.display='none';document.getElementById('trendModelMetaPanel').style.display='none';dispatchBenchmarkHelpSync();return;}panel.style.display='';var dateStr=snap.timestamp?snap.timestamp.substring(0,10):snap.run_id;var ver=envVersion(env);document.getElementById('trendEnvDetailTitle').textContent=(env.hostname||'Environment')+' ('+(_envProductLabel(env)||'?')+') \u00b7 '+ver+' \u00b7 '+dateStr+' \u00b7 '+snap.run_id;renderHostInfo(document.getElementById('trendEnvHostInfo'),env);renderNpuInfo(document.getElementById('trendEnvNpuInfo'),env);renderToolsInfo(document.getElementById('trendEnvToolsInfo'),env);
   var metaPanel=document.getElementById('trendModelMetaPanel');metaPanel.style.display='';document.getElementById('trendModelMetaTitle').textContent='Benchmarked Models \u2013 '+TASK_MAP[state.trendTask].label+' \u00b7 '+snap.run_id;renderModelMetaForTask(document.getElementById('trendModelMetaSection'),env,state.trendTask);
   if(options.scroll!==false)panel.scrollIntoView({behavior:'smooth',block:'nearest'});
   dispatchBenchmarkHelpSync();
 }
 function refreshTrend(){
-  var hwId=state.trendHwId;var task=state.trendTask;var useOrt=state.trendOrt;var metric=_trendMetricByKey(state.trendMetric);var data=getTrendData(hwId,task,useOrt,metric.key);var selectedIdx=_latestTrendPointIndex(data);state.trendData=data;state.trendSelectedIdx=selectedIdx;document.getElementById('trendChartTitle').textContent=metric.title;document.getElementById('trendChartSubtitle').textContent='Metric: '+metric.metricLabel+'  \u00b7  '+(TASK_MAP[task]?TASK_MAP[task].label:task)+'  \u00b7  ORT '+(useOrt?'ON':'OFF')+'  \u00b7  All Sizes (N / S / M / L / X)';if(state.trendChart)state.trendChart.setMetric(metric);if(selectedIdx>=0){handleTrendPointClick(selectedIdx,{scroll:false});}else{hideTrendEnvDetail();if(state.trendChart)state.trendChart.update(data,-1);} 
+  var hwId=state.trendHwId;var task=state.trendTask;var useOrt=state.trendOrt;
+  var firstData=null;
+  TREND_METRICS.forEach(function(metric){
+    var data=getTrendData(hwId,task,useOrt,metric.key);
+    state.trendDataByMetric[metric.key]=data;
+    if(!firstData&&data.length&&data[0].points.length)firstData=data;
+    var ids=_trendPanelIds(metric.key);
+    var subtitleEl=document.getElementById(ids.subtitle);
+    if(subtitleEl)subtitleEl.textContent=(TASK_MAP[task]?TASK_MAP[task].label:task)+'  \u00b7  ORT '+(useOrt?'ON':'OFF')+'  \u00b7  '+_t('All Sizes (N / S / M / L / X)');
+  });
+  var selectedIdx=firstData?_latestTrendPointIndex(firstData):-1;
+  state.trendSelectedIdx=selectedIdx;
+  TREND_METRICS.forEach(function(metric){
+    var chart=state.trendCharts[metric.key];if(!chart)return;
+    chart.update(state.trendDataByMetric[metric.key]||[],selectedIdx);
+  });
+  if(selectedIdx>=0){handleTrendPointClick(selectedIdx,{scroll:false});}else{hideTrendEnvDetail();}
 }
 function handleTrendPointClick(idx,options){
-  options=options||{};state.trendSelectedIdx=idx;var data=state.trendData||[];if(state.trendChart)state.trendChart.update(data,idx);var snap=null;if(data.length&&data[0].points[idx])snap=data[0].points[idx].snap;if(!snap){hideTrendEnvDetail();return;}renderTrendEnvDetail(snap,options);
+  options=options||{};state.trendSelectedIdx=idx;
+  var snap=null;
+  TREND_METRICS.some(function(metric){
+    var data=state.trendDataByMetric[metric.key];
+    if(data&&data.length&&data[0].points[idx]&&data[0].points[idx].snap){snap=data[0].points[idx].snap;return true;}
+    return false;
+  });
+  TREND_METRICS.forEach(function(metric){
+    var chart=state.trendCharts[metric.key];if(!chart)return;
+    chart.update(state.trendDataByMetric[metric.key]||[],idx);
+  });
+  if(!snap){hideTrendEnvDetail();return;}
+  renderTrendEnvDetail(snap,options);
+}
+function _trendPanelIds(key){return {canvas:'trendChart_'+key,title:'trendChartTitle_'+key,subtitle:'trendChartSubtitle_'+key};}
+function _buildTrendMetricPanelHTML(metric){
+  var ids=_trendPanelIds(metric.key);
+  return '<section class="panel chart-panel trend-metric-panel" data-metric="'+metric.key+'">'+
+      '<div class="chart-header">'+
+        '<h2 id="'+ids.title+'">'+escHtml(_t(metric.title))+'</h2>'+
+        '<p class="chart-subtitle" id="'+ids.subtitle+'"></p>'+
+      '</div>'+
+      '<div class="chart-container"><canvas id="'+ids.canvas+'"></canvas></div>'+
+    '</section>';
 }
 function initTrendChart(){
-  var canvas=document.getElementById('trendChart');if(canvas)state.trendChart=createTrendChart(canvas,function(idx){handleTrendPointClick(idx);});
+  var grid=document.getElementById('trendChartsGrid');if(!grid)return;
+  grid.innerHTML=TREND_METRICS.map(_buildTrendMetricPanelHTML).join('');
+  state.trendCharts={};
+  TREND_METRICS.forEach(function(metric){
+    var ids=_trendPanelIds(metric.key);
+    var canvas=document.getElementById(ids.canvas);if(!canvas)return;
+    var chart=createTrendChart(canvas,function(idx){handleTrendPointClick(idx);});
+    chart.setMetric(metric);
+    state.trendCharts[metric.key]=chart;
+  });
 }
 function initTrendTab(){
-  var snaps=state.dataset.snapshots||[];var sel=document.getElementById('trendEnvFilter');var hwIds=_getUniqueHwIds();sel.innerHTML=hwIds.map(function(id){return '<option value="'+escHtml(id)+'">'+escHtml(id)+'</option>';}).join('');if(hwIds.length){state.trendHwId=hwIds[0];sel.value=hwIds[0];}state.trendTask='object_detection';state.trendOrt=true;state.trendMetric='e2e';document.getElementById('trendMetricFilter').value=state.trendMetric;sel.addEventListener('change',function(){state.trendHwId=this.value;refreshTrend();});document.getElementById('trendTaskFilter').addEventListener('change',function(){state.trendTask=this.value;refreshTrend();});document.getElementById('trendOrtFilter').addEventListener('change',function(){state.trendOrt=this.value==='on';refreshTrend();});document.getElementById('trendMetricFilter').addEventListener('change',function(){state.trendMetric=this.value;refreshTrend();});refreshTrend();
+  var sel=document.getElementById('trendEnvFilter');var hwIds=_getUniqueHwIds();sel.innerHTML=hwIds.map(function(id){return '<option value="'+escHtml(id)+'">'+escHtml(id)+'</option>';}).join('');if(hwIds.length){state.trendHwId=hwIds[0];sel.value=hwIds[0];}state.trendTask='object_detection';state.trendOrt=true;document.getElementById('trendTaskFilter').value=state.trendTask;document.getElementById('trendOrtFilter').value=state.trendOrt?'on':'off';
+  _resetTrendVersionFilter(state.trendHwId);renderTrendVersionFilter();
+  sel.addEventListener('change',function(){state.trendHwId=this.value;_resetTrendVersionFilter(state.trendHwId);renderTrendVersionFilter();refreshTrend();});
+  document.getElementById('trendTaskFilter').addEventListener('change',function(){state.trendTask=this.value;refreshTrend();});
+  document.getElementById('trendOrtFilter').addEventListener('change',function(){state.trendOrt=this.value==='on';refreshTrend();});
+  document.getElementById('trendVersionAll').addEventListener('click',function(){Object.keys(state.trendVersionFilter).forEach(function(v){state.trendVersionFilter[v]=true;});renderTrendVersionFilter();refreshTrend();});
+  document.getElementById('trendVersionNone').addEventListener('click',function(){Object.keys(state.trendVersionFilter).forEach(function(v){state.trendVersionFilter[v]=false;});renderTrendVersionFilter();refreshTrend();});
+  refreshTrend();
+}
+
+/* ═══ ORT ON/OFF comparison (5b) ═══
+   Reads state.dataset.summaries.ort_delta (one row per env_id/task/size/metric,
+   already precomputed ON vs OFF for the latest run) — no extra aggregation needed. */
+function _ortMetricByKey(key) { return ORT_METRICS.find(function(m) { return m.key === key; }) || ORT_METRICS[0]; }
+function _formatOrtValue(metric, v) { if (v == null) return '-'; return metric.precision === 0 ? String(Math.round(v)) : Number(v).toFixed(metric.precision); }
+/* true = ORT ON wins this metric, false = OFF wins, null = no meaningful delta */
+function _ortOnIsBetter(metric, delta) { if (delta == null || delta === 0) return null; return metric.higherBetter ? delta > 0 : delta < 0; }
+function getOrtCompareData(envId, task, metricKey) {
+  var rows = _history('ort_delta').filter(function(r) { return r.env_id === envId && r.task === task && r.metric === metricKey; });
+  var bySize = {}; rows.forEach(function(r) { bySize[r.size] = r; });
+  return SIZE_KEYS.filter(function(sz) { return bySize[sz]; }).map(function(sz) {
+    var r = bySize[sz];
+    return { size: sz, label: sz.toUpperCase(), on: r.ort_on, off: r.ort_off, delta: r.delta, deltaPct: r.delta_pct };
+  });
+}
+
+var OrtChart = {
+  _canvas: null, _metric: null, _data: [], _raf: null, _ro: null,
+  init: function(canvas) {
+    this._canvas = canvas;
+    this._ro = new ResizeObserver(this._resize.bind(this));
+    this._ro.observe(canvas.parentElement); this._resize();
+  },
+  setMetric: function(metric) { this._metric = metric; this._scheduleDraw(); },
+  update: function(data) { this._data = data; this._scheduleDraw(); },
+  _resize: function() { var el=this._canvas.parentElement,dpr=window.devicePixelRatio||1;var w=el.clientWidth,h=el.clientHeight;setBenchmarkCanvasSize(this._canvas,w,h,dpr);this._canvas.getContext('2d').setTransform(dpr,0,0,dpr,0,0);this._scheduleDraw(); },
+  _scheduleDraw: function() { var s=this;if(s._raf)cancelAnimationFrame(s._raf);s._raf=requestAnimationFrame(function(){s._draw();}); },
+  _layout: function() { var dpr=window.devicePixelRatio||1;var W=this._canvas.width/dpr,H=this._canvas.height/dpr;var P={top:60,right:30,bottom:60,left:72};return {W:W,H:H,P:P,CW:W-P.left-P.right,CH:H-P.top-P.bottom}; },
+  _niceMax: function(v) { if(v<=0)return 10;var e=Math.pow(10,Math.floor(Math.log10(v)));var f=v/e;return (f<=2?2:f<=5?5:10)*e; },
+  _draw: function() {
+    var data=this._data,metric=this._metric||ORT_METRICS[0],cv=this._canvas,ctx=cv.getContext('2d');
+    var lay=this._layout();var W=lay.W,H=lay.H,P=lay.P,CW=lay.CW,CH=lay.CH;var cc=_cc();
+    ctx.clearRect(0,0,W,H);
+    if(!data.length){ctx.fillStyle=cc.noData;ctx.font='14px sans-serif';ctx.textAlign='center';ctx.fillText(_t('No data for this selection'),W/2,H/2);return;}
+    var maxV=0;data.forEach(function(d){if(d.on!=null)maxV=Math.max(maxV,d.on);if(d.off!=null)maxV=Math.max(maxV,d.off);});
+    var ceilV=this._niceMax(maxV*1.25);
+    var n=data.length,gW=CW/n,barAreaW=gW*0.6,subW=barAreaW/2,padLeft=(gW-barAreaW)/2;
+    var yPos=function(v){return P.top+CH-(v/ceilV)*CH;};
+    var gX=function(i,si){return P.left+i*gW+padLeft+si*subW;};
+    var midX=function(i){return P.left+i*gW+gW/2;};
+    ctx.strokeStyle=cc.grid;ctx.lineWidth=1;for(var g=0;g<=5;g++){var gy=P.top+CH*g/5;ctx.beginPath();ctx.moveTo(P.left,gy);ctx.lineTo(P.left+CW,gy);ctx.stroke();}
+    ctx.strokeStyle=cc.axes;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(P.left,P.top);ctx.lineTo(P.left,P.top+CH);ctx.stroke();ctx.beginPath();ctx.moveTo(P.left,P.top+CH);ctx.lineTo(P.left+CW,P.top+CH);ctx.stroke();
+    ctx.textAlign='right';ctx.fillStyle=cc.dim;ctx.font='11px sans-serif';
+    for(var t=0;t<=5;t++){var tv=ceilV*(5-t)/5;ctx.fillText(_formatOrtValue(metric,tv),P.left-6,P.top+CH*t/5+4);}
+    ctx.save();ctx.fillStyle=cc.text;ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.translate(14,P.top+CH/2);ctx.rotate(-Math.PI/2);ctx.fillText(_t(metric.axisLabel),0,0);ctx.restore();
+    data.forEach(function(d,i){
+      if(d.on!=null){var bx=gX(i,0),by=yPos(d.on),bh=P.top+CH-by;ctx.fillStyle=ORT_ON_COLOR.fill;ctx.fillRect(bx+1,by,subW-2,bh);ctx.strokeStyle=ORT_ON_COLOR.line;ctx.lineWidth=1;ctx.strokeRect(bx+1,by,subW-2,bh);ctx.fillStyle=ORT_ON_COLOR.line;ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(_formatOrtValue(metric,d.on),bx+1+(subW-2)/2,by-4);}
+      if(d.off!=null){var bx2=gX(i,1),by2=yPos(d.off),bh2=P.top+CH-by2;ctx.fillStyle=ORT_OFF_COLOR.fill;ctx.fillRect(bx2+1,by2,subW-2,bh2);ctx.strokeStyle=ORT_OFF_COLOR.line;ctx.lineWidth=1;ctx.strokeRect(bx2+1,by2,subW-2,bh2);ctx.fillStyle=ORT_OFF_COLOR.line;ctx.font='bold 10px sans-serif';ctx.textAlign='center';ctx.fillText(_formatOrtValue(metric,d.off),bx2+1+(subW-2)/2,by2-4);}
+      if(d.deltaPct!=null){
+        var onBetter=_ortOnIsBetter(metric,d.delta);
+        var color=onBetter===true?'rgb(46,204,113)':(onBetter===false?'rgb(231,76,60)':cc.text);
+        var topY=Math.min(d.on!=null?yPos(d.on):P.top+CH,d.off!=null?yPos(d.off):P.top+CH)-18;
+        ctx.fillStyle=color;ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+        var sign=d.deltaPct>0?'+':'';
+        ctx.fillText(sign+d.deltaPct.toFixed(1)+'%',midX(i),topY);
+      }
+    });
+    ctx.fillStyle=cc.text;ctx.font='600 11px sans-serif';ctx.textAlign='center';
+    data.forEach(function(d,i){ctx.fillText(d.label,midX(i),P.top+CH+18);});
+    var lx=P.left,ly=22;
+    [{c:ORT_ON_COLOR,label:_t('ORT ON')},{c:ORT_OFF_COLOR,label:_t('ORT OFF')}].forEach(function(it){
+      ctx.fillStyle=it.c.fill;ctx.fillRect(lx,ly-7,18,14);ctx.strokeStyle=it.c.line;ctx.lineWidth=1;ctx.strokeRect(lx,ly-7,18,14);
+      ctx.fillStyle=cc.text;ctx.font='12px sans-serif';ctx.textAlign='left';ctx.fillText(it.label,lx+24,ly+4);
+      lx+=ctx.measureText(it.label).width+44;
+    });
+  }
+};
+
+function renderOrtCompareTable(container,data,metric) {
+  if(!container) return;
+  if(!data.length){container.innerHTML='<p class="empty-state small">' + _t('No data for this selection') + '</p>';return;}
+  var html='<table class="summary-table"><thead><tr><th>' + _t('Size') + '</th><th>' + _t('ORT ON') + '</th><th>' + _t('ORT OFF') + '</th><th>' + _t('Delta') + '</th><th>' + _t('Delta %') + '</th></tr></thead><tbody>';
+  data.forEach(function(d){
+    var onBetter=_ortOnIsBetter(metric,d.delta);
+    var deltaCls=onBetter===true?'ort-delta-pos':(onBetter===false?'ort-delta-neg':'');
+    var sign=(d.delta!=null&&d.delta>0)?'+':'';
+    var pctSign=(d.deltaPct!=null&&d.deltaPct>0)?'+':'';
+    html+='<tr><td>'+escHtml(d.label)+'</td><td>'+_formatOrtValue(metric,d.on)+'</td><td>'+_formatOrtValue(metric,d.off)+'</td>'+
+      '<td class="'+deltaCls+'">'+(d.delta!=null?sign+_formatOrtValue(metric,d.delta):'-')+'</td>'+
+      '<td class="'+deltaCls+'">'+(d.deltaPct!=null?pctSign+d.deltaPct.toFixed(1)+'%':'-')+'</td></tr>';
+  });
+  html+='</tbody></table>';
+  container.innerHTML=html;
+}
+
+function refreshOrtCompare() {
+  if(!document.getElementById('ortCompareChart')) return;
+  var metric=_ortMetricByKey(state.ortMetric);
+  var data=getOrtCompareData(state.ortEnvId,state.ortTask,metric.key);
+  state.ortChartData=data;
+  var env=_envById(state.ortEnvId);
+  var subtitleEl=document.getElementById('ortChartSubtitle');
+  if(subtitleEl){
+    var envLbl=env?(env.hostname+' ('+(_envProductLabel(env)||'?')+')'):'';
+    subtitleEl.textContent=envLbl+'  ·  '+(TASK_MAP[state.ortTask]?TASK_MAP[state.ortTask].label:state.ortTask)+'  ·  '+_t(metric.label);
+  }
+  OrtChart.setMetric(metric);
+  OrtChart.update(data);
+  renderOrtCompareTable(document.getElementById('ortCompareTableContent'),data,metric);
+  dispatchBenchmarkHelpSync();
+}
+
+function initOrtCompareTab() {
+  var sel=document.getElementById('ortEnvFilter');if(!sel)return;
+  var envs=state.dataset.environments||[];
+  sel.innerHTML=envs.map(function(e){return '<option value="'+escHtml(e.env_id)+'">'+escHtml(e.hostname)+' ('+escHtml(_envProductLabel(e)||'?')+')</option>';}).join('');
+  if(envs.length){state.ortEnvId=envs[0].env_id;sel.value=state.ortEnvId;}
+  document.getElementById('ortTaskFilter').value=state.ortTask;
+  document.getElementById('ortMetricFilter').value=state.ortMetric;
+  sel.addEventListener('change',function(){state.ortEnvId=this.value;refreshOrtCompare();});
+  document.getElementById('ortTaskFilter').addEventListener('change',function(){state.ortTask=this.value;refreshOrtCompare();});
+  document.getElementById('ortMetricFilter').addEventListener('change',function(){state.ortMetric=this.value;refreshOrtCompare();});
+  OrtChart.init(document.getElementById('ortCompareChart'));
+  refreshOrtCompare();
 }
 
   return {
@@ -911,6 +1232,7 @@ function initTrendTab(){
         initTrendChart();
         initTrendTab();
       }
+      initOrtCompareTab();
       dispatchBenchmarkHelpSync();
     },
     refresh: function() {
@@ -923,7 +1245,8 @@ function initTrendTab(){
       if (!state.dataset) return;
       refreshFpsCompare();
       refreshChart();
-      if (state.trendChart) refreshTrend();
+      if (Object.keys(state.trendCharts).length) refreshTrend();
+      refreshOrtCompare();
     },
     openEdgeGuide: function() {
       _navigateToEdgeGuide();

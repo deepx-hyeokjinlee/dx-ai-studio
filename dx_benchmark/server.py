@@ -2,13 +2,13 @@
 """DX Benchmark 웹 서버 — 포트 8097.
 
 YOLO26 하드웨어 벤치마크 대시보드 서버 (결과 조회·비교).
-실행은 CLI (`benchmark.sh` / `python -m dx_benchmark.core run`) 사용.
+이 서버는 순수 뷰어입니다: 번들된 dataset.json을 그대로 서빙하며 런타임 집계를
+수행하지 않습니다. 벤치마크 실행은 독립 실행형 dx-benchmark CLI에서 수행합니다
+(`cd dx-benchmark && ./run.sh run`).
 DXBaseHandler 기반.
 """
 
 import json
-import os
-import tempfile
 from pathlib import Path
 
 from shared.dx_server import DXBaseHandler, DXServer
@@ -24,6 +24,16 @@ LEGACY_RESULTS_DIR = BASE_DIR / "results"
 DATASET_PATH = BASE_DIR / "dataset.json"
 SERVER_NAME = "DX Benchmark"
 
+# Static deployment config, inlined from the former BenchmarkConfig defaults.
+# The studio is a pure viewer: these values are display-only (no runtime
+# benchmark execution happens from the web server), and POST /api/config is
+# rejected (settings are deployment-fixed).
+CONFIG_THERMAL_COOLDOWN_ABS_CAP_C = 55.0
+CONFIG_THERMAL_COOLDOWN_MAX_SEC = 300.0
+CONFIG_MODEL_LATENCY_LOOPS = 300
+CONFIG_MODEL_WARMUP = 1
+CONFIG_FPS_THRESHOLD = 30.0
+
 
 def iter_result_dirs():
     """Yield result directories: canonical first, then legacy if it exists."""
@@ -32,29 +42,12 @@ def iter_result_dirs():
         yield LEGACY_RESULTS_DIR
 
 
-def _without_meta_field(data, field):
-    cloned = json.loads(json.dumps(data, default=str))
-    if isinstance(cloned.get("meta"), dict):
-        cloned["meta"].pop(field, None)
-    return cloned
-
-
-def _dataset_only_generated_at_changed(dataset):
-    if not DATASET_PATH.exists():
-        return False
-    try:
-        existing = json.loads(DATASET_PATH.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return False
-    return _without_meta_field(existing, "generated_at") == _without_meta_field(dataset, "generated_at")
-
-
 _chat_engine = ChatEngine(
     app_name="dx_benchmark",
     fallback_rules=[
         (["benchmark", "벤치마크", "run", "실행"], {
-            "ko": "벤치마크 실행은 CLI에서 수행합니다: `cd dx_benchmark && ./benchmark.sh` 또는 `python -m dx_benchmark.core run`. 웹 UI는 Dashboard/Results에서 결과를 조회합니다.",
-            "en": "Run benchmarks from the CLI: `cd dx_benchmark && ./benchmark.sh` or `python -m dx_benchmark.core run`. Use the web UI Dashboard/Results tabs to view results.",
+            "ko": "벤치마크 실행은 독립 실행형 dx-benchmark CLI에서 수행합니다: `cd dx-benchmark && ./run.sh run`. 웹 UI는 Dashboard/Results에서 결과를 조회하는 뷰어입니다.",
+            "en": "Run benchmarks from the standalone dx-benchmark CLI: `cd dx-benchmark && ./run.sh run`. This web UI is a viewer for the Dashboard/Results tabs only.",
         }),
         (["result", "결과", "report", "리포트", "대시보드", "dashboard"], {
             "ko": "Dashboard 탭에서 집계된 차트를, Results 탭에서 개별 실행 결과와 REPORT.md를 확인할 수 있습니다.",
@@ -71,111 +64,11 @@ _chat_engine = ChatEngine(
     ]
 )
 
-def _aggregate_all_result_dirs():
-    """Aggregate across all result dirs (canonical-first), merging datasets."""
-    from dx_benchmark.core.aggregator import aggregate_result_directories
-    dirs = list(iter_result_dirs())
-    merged = aggregate_result_directories(dirs[0])
-    for extra_dir in dirs[1:]:
-        if not extra_dir.exists():
-            continue
-        extra = aggregate_result_directories(extra_dir)
-        # environments: dedup by hw_id, canonical-first
-        if "environments" in merged and "environments" in extra:
-            seen_hw = {e.get("hw_id") for e in merged["environments"]}
-            for e in extra["environments"]:
-                if e.get("hw_id") not in seen_hw:
-                    merged["environments"].append(e)
-                    seen_hw.add(e.get("hw_id"))
-        # runs: dedup by (env_id, run_id), canonical-first
-        if "runs" in merged and "runs" in extra:
-            seen_runs = {
-                (r.get("env_id"), r.get("run_id")) for r in merged["runs"]
-            }
-            for r in extra["runs"]:
-                key = (r.get("env_id"), r.get("run_id"))
-                if key not in seen_runs:
-                    merged["runs"].append(r)
-                    seen_runs.add(key)
-        # history: dict of lists, concatenated (no dedup). Safe because legacy
-        # is a frozen tracked dataset and canonical only ever accrues fresh
-        # run_ids post-repoint, so canonical/legacy history entries are
-        # assumed disjoint (no overlapping keys to double-count).
-        if "history" in merged and "history" in extra:
-            for k, v in extra["history"].items():
-                if k in merged["history"]:
-                    merged["history"][k] = merged["history"][k] + v
-                else:
-                    merged["history"][k] = v
-        # summaries: dict of lists, merge each sublist canonical-first
-        # Dedup keys match aggregator's _dedup_latest key fields
-        _summary_keys = {
-            "model": ("env_id", "model", "use_ort", "family"),
-            "e2e_single": ("env_id", "model", "use_ort"),
-            "e2e_multi_capacity": ("env_id", "model", "use_ort"),
-            "ort_delta": ("env_id", "metric", "task", "size"),
-        }
-        if "summaries" in extra:
-            merged.setdefault("summaries", {})
-            for subkey, extra_rows in extra["summaries"].items():
-                if subkey not in merged["summaries"]:
-                    merged["summaries"][subkey] = list(extra_rows)
-                    continue
-                existing = merged["summaries"][subkey]
-                key_fields = _summary_keys.get(subkey, None)
-                if key_fields:
-                    seen_keys = {
-                        tuple(r.get(f) for f in key_fields) for r in existing
-                    }
-                    for r in extra_rows:
-                        rk = tuple(r.get(f) for f in key_fields)
-                        if rk not in seen_keys:
-                            existing.append(r)
-                            seen_keys.add(rk)
-                else:
-                    # Unknown subkey: use full-row identity
-                    seen_keys = {tuple(sorted(r.items())) for r in existing}
-                    for r in extra_rows:
-                        rk = tuple(sorted(r.items()))
-                        if rk not in seen_keys:
-                            existing.append(r)
-                            seen_keys.add(rk)
-        # snapshots: dedup by (hw_id, run_id), canonical-first
-        if "snapshots" in extra:
-            merged.setdefault("snapshots", [])
-            seen_snaps = {
-                (s.get("hw_id"), s.get("run_id")) for s in merged["snapshots"]
-            }
-            for s in extra["snapshots"]:
-                key = (s.get("hw_id"), s.get("run_id"))
-                if key not in seen_snaps:
-                    merged["snapshots"].append(s)
-                    seen_snaps.add(key)
-        # meta: keep canonical as-is (already in merged)
-    # meta counts must reflect the final merged totals, not just canonical's own
-    # (canonical starts empty post-repoint while legacy holds prior history/runs).
-    if "meta" in merged:
-        merged["meta"]["run_count"] = len(merged.get("runs", []))
-        merged["meta"]["environment_count"] = len(merged.get("environments", []))
-    return merged
 
-
-def _regenerate_dataset():
-    """Aggregate results/ into dataset.json using atomic write."""
-    try:
-        dataset = _aggregate_all_result_dirs()
-        if _dataset_only_generated_at_changed(dataset):
-            return
-        fd, tmp = tempfile.mkstemp(dir=str(BASE_DIR), suffix=".json")
-        try:
-            with os.fdopen(fd, "w") as f:
-                json.dump(dataset, f, indent=2, default=str)
-            os.rename(tmp, str(DATASET_PATH))
-        except Exception:
-            os.unlink(tmp)
-            raise
-    except Exception as e:
-        print(f"  [Benchmark] Dataset regeneration failed: {e}")
+def _check_bundled_dataset():
+    """Sanity-check that the bundled dataset.json exists (no aggregation)."""
+    if not DATASET_PATH.exists():
+        print("  [Benchmark] Warning: bundled dataset.json not found at {}".format(DATASET_PATH))
 
 
 class DXBenchmarkHandler(DXBaseHandler):
@@ -276,17 +169,15 @@ class DXBenchmarkHandler(DXBaseHandler):
         return self.send_json(detail)
 
     def _serve_config(self):
-        from dx_benchmark.core.config import BenchmarkConfig
-        cfg = BenchmarkConfig()
         return self.send_json({
             "model_dir": str(BASE_DIR / "assets" / "models"),
             "video_dir": str(BASE_DIR / "assets" / "videos"),
             "results_dir": str(RESULTS_DIR),
-            "cooldown_temp": cfg.thermal_cooldown_abs_cap_c,
-            "wait_interval": cfg.thermal_cooldown_max_sec,
-            "iterations": cfg.model_latency_loops,
-            "warmup": cfg.model_warmup,
-            "fps_threshold": cfg.fps_threshold,
+            "cooldown_temp": CONFIG_THERMAL_COOLDOWN_ABS_CAP_C,
+            "wait_interval": CONFIG_THERMAL_COOLDOWN_MAX_SEC,
+            "iterations": CONFIG_MODEL_LATENCY_LOOPS,
+            "warmup": CONFIG_MODEL_WARMUP,
+            "fps_threshold": CONFIG_FPS_THRESHOLD,
         })
 
     def _handle_config_save(self):
@@ -314,5 +205,5 @@ def create_server(port=DEFAULT_PORT):
 
 
 if __name__ == "__main__":
-    _regenerate_dataset()
+    _check_bundled_dataset()
     DXServer(DXBenchmarkHandler, SERVER_NAME, default_port=DEFAULT_PORT).start()
