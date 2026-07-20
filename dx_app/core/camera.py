@@ -104,7 +104,7 @@ def _crop_roi(imgp, roi):
         print(f"[ROI] Crop: x={x},y={y},w={w},h={h} from image {iw}x{ih}")
         cropped = img[y:y+h, x:x+w]
         if cropped.size == 0:
-            print(f"[ROI] Empty crop result")
+            print("[ROI] Empty crop result")
             return None
         tmp = tempfile.mktemp(suffix=".jpg", dir=_TMP)
         cv2.imwrite(tmp, cropped)

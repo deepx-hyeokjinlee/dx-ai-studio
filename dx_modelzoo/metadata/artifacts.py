@@ -42,7 +42,7 @@ def safe_local_artifact_path(root: Path, relative_path: str) -> Path:
         raise ValueError(f"unsafe_artifact_path: {relative_path!r}")
     resolved = (root / relative_path).resolve()
     if not resolved.is_relative_to(root):
-        raise ValueError(f"unsafe_artifact_path: resolved path escapes root")
+        raise ValueError("unsafe_artifact_path: resolved path escapes root")
     return resolved
 
 
