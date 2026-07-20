@@ -983,7 +983,6 @@
         },
         "interface": "PCIe Gen3 x4",
         "form": "FC-BGA 17×17mm, 625-ball, 0.65mm pitch",
-        "highlight": true,
         "frameworks": "Ultralytics, TensorFlow, PyTorch, ONNX, Keras",
         "os": {
           "en": "Windows 11/10 · Ubuntu 24.04/22.04/20.04 LTS · Yocto · Docker",
@@ -1158,7 +1157,6 @@
             "es": "4× DX-M1, bifurcación PCIe"
           }
         ],
-        "highlight": true,
         "specUrl": "https://deepx.ai/products/dx-h1-quattro/",
         "image": "/static/img/about/products/dx-quattro-real.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
