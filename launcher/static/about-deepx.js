@@ -333,6 +333,7 @@
         <h4 class="about-sdk-howto-title">${T({en:'Supported Environments & Integrations', ko:'지원 환경 및 연동', ja:'対応環境と連携', 'zh-CN':'支持的环境与集成', 'zh-TW':'支援的環境與整合', es:'Entornos e integraciones compatibles'})}</h4>
         <figure class="about-sdk-env-fig">
           <img src="/static/img/about/dx-allsuite-environments.png" alt="DX-AllSuite supported environments and integrations: DEEPX Developers, GitHub, AWS IoT Greengrass; Docker and local install" loading="lazy">
+          <img src="/static/img/about/DXNN-SDK-풀스택-소프트웨어-아키텍처-다이어그램.png" alt="DXNN SDK full-stack software architecture diagram" loading="lazy">
         </figure>
         <div class="about-stats-row">
           ${t.sdk.stats.map(s => `
@@ -343,7 +344,7 @@
           `).join('')}
         </div>
         ${t.sdk.release ? `<p class="about-sdk-release about-fade-in"><strong>${t.sdk.release.version}</strong> — ${L(t.sdk.release.summary)}</p>` : ''}
-        ${t.sdk.versions ? `<p class="about-sdk-versions about-fade-in">dx-com ${t.sdk.versions.dxCom} · dx-rt ${t.sdk.versions.dxRt}</p>` : ''}
+        ${t.sdk.versions ? `<p class="about-sdk-versions about-fade-in">${[t.sdk.versions.dxCom ? 'dx-com ' + t.sdk.versions.dxCom : '', t.sdk.versions.dxRt ? 'dx-rt ' + t.sdk.versions.dxRt : ''].filter(Boolean).join(' · ')}</p>` : ''}
         <div class="about-sdk-links about-fade-in">
           ${t.sdk.startHere ? `<a class="about-start-here" href="${t.sdk.startHere.url}" target="_blank" rel="noopener noreferrer">${L(t.sdk.startHere.label)} →</a>` : ''}
           ${t.sdk.productUrl ? `<a class="about-start-here about-start-here--secondary" href="${t.sdk.productUrl}" target="_blank" rel="noopener noreferrer">${T({en:'Product page', ko:'제품 페이지', ja:'製品ページ', 'zh-CN':'产品页面', 'zh-TW':'產品頁面', es:'Página del producto'})} →</a>` : ''}

@@ -542,11 +542,16 @@ ul.about-timeline-list li::before {
   flex: 0 0 auto;
 }
 .about-sdk-env-fig {
-  margin: 20px 0 0;
+  /* two diagrams side by side (environments + SDK architecture) via a 2-col grid that drops to
+     one column when narrow; bottom margin keeps the stats/release/links from butting up below. */
+  margin: 20px 0 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  align-items: start;
 }
 .about-sdk-env-fig img {
   width: 100%;
-  max-width: 900px;
   height: auto;
   display: block;
   border-radius: var(--radius);
