@@ -91,12 +91,29 @@ port-collision retry, and ephemeral-port reporting via `DX_PORT_FILE`.
 - **`shared/chat/`** — `ChatEngine` powers the per-module "DX Chat" assistant.
   Providers: OpenAI, Anthropic, Google (Gemini), a local OpenAI-compatible endpoint,
   and an `agent-cli` backend. Rule-based `FallbackEngine` answers when no key is set.
-  Module knowledge lives in `shared/chat/knowledge/*.md`.
+  Module knowledge lives in `shared/chat/knowledge/*.md` and is auto-synced from the
+  suite docs — no manual regen. The launcher pre-syncs it once, unconditionally, at
+  boot (single writer, before any module starts); `ChatEngine.stream()` also does a
+  lazy, env-gated (`DX_CHAT_KNOWLEDGE_SYNC=1`) fallback sync for a module server run
+  standalone without the launcher. Both paths call `knowledge_sync.sync_if_stale()`,
+  which writes atomically (temp file + `os.replace()`).
 - **`shared/hardware.py`** — `get_hw()` / `get_sysinfo()` collect NPU telemetry (via
   the `dx_engine` SDK + the `dx_npu_stats` helper binary) plus CPU/memory/disk from
   `/proc`. Falls back to synthetic mock data when no NPU/SDK is present.
 - **`shared/static/`** — the 6-language i18n runtime (`i18n.js`, `window.DXI18n`),
   unified toolbar, tutorial engine, and design-token CSS (`dx-tokens/base/utilities`).
+
+## DX Agent Dev
+
+`dx_agent_dev` drives installed, authenticated coding-agent CLIs headlessly and
+streams their output into the browser console. Five CLI adapters live under
+`dx_agent_dev/core/adapters/`: `claude.py`, `copilot.py`, `codex.py`, `cursor.py`,
+`opencode.py` (plus a `mock.py` used under `DX_AGENT_ADAPTER=mock` for closed-net/CI
+runs). Cursor and OpenCode enumerate models dynamically (`cursor-agent
+--list-models`, `opencode models`); both fall back to a static table in
+`dx_agent_dev/core/agents_config.py` when the dynamic call fails or times out. It
+depends on the `.deepx` harness (agent knowledge/skills) resolved via
+`DX_HARNESS_ROOT` — see [`development.md`](development.md#environment-variables).
 
 ## Where it sits in dx-all-suite
 
