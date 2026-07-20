@@ -308,7 +308,9 @@ class AgentDevHandler(DXBaseHandler):
             if adapter is None:
                 return self.send_error_json(400, "unknown agent")
             if not forced:
-                available = {a["name"] for a in environment.detect_available_agents()}
+                # Reuse the agents list detect_environment() already computed above
+                # instead of calling detect_available_agents() a second time.
+                available = {a["name"] for a in env.get("agents", [])}
                 if agent not in available:
                     return self.send_error_json(400, "unknown agent")
         if forced:

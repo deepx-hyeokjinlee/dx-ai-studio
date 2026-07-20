@@ -86,14 +86,21 @@ def detect_available_agents():
 
 
 def detect_environment():
-    """실행 가능 여부 판정. DX_AGENT_ADAPTER=mock이면 Mock 강제(검증용, spec §5.4)."""
+    """실행 가능 여부 판정. DX_AGENT_ADAPTER=mock이면 Mock 강제(검증용, spec §5.4).
+
+    반환값에 "agents"(detect_available_agents() 결과)를 포함한다 — 호출부가 같은
+    요청 안에서 detect_available_agents()를 다시 부르지 않고 이 값을 재사용할 수
+    있도록(중복 계산 제거). forced_mock 조기 반환 경로는 원래도 이 계산을 건너뛰므로
+    "agents" 키를 넣지 않는다(호출부는 forced_mock일 때 이 키를 쓰지 않는다).
+    """
     if os.environ.get("DX_AGENT_ADAPTER") == "mock":
         return {"available": True, "forced_mock": True, "cli": None,
                 "harness_dirs": [], "reason": None}
     cli = shutil.which(COPILOT_BIN)
     # 설치된 에이전트가 하나라도 있으면 사용 가능(copilot 전용 게이트 제거 — claude/codex/cursor/opencode 포함).
     # detect_available_agents()는 copilot도 포함하므로 cli는 표시/기본값 용도로만 유지.
-    has_agent = bool(detect_available_agents()) or bool(cli)
+    agents = detect_available_agents()
+    has_agent = bool(agents) or bool(cli)
     harness = find_harness_dirs()
     if not has_agent:
         reason = "cli_missing"
@@ -107,4 +114,5 @@ def detect_environment():
         "cli": cli,
         "harness_dirs": [str(h) for h in harness],
         "reason": reason,
+        "agents": agents,
     }
