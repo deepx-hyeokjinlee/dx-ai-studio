@@ -1,6 +1,6 @@
 /**
  * DX Compiler — 5개 멀티 튜토리얼
- * Quick Start | Graph Viewer | Config Wizard | Advanced | AI Assist
+ * Quick Start | Graph Viewer | Config Wizard | Advanced | Agentic Auto Compile
  * 6-language support (ko/en/ja/zh-CN/zh-TW/es)
  *
  * 수정 이력:
@@ -9,6 +9,7 @@
  *  - 위자드 스텝 네비게이션(wizGoTo) 연동
  *  - 채팅 위젯 셀렉터 수정 (.chat-widget-toggle → .dx-chat-fab)
  *  - 미커버 기능 스텝 추가 (zoom, expand-all, wizard-close 등)
+ *  - 챗봇 위젯 스텝(quick-start 마지막 단계, ai-assist 섹션 전체) 제거 → 런처 튜토리얼로 통합
  */
 (function () {
   'use strict';
@@ -117,9 +118,6 @@
     { target: '#save-summary-btn', position: 'left',
       title: { en: 'Summary', ko: '모델 요약', ja: 'モデルサマリー', 'zh-CN': '模型摘要', 'zh-TW': '模型摘要', es: 'Resumen' },
       content: { en: 'Save model summary as HTML after compilation.', ko: '컴파일 완료 후 모델 요약을 HTML로 저장합니다.', ja: 'コンパイル完了後にモデルサマリーをHTMLとして保存します。', 'zh-CN': '编译完成后将模型摘要保存为HTML。', 'zh-TW': '編譯完成後將模型摘要儲存為HTML。', es: 'Guarde el resumen del modelo como HTML tras la compilación.' } },
-    { target: '.dx-chat-fab', position: 'top',
-      title: { en: 'AI Assistant', ko: 'AI 도우미', ja: 'AIアシスタント', 'zh-CN': 'AI助手', 'zh-TW': 'AI助手', es: 'Asistente de IA' },
-      content: { en: 'Ask the AI assistant for help.', ko: '궁금한 점은 AI 도우미에게 질문하세요.', ja: 'AIアシスタントに質問してください。', 'zh-CN': '向AI助手寻求帮助。', 'zh-TW': '向AI助手尋求協助。', es: 'Consulte al asistente de IA si necesita ayuda.' } },
   ];
 
   var graphViewerSteps = [
@@ -280,19 +278,6 @@
       content: { ko: '에이전트가 각 단계마다 확인을 거치며 대화형으로 진행합니다. 세밀한 제어가 필요할 때 사용하세요.', en: 'The agent proceeds interactively, confirming at each step. Use this for finer control.', ja: 'エージェントが各ステップで確認しながら対話型で進みます。細かい制御が必要な場合に使用してください。', 'zh-CN': '智能体在每个步骤进行确认，以交互方式进行。需要精细控制时使用。', 'zh-TW': '代理程式在每個步驟進行確認，以互動方式進行。需要精細控制時使用。', es: 'El agente avanza de forma interactiva, confirmando en cada paso. Úselo para un control más preciso.' } },
   ];
 
-  var aiAssistSteps = [
-    { target: '.dx-chat-fab', position: 'top',
-      title: { en: 'AI Assistant', ko: 'AI 도우미', ja: 'AIアシスタント', 'zh-CN': 'AI 助手', 'zh-TW': 'AI 助手', es: 'Asistente de IA' },
-      content: { en: 'Open the chat FAB anytime to ask about compile settings, logs, or results.', ko: '컴파일 설정·로그·결과에 대해 언제든 AI 채팅을 열 수 있습니다.', ja: 'コンパイル設定・ログ・結果について、いつでも AI チャットを開けます。', 'zh-CN': '随时打开聊天 FAB，询问编译设置、日志或结果。', 'zh-TW': '隨時開啟聊天 FAB，詢問編譯設定、日誌或結果。', es: 'Abra el chat FAB en cualquier momento para preguntar sobre ajustes, registros o resultados.' } },
-    { target: '#log-panel', position: 'top',
-      title: { en: 'Explain error', ko: '에러 설명', ja: 'エラー説明', 'zh-CN': '解释错误', 'zh-TW': '解釋錯誤', es: 'Explicar error' },
-      content: { en: 'After a failed compile, open the AI chat to ask for an explanation of the error.', ko: '컴파일 실패 후 AI 채팅을 열어 에러 설명을 요청합니다.', ja: 'コンパイル失敗後、AI チャットを開いてエラー説明を依頼します。', 'zh-CN': '编译失败后，打开 AI 聊天询问错误解释。', 'zh-TW': '編譯失敗後，開啟 AI 聊天詢問錯誤解釋。', es: 'Tras un fallo de compilación, abra el chat de IA para pedir una explicación del error.' },
-      beforeStep: function () {
-        var lp = document.getElementById('log-panel');
-        if (lp && lp.style.display === 'none') lp.style.display = '';
-      } },
-  ];
-
   function getLang() {
     return (window.DXI18n && DXI18n.lang) ? DXI18n.lang : (localStorage.getItem('dx-lang') || 'en');
   }
@@ -328,10 +313,6 @@
         title: { ko: '🤖 에이전트 자동 컴파일', en: '🤖 Agentic Auto Compile', ja: '🤖 エージェント自動コンパイル', 'zh-CN': '🤖 智能体自动编译', 'zh-TW': '🤖 代理程式自動編譯', es: '🤖 Compilación con agente' },
         description: { ko: '.deepx 에이전트로 모델 다운로드·변환·컴파일·검증을 자동화합니다', en: 'Automate model download, conversion, compilation and verification with .deepx agents', ja: '.deepx エージェントでモデルの取得・変換・コンパイル・検証を自動化します', 'zh-CN': '使用 .deepx 智能体自动化模型下载、转换、编译和验证', 'zh-TW': '使用 .deepx 代理程式自動化模型下載、轉換、編譯和驗證', es: 'Automatice la descarga, conversión, compilación y verificación de modelos con agentes .deepx' },
         steps: agenticAutoCompileSteps },
-      { id: 'ai-assist', icon: '💬',
-        title: { en: '💬 AI Assist', ko: '💬 AI Assist', ja: '💬 AI Assist', 'zh-CN': '💬 AI Assist', 'zh-TW': '💬 AI Assist', es: '💬 AI Assist' },
-        description: { en: 'Explain errors, suggest fixes, Autopilot, and contextual AI', ko: '에러 설명, 수정 제안, Autopilot, 맥락형 AI', ja: 'エラー説明、修正提案、Autopilot、コンテキスト AI', 'zh-CN': '解释错误、建议修复、Autopilot 与上下文 AI', 'zh-TW': '解釋錯誤、建議修復、Autopilot 與上下文 AI', es: 'Explicar errores, sugerir correcciones, Autopilot e IA contextual' },
-        steps: aiAssistSteps },
     ],
   });
 })();

@@ -13,18 +13,13 @@ TEMPLATES = APP / "templates"
 JS_DIR = APP / "static" / "js"
 
 RUNTIME_SELECTOR_ALLOWLIST = {
-    ".dx-chat-fab",
-    ".dx-chat-window",
-    ".dx-chat-input",
-    ".dx-chat-input-area",
-    ".dx-chat-suggestions",
     "#dxToolbar",
     "#langToggle",
     ".rec-card",
     '[data-help-id^="planner-size-"]',
 }
 
-EXPECTED_SECTION_IDS = ["overview", "requirements", "recommendations", "details", "chat"]
+EXPECTED_SECTION_IDS = ["overview", "requirements", "recommendations", "details"]
 
 TARGET_LANGS = ("ko", "ja", "zh-CN", "zh-TW", "es")
 

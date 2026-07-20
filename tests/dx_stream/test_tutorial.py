@@ -15,10 +15,6 @@ JS_DIR = APP / "static" / "js"
 RUNTIME_SELECTOR_ALLOWLIST = {
     "#langToggle",
     "#dxToolbar",
-    ".dx-chat-fab",
-    ".dx-chat-window",
-    ".dx-chat-input-area",
-    ".dx-chat-suggestions",
     "button[onclick*=\"custom.upload\"]",
     'button[onclick*="build"]',
     'button[onclick*="runtime-deps"]',
@@ -55,7 +51,6 @@ EXPECTED_SECTION_IDS = [
     "elements",
     "setup",
     "custom",
-    "chat",
 ]
 
 TARGET_LANGS = ("ko", "ja", "zh-CN", "zh-TW", "es")

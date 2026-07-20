@@ -10,11 +10,6 @@ TEMPLATES = APP / "templates"
 JS_DIR = APP / "static" / "js"
 
 RUNTIME_SELECTOR_ALLOWLIST = {
-    ".dx-chat-fab",
-    ".dx-chat-window",
-    ".dx-chat-input",
-    ".dx-chat-input-area",
-    ".dx-chat-suggestions",
     "#dxToolbar",
     '[data-page="lab"]',
     '[id^="b-input-"]',
@@ -43,7 +38,6 @@ EXPECTED_SECTION_IDS = [
     "modelzoo",
     "compiler",
     "outputs",
-    "chat",
     "global",
     "developer",
 ]

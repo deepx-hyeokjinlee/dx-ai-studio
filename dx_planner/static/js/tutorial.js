@@ -232,17 +232,6 @@
           content: { ko: '선택 플랫폼의 시스템 가격·채널당 비용 요약과 DEEPX 제품 정보·견적 문의 링크입니다.', en: 'System price and per-channel cost summary plus DEEPX product info and quote links.', ja: '選択プラットフォームのシステム価格・チャンネル単価の概要と DEEPX 製品情報・見積リンクです。', 'zh-CN': '所选平台的系统价格与每通道成本摘要，以及 DEEPX 产品信息与询价链接。', 'zh-TW': '所選平台的系統價格與每通道成本摘要，以及 DEEPX 產品資訊與詢價連結。', es: 'Resumen de precio del sistema y costo por canal, más enlaces de producto y cotización DEEPX.' } }
       ]
     },
-
-    { id: 'chat', icon: '💬',
-      title: { ko: '💬 AI 도움말', en: '💬 AI Help', ja: '💬 AIヘルプ', 'zh-CN': '💬 AI帮助', 'zh-TW': '💬 AI說明', es: '💬 Ayuda con IA' },
-      description: { ko: '추천 결과를 바탕으로 질문하기', en: 'Ask questions based on recommendation results', ja: '推奨結果に基づいて質問', 'zh-CN': '基于推荐结果提问', 'zh-TW': '基於推薦結果提問', es: 'Formule preguntas basadas en los resultados de la recomendación' },
-      beforeStart: ensureWorkspaceDetail,
-      steps: [
-        { target: '.dx-chat-fab', position: 'left',
-          title: { ko: '챗봇 열기', en: 'Open chat', ja: 'チャットを開く', 'zh-CN': '打开聊天', 'zh-TW': '開啟聊天', es: 'Abrir chat' },
-          content: { ko: '선택한 조건과 추천 결과에 대해 추가 질문을 할 수 있습니다.', en: 'Ask follow-up questions about the selected requirements and recommendation results.', ja: '選択条件と推奨結果について追加質問できます。', 'zh-CN': '可针对所选条件和推荐结果继续提问。', 'zh-TW': '可針對所選條件和推薦結果繼續提問。', es: 'Puede formular preguntas adicionales sobre los requisitos seleccionados y los resultados de la recomendación.' } }
-      ]
-    }
   ];
 var referenceDocs = [
     { id: 'ref-workspace', icon: '🔄',

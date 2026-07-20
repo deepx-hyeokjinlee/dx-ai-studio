@@ -477,30 +477,6 @@
       ]
     },
 
-    { id:'chat', icon:'💬',
-      title:{ ko: '💬 DX Chat (AI 챗봇)', en: '💬 DX Chat (AI Chatbot)', ja: '💬 DX Chat（AIチャットボット）', 'zh-CN': '💬 DX Chat（AI聊天机器人）', 'zh-TW': '💬 DX Chat（AI聊天機器人）', es: '💬 DX Chat (AI Chatbot)' },
-      description:{ ko: 'AI 챗봇에게 모델, SDK, 컴파일에 대해 질문', en: 'Ask AI chatbot about models, SDK, and compilation', ja: 'AIチャットボットにモデル・SDK・コンパイルについて質問', 'zh-CN': '向AI聊天机器人询问模型、SDK和编译相关问题', 'zh-TW': '向AI聊天機器人詢問模型、SDK和編譯相關問題', es: 'Consulte al chatbot de IA sobre modelos, SDK y compilación' },
-      beforeStart:function(){},
-      steps:[
-        { target:'.dx-chat-fab', position:'left',
-          title:{ ko: '💬 챗봇 열기', en: '💬 Open Chatbot', ja: '💬 チャットボットを開く', 'zh-CN': '💬 打开聊天机器人', 'zh-TW': '💬 開啟聊天機器人', es: '💬 Abrir chatbot' },
-          content:{ ko: '화면 우하단의 <strong>💬 버튼</strong>을 클릭하면 DX Assistant 챗봇 창이 열립니다.', en: 'Click the <strong>💬 button</strong> at bottom-right to open the DX Assistant chatbot window.', ja: '右下の<strong>💬 ボタン</strong>をクリックしてDX Assistantチャットボットウィンドウを開きます。', 'zh-CN': '点击右下角的<strong>💬 按钮</strong>打开DX Assistant聊天机器人窗口。', 'zh-TW': '點擊右下角的<strong>💬 按鈕</strong>開啟DX Assistant聊天機器人視窗。', es: 'Haga clic en el <strong>botón 💬</strong> abajo a la derecha para abrir la ventana del asistente DX.' } },
-        { target:'.dx-chat-suggestions', position:'left',
-          title:{ ko: '추천 질문', en: 'Suggested Questions', ja: 'おすすめの質問', 'zh-CN': '推荐问题', 'zh-TW': '推薦問題', es: 'Preguntas sugeridas' },
-          content:{ ko: '자주 묻는 <strong>추천 질문 버튼</strong>이 표시됩니다. 클릭하면 해당 질문이 자동 입력되어 바로 답변을 받을 수 있습니다. DeepX 플랫폼 관련 일반적인 질문들이 포함되어 있습니다.', en: '<strong>Suggested question buttons</strong> for common queries. Click to auto-input and get immediate answers about the DeepX platform.', ja: 'よくある質問の<strong>候補ボタン</strong>です。クリックすると自動入力され、DeepXプラットフォームについて即座に回答を得られます。', 'zh-CN': '常见问题的<strong>推荐问题按钮</strong>。点击自动输入并立即获取关于DeepX平台的回答。', 'zh-TW': '常見問題的<strong>推薦問題按鈕</strong>。點擊自動輸入並立即獲取關於DeepX平台的回答。', es: '<strong>Botones de preguntas sugeridas</strong> para consultas habituales. Haga clic para introducir automáticamente y obtener respuestas inmediatas sobre la plataforma DeepX.' },
-          beforeStep:function(){ var fab=document.querySelector('.dx-chat-fab'); if(fab && !document.querySelector('.dx-chat-window.open')) fab.click(); } },
-        { target:'.dx-chat-input', position:'left',
-          title:{ ko: '질문 입력', en: 'Enter Question', ja: '質問を入力', 'zh-CN': '输入问题', 'zh-TW': '輸入問題', es: 'Introducir pregunta' },
-          content:{ ko: '하단 입력란에 <strong>자유 형식으로 질문</strong>을 입력하고 <strong>전송 버튼</strong>을 클릭하세요. 모델·SDK·컴파일러·하드웨어에 대한 다양한 질문에 답변합니다.', en: 'Type your <strong>question freely</strong> in the input field and click <strong>Send</strong>. Answers questions about models, SDK, compiler, and hardware.', ja: '入力フィールドに<strong>自由に質問</strong>を入力し、<strong>Send</strong>をクリックします。モデル、SDK、コンパイラ、ハードウェアについて回答します。', 'zh-CN': '在输入框中<strong>自由输入问题</strong>，然后点击<strong>Send</strong>。回答关于模型、SDK、编译器和硬件的问题。', 'zh-TW': '在輸入框中<strong>自由輸入問題</strong>，然後點擊<strong>Send</strong>。回答關於模型、SDK、編譯器和硬體的問題。', es: 'Escriba su <strong>pregunta libremente</strong> en el campo de entrada y haga clic en <strong>Send</strong>. Responde sobre modelos, SDK, compilador y hardware.' },
-          beforeStep:function(){ var fab=document.querySelector('.dx-chat-fab'); if(fab && !document.querySelector('.dx-chat-window.open')) fab.click(); } },
-        { target:'.dx-chat-window', position:'left',
-          title:{ ko: '챗봇 창', en: 'Chat Window', ja: 'チャットウィンドウ', 'zh-CN': '聊天窗口', 'zh-TW': '聊天視窗', es: 'Ventana de chat' },
-          content:{ ko: '챗봇 설정(⚙️)에서 <strong>AI 제공자</strong>(OpenAI·Anthropic·로컬 등)를 선택하고, 하단 입력란에 질문을 입력하세요. <strong>추천 질문</strong>이 제공되며, DeepX 플랫폼의 모델·SDK·컴파일러에 대한 다양한 질문에 답변합니다.', en: 'Choose an <strong>AI provider</strong> (OpenAI, Anthropic, local, etc.) in chat settings (⚙️), then type questions below. <strong>Suggested questions</strong> provided. Answers about DeepX models, SDK, compiler, etc.', ja: 'チャット設定(⚙️)で<strong>AIプロバイダー</strong>（OpenAI・Anthropic・ローカル等）を選択し、下部に質問を入力します。<strong>おすすめの質問</strong>が提供されています。DeepXのモデル、SDK、コンパイラ等について回答します。', 'zh-CN': '在聊天设置(⚙️)中选择<strong>AI提供商</strong>（OpenAI、Anthropic、本地等），然后在下方输入问题。提供<strong>推荐问题</strong>。回答关于DeepX模型、SDK、编译器等的问题。', 'zh-TW': '在聊天設定(⚙️)中選擇<strong>AI供應商</strong>（OpenAI、Anthropic、本機等），然後在下方輸入問題。提供<strong>推薦問題</strong>。回答關於DeepX模型、SDK、編譯器等的問題。', es: 'Elija un <strong>proveedor de IA</strong> (OpenAI, Anthropic, local, etc.) en la configuración del chat (⚙️) y escriba preguntas abajo. Se ofrecen <strong>preguntas sugeridas</strong>. Responde sobre modelos DeepX, SDK, compilador, etc.' },
-          beforeStep:function(){ var fab=document.querySelector('.dx-chat-fab'); if(fab && !document.querySelector('.dx-chat-window.open')) fab.click(); },
-          afterStep:function(){ _closeChatWindow(); } },
-      ]
-    },
-
     { id:'global', icon:'🌐',
       title:{ ko: '🌐 글로벌 UI 요소', en: '🌐 Global UI Elements', ja: '🌐 グローバルUI要素', 'zh-CN': '🌐 全局UI元素', 'zh-TW': '🌐 全域UI元素', es: '🌐 Elementos globales de la interfaz' },
       description:{ ko: '사이드바, 상단 바, 알림, NPU 모니터 등', en: 'Sidebar, top bar, notifications, NPU monitor', ja: 'サイドバー、トップバー、通知、NPUモニター', 'zh-CN': '侧边栏、顶部栏、通知、NPU监控', 'zh-TW': '側邊欄、頂部列、通知、NPU監控', es: 'Barra lateral, barra superior, notificaciones, monitor NPU' },

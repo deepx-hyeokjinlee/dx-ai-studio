@@ -14,10 +14,6 @@ TEMPLATES = APP / "templates"
 JS_DIR = APP / "static" / "js"
 
 RUNTIME_SELECTOR_ALLOWLIST = {
-    ".dx-chat-fab",
-    ".dx-chat-window",
-    ".dx-chat-input",
-    ".dx-chat-input-area",
     ".edgeguide-link",
     ".trend-link",
     "#dxToolbar",
@@ -33,7 +29,6 @@ EXPECTED_SECTION_IDS = [
     "run-cli",
     "settings",
     "edgeguide-link",
-    "chat",
 ]
 
 TARGET_LANGS = ("ko", "ja", "zh-CN", "zh-TW", "es")
