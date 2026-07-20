@@ -962,58 +962,6 @@
   "products": {
     "chips": [
       {
-        "name": "DX-M2",
-        "type": {
-          "en": "Gen AI NPU (In Development)",
-          "ko": "Gen AI NPU (개발 중)",
-          "ja": "Gen AI NPU（開発中）",
-          "zh-CN": "Gen AI NPU（开发中）",
-          "zh-TW": "Gen AI NPU（開發中）",
-          "es": "NPU Gen AI (en desarrollo)"
-        },
-        "tops": "Up to 20B-param MoE @ 20–30 tokens/s",
-        "power": "sub-5W",
-        "memory": {
-          "en": "2nm process",
-          "ko": "2nm 공정",
-          "ja": "2nmプロセス",
-          "zh-CN": "2nm制程",
-          "zh-TW": "2nm製程",
-          "es": "Proceso 2nm"
-        },
-        "interface": "PCIe",
-        "form": {
-          "en": "LLM on-device",
-          "ko": "온디바이스 LLM",
-          "ja": "オンデバイスLLM",
-          "zh-CN": "端侧LLM",
-          "zh-TW": "端側LLM",
-          "es": "LLM en dispositivo"
-        },
-        "designPartner": "Gaonchips",
-        "architecture": "Transformer/MoE-optimized",
-        "notes": [
-          {
-            "en": "Samsung 2nm GAA — first AI customer",
-            "ko": "삼성 2nm GAA — 첫 AI 고객사",
-            "ja": "Samsung 2nm GAA — 初のAI顧客",
-            "zh-CN": "三星2nm GAA — 首位AI客户",
-            "zh-TW": "三星2nm GAA — 首位AI客戶",
-            "es": "Samsung 2nm GAA — primer cliente de IA"
-          }
-        ],
-        "badge": {
-          "en": "Roadmap",
-          "ko": "로드맵",
-          "ja": "ロードマップ",
-          "zh-CN": "路线图",
-          "zh-TW": "路線圖",
-          "es": "Hoja de ruta"
-        },
-        "specUrl": "https://deepx.ai/product/dx-m2/",
-        "image": "/static/img/about/products/dx-m2.png"
-      },
-      {
         "name": "DX-M1",
         "type": {
           "en": "AI Accelerator",
