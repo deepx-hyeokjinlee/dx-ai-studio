@@ -601,6 +601,33 @@ function renderCompileGuide(model) {
   return html;
 }
 
+function _modelzooLauncherLaunch() {
+  // Mirrors dx_benchmark/static/js/dashboard.js:_launcherLaunch() — when running
+  // inside the launcher iframe, the parent frame exposes a global `launch(app, query)`
+  // that switches the launcher shell to another module without leaving the page.
+  const candidates = [window.parent, window.top];
+  for (let i = 0; i < candidates.length; i++) {
+    const w = candidates[i];
+    if (w && w !== window && typeof w.launch === 'function') return w.launch.bind(w);
+  }
+  return null;
+}
+
+function _navigateToCompilerGraph(viewerPath) {
+  const query = viewerPath ? new URLSearchParams({ viewer_path: viewerPath }).toString() : '';
+  const launchFn = _modelzooLauncherLaunch();
+  if (launchFn) {
+    launchFn('compiler', query);
+    return;
+  }
+  // Standalone (no parent launcher): fall back to the previous new-tab behavior.
+  if (viewerPath) {
+    window.open('/compiler/?viewer_path=' + encodeURIComponent(viewerPath), '_blank', 'noopener');
+  } else {
+    window.open('/compiler/', '_blank', 'noopener');
+  }
+}
+
 function openModelzooGraph(modelId) {
   // DX-TRON removed this release → open the model's ONNX graph in the dx-compiler viewer.
   // Resolve the absolute local ONNX path first; if it isn't downloaded, fall back to opening
@@ -609,12 +636,12 @@ function openModelzooGraph(modelId) {
     .then((r) => r.json())
     .then((j) => {
       if (j && j.ok && j.path) {
-        window.open('/compiler/?viewer_path=' + encodeURIComponent(j.path), '_blank', 'noopener');
+        _navigateToCompilerGraph(j.path);
       } else {
-        window.open('/compiler/', '_blank', 'noopener');
+        _navigateToCompilerGraph(null);
       }
     })
-    .catch(() => window.open('/compiler/', '_blank', 'noopener'));
+    .catch(() => _navigateToCompilerGraph(null));
 }
 
 function openInferencePanelFromDemo() {
