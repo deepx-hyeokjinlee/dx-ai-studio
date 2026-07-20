@@ -18,7 +18,7 @@
     },
     "stats": [
       {
-        "value": "500+ / 100+",
+        "value": "400+ / 130+",
         "label": {
           "en": "Patents Filed / Granted",
           "ko": "특허 출원 / 등록",
@@ -29,7 +29,7 @@
         }
       },
       {
-        "value": "30+ / 8+",
+        "value": "48+ / 8+",
         "label": {
           "en": "Commercial Orders / Countries",
           "ko": "상용 발주 / 국가",
@@ -628,7 +628,7 @@
         }
       },
       "release": {
-        "version": "v2.3.0",
+        "version": "v2.3.3",
         "summary": {
           "en": "Runtime efficiency, security hardening, unified application architecture.",
           "ko": "런타임 효율, 보안 강화, 통합 애플리케이션 아키텍처.",
@@ -1031,7 +1031,14 @@
           "es": "PCIe de perfil bajo"
         },
         "channels": "64 decode / 32 encode (1080p30)",
-        "savings": "80% cost / 85% power vs GPU",
+        "savings": {
+          "en": "82% cost / 85% power vs GPU",
+          "ko": "GPU 대비 비용 82% · 전력 85% 절감",
+          "ja": "GPU比でコスト82%・電力85%削減",
+          "zh-CN": "相比GPU节省82%成本 / 85%功耗",
+          "zh-TW": "相比GPU節省82%成本 / 85%功耗",
+          "es": "82% menos costo / 85% menos consumo vs GPU"
+        },
         "badge": "64CH Decode"
       }
     ],
@@ -1996,7 +2003,7 @@
           "zh-TW": "DEEPX任命前NXP總監Jaedoo Jun為美國子公司負責人",
           "es": "DEEPX nombra al exdirector de NXP Jaedoo Jun como responsable de su filial en EE. UU."
         },
-        "date": "2026",
+        "date": "2025.03",
         "type": "news",
         "url": "https://deepx.ai/deepx-appoints-former-nxp-product-marketing-director-jaedoo-jun-as-head-of-u-s-subsidiary-aims-to-rapidly-expand-global-on-device-ai-market-presence-and-accelerate-revenue-generation/"
       },
