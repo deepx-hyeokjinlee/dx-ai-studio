@@ -498,25 +498,17 @@ ul.about-timeline-list li::before {
   letter-spacing: 0.5px;
   margin-bottom: 10px;
 }
-.about-sdk-env {
-  margin-top: 20px;
+.about-sdk-env-fig {
+  margin: 20px 0 0;
 }
-.about-sdk-env-row {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-.about-sdk-env-label {
-  flex: 0 0 90px;
-  font: 600 12px/1 var(--font);
-  color: var(--about-text-muted);
-}
-.about-sdk-env-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-2);
+.about-sdk-env-fig img {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--about-card-border);
+  background: #ffffff;
 }
 
 /* ── 9. Products Section ── */
