@@ -165,6 +165,12 @@
         <div class="about-quote-author">— ${c.vision_quote.author}</div>
       </div>
 
+      ${c.vision ? `
+      <div class="about-quote about-fade-in">
+        <div class="about-quote-text">${L(c.vision.statement)}</div>
+        <div class="about-quote-author">— ${L(c.vision.label)}${c.vision.source ? `, ${c.vision.source}` : ''}</div>
+      </div>` : ''}
+
       <p class="about-overview-text about-fade-in">${L(c.overview)}</p>
 
       <div class="about-values-grid">
@@ -176,6 +182,18 @@
           </div>
         `).join('')}
       </div>
+
+      ${c.culture ? `
+      <h3 class="about-tech-title about-fade-in">${L(c.culture.title)}</h3>
+      <p class="about-tech-desc about-fade-in">${L(c.culture.subtitle)}</p>
+      <div class="about-values-grid">
+        ${c.culture.items.map(v => `
+          <div class="about-value-card about-fade-in">
+            <div class="about-value-title">${L(v.name)}</div>
+            <div class="about-value-desc">${L(v.desc)}</div>
+          </div>
+        `).join('')}
+      </div>` : ''}
 
       <h3 class="about-tech-title about-fade-in">${T({en:'Milestones', ko:'마일스톤', ja:'マイルストーン', 'zh-CN':'里程碑', 'zh-TW':'里程碑', es:'Hitos'})}</h3>
       <div class="about-timeline about-fade-in">
@@ -286,7 +304,10 @@
         </div>
         ${t.sdk.release ? `<p class="about-sdk-release about-fade-in"><strong>${t.sdk.release.version}</strong> — ${L(t.sdk.release.summary)}</p>` : ''}
         ${t.sdk.versions ? `<p class="about-sdk-versions about-fade-in">dx-com ${t.sdk.versions.dxCom} · dx-rt ${t.sdk.versions.dxRt}</p>` : ''}
-        ${t.sdk.startHere ? `<a class="about-start-here about-fade-in" href="${t.sdk.startHere.url}" target="_blank" rel="noopener noreferrer">${L(t.sdk.startHere.label)} →</a>` : ''}
+        <div class="about-sdk-links about-fade-in">
+          ${t.sdk.startHere ? `<a class="about-start-here" href="${t.sdk.startHere.url}" target="_blank" rel="noopener noreferrer">${L(t.sdk.startHere.label)} →</a>` : ''}
+          ${t.sdk.productUrl ? `<a class="about-start-here about-start-here--secondary" href="${t.sdk.productUrl}" target="_blank" rel="noopener noreferrer">${T({en:'Product page', ko:'제품 페이지', ja:'製品ページ', 'zh-CN':'产品页面', 'zh-TW':'產品頁面', es:'Página del producto'})} →</a>` : ''}
+        </div>
       </div>
     `;
     container.appendChild(el);
@@ -316,6 +337,7 @@
 
     function productCard(item) {
       let html = `<div class="about-product-card ${item.highlight ? 'highlight' : ''} about-fade-in">
+        ${item.image ? `<div class="about-product-image-wrap"><img class="about-product-image" src="${item.image}" alt="${item.name}" loading="lazy"></div>` : ''}
         <div class="about-product-name">${item.name}</div>
         <div class="about-product-type">${L(item.type)}</div>
         <div class="about-product-spec"><span class="about-product-spec-label">${T({en:'Performance', ko:'성능', ja:'性能', 'zh-CN':'性能', 'zh-TW':'效能', es:'Rendimiento'})}</span><span class="about-product-spec-value">${item.tops}</span></div>
@@ -333,6 +355,16 @@
         html += `<div class="about-product-notes">${item.notes.map(function (n) { return `<div class="about-product-note">${L(n)}</div>`; }).join('')}</div>`;
       }
       if (item.badge) html += `<div class="about-product-badge">${typeof item.badge === 'object' ? L(item.badge) : item.badge}</div>`;
+      if (item.specUrl || (item.buyUrl && item.buyLabel)) {
+        html += `<div class="about-product-links">`;
+        if (item.specUrl) {
+          html += `<a class="about-product-spec-link" href="${item.specUrl}" target="_blank" rel="noopener noreferrer">${T({en:'View Specs', ko:'스펙 보기', ja:'仕様を見る', 'zh-CN':'查看规格', 'zh-TW':'查看規格', es:'Ver especificaciones'})} →</a>`;
+        }
+        if (item.buyUrl && item.buyLabel) {
+          html += `<a class="about-product-buy-link" href="${item.buyUrl}" target="_blank" rel="noopener noreferrer">${L(item.buyLabel)}</a>`;
+        }
+        html += `</div>`;
+      }
       html += `</div>`;
       return html;
     }
