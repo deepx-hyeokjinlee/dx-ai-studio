@@ -924,6 +924,22 @@
   transition: opacity 0.2s;
 }
 .about-start-here:hover { opacity: 0.9; }
+.about-sdk-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.about-sdk-links .about-start-here { margin-top: 0; }
+.about-start-here--secondary {
+  color: var(--about-accent);
+  background: transparent;
+  border: 1px solid var(--about-card-border);
+}
+.about-start-here--secondary:hover {
+  opacity: 1;
+  border-color: var(--about-accent);
+  background: var(--about-accent-glow);
+}
 
 .about-alliance-block {
   margin: 32px 0 24px;

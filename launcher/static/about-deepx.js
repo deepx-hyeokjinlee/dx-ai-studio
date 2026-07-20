@@ -304,7 +304,10 @@
         </div>
         ${t.sdk.release ? `<p class="about-sdk-release about-fade-in"><strong>${t.sdk.release.version}</strong> — ${L(t.sdk.release.summary)}</p>` : ''}
         ${t.sdk.versions ? `<p class="about-sdk-versions about-fade-in">dx-com ${t.sdk.versions.dxCom} · dx-rt ${t.sdk.versions.dxRt}</p>` : ''}
-        ${t.sdk.startHere ? `<a class="about-start-here about-fade-in" href="${t.sdk.startHere.url}" target="_blank" rel="noopener noreferrer">${L(t.sdk.startHere.label)} →</a>` : ''}
+        <div class="about-sdk-links about-fade-in">
+          ${t.sdk.startHere ? `<a class="about-start-here" href="${t.sdk.startHere.url}" target="_blank" rel="noopener noreferrer">${L(t.sdk.startHere.label)} →</a>` : ''}
+          ${t.sdk.productUrl ? `<a class="about-start-here about-start-here--secondary" href="${t.sdk.productUrl}" target="_blank" rel="noopener noreferrer">${T({en:'Product page', ko:'제품 페이지', ja:'製品ページ', 'zh-CN':'产品页面', 'zh-TW':'產品頁面', es:'Página del producto'})} →</a>` : ''}
+        </div>
       </div>
     `;
     container.appendChild(el);
