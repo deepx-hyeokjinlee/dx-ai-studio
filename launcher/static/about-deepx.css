@@ -558,7 +558,7 @@ ul.about-timeline-list li::before {
   border-radius: var(--radius);
 }
 .about-sdk-env-fig img:nth-of-type(1) { flex: 1620 1 0; }  /* environments — trimmed so the left isn't bigger than the right */
-.about-sdk-env-fig img:nth-of-type(2) { flex: 1389 1 0; }  /* architecture 1500×1080 */
+.about-sdk-env-fig img:nth-of-type(2) { flex: 1389 1 0; margin-top: -14px; }  /* architecture 1500×1080 — nudged up slightly */
 
 /* ── 9. Products Section ── */
 .about-product-category {
