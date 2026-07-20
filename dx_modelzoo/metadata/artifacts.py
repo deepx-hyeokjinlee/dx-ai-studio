@@ -41,7 +41,10 @@ def safe_local_artifact_path(root: Path, relative_path: str) -> Path:
     if relative_path.startswith("/"):
         raise ValueError(f"unsafe_artifact_path: {relative_path!r}")
     resolved = (root / relative_path).resolve()
-    if not resolved.is_relative_to(root):
+    # Python 3.8-safe (Path.is_relative_to는 3.9+): relative_to + ValueError로 판정.
+    try:
+        resolved.relative_to(root)
+    except ValueError:
         raise ValueError("unsafe_artifact_path: resolved path escapes root")
     return resolved
 
