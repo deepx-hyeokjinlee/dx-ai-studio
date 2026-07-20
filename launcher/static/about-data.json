@@ -317,7 +317,42 @@
         },
         "address": "Room 910, Block B, Sunshine Yuehai Building, No. 3388 Canghai Road, Nanshan District, Shenzhen, Guangdong, China"
       }
-    ]
+    ],
+    "certifications": {
+      "title": {
+        "en": "Trust & Certifications",
+        "ko": "인증 및 신뢰",
+        "ja": "認証と信頼",
+        "zh-CN": "认证与信任",
+        "zh-TW": "認證與信任",
+        "es": "Confianza y certificaciones"
+      },
+      "subtitle": {
+        "en": "Independently certified for global compliance and quality, tracked on DEEPX's Trust Center.",
+        "ko": "글로벌 규정 준수와 품질을 위한 독립 인증으로, DEEPX Trust Center에서 관리됩니다.",
+        "ja": "グローバルなコンプライアンスと品質のための第三者認証。DEEPX Trust Centerで管理されています。",
+        "zh-CN": "通过独立认证，符合全球合规与质量标准，详见DEEPX Trust Center。",
+        "zh-TW": "通過獨立認證，符合全球合規與品質標準，詳見DEEPX Trust Center。",
+        "es": "Certificaciones independientes de cumplimiento y calidad global, gestionadas en el Trust Center de DEEPX."
+      },
+      "items": [
+        { "label": "ISO 9001", "detail": "Quality management system" },
+        { "label": "CE", "detail": "EN 55032 Class A, EN 55035" },
+        { "label": "FCC", "detail": "47 CFR Part 15B" },
+        { "label": "ISED", "detail": "ICES-003 Issue 7" },
+        { "label": "UKCA", "detail": "BS EN 55032 / BS EN 55035" },
+        { "label": "KC", "detail": "KS 9832 / KS 9835" },
+        { "label": "VCCI", "detail": "CISPR 32" }
+      ],
+      "longevity": {
+        "en": "10-year minimum product lifecycle",
+        "ko": "최소 10년 제품 수명주기 보장",
+        "ja": "最低10年間の製品ライフサイクルを保証",
+        "zh-CN": "至少10年产品生命周期保障",
+        "zh-TW": "至少10年產品生命週期保障",
+        "es": "Ciclo de vida mínimo de 10 años del producto"
+      }
+    }
   },
   "technology": {
     "iq8": {

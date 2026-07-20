@@ -199,6 +199,19 @@
         `).join('')}
       </div>
 
+      ${c.certifications ? `
+      <div class="about-alliance-block about-fade-in">
+        <h3 class="about-tech-title">${L(c.certifications.title)}</h3>
+        <p class="about-tech-desc">${L(c.certifications.subtitle)}</p>
+        <div class="about-partners-grid">
+          ${(c.certifications.items || []).map(function (it) {
+            var detail = it.detail ? L(it.detail) : '';
+            return `<div class="about-partner-chip"${detail ? ` title="${detail.replace(/"/g, '&quot;')}"` : ''}>${it.label}${detail ? `<span class="about-cert-detail"> — ${detail}</span>` : ''}</div>`;
+          }).join('')}
+        </div>
+        ${c.certifications.longevity ? `<p class="about-tech-desc about-cert-longevity">${L(c.certifications.longevity)}</p>` : ''}
+      </div>` : ''}
+
       ${data.contact ? `
       <div class="about-contact-block about-fade-in">
         <h3 class="about-tech-title">${L(data.contact.label)}</h3>
