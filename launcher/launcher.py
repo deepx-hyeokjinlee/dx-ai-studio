@@ -1453,6 +1453,20 @@ def main():
 
     _load_widget_cache()
 
+    # Pre-sync the shared SDK chat knowledge ONCE, here in the launcher process, before any
+    # module server starts. This is the single writer: knowledge_sync.generate() writes
+    # atomically (temp file + os.replace), but we still want exactly one process regenerating
+    # it rather than all 8 module servers racing to lazily resync on first chat. Module servers
+    # just read the already-fresh file (see shared/chat/engine.py's env-gated lazy fallback for
+    # the standalone-without-launcher case). Best-effort: never let a knowledge-sync failure
+    # block launcher boot.
+    try:
+        from shared.chat.knowledge_sync import sync_if_stale
+        if sync_if_stale():
+            print("  [Launcher] SDK chat knowledge resynced (sources changed).")
+    except Exception as _e:
+        print(f"  [Launcher] SDK chat knowledge sync skipped ({_e}).")
+
     boot_modules = {
         "DX App": APP_PORT, "DX Stream": STREAM_PORT,
         "DX Model Zoo": ZOO_PORT,

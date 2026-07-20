@@ -556,7 +556,7 @@
     if (!ev || ev.type === 'ping' || ev.hidden) return;
     switch (ev.type) {
       case 'degraded':
-        showDegradedGallery();
+        showDegradedGallery(ev);
         break;
       case 'message':
         noteRunOutput();
@@ -669,16 +669,75 @@
     }
   }
 
-  function showDegradedGallery() {
+  function _localized(obj, fallback) {
+    if (!obj) return fallback || '';
+    const lang = getLang();
+    return obj[lang] || obj.en || fallback || '';
+  }
+
+  /** Render `` `code` `` spans as <code> after escaping the rest — no full markdown needed here. */
+  function _renderInlineCode(text) {
+    const parts = String(text || '').split(/(`[^`]+`)/g);
+    return parts.map(function (p) {
+      if (p.length >= 2 && p[0] === '`' && p[p.length - 1] === '`') {
+        return '<code>' + esc(p.slice(1, -1)) + '</code>';
+      }
+      return esc(p);
+    }).join('');
+  }
+
+  function _buildInstallOptionsList(options) {
+    const ul = document.createElement('ul');
+    ul.className = 'gallery-install-options';
+    options.forEach(function (opt) {
+      const li = document.createElement('li');
+      let statusText;
+      if (!opt.installed) {
+        statusText = T('Not installed') + ' — ' + T('Install, then log in');
+      } else if (opt.authenticated === false) {
+        statusText = T('Login required');
+      } else if (opt.authenticated === true) {
+        statusText = T('Logged in');
+      } else {
+        statusText = T('Installed');
+      }
+      let html = '<b>' + esc(opt.displayName || opt.agent) + '</b> — ' + esc(statusText);
+      if (opt.loginHint) html += ' (<code>' + esc(opt.loginHint) + '</code>)';
+      li.innerHTML = html;
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+
+  /**
+   * ev: optional degraded payload (SSE 'degraded' event or /api/agent/status response) with
+   * localized `title`/`detail` objects and (cli_missing only) an `installOptions` list. Falls
+   * back to a generic message when no payload is given (defensive — keeps old callers working).
+   */
+  function showDegradedGallery(ev) {
     const form = $('console-form');
     if (form) form.setAttribute('hidden', '');
     const gallery = $('showcase-gallery');
     if (!gallery) return;
     gallery.innerHTML = '';
-    const note = document.createElement('p');
-    note.className = 'gallery-note';
-    note.textContent = T('The agent is unavailable in this environment. Browse the showcases.');
-    gallery.appendChild(note);
+    if (ev && ev.title && ev.detail) {
+      const title = document.createElement('p');
+      title.className = 'gallery-note gallery-note--title';
+      title.innerHTML = '<b>' + esc(_localized(ev.title)) + '</b>';
+      gallery.appendChild(title);
+      const detail = document.createElement('p');
+      detail.className = 'gallery-note';
+      detail.innerHTML = _renderInlineCode(_localized(ev.detail));
+      gallery.appendChild(detail);
+      if (Array.isArray(ev.installOptions) && ev.installOptions.length) {
+        gallery.appendChild(_buildInstallOptionsList(ev.installOptions));
+      }
+    } else {
+      const note = document.createElement('p');
+      note.className = 'gallery-note';
+      note.textContent = T('The agent is unavailable in this environment. Browse the showcases.');
+      gallery.appendChild(note);
+    }
     gallery.removeAttribute('hidden');
   }
 
@@ -739,7 +798,7 @@
       setBadge('Ready', 'ok');
       fillAgentControls(st.agents);
     } else {
-      showDegradedGallery();
+      showDegradedGallery(st);
     }
   }
 

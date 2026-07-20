@@ -455,6 +455,25 @@
 
 #showcase-gallery { padding: 16px 0; overflow-y: auto; }
 .gallery-note { color: var(--warning); margin-bottom: 10px; }
+.gallery-note--title { color: var(--text, inherit); font-size: 1.05em; }
+.gallery-note code, .gallery-install-options code {
+  background: var(--surface-2, rgba(127, 127, 127, 0.15));
+  border-radius: 4px;
+  padding: 0 4px;
+}
+.gallery-install-options {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gallery-install-options li {
+  padding: 6px 10px;
+  border: 1px solid var(--border, rgba(127, 127, 127, 0.3));
+  border-radius: 6px;
+}
 
 /* 에이전트/모델 툴바 — 콘솔 헤더 바로 아래 */
 #agent-controls[hidden] { display: none; }
