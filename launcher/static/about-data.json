@@ -40,7 +40,7 @@
         }
       },
       {
-        "value": "3",
+        "value": "4",
         "label": {
           "en": "Global Offices",
           "ko": "글로벌 오피스",
@@ -258,7 +258,7 @@
           "zh-TW": "韓國（總部）",
           "es": "Corea del Sur (sede central)"
         },
-        "address": "3F, 20 Pangyoyeok-ro 241beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do, 13494, Republic of Korea"
+        "address": "5F, 20 Pangyoyeok-ro 241beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do, 13494, Republic of Korea"
       },
       {
         "city": {
@@ -277,7 +277,7 @@
           "zh-TW": "美國",
           "es": "Estados Unidos"
         },
-        "address": "3003 North First Street #316, San Jose, CA 95135"
+        "address": "1735 Technology Drive, Suite 740, San Jose, CA 95110"
       },
       {
         "city": {
@@ -292,11 +292,30 @@
           "en": "Taiwan",
           "ko": "대만",
           "ja": "台湾",
-          "zh-CN": "中国台湾",
-          "zh-TW": "臺灣",
+          "zh-CN": "台湾",
+          "zh-TW": "台灣",
           "es": "Taiwán"
         },
         "address": "Rm. 950, 9F., No. 208, Sec. 3, Nanjing E. Rd., Zhongshan Dist., Taipei City 104, Taiwan (R.O.C.)"
+      },
+      {
+        "city": {
+          "en": "Shenzhen",
+          "ko": "선전",
+          "ja": "深セン",
+          "zh-CN": "深圳",
+          "zh-TW": "深圳",
+          "es": "Shenzhen"
+        },
+        "country": {
+          "en": "China",
+          "ko": "중국",
+          "ja": "中国",
+          "zh-CN": "中国",
+          "zh-TW": "中國",
+          "es": "China"
+        },
+        "address": "Room 910, Block B, Sunshine Yuehai Building, No. 3388 Canghai Road, Nanshan District, Shenzhen, Guangdong, China"
       }
     ]
   },
