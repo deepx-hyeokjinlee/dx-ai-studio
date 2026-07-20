@@ -333,7 +333,7 @@
         <h4 class="about-sdk-howto-title">${T({en:'Supported Environments & Integrations', ko:'지원 환경 및 연동', ja:'対応環境と連携', 'zh-CN':'支持的环境与集成', 'zh-TW':'支援的環境與整合', es:'Entornos e integraciones compatibles'})}</h4>
         <figure class="about-sdk-env-fig">
           <img src="/static/img/about/dx-allsuite-environments.png" alt="DX-AllSuite supported environments and integrations: DEEPX Developers, GitHub, AWS IoT Greengrass; Docker and local install" loading="lazy">
-          <img src="/static/img/about/DXNN-SDK-풀스택-소프트웨어-아키텍처-다이어그램.png" alt="DXNN SDK full-stack software architecture diagram" loading="lazy">
+          <img src="/static/img/about/dxnn-sdk-architecture.png" alt="DXNN SDK full-stack software architecture diagram" loading="lazy">
         </figure>
         <div class="about-stats-row">
           ${t.sdk.stats.map(s => `
