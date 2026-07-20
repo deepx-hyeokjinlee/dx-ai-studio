@@ -2407,19 +2407,6 @@
       },
       {
         "title": {
-          "en": "Baidu places initial ~40,000-unit DX-M1 order",
-          "ko": "바이두, DX-M1 초도 약 4만 개 발주",
-          "ja": "百度がDX-M1を初回約4万個発注",
-          "zh-CN": "百度首批下单约4万颗DX-M1",
-          "zh-TW": "百度首批下單約4萬顆DX-M1",
-          "es": "Baidu realiza pedido inicial de ~40.000 unidades DX-M1"
-        },
-        "date": "2025.12",
-        "type": "news",
-        "url": "https://en.sedaily.com/technology/2026/04/15/deepx-secures-over-30-clients-aims-to-lead-koreas-physical"
-      },
-      {
-        "title": {
           "en": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, Booth S14-16",
           "ko": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida, 부스 S14-16",
           "ja": "Tokyo Physical AI Expo 2026 — DEEPX & Koshida、ブース S14-16",
@@ -2507,9 +2494,9 @@
           "zh-TW": "DEEPX為DX-M2與三星晶圓代工簽訂2nm製程協議",
           "es": "DEEPX firma un acuerdo de proceso de 2nm con Samsung Foundry para DX-M2"
         },
-        "date": "2025",
+        "date": "2025.08",
         "type": "news",
-        "url": "https://deepx.ai/company/news/"
+        "url": "https://www.globenewswire.com/news-release/2025/08/20/3136461/0/en/DEEPX-Signs-2nm-Process-Agreement-with-Samsung-Foundry-to-Develop-World-s-First-On-Device-Generative-AI-Chip-DX-M2.html"
       },
       {
         "title": {
@@ -2681,7 +2668,7 @@
         },
         "date": "2026.01",
         "type": "award",
-        "url": "https://deepx.ai/deepx-unveils-vision-as-a-physical-ai-infrastructure-company-at-ces-2026/"
+        "url": "https://deepx.ai/portfolio/ces-innovation-awards-2026-double-honoree/"
       },
       {
         "title": {
