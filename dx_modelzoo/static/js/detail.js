@@ -596,7 +596,7 @@ function renderCompileGuide(model) {
     const href = _artifactEndpoint(model.id, 'onnx');
     html += `<a href="${escapeHtml(href)}" target="_blank" rel="noopener" class="mz-btn mz-btn-outline" id="btnOnnxLink">📦 ${T('ONNX Model Link')}</a>`;
   }
-  html += `<button class="mz-btn mz-btn-outline" id="btnDxtronCompiler" onclick="openModelzooGraph('${escapeHtml(model.id)}')">📊 ${T('View Model Graph')}</button>`;
+  html += `<button class="mz-btn mz-btn-primary" id="btnDxtronCompiler" onclick="openModelzooGraph('${escapeHtml(model.id)}')">📊 ${T('View Model Graph')}</button>`;
   html += `</div>`;
   return html;
 }
