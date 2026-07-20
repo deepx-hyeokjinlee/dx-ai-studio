@@ -82,23 +82,6 @@
     if (badge) badge.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
 
-  var _chatOrigZ = {};
-  function liftChat(sel) {
-    var el = document.querySelector(sel);
-    if (!el) return;
-    // Record the ORIGINAL z-index once; a repeat lift must not capture our own 99996
-    // as the "original" (that made restore a no-op, pinning chat above the app forever).
-    if (!(sel in _chatOrigZ)) _chatOrigZ[sel] = el.style.zIndex || '';
-    el.style.zIndex = '99996';
-  }
-  function restoreChat() {
-    Object.keys(_chatOrigZ).forEach(function(sel) {
-      var el = document.querySelector(sel);
-      if (el) el.style.zIndex = _chatOrigZ[sel];
-    });
-    _chatOrigZ = {};
-  }
-
   // ── Tutorial mock helpers ────────────────────────────────────────────
   // Several detail-page features are type-specific (before_after / overlay /
   // classified example widgets) or transient (download progress + completion,
@@ -438,51 +421,7 @@
       ]
     },
 
-    { id: 'chat', icon: '💬',
-      title: { ko: '💬 AI 챗봇', en: '💬 AI Chatbot', ja: '💬 AIチャットボット', 'zh-CN': '💬 AI聊天机器人', 'zh-TW': '💬 AI聊天機器人', es: '💬 Chatbot de IA' },
-      description: { ko: 'AI 어시스턴트와 대화', en: 'Chat with AI assistant', ja: 'AIアシスタントとの対話', 'zh-CN': '与AI助手对话', 'zh-TW': '與AI助手對話', es: 'Converse con el asistente de IA' },
-      steps: [
-        { target: '.dx-chat-fab', position: 'left',
-          title: { ko: '챗봇 열기', en: 'Open Chat', ja: 'チャットを開く', 'zh-CN': '打开聊天', 'zh-TW': '開啟聊天', es: 'Abrir chat' },
-          content: { ko: '💬 버튼을 클릭하면 <strong>AI 챗봇 창</strong>이 열립니다. 모델 선택, 다운로드, 사양 등에 대해 질문할 수 있습니다.', en: 'Click 💬 to open the <strong>AI chatbot window</strong>. Ask about model selection, downloads, specs, and more.', ja: '💬ボタンをクリックすると<strong>AIチャットボットウィンドウ</strong>が開きます。モデル選択、ダウンロード、仕様などについて質問できます。', 'zh-CN': '点击💬打开<strong>AI聊天机器人窗口</strong>。可以询问模型选择、下载、规格等问题。', 'zh-TW': '點擊💬開啟<strong>AI聊天機器人視窗</strong>。可以詢問模型選擇、下載、規格等問題。', es: 'Haga clic en 💬 para abrir la <strong>ventana del chatbot de IA</strong>. Pregunte sobre selección de modelos, descargas, especificaciones y más.' },
-          beforeStep: function () { liftChat('.dx-chat-fab'); } },
-        { target: '.dx-chat-window', position: 'left',
-          title: { ko: '채팅 창', en: 'Chat Window', ja: 'チャットウィンドウ', 'zh-CN': '聊天窗口', 'zh-TW': '聊天視窗', es: 'Ventana de chat' },
-          content: { ko: '메시지를 입력하고 Enter를 누르면 <strong>AI가 응답</strong>합니다. ModelZoo 관련 질문에 특화된 지식을 갖고 있습니다.', en: 'Type a message and press Enter for an <strong>AI response</strong>. The bot has specialized knowledge about ModelZoo.', ja: 'メッセージを入力してEnterを押すと<strong>AIが応答</strong>します。ModelZooに特化した知識を持っています。', 'zh-CN': '输入消息并按Enter获取<strong>AI回复</strong>。机器人具有ModelZoo的专业知识。', 'zh-TW': '輸入訊息並按Enter獲取<strong>AI回覆</strong>。機器人具有ModelZoo的專業知識。', es: 'Escriba un mensaje y pulse Enter para obtener una <strong>respuesta de la IA</strong>. El bot tiene conocimiento especializado sobre ModelZoo.' },
-          beforeStep: function () {
-            liftChat('.dx-chat-window');
-            var fab = document.querySelector('.dx-chat-fab');
-            if (fab && !document.querySelector('.dx-chat-window.open')) fab.click();
-          } },
-        { target: '.dx-chat-suggestions', position: 'left',
-          title: { ko: '추천 질문', en: 'Suggestions', ja: 'おすすめ質問', 'zh-CN': '推荐问题', 'zh-TW': '推薦問題', es: 'Sugerencias' },
-          content: { ko: '미리 준비된 <strong>추천 질문</strong>을 클릭하면 빠르게 대화를 시작할 수 있습니다.', en: 'Click <strong>pre-made suggestions</strong> to quickly start a conversation.', ja: '事前に用意された<strong>おすすめ質問</strong>をクリックすると素早く対話を始められます。', 'zh-CN': '点击<strong>预设问题</strong>快速开始对话。', 'zh-TW': '點擊<strong>預設問題</strong>快速開始對話。', es: 'Haga clic en las <strong>sugerencias predefinidas</strong> para iniciar una conversación rápidamente.' },
-          beforeStep: function () { liftChat('.dx-chat-window'); } },
-        { target: '.dx-chat-input', position: 'left',
-          title: { ko: '메시지 입력', en: 'Message Input', ja: 'メッセージ入力', 'zh-CN': '消息输入', 'zh-TW': '訊息輸入', es: 'Entrada de mensaje' },
-          content: { ko: '이 텍스트 영역에 <strong>질문을 입력</strong>합니다. Enter 키를 누르거나 전송 버튼을 클릭하여 메시지를 보냅니다.', en: 'Type your <strong>question</strong> in this text area. Press Enter or click the send button to send your message.', ja: 'このテキストエリアに<strong>質問を入力</strong>します。Enterキーを押すか送信ボタンをクリックしてメッセージを送信します。', 'zh-CN': '在此文本区域输入您的<strong>问题</strong>。按Enter或点击发送按钮发送消息。', 'zh-TW': '在此文字區域輸入您的<strong>問題</strong>。按Enter或點擊傳送按鈕傳送訊息。', es: 'Escriba su <strong>pregunta</strong> en esta área de texto. Pulse Enter o haga clic en el botón de envío para enviar su mensaje.' },
-          beforeStep: function () { liftChat('.dx-chat-window'); } },
-        { target: '.dx-chat-send-btn', position: 'left',
-          title: { ko: '전송 버튼', en: 'Send Button', ja: '送信ボタン', 'zh-CN': '发送按钮', 'zh-TW': '傳送按鈕', es: 'Botón de envío' },
-          content: { ko: '<strong>전송 버튼</strong>을 클릭하면 입력한 메시지가 AI에게 전달됩니다. Enter 키로도 전송할 수 있습니다.', en: 'Click the <strong>send button</strong> to deliver your message to the AI. You can also press Enter to send.', ja: '<strong>送信ボタン</strong>をクリックすると入力したメッセージがAIに送信されます。Enterキーでも送信できます。', 'zh-CN': '点击<strong>发送按钮</strong>将消息发送给AI。也可以按Enter发送。', 'zh-TW': '點擊<strong>傳送按鈕</strong>將訊息傳送給AI。也可以按Enter傳送。', es: 'Haga clic en el <strong>botón de envío</strong> para entregar su mensaje a la IA. También puede pulsar Enter para enviar.' },
-          beforeStep: function () { liftChat('.dx-chat-window'); } },
-      ]
-    },
-
   ];
-
-  // Restore chat z-index on EVERY exit from the chat section — not just onComplete.
-  // The engine fires onComplete once ever, so replaying a completed section, or
-  // stopping/skipping mid-section, previously left chat pinned at 99996. Chaining
-  // restoreChat into each step's afterStep covers those paths (the next step's
-  // beforeStep re-lifts, so chat stays raised during the walkthrough).
-  (function () {
-    var _chatSec = sections.find(function (s) { return s.id === 'chat'; });
-    if (_chatSec) _chatSec.steps.forEach(function (st) {
-      var prev = st.afterStep;
-      st.afterStep = function () { if (prev) prev(); restoreChat(); };
-    });
-  })();
 
   // Clear any injected #dxt-mock-* preview when leaving a step (advance / prev /
   // stop / section jump). The next step's beforeStep re-injects what it needs,
@@ -506,9 +445,6 @@
     getLang: function () { return localStorage.getItem('dx-lang') || 'en'; },
     onNav: function (page) {
       if (page === 'catalog') location.hash = '';
-    },
-    onComplete: function (sectionId) {
-      if (sectionId === 'chat') restoreChat();
     }
   });
 })();

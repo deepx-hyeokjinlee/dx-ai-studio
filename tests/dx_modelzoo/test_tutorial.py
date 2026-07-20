@@ -36,12 +36,6 @@ RUNTIME_SELECTOR_ALLOWLIST = {
     "#sectionUseCase",
     "#tabSample",
     "#tabUpload",
-    ".dx-chat-fab",
-    ".dx-chat-input",
-    ".dx-chat-input-area",
-    ".dx-chat-send-btn",
-    ".dx-chat-suggestions",
-    ".dx-chat-window",
     ".mz-back-btn",
     ".mz-card",
     ".mz-category-option",
@@ -70,7 +64,6 @@ EXPECTED_SECTION_IDS = [
     "examples",
     "download",
     "inference",
-    "chat",
 ]
 
 TARGET_LANGS = ("ko", "ja", "zh-CN", "zh-TW", "es")

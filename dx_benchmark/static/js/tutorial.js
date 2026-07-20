@@ -511,37 +511,6 @@
           beforeStep:function(){ _ensureEdgeGuideLink(); _scrollTo('.edgeguide-link'); } },
       ]
     },
-
-    { id:'chat', icon:'💬',
-      title:{ko:'💬 챗봇', en:'💬 Chatbot', ja:'💬 チャットボット', 'zh-CN':'💬 聊天机器人', 'zh-TW':'💬 聊天機器人', es:'💬 Chatbot'},
-      description:{ko:'AI 챗봇으로 벤치마크 관련 질문하기', en:'Ask benchmark-related questions via AI chatbot', ja:'AIチャットボットでベンチマーク関連の質問をする', 'zh-CN':'通过AI聊天机器人咨询基准测试相关问题', 'zh-TW':'透過AI聊天機器人諮詢基準測試相關問題', es:'Formule preguntas sobre el benchmark mediante el chatbot de IA'},
-      steps:[
-        { target:'.dx-chat-fab', position:'left',
-          title:{ko:'챗봇 버튼', en:'Chatbot Button', ja:'チャットボットボタン', 'zh-CN':'聊天机器人按钮', 'zh-TW':'聊天機器人按鈕', es:'Botón del chatbot'},
-          content:{ko:'화면 우측 하단의 <strong>챗봇 버튼</strong>을 클릭하면 AI 채팅창이 열립니다. 벤치마크 결과 해석, 설정 방법 등을 자연어로 질문할 수 있습니다.', en:'Click the <strong>chatbot button</strong> at the bottom-right to open the AI chat window. Ask questions about benchmark results, settings, and more in natural language.', ja:'画面右下の<strong>チャットボットボタン</strong>をクリックするとAIチャットウィンドウが開きます。ベンチマーク結果の解釈や設定方法などを自然言語で質問できます。', 'zh-CN':'点击屏幕右下角的<strong>聊天机器人按钮</strong>可打开AI聊天窗口。可以用自然语言咨询基准测试结果解读、设置方法等问题。', 'zh-TW':'點擊畫面右下角的<strong>聊天機器人按鈕</strong>可打開AI聊天視窗。可以用自然語言諮詢基準測試結果解讀、設定方法等問題。', es:'Haga clic en el <strong>botón del chatbot</strong> en la esquina inferior derecha para abrir la ventana de chat de IA. Formule preguntas sobre resultados del benchmark, ajustes y más en lenguaje natural.'} },
-        { target:'.dx-chat-window', position:'left',
-          title:{ko:'채팅창', en:'Chat Window', ja:'チャットウィンドウ', 'zh-CN':'聊天窗口', 'zh-TW':'聊天視窗', es:'Ventana de chat'},
-          content:{ko:'AI와 대화할 수 있는 <strong>채팅창</strong>입니다. 이전 대화 내역이 유지되며, 벤치마크 데이터를 기반으로 인사이트를 제공합니다.', en:'<strong>Chat window</strong> for conversing with AI. Previous conversation history is maintained, and insights are provided based on benchmark data.', ja:'AIと会話できる<strong>チャットウィンドウ</strong>です。過去の会話履歴が保持され、ベンチマークデータに基づいたインサイトを提供します。', 'zh-CN':'可以与AI对话的<strong>聊天窗口</strong>。保留之前的对话历史，并基于基准测试数据提供洞察。', 'zh-TW':'可以與AI對話的<strong>聊天視窗</strong>。保留之前的對話歷史，並基於基準測試資料提供洞察。', es:'<strong>Ventana de chat</strong> para conversar con la IA. Se conserva el historial de conversación y se ofrecen conclusiones basadas en los datos del benchmark.'},
-          beforeStep:function(){
-            return new Promise(function (resolve) {
-              var fab = document.querySelector('.dx-chat-fab');
-              if (fab) fab.click();
-              setTimeout(resolve, 350);
-            });
-          } },
-        { target:'.dx-chat-input', position:'top',
-          title:{ko:'입력창', en:'Input Field', ja:'入力フィールド', 'zh-CN':'输入框', 'zh-TW':'輸入框', es:'Campo de entrada'},
-          content:{ko:'질문을 입력하고 Enter를 누르세요. 예: <em>"DX-M1 vs DX-H1 FPS 비교해줘"</em>, <em>"Latency가 가장 낮은 모델은?"</em> 등 벤치마크 관련 질문에 답변합니다.', en:'Type your question and press Enter. Examples: <em>"Compare DX-M1 vs DX-H1 FPS"</em>, <em>"Which model has the lowest latency?"</em>', ja:'質問を入力してEnterを押してください。例：<em>「DX-M1 vs DX-H1 FPS比較して」</em>、<em>「Latencyが最も低いモデルは？」</em>などベンチマーク関連の質問に回答します。', 'zh-CN':'输入问题并按Enter。例如：<em>"比较DX-M1和DX-H1的FPS"</em>、<em>"延迟最低的模型是哪个？"</em>等基准测试相关问题。', 'zh-TW':'輸入問題並按Enter。例如：<em>「比較DX-M1和DX-H1的FPS」</em>、<em>「延遲最低的模型是哪個？」</em>等基準測試相關問題。', es:'Escriba su pregunta y pulse Enter. Ejemplos: <em>"Compare el FPS de DX-M1 vs DX-H1"</em>, <em>"¿Qué modelo tiene la latencia más baja?"</em>'},
-          beforeStep:function(){
-            var win = document.querySelector('.dx-chat-window');
-            if (win && win.style.display === 'none') {
-              var fab = document.querySelector('.dx-chat-fab');
-              if (fab) fab.click();
-            }
-          } },
-      ]
-    },
-
   ];
 
   var referenceDocs = [

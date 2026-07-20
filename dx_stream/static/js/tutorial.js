@@ -190,22 +190,6 @@
     })();
   }
 
-  // 챗봇 z-index 리프트 헬퍼
-  var _chatOrigZ = {};
-  function liftChat(sel) {
-    var el = document.querySelector(sel);
-    if (!el) return;
-    _chatOrigZ[sel] = el.style.zIndex || '';
-    el.style.zIndex = '99996';
-  }
-  function restoreChat() {
-    Object.keys(_chatOrigZ).forEach(function (sel) {
-      var el = document.querySelector(sel);
-      if (el) el.style.zIndex = _chatOrigZ[sel];
-    });
-    _chatOrigZ = {};
-  }
-
   function _prepElementDetail() {
     goPage('elements');
     var card = document.querySelector('#elements-grid .card');
@@ -582,33 +566,6 @@
       ]
     },
 
-    { id: 'chat', icon: '💬',
-      title: { ko: '💬 AI 챗봇', en: '💬 AI Chatbot', ja: '💬 AIチャットボット', 'zh-CN': '💬 AI聊天机器人', 'zh-TW': '💬 AI聊天機器人', es: '💬 Chatbot de IA' },
-      description: { ko: 'AI 어시스턴트와 대화', en: 'Chat with AI assistant', ja: 'AIアシスタントとのチャット', 'zh-CN': '与AI助手聊天', 'zh-TW': '與AI助手對話', es: 'Converse con el asistente de IA' },
-      steps: [
-        { target: '.dx-chat-fab', position: 'left',
-          title: { ko: '챗봇 열기', en: 'Open Chat', ja: 'チャットを開く', 'zh-CN': '打开聊天', 'zh-TW': '開啟聊天', es: 'Abrir chat' },
-          content: { ko: '💬 버튼을 클릭하면 <strong>AI 챗봇 창</strong>이 열립니다. 파이프라인 구성, 요소, 데모 등에 대해 질문할 수 있습니다.', en: 'Click 💬 to open the <strong>AI chatbot window</strong>. Ask about pipeline configuration, elements, demos, and more.', ja: '💬ボタンをクリックすると<strong>AIチャットボットウィンドウ</strong>が開きます。パイプライン構成、エレメント、デモなどについて質問できます。', 'zh-CN': '点击💬打开<strong>AI聊天机器人窗口</strong>。可询问管道配置、元素、演示等问题。', 'zh-TW': '點擊💬開啟<strong>AI聊天機器人視窗</strong>。可詢問管線配置、元素、示範等問題。', es: 'Haga clic en 💬 para abrir la <strong>ventana del chatbot de IA</strong>. Pregunte sobre configuración de pipelines, elementos, demos y más.' },
-          beforeStep: function () { liftChat('.dx-chat-fab'); } },
-        { target: '.dx-chat-window', position: 'left',
-          title: { ko: '채팅 창', en: 'Chat Window', ja: 'チャットウィンドウ', 'zh-CN': '聊天窗口', 'zh-TW': '聊天視窗', es: 'Ventana de chat' },
-          content: { ko: '메시지를 입력하고 Enter를 누르면 <strong>AI가 응답</strong>합니다. DX Stream 관련 질문에 특화된 지식을 갖고 있습니다.', en: 'Type a message and press Enter for an <strong>AI response</strong>. The bot has specialized knowledge about DX Stream.', ja: 'メッセージを入力してEnterを押すと<strong>AIが応答</strong>します。DX Stream関連の質問に特化した知識を持っています。', 'zh-CN': '输入消息并按Enter获取<strong>AI回复</strong>。机器人具有DX Stream相关问题的专业知识。', 'zh-TW': '輸入訊息並按Enter獲取<strong>AI回覆</strong>。機器人具有DX Stream相關問題的專業知識。', es: 'Escriba un mensaje y pulse Enter para obtener una <strong>respuesta de la IA</strong>. El bot tiene conocimiento especializado sobre DX Stream.' },
-          beforeStep: function () {
-            liftChat('.dx-chat-window');
-            var fab = document.querySelector('.dx-chat-fab');
-            if (fab && !document.querySelector('.dx-chat-window.open')) fab.click();
-          } },
-        { target: '.dx-chat-suggestions', position: 'left',
-          title: { ko: '추천 질문', en: 'Suggestions', ja: 'おすすめの質問', 'zh-CN': '推荐问题', 'zh-TW': '推薦問題', es: 'Sugerencias' },
-          content: { ko: '<strong>파이프라인 관련 추천 질문</strong>을 클릭하면 빠르게 대화를 시작할 수 있습니다.', en: 'Click <strong>pipeline-related suggestions</strong> to quickly start a conversation.', ja: '<strong>パイプライン関連のおすすめ質問</strong>をクリックすると素早く会話を始められます。', 'zh-CN': '点击<strong>管道相关推荐问题</strong>可快速开始对话。', 'zh-TW': '點擊<strong>管線相關推薦問題</strong>可快速開始對話。', es: 'Haga clic en las <strong>sugerencias relacionadas con pipelines</strong> para iniciar una conversación rápidamente.' },
-          beforeStep: function () {
-            liftChat('.dx-chat-window');
-            var fab = document.querySelector('.dx-chat-fab');
-            if (fab && !document.querySelector('.dx-chat-window.open')) fab.click();
-          } },
-      ]
-    },
-
   ];
 
   _orderGlobalFirst(sections);
@@ -621,7 +578,6 @@
     getLang: function () { return localStorage.getItem('dx-lang') || 'en'; },
     onNav: function (p) { goPage(p); },
     onComplete: function (sectionId) {
-      if (sectionId === 'chat') restoreChat();
       var engine = window._dxTutorial;
       if (!engine) return;
       var sec = engine.sections.find(function (s) { return s.id === sectionId; });
