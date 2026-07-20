@@ -132,6 +132,44 @@ def match_sections(
     return matched[:max_sections]
 
 
+# mtime-keyed caches so unchanged knowledge files aren't re-read/re-parsed on
+# every chat message. Keyed by (path, mtime): a file rewrite (e.g. the
+# launcher-boot resync or a "refresh knowledge" action) changes its mtime,
+# which naturally invalidates the stale entry — no explicit TTL needed.
+# Old entries for the same path are dropped so the dict can't grow unbounded
+# across repeated edits of the same file.
+_text_cache: dict[tuple[str, float], str] = {}
+_sections_cache: dict[tuple[str, float], list[dict]] = {}
+
+
+def _cached_read_text(path: Path) -> str:
+    """``path.read_text()``, cached by (path, mtime)."""
+    mtime = path.stat().st_mtime
+    key = (str(path), mtime)
+    cached = _text_cache.get(key)
+    if cached is not None:
+        return cached
+    text = path.read_text(encoding="utf-8")
+    for stale in [k for k in _text_cache if k[0] == key[0] and k != key]:
+        del _text_cache[stale]
+    _text_cache[key] = text
+    return text
+
+
+def _cached_parse_sections(path: Path) -> list[dict]:
+    """``parse_sections(path.read_text())``, cached by (path, mtime)."""
+    mtime = path.stat().st_mtime
+    key = (str(path), mtime)
+    cached = _sections_cache.get(key)
+    if cached is not None:
+        return cached
+    sections = parse_sections(path.read_text(encoding="utf-8"))
+    for stale in [k for k in _sections_cache if k[0] == key[0] and k != key]:
+        del _sections_cache[stale]
+    _sections_cache[key] = sections
+    return sections
+
+
 def build_system_prompt(
     knowledge_dir: Path,
     app_name: str,
@@ -143,12 +181,11 @@ def build_system_prompt(
 
     base_path = knowledge_dir / "base.md"
     if base_path.exists():
-        parts.append(base_path.read_text(encoding="utf-8").strip())
+        parts.append(_cached_read_text(base_path).strip())
 
     app_path = knowledge_dir / f"{app_name}.md"
     if app_path.exists():
-        app_md = app_path.read_text(encoding="utf-8")
-        sections = parse_sections(app_md)
+        sections = _cached_parse_sections(app_path)
         matched = match_sections(sections, user_message)
         for sec in matched:
             parts.append(f"## {sec['title']}\n{sec['content']}")
@@ -157,7 +194,7 @@ def build_system_prompt(
     sdk_path = knowledge_dir / "sdk_knowledge.md"
     if sdk_path.exists():
         try:
-            sdk_sections = parse_sections(sdk_path.read_text(encoding="utf-8"))
+            sdk_sections = _cached_parse_sections(sdk_path)
         except OSError:
             sdk_sections = []
         for sec in match_sections(sdk_sections, user_message, max_sections=3):
