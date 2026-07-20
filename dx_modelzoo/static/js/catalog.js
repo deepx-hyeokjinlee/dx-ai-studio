@@ -49,8 +49,32 @@ function handleImageFallback(img) {
     return;
   }
   img.onerror = null;
-  img.parentElement?.classList.add('no-thumb');
-  img.remove();
+  const cardThumb = img.closest('.mz-card-thumb');
+  if (cardThumb) {
+    // Grid card: the category icon glyph is already rendered as a sibling of the
+    // <img> — just drop the broken image and let CSS (.mz-card-thumb.no-thumb)
+    // center the existing icon in its place.
+    cardThumb.classList.add('no-thumb');
+    img.remove();
+    return;
+  }
+  // Detail-page example/thumbnail images have no such sibling icon to fall back
+  // on, so swap the broken <img> for an explicit placeholder box (icon + label)
+  // instead of just removing it — a missing asset should look intentional, not
+  // like a layout hole or a broken-image icon.
+  const placeholder = document.createElement('div');
+  placeholder.className = 'mz-img-placeholder' + (img.className ? ' ' + img.className : '');
+  const icon = document.createElement('span');
+  icon.className = 'mz-img-placeholder-icon';
+  icon.textContent = '🖼️';
+  placeholder.appendChild(icon);
+  if (img.alt) {
+    const label = document.createElement('span');
+    label.className = 'mz-img-placeholder-label';
+    label.textContent = img.alt;
+    placeholder.appendChild(label);
+  }
+  img.replaceWith(placeholder);
 }
 
 function _escapeAttr(s) {
