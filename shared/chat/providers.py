@@ -9,6 +9,8 @@ import json
 import shutil
 import ssl
 import subprocess
+import threading
+import time
 import urllib.error
 import urllib.request
 from typing import Generator
@@ -251,6 +253,11 @@ def _flatten_prompt(messages: list[dict]) -> str:
     return "\n\n".join(parts)
 
 
+# How often to emit a keepalive token while the CLI subprocess runs silently.
+# Mirrors dx_agent_dev/core/agent_runner.py's KEEPALIVE_SEC=15 pattern.
+_KEEPALIVE_SEC = 15
+
+
 def stream_agent_cli(
     agent: str,
     model: str | None,
@@ -258,7 +265,16 @@ def stream_agent_cli(
     effort: str | None = None,
     timeout: int = 180,
 ) -> Generator[str, None, None]:
-    """Run an authenticated coding-agent CLI as a chat backend; yield its answer text."""
+    """Run an authenticated coding-agent CLI as a chat backend; yield its answer text.
+
+    Uses Popen (instead of a single blocking subprocess.run) so a keepalive
+    token ("") can be yielded roughly every _KEEPALIVE_SEC while the CLI is
+    still generating — the SSE connection stays alive during long runs. The
+    final yielded answer text, error handling, and 180s timeout enforcement
+    are unchanged: stdout is still captured in full (via communicate() in a
+    background thread, same as capture_output=True) and only yielded once,
+    stripped, at the end.
+    """
     spec = _AGENT_CHAT.get(agent)
     if spec is None:
         raise ChatAPIError("unknown_agent", f"Unknown agent: {agent}")
@@ -269,15 +285,49 @@ def stream_agent_cli(
     prompt = _flatten_prompt(messages)
     cmd = [cli] + build_tail(prompt, model, effort)
     try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
-    except subprocess.TimeoutExpired as exc:
-        raise ChatAPIError("timeout", "Agent CLI timed out") from exc
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     except OSError as exc:
         raise ChatAPIError("api_error", f"launch failed: {exc}") from exc
+
+    # communicate() drains stdout/stderr in a worker thread while the main
+    # generator waits below — draining is required to avoid deadlocking on
+    # a full pipe buffer (a plain proc.wait() would not read the pipes).
+    result: dict = {}
+
+    def _communicate():
+        try:
+            out, err = proc.communicate()
+            result["stdout"] = out
+            result["stderr"] = err
+        except Exception as exc:  # surfaced as api_error below
+            result["exc"] = exc
+
+    worker = threading.Thread(target=_communicate, name="agent-cli-chat", daemon=True)
+    worker.start()
+
+    deadline = time.monotonic() + timeout
+    timed_out = False
+    while worker.is_alive():
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            timed_out = True
+            break
+        worker.join(timeout=min(remaining, _KEEPALIVE_SEC))
+        if worker.is_alive():
+            yield ""  # keepalive — empty token, appends nothing on the client
+
+    if timed_out:
+        proc.kill()
+        worker.join(timeout=5)
+        raise ChatAPIError("timeout", "Agent CLI timed out")
+
+    if "exc" in result:
+        raise ChatAPIError("api_error", f"launch failed: {result['exc']}") from result["exc"]
+
     if proc.returncode != 0:
-        detail = (proc.stderr or proc.stdout or "agent CLI failed").strip()
+        detail = (result.get("stderr") or result.get("stdout") or "agent CLI failed").strip()
         raise ChatAPIError("api_error", detail[:300], proc.returncode)
-    out = (proc.stdout or "").strip()
+    out = (result.get("stdout") or "").strip()
     if out:
         yield out
 

@@ -115,12 +115,41 @@ def test_run_oversize_prompt_400(server):
     assert e.value.code == 400
 
 
+_LANGS = {"en", "ko", "ja", "zh-CN", "zh-TW", "es"}
+
+
 def test_degraded_payload_contract():
-    """available=false 시 run 분기가 만드는 페이로드(404 아님, MED-8/§10 #8)."""
+    """available=false 시 run 분기가 만드는 페이로드(404 아님, MED-8/§10 #8).
+
+    reason(raw code) + text(short EN summary, backward-compat) + localized title/detail +
+    installOptions(cli_missing only, per-CLI install/login status).
+    """
     from server import _degraded_payload
-    assert _degraded_payload({"reason": "cli_missing"}) == {"type": "degraded", "text": "cli_missing"}
+    payload = _degraded_payload({"reason": "cli_missing"})
+    assert payload["type"] == "degraded"
+    assert payload["reason"] == "cli_missing"
+    assert isinstance(payload["text"], str) and payload["text"]
+    assert set(payload["title"]) == _LANGS
+    assert set(payload["detail"]) == _LANGS
+    assert isinstance(payload["installOptions"], list) and payload["installOptions"]
+    for opt in payload["installOptions"]:
+        assert opt["agent"] and opt["displayName"]
+        assert isinstance(opt["installed"], bool)
+
+
+def test_degraded_payload_harness_missing_no_install_options():
+    from server import _degraded_payload
+    payload = _degraded_payload({"reason": "harness_missing"})
+    assert payload["reason"] == "harness_missing"
+    assert set(payload["title"]) == _LANGS
+    assert set(payload["detail"]) == _LANGS
+    assert "installOptions" not in payload
 
 
 def test_degraded_payload_fallback_text():
     from server import _degraded_payload
-    assert _degraded_payload({})["text"] == "unavailable"
+    payload = _degraded_payload({})
+    assert payload["reason"] == "unavailable"
+    assert isinstance(payload["text"], str) and payload["text"]
+    assert set(payload["title"]) == _LANGS
+    assert "installOptions" not in payload

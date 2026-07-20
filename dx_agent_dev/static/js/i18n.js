@@ -161,4 +161,25 @@ window._DX_I18N_DICT = {
     'zh-TW': 'Autopilot（無提問）',
     es: 'Autopilot (sin preguntas)',
   },
+  'Not installed': {
+    ko: '설치되지 않음',
+    ja: '未インストール',
+    'zh-CN': '未安装',
+    'zh-TW': '未安裝',
+    es: 'No instalado',
+  },
+  'Install, then log in': {
+    ko: '설치 후 로그인하세요',
+    ja: 'インストール後、ログインしてください',
+    'zh-CN': '安装后请登录',
+    'zh-TW': '安裝後請登入',
+    es: 'Instale y luego inicie sesión',
+  },
+  'Installed': {
+    ko: '설치됨',
+    ja: 'インストール済み',
+    'zh-CN': '已安装',
+    'zh-TW': '已安裝',
+    es: 'Instalado',
+  },
 };

@@ -35,7 +35,10 @@
 | **DX Stream** | 8093 | GStreamer 비디오 파이프라인, WebRTC, 13개 커스텀 엘리먼트 |
 | **DX Model Zoo** | 8094 | 270+ 모델 카탈로그, 인퍼런스 데모, YAML 오케스트레이션 |
 | **DX Compiler** | 8095 | ONNX → .dxnn 컴파일 GUI, DX-TRON 그래프 뷰어 |
-| **DX Sandbox** | 8096 | 하드웨어 시뮬레이션, 열/전력 예측, 호환성 검증 |
+| **DX Planner (EdgeGuide)** | 8096 | 실측 YOLO26 벤치마크 기반 NPU 제품(DX-M1/H1 등) 추천 |
+| **DX Benchmark** | 8097 | YOLO26 하드웨어 벤치마크 결과 뷰어 (읽기 전용, 실행은 CLI) |
+| **DX Monitor** | 8098 | NPU/시스템 실시간 하드웨어 모니터링 대시보드 |
+| **DX Agent Dev** | 8099 | 자연어 명령으로 NPU 앱을 빌드하는 대화형 에이전트 콘솔 |
 
 ### 에코시스템 파트너
 - **Cloud & Platform**: AWS (IoT Greengrass), Baidu, DeGirum

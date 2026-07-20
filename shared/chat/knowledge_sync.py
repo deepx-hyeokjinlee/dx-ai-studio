@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from pathlib import Path
 
@@ -104,14 +105,27 @@ def source_manifest(suite_root: Path) -> dict:
     return manifest
 
 
+def _atomic_write(path: Path, text: str) -> None:
+    """Write ``text`` to ``path`` atomically: write to a sibling temp file, then os.replace().
+
+    Multiple processes may read ``path`` concurrently (module servers + launcher); a plain
+    write_text() would let a reader observe a truncated/partial file mid-write. os.replace()
+    is an atomic rename on POSIX (and on Windows for files on the same volume), so readers
+    always see either the old, complete file or the new, complete file.
+    """
+    tmp = path.with_name(f".{path.name}.tmp-{os.getpid()}")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
+
+
 def generate(suite_root: Path | None = None, out_dir: Path | None = None) -> int:
     """Write sdk_knowledge.md + sdk_manifest.json. Returns the number of sources included."""
     suite_root = Path(suite_root) if suite_root else _DEFAULT_SUITE_ROOT
     out_dir = Path(out_dir) if out_dir else (Path(__file__).resolve().parent / "knowledge")
     out_dir.mkdir(parents=True, exist_ok=True)
     manifest = source_manifest(suite_root)
-    (out_dir / _OUT_NAME).write_text(build_sdk_markdown(suite_root), encoding="utf-8")
-    (out_dir / _MANIFEST_NAME).write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    _atomic_write(out_dir / _OUT_NAME, build_sdk_markdown(suite_root))
+    _atomic_write(out_dir / _MANIFEST_NAME, json.dumps(manifest, indent=2, sort_keys=True))
     return len(manifest)
 
 

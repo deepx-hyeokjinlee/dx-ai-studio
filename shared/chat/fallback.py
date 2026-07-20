@@ -83,12 +83,24 @@ COMMON_RULES: list[tuple[list[str], dict[str, str]]] = [
 ]
 
 SETUP_BANNER = {
-    "ko": "⚠️ AI 어시스턴트를 사용하려면 **채팅 설정**(⚙️)에서 API 키를 설정하세요.",
-    "en": "⚠️ To use the AI assistant, open **chat settings** (⚙️) and set your API key.",
-    "ja": "⚠️ AI アシスタントを使用するには、**チャット設定**(⚙️)で API キーを設定してください。",
-    "zh-CN": "⚠️ 要使用 AI 助手，请在**聊天设置**(⚙️)中设置 API 密钥。",
-    "zh-TW": "⚠️ 若要使用 AI 助理，請在**聊天設定**(⚙️)中設定 API 金鑰。",
-    "es": "⚠️ Para usar el asistente de IA, abra la **configuración del chat** (⚙️) y establezca su clave API.",
+    "ko": "⚠️ 연결된 AI 모델이 없습니다 — Studio는 **모델을 내장하지 않습니다** (오프라인 우선 설계).\n"
+          "• **채팅 설정**(⚙️)에서 API 키(OpenAI/Anthropic/Google 등)를 설정하거나\n"
+          "• 완전 오프라인으로 사용: **local**(자체 Ollama 호환 서버) 또는 **agent-cli**(이미 로그인된 claude/copilot/cursor/opencode CLI 재사용) — 클라우드 키가 필요 없습니다.",
+    "en": "⚠️ No AI model connected — Studio ships with **no bundled model** (offline by design).\n"
+          "• Set an API key (OpenAI/Anthropic/Google/etc.) in **chat settings** (⚙️), or\n"
+          "• Go fully offline: choose **local** (your own Ollama-compatible server) or **agent-cli** (reuse an already-logged-in claude/copilot/cursor/opencode CLI) — no cloud key needed.",
+    "ja": "⚠️ 接続された AI モデルがありません — Studio は**モデルを同梱していません**(オフライン設計)。\n"
+          "• **チャット設定**(⚙️)で API キー(OpenAI/Anthropic/Google など)を設定するか、\n"
+          "• 完全オフラインで利用: **local**(自前の Ollama 互換サーバー)または **agent-cli**(ログイン済みの claude/copilot/cursor/opencode CLI を再利用)— クラウドキー不要。",
+    "zh-CN": "⚠️ 尚未连接 AI 模型 — Studio **不内置任何模型**(按设计离线运行)。\n"
+             "• 在**聊天设置**(⚙️)中设置 API 密钥(OpenAI/Anthropic/Google 等)，或\n"
+             "• 完全离线使用：选择 **local**(您自己的 Ollama 兼容服务器)或 **agent-cli**(复用已登录的 claude/copilot/cursor/opencode CLI)——无需云端密钥。",
+    "zh-TW": "⚠️ 尚未連接 AI 模型 — Studio **不內建任何模型**(依設計離線運作)。\n"
+             "• 在**聊天設定**(⚙️)中設定 API 金鑰(OpenAI/Anthropic/Google 等)，或\n"
+             "• 完全離線使用：選擇 **local**(您自己的 Ollama 相容伺服器)或 **agent-cli**(重複使用已登入的 claude/copilot/cursor/opencode CLI)——不需要雲端金鑰。",
+    "es": "⚠️ No hay ningún modelo de IA conectado — Studio **no incluye ningún modelo** (diseñado para funcionar sin conexión).\n"
+          "• Establezca una clave API (OpenAI/Anthropic/Google, etc.) en la **configuración del chat** (⚙️), o\n"
+          "• Use el modo totalmente sin conexión: elija **local** (su propio servidor compatible con Ollama) o **agent-cli** (reutilice una CLI claude/copilot/cursor/opencode ya autenticada) — sin necesidad de clave en la nube.",
 }
 
 DEFAULT_RESPONSE = {

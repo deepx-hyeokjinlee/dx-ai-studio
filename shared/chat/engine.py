@@ -44,8 +44,12 @@ class ChatEngine:
         runtime_context: dict | None = None,
     ):
         """Generator[str] — yields tokens from LLM or fallback response."""
-        # 0. Lazily sync SDK knowledge from the live .deepx warehouse (opt-in via env so
-        #    tests/imports stay side-effect-free; the launcher sets DX_CHAT_KNOWLEDGE_SYNC=1).
+        # 0. Lazily sync SDK knowledge from the live .deepx warehouse. Normally a no-op: the
+        #    launcher pre-syncs once at boot (see launcher.main()) so the shared knowledge
+        #    files are already fresh by the time any module server serves a chat. This
+        #    env-gated lazy path is an opt-in fallback for a module server started standalone
+        #    (without the launcher), and stays off by default so tests/imports are
+        #    side-effect-free.
         _maybe_sync_knowledge()
         config = load_config()
         if config is None:
