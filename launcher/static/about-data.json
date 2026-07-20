@@ -936,7 +936,9 @@
           "zh-CN": "路线图",
           "zh-TW": "路線圖",
           "es": "Hoja de ruta"
-        }
+        },
+        "specUrl": "https://deepx.ai/product/dx-m2/",
+        "image": "/static/img/about/products/dx-m2.png"
       },
       {
         "name": "DX-M1",
@@ -977,6 +979,17 @@
           "zh-CN": "0–70°C（商用）· -40–85°C（工业级，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（车规级，可定制）",
           "zh-TW": "0–70°C（商用）· -40–85°C（工業級，AEC-Q100 Grade 3）· AEC-Q100 Grade 2（車用，可客製）",
           "es": "0–70°C (Comercial) · -40–85°C (Industrial, AEC-Q100 Grade 3) · AEC-Q100 Grade 2 (Automotriz, bajo pedido)"
+        },
+        "specUrl": "https://deepx.ai/products/dx-m1/",
+        "image": "/static/img/about/products/dx-m1.jpg",
+        "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
+        "buyLabel": {
+          "en": "Request a Quote",
+          "ko": "견적 요청",
+          "ja": "見積もり依頼",
+          "zh-CN": "申请报价",
+          "zh-TW": "申請報價",
+          "es": "Solicitar cotización"
         }
       },
       {
@@ -1016,6 +1029,17 @@
           "zh-CN": "Root-of-Trust + TRNG",
           "zh-TW": "Root-of-Trust + TRNG",
           "es": "Root-of-Trust + TRNG"
+        },
+        "specUrl": "https://deepx.ai/products/dx-m1m/",
+        "image": "/static/img/about/products/dx-m1m.jpg",
+        "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
+        "buyLabel": {
+          "en": "Request a Quote",
+          "ko": "견적 요청",
+          "ja": "見積もり依頼",
+          "zh-CN": "申请报价",
+          "zh-TW": "申請報價",
+          "es": "Solicitar cotización"
         }
       },
       {
@@ -1039,7 +1063,17 @@
           "es": "512MB LPDDR4x integrado"
         },
         "interface": "PCIe Gen3 x4",
-        "form": "FCL-BGA 21×21mm"
+        "form": "FCL-BGA 21×21mm",
+        "specUrl": "https://deepx.ai/products/dx-m1m/",
+        "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
+        "buyLabel": {
+          "en": "Request a Quote",
+          "ko": "견적 요청",
+          "ja": "見積もり依頼",
+          "zh-CN": "申请报价",
+          "zh-TW": "申請報價",
+          "es": "Solicitar cotización"
+        }
       },
       {
         "name": "DX-V3",
@@ -1065,7 +1099,18 @@
         "form": "TSMC 12nm",
         "cpu": "Cortex-A53 quad @1.2GHz",
         "isp": "12MP ISP, 3A + noise reduction",
-        "codec": "H.264/H.265 enc/dec 4K@60fps"
+        "codec": "H.264/H.265 enc/dec 4K@60fps",
+        "specUrl": "https://deepx.ai/products/dx-v3/",
+        "image": "/static/img/about/products/dx-v3.jpg",
+        "buyUrl": "https://deepx.ai/shop_now/#ai-chips",
+        "buyLabel": {
+          "en": "Request a Quote",
+          "ko": "견적 요청",
+          "ja": "見積もり依頼",
+          "zh-CN": "申请报价",
+          "zh-TW": "申請報價",
+          "es": "Solicitar cotización"
+        }
       }
     ],
     "modules": [
@@ -1083,7 +1128,18 @@
         "power": "1~5W",
         "memory": "4GB LPDDR5",
         "interface": "PCIe Gen3 x4",
-        "form": "M.2 2280 (M Key)"
+        "form": "M.2 2280 (M Key)",
+        "specUrl": "https://deepx.ai/products/dx-m1/",
+        "image": "/static/img/about/products/dx-m1.jpg",
+        "buyUrl": "https://www.digikey.com/en/products/detail/deepx/DX-M1BNM5604/26858313",
+        "buyLabel": {
+          "en": "Buy on Digi-Key",
+          "ko": "Digi-Key에서 구매",
+          "ja": "Digi-Keyで購入",
+          "zh-CN": "在Digi-Key购买",
+          "zh-TW": "在Digi-Key購買",
+          "es": "Comprar en Digi-Key"
+        }
       },
       {
         "name": "DX-M1M M.2",
@@ -1099,7 +1155,18 @@
         "power": "3W",
         "memory": "2GB LPDDR4x",
         "interface": "PCIe Gen3 x2",
-        "form": "M.2 2242 (M+B Key)"
+        "form": "M.2 2242 (M+B Key)",
+        "specUrl": "https://deepx.ai/products/dx-m1m/",
+        "image": "/static/img/about/products/dx-m1m.jpg",
+        "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
+        "buyLabel": {
+          "en": "Request a Quote",
+          "ko": "견적 요청",
+          "ja": "見積もり依頼",
+          "zh-CN": "申请报价",
+          "zh-TW": "申請報價",
+          "es": "Solicitar cotización"
+        }
       },
       {
         "name": "DX-M1ML M.2",
@@ -1115,7 +1182,17 @@
         "power": "3W",
         "memory": "512MB LPDDR4x",
         "interface": "PCIe Gen3 x2",
-        "form": "M.2 2242 (M+B Key)"
+        "form": "M.2 2242 (M+B Key)",
+        "specUrl": "https://deepx.ai/products/dx-m1m/",
+        "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
+        "buyLabel": {
+          "en": "Request a Quote",
+          "ko": "견적 요청",
+          "ja": "見積もり依頼",
+          "zh-CN": "申请报价",
+          "zh-TW": "申請報價",
+          "es": "Solicitar cotización"
+        }
       }
     ],
     "cards": [
@@ -1152,7 +1229,18 @@
             "es": "4× DX-M1, bifurcación PCIe"
           }
         ],
-        "highlight": true
+        "highlight": true,
+        "specUrl": "https://deepx.ai/products/dx-h1-quattro/",
+        "image": "/static/img/about/products/dx-h1-quattro.jpg",
+        "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
+        "buyLabel": {
+          "en": "Request a Quote",
+          "ko": "견적 요청",
+          "ja": "見積もり依頼",
+          "zh-CN": "申请报价",
+          "zh-TW": "申請報價",
+          "es": "Solicitar cotización"
+        }
       },
       {
         "name": "DX-H1 V-NPU",
@@ -1185,7 +1273,18 @@
           "zh-TW": "相比GPU節省82%成本 / 85%功耗",
           "es": "82% menos costo / 85% menos consumo vs GPU"
         },
-        "badge": "64CH Decode"
+        "badge": "64CH Decode",
+        "specUrl": "https://deepx.ai/products/dx-h1-v-npu/",
+        "image": "/static/img/about/products/dx-h1-v-npu.jpg",
+        "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
+        "buyLabel": {
+          "en": "Request a Quote",
+          "ko": "견적 요청",
+          "ja": "見積もり依頼",
+          "zh-CN": "申请报价",
+          "zh-TW": "申請報價",
+          "es": "Solicitar cotización"
+        }
       }
     ],
     "useCases": [
@@ -1383,7 +1482,18 @@
         },
         "frameworks": "PyTorch/TF/ONNX/Keras/YOLO",
         "weight": "450g",
-        "temp": "0–60°C"
+        "temp": "0–60°C",
+        "specUrl": "https://deepx.ai/products/dx-aiplayer/",
+        "image": "/static/img/about/products/dx-aiplayer.jpg",
+        "buyUrl": "https://www.digikey.com/en/products/detail/deepx/DX-AIBOX-M1-N97/29209017",
+        "buyLabel": {
+          "en": "Buy on Digi-Key",
+          "ko": "Digi-Key에서 구매",
+          "ja": "Digi-Keyで購入",
+          "zh-CN": "在Digi-Key购买",
+          "zh-TW": "在Digi-Key購買",
+          "es": "Comprar en Digi-Key"
+        }
       }
     ]
   },
