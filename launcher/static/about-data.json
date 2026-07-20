@@ -1158,7 +1158,7 @@
           }
         ],
         "specUrl": "https://deepx.ai/products/dx-h1-quattro/",
-        "image": "/static/img/about/products/dx-quattro-hd.png",
+        "image": "/static/img/about/products/dx-quattro-t.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
         "buyLabel": {
           "en": "Request a Quote",
@@ -1203,7 +1203,7 @@
         },
         "badge": "64CH Decode",
         "specUrl": "https://deepx.ai/products/dx-h1-v-npu/",
-        "image": "/static/img/about/products/dx-vnpu-hd.png",
+        "image": "/static/img/about/products/dx-vnpu-t.png",
         "buyUrl": "https://deepx.ai/shop_now/#ai-modules",
         "buyLabel": {
           "en": "Request a Quote",
