@@ -291,8 +291,9 @@ def test_launcher_tutorial_mode_defaults_on():
     assert "_stored !== 'off'" in tutorial_js
     assert "_stored === 'on'" not in tutorial_js
     assert "type: _tutorialMode ? 'dx-tutorial-start' : 'dx-tutorial-stop'" in tutorial_js
-    # first step spotlights the toolbar tutorial toggle so users know where to turn it off
-    assert "#dxToolbarTutorial" in tutorial_js
+    # first step spotlights the Tutorial Mode on/off card so users know where to turn it off
+    assert "#dxt-tutorial-card" in tutorial_js
+    assert tutorial_js.index("target: '#dxt-tutorial-card'") < tutorial_js.index("target: '.top-bar'")
 
 
 def test_launcher_index_rewrites_root_assets_with_content_hashes():
