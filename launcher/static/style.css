@@ -604,16 +604,36 @@ body:not(.hw-native-visible) #hw-float {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 9px;
+  /* Emphasized lead badge — accent-tinted pill so "More on DEEPX · Homepage" reads as the
+     header of the resource row, not just a caption. */
+  padding: 9px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(99,140,255,0.22), rgba(99,140,255,0.10));
+  border: 1px solid rgba(120,158,255,0.45);
+  box-shadow: 0 0 18px rgba(99,140,255,0.18);
   color: var(--accent-light);
   font-family: var(--font);
-  font-size: var(--fs-sm);
-  font-weight: 700;
+  font-size: var(--fs-md);
+  font-weight: 800;
+  letter-spacing: 0.3px;
   white-space: nowrap;
   text-shadow: 0 0 10px rgba(138,172,255,0.35);
 }
-.deepx-lead-icon { font-size: var(--fs-md); line-height: 1; }
-.deepx-lead-arrow { font-size: var(--fs-md); animation: deepxLeadArrow 1.4s ease-in-out infinite; }
+.deepx-lead-icon { font-size: var(--fs-lg); line-height: 1; }
+/* "Homepage" tag — solid accent chip inside the lead for extra emphasis. */
+.deepx-lead-badge {
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #fff;
+  background: var(--accent);
+  padding: 3px 9px;
+  border-radius: 999px;
+  text-shadow: none;
+}
+.deepx-lead-arrow { font-size: var(--fs-lg); animation: deepxLeadArrow 1.4s ease-in-out infinite; }
 @keyframes deepxLeadArrow {
   0%, 100% { transform: translateX(0); opacity: 0.7; }
   50%      { transform: translateX(4px); opacity: 1; }
@@ -632,15 +652,15 @@ body:not(.hw-native-visible) #hw-float {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   flex: 0 0 auto;           /* content width, no stretch */
-  padding: 10px 18px;       /* wider chips */
+  padding: 13px 24px;       /* wider, taller chips */
   background: rgba(24, 32, 52, 0.94);
   border: 1px solid rgba(120,158,255,0.55);
-  border-radius: 8px;
+  border-radius: 10px;
   color: #cdd9ff;
   font-family: var(--font);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
   font-weight: 600;
   white-space: nowrap;
   text-decoration: none;
@@ -654,7 +674,7 @@ body:not(.hw-native-visible) #hw-float {
   color: #ffffff;
   box-shadow: 0 0 16px rgba(99,140,255,0.35);
 }
-.deepx-link-icon { font-size: var(--fs-md); line-height: 1; flex-shrink: 0; }
+.deepx-link-icon { font-size: var(--fs-xl); line-height: 1; flex-shrink: 0; }
 
 /* ─── App Frame (iframe) ──────────────────────────────*/
 .app-frame {

@@ -237,21 +237,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: 24px;
   padding: 56px 0;
   pointer-events: none;
 }
 .about-leftrail-brand {
   writing-mode: vertical-rl;
-  font: 800 24px/1 var(--font);
-  letter-spacing: 10px;
+  font: 800 19px/1 var(--font);
+  letter-spacing: 7px;
   color: var(--about-heading);
-  opacity: 0.85;
+  opacity: 0.82;
 }
 .about-leftrail-track {
   width: 3px;
-  height: 46vh;
-  max-height: 620px;
+  height: 38vh;
+  max-height: 520px;
   border-radius: 2px;
   background: var(--about-card-border);
   position: relative;
@@ -267,7 +267,7 @@
   transition: height 0.15s ease-out;
 }
 .about-leftrail-count {
-  font: 800 16px/1 var(--font);
+  font: 800 15px/1 var(--font);
   color: var(--about-accent);
   display: flex;
   gap: 4px;
@@ -277,8 +277,8 @@
 .about-leftrail-tag {
   writing-mode: vertical-rl;
   white-space: nowrap;              /* keep the slogan on one straight vertical line */
-  font: 600 12px/1 var(--font);
-  letter-spacing: 3px;
+  font: 600 11px/1 var(--font);
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--about-text-muted);
   opacity: 0.7;
