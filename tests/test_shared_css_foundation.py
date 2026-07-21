@@ -872,13 +872,15 @@ def test_shared_chat_runtime_messages_reference_widget_settings():
     assert "⚙️ settings" not in sdk_library_js
 
 
-def test_tutorial_toc_opens_only_when_user_enabled_it():
-    """튜토리얼 TOC가 첫 방문 기본값에서 화면 전체를 덮어 navigation을 막으면 안 된다."""
+def test_tutorial_auto_runs_by_default_and_opts_out_on_explicit_off():
+    """Tutorial is ON by default: auto-runs unless the user explicitly turned it off.
+    The launcher auto-starts the walkthrough once (first-run guard), then falls back to TOC."""
     tutorial_init = read_text(ROOT / "shared" / "static" / "tutorial-init.js")
-    assert "tutMode === null" not in tutorial_init
     assert "dx-tutorial-mode" in tutorial_init
-    assert "'on'" in tutorial_init
-    assert "engine.showTOC()" in tutorial_init
+    assert "tutMode === 'off'" in tutorial_init          # opt out only on an explicit "off"
+    assert "dx-tutorial-launcher-autostarted" in tutorial_init  # first-run auto-start guard
+    assert "engine.startAll()" in tutorial_init          # first run → walkthrough
+    assert "engine.showTOC()" in tutorial_init            # later / modules → table of contents
 
 
 def test_dx_app_topbar_title_is_owned_by_navigation_not_bulk_i18n():

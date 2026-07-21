@@ -2,9 +2,9 @@
 (function () {
   'use strict';
 
-  // Only explicit opt-in opens tutorial overlays inside launched modules.
+  // Tutorial mode is ON by default; it's only off when the user explicitly turned it off.
   const _stored = localStorage.getItem('dx-tutorial-mode');
-  let _tutorialMode = _stored === 'on';
+  let _tutorialMode = _stored !== 'off';
   const _lang = () => localStorage.getItem('dx-lang') || 'en';
   let _engine = null;
 // Launcher 자체 화면을 위한 튜토리얼 섹션이다. iframe 모듈 튜토리얼은 각 모듈이 소유한다.
@@ -31,6 +31,9 @@
         }
       },
       steps: [
+        { target: '#dxToolbarTutorial', position: 'bottom',
+          title: { en: 'Tutorial is on', ko: '튜토리얼이 켜져 있어요', ja: 'チュートリアルはオンです', 'zh-CN': '教程已开启', 'zh-TW': '教學已開啟', es: 'El tutorial está activado' },
+          content: { en: 'The guided tutorial runs by <strong>default</strong>. Don\'t want it? Click the <strong>🎓 button</strong> here anytime to turn it off — you can turn it back on the same way.', ko: '가이드 튜토리얼이 <strong>기본으로</strong> 실행됩니다. 보고 싶지 않으면 여기 <strong>🎓 버튼</strong>을 눌러 언제든 끄세요 — 같은 방법으로 다시 켤 수 있습니다.', ja: 'ガイドチュートリアルは<strong>デフォルト</strong>で実行されます。不要なら、ここの<strong>🎓ボタン</strong>をクリックしていつでもオフにできます（同じ操作で再びオンにできます）。', 'zh-CN': '引导教程<strong>默认</strong>运行。不需要？随时点击这里的 <strong>🎓 按钮</strong>关闭它——用同样方式可再次开启。', 'zh-TW': '導覽教學<strong>預設</strong>執行。不需要？隨時點擊這裡的 <strong>🎓 按鈕</strong>關閉它——用同樣方式可再次開啟。', es: 'El tutorial guiado se ejecuta por <strong>defecto</strong>. ¿No lo quiere? Haga clic en el <strong>botón 🎓</strong> aquí para desactivarlo en cualquier momento; puede volver a activarlo del mismo modo.' } },
         { target: '.top-bar', position: 'bottom',
           title: { en: 'Launcher Shell', ko: '런처 셸', ja: 'ランチャーシェル', 'zh-CN': '启动器外壳', 'zh-TW': '啟動器殼層', es: 'Shell del iniciador' },
           content: { en: 'The launcher shell keeps <strong>DX AI Studio branding</strong>, module status, and shared controls visible while you browse home and SDK Library.', ko: '런처 셸은 홈과 SDK Library를 탐색하는 동안 <strong>DX AI Studio 브랜딩</strong>, 모듈 상태, 공유 컨트롤을 유지합니다.', ja: 'ランチャーシェルはホームとSDK Libraryを閲覧中も<strong>DX AI Studioブランド</strong>、モジュール状態、共通コントロールを表示します。', 'zh-CN': '启动器外壳在浏览主页和 SDK Library 时保持<strong>DX AI Studio 品牌</strong>、模块状态和共享控件可见。', 'zh-TW': '啟動器殼層在瀏覽首頁和 SDK Library 時保持<strong>DX AI Studio 品牌</strong>、模組狀態和共用控制項可見。', es: 'El shell del iniciador mantiene visibles la <strong>marca DX AI Studio</strong>, el estado de los módulos y los controles compartidos mientras navega por inicio y SDK Library.' } },

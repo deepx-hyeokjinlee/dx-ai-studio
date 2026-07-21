@@ -82,13 +82,21 @@
 
       function _scheduleAutoToc(engine) {
         var tutMode = localStorage.getItem('dx-tutorial-mode');
-        if (tutMode !== 'on') return;
+        if (tutMode === 'off') return;  // ON by default — only an explicit "off" opts out
         function openWhenReady(attempts) {
           if (_isLauncherShellBlocked()) {
             if (attempts < 300) {
               setTimeout(function () { openWhenReady(attempts + 1); }, 100);
             }
             return;
+          }
+          // Launcher, first load with the tutorial on → auto-run the walkthrough so it opens
+          // on the "you can turn this off" toggle step. Afterwards (and for module tutorials)
+          // just open the table of contents.
+          if (engine.appId === 'launcher' &&
+              !localStorage.getItem('dx-tutorial-launcher-autostarted')) {
+            try { localStorage.setItem('dx-tutorial-launcher-autostarted', '1'); } catch (e) {}
+            if (typeof engine.startAll === 'function') { engine.startAll(); return; }
           }
           engine.showTOC();
         }

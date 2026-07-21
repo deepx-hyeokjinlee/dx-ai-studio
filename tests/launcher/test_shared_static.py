@@ -284,11 +284,15 @@ def test_launcher_launch_uses_canonical_iframe_paths():
     assert "let url  = `/${app}/`;" not in launcher_js
 
 
-def test_launcher_tutorial_mode_defaults_off_for_subapp_iframes():
+def test_launcher_tutorial_mode_defaults_on():
+    # Tutorial mode is ON by default (guided onboarding); it is off only when the user has
+    # explicitly turned it off (stored 'off'). The first launcher step shows how to turn it off.
     tutorial_js = (ROOT / "launcher" / "static" / "tutorial.js").read_text(encoding="utf-8")
-    assert "_stored === 'on'" in tutorial_js
-    assert "_stored !== 'off'" not in tutorial_js
+    assert "_stored !== 'off'" in tutorial_js
+    assert "_stored === 'on'" not in tutorial_js
     assert "type: _tutorialMode ? 'dx-tutorial-start' : 'dx-tutorial-stop'" in tutorial_js
+    # first step spotlights the toolbar tutorial toggle so users know where to turn it off
+    assert "#dxToolbarTutorial" in tutorial_js
 
 
 def test_launcher_index_rewrites_root_assets_with_content_hashes():
