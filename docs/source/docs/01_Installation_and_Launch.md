@@ -18,7 +18,7 @@
     inference is unavailable; if `gi` is missing, **DX Stream** can build but not run pipelines.
 
 !!! tip "Check your NPU"
-    Once the DEEPX runtime is installed, `dxcli --status` lists each NPU device with its
+    Once the DEEPX runtime is installed, `dxrt-cli --status` lists each NPU device with its
     driver and firmware versions. **DX Monitor** shows the same info live in the browser.
 
 ## Launch
@@ -126,7 +126,7 @@ browser access use the SSH tunnel above.)
 
 - **Everything shows sample / mock data** — the NPU or SDK isn't detected. Confirm the
   driver is loaded with `lsmod | grep dx` (expect `dxrt_driver` and `dx_dma`) and the
-  device with `dxcli --status`; **DX Monitor**'s version panel shows what the studio sees.
+  device with `dxrt-cli --status`; **DX Monitor**'s version panel shows what the studio sees.
 - **A tool stays on the splash / "not ready"** — module servers may still be starting;
   wait a moment and reload. If it persists, check the terminal running `./launcher.sh` for errors.
 - **"Port already in use"** — 8890 auto-bumps to the next free port; pin one with `-p`, or

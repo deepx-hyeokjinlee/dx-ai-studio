@@ -40,9 +40,9 @@ is now centralized in the launcher's onboarding tour, rather than repeated per-m
 
 ## About DEEPX
 
-The **About DEEPX** page presents company and product information across a sticky
-section nav (with scroll-spy): a **Developer hub** tab (SDK release / version, Model Zoo
-count, dev-resource cards, support contact, distribution channels) and a **Company story**
-tab (vision, milestones timeline, global offices, contact), plus the DXNN SDK full-stack
-architecture, products, solutions, partners, news, and awards — and a shortcut to the
-DEEPX store. Available in all six UI languages.
+The **About DEEPX** page presents company and product information down one scrolling page
+with a sticky section nav (scroll-spy): a **Developer** section (dev-resource cards, CTAs,
+and distribution channels), a **Company** section (vision, milestones timeline, global
+offices), the DXNN SDK **full-stack architecture**, and **Products**, **Partners**,
+**Awards**, and **News** sections — plus a shortcut to the DEEPX store. Available in all
+six UI languages.

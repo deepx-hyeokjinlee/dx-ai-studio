@@ -28,4 +28,4 @@ versions.
 
 !!! note
     The same version and device information is available on the command line via
-    `dxcli --status`.
+    `dxrt-cli --status`.
