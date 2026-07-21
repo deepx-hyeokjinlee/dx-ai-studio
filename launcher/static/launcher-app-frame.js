@@ -864,6 +864,11 @@
     var container = document.getElementById('navTabs');
     if (!container) return;
     if (!ns.currentApp) {
+      // Home: clear any lingering active class off the module tabs before hiding, so the
+      // last-entered module's highlight doesn't survive and reappear next time the bar shows.
+      container.querySelectorAll('.nav-tab[data-app]').forEach(function(tab) {
+        NAV_ACTIVE_CLASSES.forEach(function(className) { tab.classList.remove(className); });
+      });
       container.hidden = true;
       updateActiveModuleCards();
       return;
