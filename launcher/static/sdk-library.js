@@ -772,7 +772,8 @@
     };
 
     const isBlank = (l) => /^\s*$/.test(l) || l.trim() === '\x00REF\x00';
-    const listRe = /^(\s*)(?:[*-]|\d+\.)[ \t]+(.+)$/;
+    const listRe = /^(\s*)(?:[*+-]|\d+[.)])[ \t]+(.+)$/;
+    const listItemRe = /^(\s*)(?:([*+-])|(\d+)[.)])[ \t]+(.+)$/;
     const headRe = /^(#{1,6})\s+(.+)$/;
     const hrRe = /^\s*(-{3,}|\*{3,}|_{3,})\s*$/;
     const bqRe = /^\s*>\s?/;
@@ -858,15 +859,36 @@
           out.push(`<blockquote>${inline(buf.join(' '))}</blockquote>`);
           continue;
         }
-        // List — consecutive items (blank lines between items still merge into one <ul>).
+        // List — gather consecutive items (blank lines between items still merge), then build
+        // a nested tree by indentation with ordered (<ol>) / unordered (<ul>) per level.
         if (listRe.test(line)) {
-          const items = [];
+          const raw = [];
           while (i < lines.length) {
-            if (listRe.test(lines[i])) { items.push(lines[i].match(listRe)[2].trim()); i++; }
+            if (listRe.test(lines[i])) { raw.push(lines[i]); i++; }
             else if (isBlank(lines[i]) && i + 1 < lines.length && listRe.test(lines[i + 1])) { i++; }
             else break;
           }
-          out.push('<ul>' + items.map((it) => `<li>${inline(it)}</li>`).join('') + '</ul>');
+          const parsed = raw.map((l) => {
+            const mm = l.match(listItemRe);
+            return { indent: mm[1].replace(/\t/g, '    ').length, ordered: mm[3] !== undefined, content: mm[4].trim() };
+          });
+          let pos = 0;
+          const build = () => {
+            const baseIndent = parsed[pos].indent;
+            const ordered = parsed[pos].ordered;
+            let lis = '';
+            while (pos < parsed.length && parsed[pos].indent >= baseIndent) {
+              if (parsed[pos].indent > baseIndent) break;  // safety: stray deeper indent
+              let li = inline(parsed[pos].content);
+              pos++;
+              if (pos < parsed.length && parsed[pos].indent > baseIndent) li += build();  // nested child list
+              lis += `<li>${li}</li>`;
+            }
+            return `<${ordered ? 'ol' : 'ul'}>${lis}</${ordered ? 'ol' : 'ul'}>`;
+          };
+          let listHtml = '';
+          while (pos < parsed.length) listHtml += build();
+          out.push(listHtml);
           continue;
         }
         // Raw HTML block — pass through (apply inline so <img> src gets rewritten), no <p> wrap.
