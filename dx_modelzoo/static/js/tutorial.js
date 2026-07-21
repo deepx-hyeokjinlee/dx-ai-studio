@@ -232,15 +232,13 @@
         { target: '#sortSelect', position: 'bottom',
           title: { ko: '정렬', en: 'Sort', ja: 'ソート', 'zh-CN': '排序', 'zh-TW': '排序', es: 'Ordenar' },
           content: { ko: '<strong>이름순, 카테고리순, FPS순</strong>으로 정렬할 수 있습니다. 카드 뷰와 리스트 뷰 모두에 적용됩니다.', en: 'Sort by <strong>name, category, or FPS</strong>. Applies to both card and list views.', ja: '<strong>名前順、カテゴリ順、FPS順</strong>でソートできます。カードビューとリストビュー両方に適用されます。', 'zh-CN': '按<strong>名称、类别或FPS</strong>排序。适用于卡片视图和列表视图。', 'zh-TW': '按<strong>名稱、類別或FPS</strong>排序。適用於卡片檢視和列表檢視。', es: 'Ordene por <strong>nombre, categoría o FPS</strong>. Aplica a las vistas de tarjetas y de lista.' } },
-        // position: bottom — 컨테이너가 매우 길 수 있어 top은 sticky topbar에 가려질 수 있음
-        { target: '#catalogContainer', position: 'bottom',
+        // Spotlight the first actual catalog card (scoped to #catalogContainer so it never
+        // latches onto a stray .mz-card elsewhere in the DOM). position: bottom — the sticky
+        // topbar can cover a 'top' callout.
+        { target: '#catalogContainer .mz-card', position: 'bottom',
           title: { ko: '모델 카드', en: 'Model Cards', ja: 'モデルカード', 'zh-CN': '模型卡片', 'zh-TW': '模型卡片', es: 'Tarjetas de modelo' },
-          content: { ko: '카드를 클릭하면 <strong>모델 상세 페이지</strong>로 이동합니다. 카드에는 FPS 성능 배지(Q-Lite/Q-Pro)와 다운로드 상태(✅/📥)가 표시됩니다.', en: 'Click a card to go to the <strong>model detail page</strong>. Cards show FPS badges (Q-Lite/Q-Pro) and download status (✅/📥).', ja: 'カードをクリックすると<strong>モデル詳細ページ</strong>に移動します。カードにはFPSバッジ（Q-Lite/Q-Pro）とダウンロード状態（✅/📥）が表示されます。', 'zh-CN': '点击卡片进入<strong>模型详情页</strong>。卡片显示FPS标记（Q-Lite/Q-Pro）和下载状态（✅/📥）。', 'zh-TW': '點擊卡片進入<strong>模型詳情頁</strong>。卡片顯示FPS標記（Q-Lite/Q-Pro）和下載狀態（✅/📥）。', es: 'Haga clic en una tarjeta para ir a la <strong>página de detalle del modelo</strong>. Las tarjetas muestran insignias FPS (Q-Lite/Q-Pro) y estado de descarga (✅/📥).' },
-          beforeStep: function () { scrollTo('#catalogContainer'); } },
-        { target: '.mz-card', position: 'bottom',
-          title: { ko: '카드 클릭', en: 'Card Click', ja: 'カードクリック', 'zh-CN': '点击卡片', 'zh-TW': '點擊卡片', es: 'Clic en tarjeta' },
-          content: { ko: '각 카드를 클릭하면 해당 모델의 <strong>상세 페이지</strong>로 이동합니다. 카드에는 모델명, 카테고리 아이콘, 성능 배지가 표시됩니다.', en: 'Click any card to open its <strong>detail page</strong>. Each card displays model name, category icon, and performance badges.', ja: '各カードをクリックすると該当モデルの<strong>詳細ページ</strong>が開きます。カードにはモデル名、カテゴリアイコン、性能バッジが表示されます。', 'zh-CN': '点击任意卡片打开其<strong>详情页</strong>。每张卡片显示模型名称、类别图标和性能标记。', 'zh-TW': '點擊任意卡片開啟其<strong>詳情頁</strong>。每張卡片顯示模型名稱、類別圖示和效能標記。', es: 'Haga clic en cualquier tarjeta para abrir su <strong>página de detalle</strong>. Cada tarjeta muestra el nombre del modelo, el icono de categoría y las insignias de rendimiento.' },
-          beforeStep: function () { scrollTo('.mz-card'); } },
+          content: { ko: '각 카드를 클릭하면 해당 모델의 <strong>상세 페이지</strong>로 이동합니다. 카드에는 모델명, 카테고리 아이콘, FPS 성능 배지(Q-Lite/Q-Pro), 다운로드 상태(✅/📥)가 표시됩니다.', en: 'Click any card to open its <strong>detail page</strong>. Each card shows the model name, category icon, FPS badges (Q-Lite/Q-Pro), and download status (✅/📥).', ja: '各カードをクリックすると該当モデルの<strong>詳細ページ</strong>に移動します。カードにはモデル名、カテゴリアイコン、FPSバッジ（Q-Lite/Q-Pro）、ダウンロード状態（✅/📥）が表示されます。', 'zh-CN': '点击任意卡片进入其<strong>模型详情页</strong>。每张卡片显示模型名称、类别图标、FPS 标记（Q-Lite/Q-Pro）和下载状态（✅/📥）。', 'zh-TW': '點擊任意卡片進入其<strong>模型詳情頁</strong>。每張卡片顯示模型名稱、類別圖示、FPS 標記（Q-Lite/Q-Pro）和下載狀態（✅/📥）。', es: 'Haga clic en cualquier tarjeta para abrir su <strong>página de detalle</strong>. Cada tarjeta muestra el nombre del modelo, el icono de categoría, las insignias FPS (Q-Lite/Q-Pro) y el estado de descarga (✅/📥).' },
+          beforeStep: function () { scrollTo('#catalogContainer .mz-card'); } },
       ]
     },
 
