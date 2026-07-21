@@ -186,7 +186,7 @@
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 12px;
   z-index: 60;
 }
 .about-dotnav-title {
@@ -195,13 +195,13 @@
   text-transform: uppercase;
   color: var(--about-text-muted);
   opacity: 0.75;
-  padding: 0 10px 14px 18px;
+  padding: 0 10px 20px 18px;
 }
 .about-dot {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 9px 12px 9px 18px;
+  padding: 13px 12px 13px 18px;
   background: none;
   border: none;
   border-left: 3px solid var(--about-card-border);
@@ -237,20 +237,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: 96px 0;
+  gap: 32px;
+  padding: 56px 0;
   pointer-events: none;
 }
 .about-leftrail-brand {
   writing-mode: vertical-rl;
-  font: 800 22px/1 var(--font);
-  letter-spacing: 8px;
+  font: 800 24px/1 var(--font);
+  letter-spacing: 10px;
   color: var(--about-heading);
   opacity: 0.85;
 }
 .about-leftrail-track {
   width: 3px;
-  height: 240px;
+  height: 46vh;
+  max-height: 620px;
   border-radius: 2px;
   background: var(--about-card-border);
   position: relative;
@@ -275,12 +276,12 @@
 .about-leftrail-count-sep { color: var(--about-text-muted); font-weight: 500; }
 .about-leftrail-tag {
   writing-mode: vertical-rl;
+  white-space: nowrap;              /* keep the slogan on one straight vertical line */
   font: 600 12px/1 var(--font);
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--about-text-muted);
   opacity: 0.7;
-  max-height: 260px;
 }
 @media (max-width: 1979px) {
   .about-leftrail { display: none; }
