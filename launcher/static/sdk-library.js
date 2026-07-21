@@ -752,10 +752,21 @@
       t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, alt, src) => `<img src="${rewriteSrc(src)}" alt="${alt}">`);
       // Raw HTML <img src="rel"> → rewrite the src attribute (keep other attrs)
       t = t.replace(/(<img\b[^>]*?\bsrc\s*=\s*["'])([^"']+)(["'])/gi, (m, pre, src, post) => `${pre}${rewriteSrc(src)}${post}`);
-      t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+      // Doc-relative links to another .md open inside the viewer; everything else opens in a
+      // new tab. (Cross-doc links used to point at a raw .md path and 404.)
+      const mkLink = (txt, url) => {
+        const u = (url || '').trim();
+        const base = u.split('#')[0].split('?')[0];
+        if (docPath && /\.md$/i.test(base) && !/^(https?:|\/|mailto:)/i.test(u)) {
+          const anchor = u.includes('#') ? u.slice(u.indexOf('#')) : '';
+          return `<a href="#" class="sdk-doclink" data-doc="${escHtml(_resolveDocRel(docPath, base))}" data-anchor="${escHtml(anchor)}">${txt}</a>`;
+        }
+        return `<a href="${u}" target="_blank">${txt}</a>`;
+      };
+      t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, txt, url) => mkLink(txt, url));
       t = t.replace(/\[([^\]]+)\]\[([^\]]*)\]/g, (m, txt, label) => {
         const url = refs[(label || txt).toLowerCase()];
-        return url ? `<a href="${url}" target="_blank">${txt}</a>` : m;
+        return url ? mkLink(txt, url) : m;
       });
       return t;
     };
@@ -1054,6 +1065,29 @@
     renderSdkRetryAction(body.querySelector('.sdk-doc-error'), function() { retryLoadDocument(book); });
   }
 
+  // Find a manifest file entry by its dx-all-suite-relative path (for cross-doc links).
+  function findBookByPath(p) {
+    if (!_libData || !_libData.drawers || !p) return null;
+    for (const dr of _libData.drawers)
+      for (const s of (dr.sections || []))
+        for (const f of (s.files || []))
+          if (f.path === p) return f;
+    return null;
+  }
+  // Delegate clicks on in-doc .md links → open that doc in the viewer if it's in the library;
+  // otherwise do nothing (never navigate to a dead raw .md path). Bound once per body.
+  function bindDocLinks(body) {
+    if (!body || body.dataset.doclinkBound === '1') return;
+    body.dataset.doclinkBound = '1';
+    body.addEventListener('click', function (e) {
+      const a = e.target.closest && e.target.closest('a.sdk-doclink');
+      if (!a) return;
+      e.preventDefault();
+      const book = findBookByPath(a.getAttribute('data-doc'));
+      if (book) openBookViewer(book, null, { updateUrl: true });
+    });
+  }
+
   async function openBookViewer(book, drawerColor, options) {
     var opts = options || {};
     const viewer = document.getElementById('sdkBookViewer');
@@ -1124,6 +1158,7 @@
         body.innerHTML = html;
         body.scrollTop = 0;
         renderMermaidBlocks(body);
+        bindDocLinks(body);
       }
     } catch (e) {
       if (body) {
