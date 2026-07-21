@@ -663,8 +663,13 @@
   function mdToHtml(md, docPath) {
     // Protect fenced code blocks from later transforms.
     const codeBlocks = [];
-    let s = md.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    // Fenced code. Accept a full info string after the opening fence (e.g. ```python
+    // title="x", ```py {.highlight}) — capture everything to end-of-line and derive the
+    // language token from its first word, so attribute-carrying fences still pair correctly
+    // (an unmatched fence used to shift the pairing and leak code as plain text).
+    let s = md.replace(/```[ \t]*([^\n]*)\n([\s\S]*?)```/g, (_, info, code) => {
       const idx = codeBlocks.length;
+      const lang = ((info || '').trim().match(/^[\w+-]+/) || [''])[0];
       codeBlocks.push(`<pre><code class="lang-${lang}">${escHtml(code.trimEnd())}</code></pre>`);
       return `\x00CB${idx}\x00`;
     });
@@ -709,6 +714,10 @@
     const htmlRe = /^\s*<(\/?)(div|img|table|thead|tbody|tr|td|th|p|ul|ol|li|blockquote|figure|figcaption|h[1-6]|hr|br|section|span|pre|details|summary|iframe|video|source|!--)/i;
     const cbRe = /^\s*\x00CB\d+\x00\s*$/;
     const rowRe = /^\s*\|.*\|\s*$/;
+    // GFM tables tolerate rows without outer pipes (e.g. `Type | Format`). Detect a table by
+    // a header line containing a pipe immediately followed by a separator row of dashes.
+    const hasPipe = (l) => /\|/.test(l) && !cbRe.test(l);
+    const sepRowRe = (l) => /-/.test(l) && /\|/.test(l) && /^[\s:|-]+$/.test(l);
     // MkDocs admonitions (`!!! type "Title"`, collapsible `???`/`???+`) and content tabs
     // (`=== "Tab"`) — the source docs use these heavily; without support they'd render as
     // literal `!!! note` text. Body is the following 4-space/tab-indented block.
@@ -765,13 +774,13 @@
         if ((m = line.match(headRe))) { out.push(`<h${m[1].length}>${inline(m[2].trim())}</h${m[1].length}>`); i++; continue; }
         if (hrRe.test(line)) { out.push('<hr>'); i++; continue; }
         if (cbRe.test(line)) { out.push(line.trim()); i++; continue; }
-        // Table: header row followed by a |---|---| separator.
-        if (rowRe.test(line) && i + 1 < lines.length && /^\s*\|[-| :]+\|\s*$/.test(lines[i + 1])) {
+        // Table: header row (pipe, outer pipes optional) followed by a dash separator row.
+        if (hasPipe(line) && i + 1 < lines.length && sepRowRe(lines[i + 1])) {
           const cell = (r) => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
           const ths = cell(line).map(c => `<th>${inline(c)}</th>`).join('');
           i += 2;
           const trs = [];
-          while (i < lines.length && rowRe.test(lines[i])) {
+          while (i < lines.length && hasPipe(lines[i]) && !isBlank(lines[i])) {
             trs.push(`<tr>${cell(lines[i]).map(c => `<td>${inline(c)}</td>`).join('')}</tr>`);
             i++;
           }
@@ -807,7 +816,8 @@
         // gather continuation lines until a blank line or the start of another block.
         const buf = [lines[i]];
         i++;
-        while (i < lines.length && !isBlank(lines[i]) && !isSpecial(lines[i])) { buf.push(lines[i]); i++; }
+        while (i < lines.length && !isBlank(lines[i]) && !isSpecial(lines[i]) &&
+               !(hasPipe(lines[i]) && i + 1 < lines.length && sepRowRe(lines[i + 1]))) { buf.push(lines[i]); i++; }
         const para = buf.map((l, idx) => {
           const hard = /  +$/.test(l) || /\\$/.test(l);
           return l.replace(/\\$/, '').replace(/\s+$/, '') + (idx < buf.length - 1 ? (hard ? '<br>' : ' ') : '');

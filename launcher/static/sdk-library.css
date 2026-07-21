@@ -733,6 +733,9 @@
   font-size: var(--fs-md);
   line-height: 1.8;
   scroll-behavior: smooth;
+  /* Long unbroken tokens in prose (e.g. arrow breadcrumbs A→B→C→D) wrap instead of
+     overflowing the column; code blocks keep their own horizontal scroll (pre {overflow-x}). */
+  overflow-wrap: break-word;
 }
 .sdk-viewer-body.sdk-pdf-mode {
   padding: 0;
