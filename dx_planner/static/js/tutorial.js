@@ -27,7 +27,9 @@
      the spotlight ~150ms after beforeStep — smooth scroll would still be mid-flight. */
   function _reveal(sel) {
     var el = document.querySelector(sel);
-    if (el) el.scrollIntoView({ block: 'center' });
+    if (!el) return;
+    if (el.hidden) el.hidden = false;  // un-hide elements gated behind the `hidden` attribute
+    el.scrollIntoView({ block: 'center' });
   }
 
   /* The priority drawer opens/closes with a ~0.42s CSS transition. If the spotlight is
@@ -113,7 +115,7 @@
         { target: '#workflowSteps', position: 'bottom',
           title: { ko: '4단계 흐름', en: 'Four-step flow', ja: '4段階フロー', 'zh-CN': '四步流程', 'zh-TW': '四步流程', es: 'Flujo de cuatro pasos' },
           content: { ko: '시나리오 → 추천 → 근거 → 구매 순으로 진행합니다. 각 단계가 열리면 단계 표시가 갱신됩니다.', en: 'Progress through Scenario → Pick → Evidence → Buy. Step markers update as each panel opens.', ja: 'シナリオ → 推奨 → 根拠 → 購入の順に進みます。各パネルが開くとステップ表示が更新されます。', 'zh-CN': '按 场景 → 推荐 → 依据 → 购买 推进。每打开一个面板，步骤标记会更新。', 'zh-TW': '依 情境 → 推薦 → 依據 → 購買 推進。每開啟一個面板，步驟標記會更新。', es: 'Avance por Escenario → Elegir → Evidencia → Comprar. Los indicadores se actualizan al abrir cada panel.' } },
-        { target: '#scopeBanner [data-open-methodology]', position: 'left',
+        { target: '#scopeBanner [data-open-methodology]', position: 'bottom',
           title: { ko: '추천 원리', en: 'How ranking works', ja: '推奨の仕組み', 'zh-CN': '推荐原理', 'zh-TW': '推薦原理', es: 'Cómo funciona el ranking' },
           content: { ko: '노란 원리 버튼을 누르면 산출식, 데이터 출처, 면책 안내가 포함된 방법론 대화상자가 열립니다.', en: 'The yellow methodology button opens a dialog with formulas, data sources, and disclaimer notes.', ja: '黄色の原理解説ボタンで、計算式・データ出典・免責事項を含む方法論ダイアログが開きます。', 'zh-CN': '点击黄色原理按钮可打开含公式、数据来源与免责声明的方法论对话框。', 'zh-TW': '點擊黃色原理按鈕可開啟含公式、資料來源與免責聲明的方法論對話框。', es: 'El botón amarillo de metodología abre un diálogo con fórmulas, fuentes de datos y avisos legales.' },
           beforeStep: function () { _reveal('#scopeBanner [data-open-methodology]'); } }
@@ -140,17 +142,17 @@
         { target: '#ops-card', position: 'right',
           title: { ko: '운영 조건', en: 'Operating requirements', ja: '運用要件', 'zh-CN': '运行要求', 'zh-TW': '運行需求', es: 'Requisitos de operación' },
           content: { ko: '채널 수, 목표 FPS, ONNX Runtime/Native, FPS 여유, 최대 latency(프리셋 또는 직접 입력)를 설정합니다.', en: 'Set channels, target FPS, ONNX Runtime/Native, FPS headroom, and max latency (preset or custom ms).', ja: 'チャンネル数、目標FPS、ONNX Runtime/Native、FPSヘッドルーム、最大レイテンシ（プリセットまたは直接入力）を設定します。', 'zh-CN': '设置通道数、目标 FPS、ONNX Runtime/Native、FPS 余量和最大延迟（预设或自定义 ms）。', 'zh-TW': '設定通道數、目標 FPS、ONNX Runtime/Native、FPS 餘量和最大延遲（預設或自訂 ms）。', es: 'Configure canales, FPS objetivo, ONNX Runtime/Native, margen FPS y latencia máx. (preset o ms personalizado).' } },
-        { target: '#fpsHeadroom', position: 'left',
+        { target: '#fpsHeadroom', position: 'right',
           title: { ko: 'FPS 여유', en: 'FPS headroom', ja: 'FPSヘッドルーム', 'zh-CN': 'FPS 余量', 'zh-TW': 'FPS 餘量', es: 'Margen FPS' },
           content: { ko: '목표 FPS보다 약간 높게 잡아 안정적인 채널 산정을 합니다. 예: 10%면 effectiveTarget = target × 1.1', en: 'Adds margin above target FPS for safer channel estimates (e.g. 10% → effectiveTarget = target × 1.1).', ja: '目標FPSより少し高めに設定し、安定したチャンネル推定を行います（例: 10% → effectiveTarget = target × 1.1）。', 'zh-CN': '在目标 FPS 之上留出余量以更稳妥地估算通道（如 10% → effectiveTarget = target × 1.1）。', 'zh-TW': '在目標 FPS 之上留出餘量以更穩妥地估算通道（如 10% → effectiveTarget = target × 1.1）。', es: 'Añade margen sobre el FPS objetivo para estimar canales con más seguridad (p. ej. 10% → effectiveTarget = target × 1.1).' } },
-        { target: '#maxLatencyPreset', position: 'left',
+        { target: '#maxLatencyPreset', position: 'right',
           title: { ko: '최대 latency', en: 'Max latency', ja: '最大レイテンシ', 'zh-CN': '最大延迟', 'zh-TW': '最大延遲', es: 'Latencia máx.' },
           content: { ko: '프리셋(ms)을 고르거나 옆 입력란에 직접 ms를 입력합니다. 비우면 latency 조건은 적용하지 않습니다.', en: 'Pick a preset (ms) or type a custom value. Leave empty to skip the latency filter.', ja: 'プリセット(ms)を選ぶか、横の入力欄に直接 ms を入力します。空欄ならレイテンシ条件は適用しません。', 'zh-CN': '选择预设(ms)或在旁输入自定义 ms。留空则不应用延迟条件。', 'zh-TW': '選擇預設(ms)或在旁輸入自訂 ms。留空則不套用延遲條件。', es: 'Elija un preset (ms) o escriba un valor. Déjelo vacío para omitir el filtro de latencia.' } },
         { target: '#btnSetupNext', position: 'right',
           title: { ko: '다음: 우선순위', en: 'Next: priority', ja: '次へ: 優先度', 'zh-CN': '下一步：优先级', 'zh-TW': '下一步：優先順序', es: 'Siguiente: prioridad' },
           content: { ko: '조건 입력 후 이 버튼으로 우선순위 패널을 오른쪽에서 슬라이드 인합니다. 1단계 조건 화면은 그대로 보입니다.', en: 'After entering requirements, this slides the priority panel in from the right while the requirements step stays visible.', ja: '要件入力後、このボタンで優先度パネルが右からスライドインします。条件ステップはそのまま表示されます。', 'zh-CN': '输入条件后，此按钮从右侧滑入优先级面板，条件步骤仍保持可见。', 'zh-TW': '輸入條件後，此按鈕從右側滑入優先順序面板，條件步驟仍保持可見。', es: 'Tras ingresar requisitos, desliza el panel de prioridad desde la derecha; el paso de condiciones sigue visible.' },
           beforeStep: function () { var p = _revealSetupNext(); _reveal('#btnSetupNext'); return p; } },
-        { target: '#priority-card', position: 'left',
+        { target: '#priority-card', position: 'right',
           title: { ko: '추천 우선순위', en: 'Ranking priority', ja: '推奨優先度', 'zh-CN': '推荐优先级', 'zh-TW': '推薦優先順序', es: 'Prioridad de clasificación' },
           content: { ko: '비용, 성능, 전력 중 무엇을 우선할지 선택한 뒤 추천 버튼으로 실행합니다.', en: 'Choose cost, performance, or power priority, then press Recommend.', ja: 'コスト、性能、電力の優先度を選び、推奨ボタンで実行します。', 'zh-CN': '选择成本、性能或功耗优先级后，点击推荐按钮执行。', 'zh-TW': '選擇成本、效能或功耗優先順序後，點擊推薦按鈕執行。', es: 'Elija prioridad de costo, rendimiento o consumo y pulse Recomendar.' },
           beforeStep: function () { return _openPriorityPanel().then(function () { _reveal('#priority-card'); }); } },
@@ -188,7 +190,7 @@
         { target: '#recommend-cards .rec-card:first-of-type', position: 'right',
           title: { ko: '추천 카드', en: 'Recommendation card', ja: '推奨カード', 'zh-CN': '推荐卡片', 'zh-TW': '推薦卡片', es: 'Tarjeta de recomendación' },
           content: { ko: '카드 전체를 클릭하거나 Enter/Space로 선택할 수 있습니다. 상세 보기 버튼도 같은 패널을 엽니다.', en: 'Click the card or use Enter/Space to select it. The detail button opens the same panel.', ja: 'カード全体のクリック、またはEnter/Spaceで選択できます。詳細ボタンも同じパネルを開きます。', 'zh-CN': '可点击整张卡片或使用Enter/Space选择。详情按钮打开同一面板。', 'zh-TW': '可點擊整張卡片或使用Enter/Space選擇。詳情按鈕打開同一面板。', es: 'Puede hacer clic en la tarjeta completa o usar Enter/Espacio para seleccionarla. El botón de detalle abre el mismo panel.' },
-          beforeStep: function () { _scrollTo('#recommend-cards .rec-card:first-of-type'); } }
+          beforeStep: function () { _reveal('#recommend-cards .rec-card:first-of-type'); } }
       ]
     },
 
