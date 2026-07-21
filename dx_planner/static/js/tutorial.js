@@ -187,10 +187,10 @@
         { target: '#overviewChart', position: 'top',
           title: { ko: '처리량 차트', en: 'Throughput chart', ja: 'スループットチャート', 'zh-CN': '吞吐量图表', 'zh-TW': '吞吐量圖表', es: 'Gráfico de rendimiento' },
           content: { ko: '플랫폼별 throughput FPS를 비교합니다. 막대를 선택하면 해당 플랫폼 상세 패널이 열립니다.', en: 'Compares throughput FPS by platform. Select a bar to open that platform in the detail panel.', ja: 'プラットフォーム別throughput FPSを比較します。バーを選択すると詳細パネルが開きます。', 'zh-CN': '比较各平台throughput FPS。选择柱条可打开对应详情面板。', 'zh-TW': '比較各平台throughput FPS。選擇長條可打開對應詳情面板。', es: 'Compare el throughput FPS por plataforma. Al seleccionar una barra, se abre el panel de detalle de esa plataforma.' } },
-        { target: '#recommend-cards .rec-card:first-of-type', position: 'right',
+        { target: '#recommend-cards .rec-card', position: 'right',
           title: { ko: '추천 카드', en: 'Recommendation card', ja: '推奨カード', 'zh-CN': '推荐卡片', 'zh-TW': '推薦卡片', es: 'Tarjeta de recomendación' },
           content: { ko: '카드 전체를 클릭하거나 Enter/Space로 선택할 수 있습니다. 상세 보기 버튼도 같은 패널을 엽니다.', en: 'Click the card or use Enter/Space to select it. The detail button opens the same panel.', ja: 'カード全体のクリック、またはEnter/Spaceで選択できます。詳細ボタンも同じパネルを開きます。', 'zh-CN': '可点击整张卡片或使用Enter/Space选择。详情按钮打开同一面板。', 'zh-TW': '可點擊整張卡片或使用Enter/Space選擇。詳情按鈕打開同一面板。', es: 'Puede hacer clic en la tarjeta completa o usar Enter/Espacio para seleccionarla. El botón de detalle abre el mismo panel.' },
-          beforeStep: function () { _reveal('#recommend-cards .rec-card:first-of-type'); } }
+          beforeStep: function () { _reveal('#recommend-cards .rec-card'); } }
       ]
     },
 
