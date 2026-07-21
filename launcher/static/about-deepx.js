@@ -745,7 +745,7 @@
     if (!scrollEl) return;
     scrollEl.innerHTML = '<div class="about-loading" role="status" aria-live="polite">' +
       '<div class="about-loading-spinner" aria-hidden="true"></div>' +
-      '<span>' + T({en:'Loading About DEEPX…', ko:'DEEPX 소개 불러오는 중…', ja:'DEEPXの概要を読み込み中…', 'zh-CN':'正在加载关于 DEEPX…', 'zh-TW':'正在載入關於 DEEPX…', es:'Cargando Acerca de DEEPX…'}) + '</span>' +
+      '<span>' + T({en:'Loading About DEEPX…', ko:'DEEPX 소개 불러오는 중…', ja:'DEEPXについて読み込み中…', 'zh-CN':'正在加载关于 DEEPX…', 'zh-TW':'正在載入關於 DEEPX…', es:'Cargando Acerca de DEEPX…'}) + '</span>' +
       '</div>';
   }
   function renderAboutError(error) {
