@@ -6,6 +6,7 @@
   let _scrollSpyObserver = null;
   let _fadeObserver = null;
   let _languageHookRegistered = false;
+  let _aboutScrollProgressUpdate = null;
 
   const SUPPORTED_LANGS = ['en', 'ja', 'ko', 'es', 'zh-CN', 'zh-TW'];
 
@@ -591,6 +592,7 @@
     function setActive(id) {
       tabs.forEach(t => t.classList.toggle('active', t.dataset.section === id));
       dots.forEach(d => d.classList.toggle('active', d.dataset.section === id));
+      if (_aboutScrollProgressUpdate) _aboutScrollProgressUpdate();
     }
 
     _scrollSpyObserver = new IntersectionObserver(entries => {
@@ -696,6 +698,48 @@
     view.appendChild(rail);
   }
 
+  // Left-gutter rail: DEEPX brand mark + a vertical scroll-progress track + live section
+  // counter. Balances the table of contents on the right and fills the otherwise-empty left
+  // gutter on wide screens. CSS hides it where there's no gutter.
+  function renderLeftRail() {
+    var view = document.getElementById('about-view');
+    if (!view) return;
+    var old = view.querySelector('.about-leftrail');
+    if (old) old.remove();
+    var rail = document.createElement('div');
+    rail.className = 'about-leftrail';
+    rail.setAttribute('aria-hidden', 'true');  // decorative + progress; TOC is the real nav
+    rail.innerHTML =
+      '<div class="about-leftrail-brand">DEEPX</div>' +
+      '<div class="about-leftrail-track"><div class="about-leftrail-fill" id="aboutScrollFill"></div></div>' +
+      '<div class="about-leftrail-count"><span id="aboutSecNow">1</span><span class="about-leftrail-count-sep">/</span><span id="aboutSecTotal">8</span></div>' +
+      '<div class="about-leftrail-tag">' + T({en:'AI for Everyone &amp; Everywhere', ko:'모두를 위한 모든 곳의 AI', ja:'すべての人に、あらゆる場所でAIを', 'zh-CN':'让 AI 无处不在、人人可用', 'zh-TW':'讓 AI 無所不在、人人可用', es:'IA para todos y en todas partes'}) + '</div>';
+    view.appendChild(rail);
+  }
+
+  // Wire the left rail's scroll-progress fill + section counter to the scroll container.
+  function setupScrollProgress(scrollEl) {
+    var fill = document.getElementById('aboutScrollFill');
+    var now = document.getElementById('aboutSecNow');
+    var total = document.getElementById('aboutSecTotal');
+    var dots = document.querySelectorAll('.about-dot');
+    if (total) total.textContent = String(dots.length + 1);  // sections incl. hero
+    function update() {
+      var max = scrollEl.scrollHeight - scrollEl.clientHeight;
+      var pct = max > 0 ? Math.min(100, Math.max(0, (scrollEl.scrollTop / max) * 100)) : 0;
+      if (fill) fill.style.height = pct + '%';
+      if (now) {
+        // active TOC dot index (+2: hero is section 1, dots start at section 2)
+        var idx = 0;
+        dots.forEach(function (d, i) { if (d.classList.contains('active')) idx = i + 1; });
+        now.textContent = String(idx + 1);
+      }
+    }
+    scrollEl.addEventListener('scroll', update, { passive: true });
+    update();
+    _aboutScrollProgressUpdate = update;
+  }
+
   function renderAboutLoading() {
     var scrollEl = document.getElementById('aboutScroll');
     if (!scrollEl) return;
@@ -767,13 +811,17 @@
     renderCompany(scrollEl, _aboutData);
     renderTechnology(scrollEl, _aboutData);
     renderProducts(scrollEl, _aboutData);
-    renderInvestment(scrollEl, _aboutData);
+    // Partners before Awards to match the nav / table-of-contents order (Partners → Awards);
+    // the sections used to render Awards first, so the TOC order looked swapped.
     renderPartners(scrollEl, _aboutData);
+    renderInvestment(scrollEl, _aboutData);
     renderNews(scrollEl, _aboutData);
 
     renderAboutNavLabels();
     renderSectionDots();
+    renderLeftRail();
     setupScrollSpy(scrollEl);
+    setupScrollProgress(scrollEl);
     setupFadeIn(scrollEl);
 
     if (options.preserveScroll) scrollEl.scrollTop = scrollPos;
