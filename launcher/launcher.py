@@ -1179,6 +1179,17 @@ class LauncherHandler(DXBaseHandler):
             asset_scope=None,
             extra_static_roots=[BASE_DIR / "static"],
         )
+        # Inject the shared NPU Monitor float into the launcher shell so the launcher-native
+        # views (About DEEPX, SDK Library) show the same collapsible monitor as the proxied
+        # module pages. Visibility is gated client-side (setVisibleView adds .hw-native-visible
+        # only on those views), so it never doubles up with a module iframe's own widget nor
+        # clutters the home splash.
+        widget = _get_widget_cache()
+        if widget:
+            snippet = widget.decode("utf-8", "ignore")
+            low = html.lower()
+            idx = low.rfind("</body>")
+            html = (html[:idx] + snippet + html[idx:]) if idx != -1 else (html + snippet)
         self.send_html_no_cache(html)
 
     def _client_id(self) -> str:
@@ -1296,7 +1307,11 @@ class LauncherHandler(DXBaseHandler):
             if port is not None:
                 if parsed.query:
                     sub_path += "?" + parsed.query
-                _proxy(self, port, sub_path, inject_widget=(target_id not in ("dx_monitor", "dx_agent_dev")))
+                # Inject the NPU Monitor float into every proxied module EXCEPT dx_monitor
+                # itself (it already shows full hardware telemetry). Agent Dev used to be
+                # excluded too, but it should carry the same floating monitor as the other
+                # modules, so it now receives the widget.
+                _proxy(self, port, sub_path, inject_widget=(target_id != "dx_monitor"))
                 return
 
         if self._has_subapp_referer():

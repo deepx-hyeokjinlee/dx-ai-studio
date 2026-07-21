@@ -404,6 +404,10 @@
     var footer    = document.getElementById('deepxFooter');
 
     document.body.classList.toggle('app-frame-visible', viewName === 'app');
+    // The shared NPU Monitor float is injected into the launcher shell but should only show
+    // on the launcher-native views (About, SDK Library) — module iframes carry their own, and
+    // the home splash stays uncluttered.
+    document.body.classList.toggle('hw-native-visible', viewName === 'about' || viewName === 'sdk-library');
 
     if (landing)   landing.style.display = 'none';
     if (footer)    footer.style.display = 'none';   // resource bar is home-shell chrome

@@ -70,6 +70,14 @@ body.app-frame-visible #launcherToolbar {
   display: none;
 }
 
+/* The shared NPU Monitor float is injected into the launcher shell (see launcher.py
+   _serve_index) but must appear only on the launcher-native views. It's hidden by default
+   and revealed when setVisibleView marks the body for About / SDK Library. Module iframes
+   render their own copy, so this never doubles up. */
+body:not(.hw-native-visible) #hw-float {
+  display: none !important;
+}
+
 /* On SDK/About the shared toolbar is relocated into the view's own header, leaving this slot
    empty. An empty-but-present flex child still consumes a gap in .top-bar-right, nudging the Buy
    button left and making the bar visibly reflow ("slide") on entry. Collapse it when empty. */
