@@ -1,9 +1,13 @@
 """P5: SDK knowledge sync — generate chatbot knowledge from the canonical `.deepx` warehouse.
 
-The `.deepx/{toolsets,memory}` docs + `docs/source` are the SDK teams' maintained truth and are
+The `.deepx/toolsets` docs + `docs/source` are the SDK teams' maintained truth and are
 continuously updated. Rather than hand-copying (which drifts), this generator reads the *live* suite
 sources and emits a section-tagged ``sdk_knowledge.md`` consumed by ``prompt_builder``, plus a hash
 manifest so we regenerate only when sources change (lazy resync on startup / manual refresh).
+
+`.deepx/memory` is intentionally NOT ingested: those are the dev agents' internal working notes
+(MEMORY.md, common_pitfalls, performance_patterns, …), not customer-facing SDK reference, so they
+must not leak into the shipped chatbot knowledge.
 
 Self-contained (stdlib only); no dependency on dx_agent_dev.
 """
@@ -31,11 +35,12 @@ _STOP = {"the", "a", "an", "and", "or", "for", "dx", "deepx", "md", "api", "guid
 def _iter_sdk_sources(suite_root: Path):
     """Yield (relpath, abspath) for SDK knowledge sources under the suite.
 
-    Sources: every ``*/.deepx/toolsets/*.md`` and ``*/.deepx/memory/*.md`` plus a curated set of
-    ``docs/source/*.md``. Excludes agent-process docs (agents/skills/templates, CLAUDE/AGENTS).
+    Sources: every ``*/.deepx/toolsets/*.md`` plus a curated set of ``docs/source/*.md``.
+    Excludes ``*/.deepx/memory/*.md`` (internal dev-agent notes — must not ship to the chatbot)
+    and agent-process docs (agents/skills/templates, CLAUDE/AGENTS).
     """
     seen = set()
-    for sub in ("toolsets", "memory"):
+    for sub in ("toolsets",):
         for p in sorted(suite_root.glob(f"**/.deepx/{sub}/*.md")):
             rel = p.relative_to(suite_root).as_posix()
             if rel not in seen:

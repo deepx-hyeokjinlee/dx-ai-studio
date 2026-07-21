@@ -26,13 +26,14 @@ def test_generate_writes_sdk_md_and_manifest(tmp_path):
     suite = _fake_suite(tmp_path)
     out = tmp_path / "knowledge"
     n = ks.generate(suite, out)
-    assert n == 3  # 2 .deepx + 1 docs/source (agents excluded)
+    assert n == 2  # 1 .deepx/toolsets + 1 docs/source (memory + agents excluded)
     md = (out / "sdk_knowledge.md").read_text()
     assert "## [section:" in md
-    assert "DX Engine API Reference" in md and "Common Pitfalls" in md and "FAQ" in md
+    assert "DX Engine API Reference" in md and "FAQ" in md
+    assert "Common Pitfalls" not in md  # .deepx/memory excluded (internal dev notes)
     assert "HARD GATE" not in md  # agent-process docs excluded
     manifest = json.loads((out / "sdk_manifest.json").read_text())
-    assert len(manifest) == 3
+    assert len(manifest) == 2
 
 
 def test_section_tags_have_keywords(tmp_path):
@@ -40,8 +41,8 @@ def test_section_tags_have_keywords(tmp_path):
     out = tmp_path / "knowledge"
     ks.generate(suite, out)
     md = (out / "sdk_knowledge.md").read_text()
-    # filename/title-derived keywords present (e.g. 'engine', 'pitfalls', 'faq')
-    assert "engine" in md and "pitfalls" in md
+    # filename/title-derived keywords present (e.g. 'engine', 'faq')
+    assert "engine" in md and "faq" in md
 
 
 def test_needs_resync_detects_change(tmp_path):
