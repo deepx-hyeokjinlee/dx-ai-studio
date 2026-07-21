@@ -1004,3 +1004,7 @@ details.sdk-adm[open] > summary.sdk-adm-title::after { transform: rotate(90deg);
 .sdk-tab-body { padding: 8px 14px; }
 .sdk-tab-body > :first-child { margin-top: 0; }
 .sdk-tab-body > :last-child { margin-bottom: 0; }
+
+/* Mermaid diagrams rendered from ```mermaid fences */
+.sdk-mermaid { margin: 16px 0; text-align: center; overflow-x: auto; }
+.sdk-mermaid svg { max-width: 100%; height: auto; }

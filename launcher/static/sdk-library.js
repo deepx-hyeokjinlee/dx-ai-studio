@@ -660,6 +660,54 @@
   // groups list items (incl. tab-indented `-\t`) into a single <ul>, converts
   // trailing hard breaks to <br>, and rewrites BOTH markdown `![](rel)` and raw
   // HTML `<img src="rel">` doc-relative sources through the image endpoint.
+  // ── Mermaid diagrams ──────────────────────────────────────────────────────
+  // Docs (e.g. Model Zoo architecture) use ```mermaid fences. The parser emits them as
+  // <pre class="mermaid-source">; here we turn each into an SVG once the doc mounts, using
+  // the offline vendored mermaid.min.js. On failure, the original code block is kept visible.
+  let _mermaidReady = null;
+  function ensureMermaid() {
+    if (typeof mermaid === 'undefined') return null;
+    if (!_mermaidReady) {
+      try {
+        mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', theme: 'dark', fontFamily: 'inherit' });
+      } catch (e) { /* already initialised */ }
+      _mermaidReady = Promise.resolve();
+    }
+    return _mermaidReady;
+  }
+  function renderMermaidBlocks(root) {
+    if (!root) return;
+    const blocks = root.querySelectorAll('pre.mermaid-source');
+    if (!blocks.length) return;
+    const ready = ensureMermaid();
+    if (!ready) return;  // mermaid lib absent → leave the code block visible
+    ready.then(() => {
+      blocks.forEach((pre) => {
+        if (pre.dataset.mmDone === '1') return;
+        pre.dataset.mmDone = '1';
+        const code = pre.querySelector('code');
+        const src = ((code && code.textContent) || pre.textContent || '').trim();
+        if (!src) return;
+        const host = document.createElement('div');
+        host.className = 'sdk-mermaid';
+        host.textContent = src;
+        pre.replaceWith(host);
+        try {
+          mermaid.run({ nodes: [host], suppressErrors: true }).then(() => {
+            if (!host.querySelector('svg')) fallback(host, src);
+          }).catch(() => fallback(host, src));
+        } catch (e) { fallback(host, src); }
+      });
+    });
+    function fallback(host, src) {
+      const pre = document.createElement('pre');
+      const c = document.createElement('code');
+      c.textContent = src;
+      pre.appendChild(c);
+      host.replaceWith(pre);
+    }
+  }
+
   function mdToHtml(md, docPath) {
     // Protect fenced code blocks from later transforms.
     const codeBlocks = [];
@@ -670,7 +718,13 @@
     let s = md.replace(/```[ \t]*([^\n]*)\n([\s\S]*?)```/g, (_, info, code) => {
       const idx = codeBlocks.length;
       const lang = ((info || '').trim().match(/^[\w+-]+/) || [''])[0];
-      codeBlocks.push(`<pre><code class="lang-${lang}">${escHtml(code.trimEnd())}</code></pre>`);
+      if (lang.toLowerCase() === 'mermaid') {
+        // Emit a mermaid source block; renderMermaidBlocks() turns it into an SVG diagram
+        // after the doc mounts (falls back to showing the code if rendering fails).
+        codeBlocks.push(`<pre class="mermaid-source"><code>${escHtml(code.trimEnd())}</code></pre>`);
+      } else {
+        codeBlocks.push(`<pre><code class="lang-${lang}">${escHtml(code.trimEnd())}</code></pre>`);
+      }
       return `\x00CB${idx}\x00`;
     });
     // Reference-style link definitions: `[label]: url` — collect then blank the line.
@@ -1069,6 +1123,7 @@
         body.classList.remove('sdk-pdf-mode');
         body.innerHTML = html;
         body.scrollTop = 0;
+        renderMermaidBlocks(body);
       }
     } catch (e) {
       if (body) {
