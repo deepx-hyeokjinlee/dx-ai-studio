@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""dx_app inference API로 280개 모델 썸네일/예제 이미지 생성.
+"""dx_app inference API로 340개 모델 썸네일/예제 이미지 생성.
 
 사전 조건: dx_app 서버가 localhost:8080에서 실행 중이어야 함.
 Usage: python3 generate_thumbnails.py [--dry-run] [--model MODEL_ID]

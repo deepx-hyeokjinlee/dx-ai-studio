@@ -68,8 +68,8 @@ _chat_engine = ChatEngine(
     app_name="dx_modelzoo",
     fallback_rules=[
         (["catalog", "카탈로그", "모델", "model"], {
-            "ko": "카탈로그 페이지에서 280+ 모델을 카테고리별로 검색할 수 있습니다.",
-            "en": "Browse 280+ models by category on the catalog page.",
+            "ko": "카탈로그 페이지에서 340+ 모델을 카테고리별로 검색할 수 있습니다.",
+            "en": "Browse 340+ models by category on the catalog page.",
         }),
         (["download", "다운로드", "설치"], {
             "ko": "모델 상세 페이지에서 다운로드할 수 있습니다.",

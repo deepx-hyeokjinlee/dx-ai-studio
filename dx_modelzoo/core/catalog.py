@@ -183,7 +183,7 @@ def load_catalog_json(catalog_path=None):
 
 def merge_conf_and_catalog(conf_models, catalog_data):
     """test_models.conf 기반 모델 목록에 catalog JSON 메타데이터 머지.
-    conf가 source of truth (280개 모델), catalog은 부가 정보 제공."""
+    conf가 source of truth (340개 모델), catalog은 부가 정보 제공."""
     catalog_map = {m["id"]: m for m in catalog_data.get("models", [])}
     merged = []
     for cm in conf_models:

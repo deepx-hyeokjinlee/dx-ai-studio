@@ -45,37 +45,37 @@ COMMON_RULES: list[tuple[list[str], dict[str, str]]] = [
             "ko": "**DX AI Studio** 주요 기능:\n"
                   "- 📊 **DX App** — AI 모델 추론, 하드웨어 모니터링\n"
                   "- 🎬 **DX Stream** — 비디오 스트리밍 파이프라인\n"
-                  "- 🗂️ **DX Model Zoo** — 280+ 모델 카탈로그\n"
+                  "- 🗂️ **DX Model Zoo** — 340+ 모델 카탈로그\n"
                   "- ⚙️ **DX Compiler** — ONNX → NPU 컴파일\n"
                   "- 🧪 **DX Sandbox** — 하드웨어 시뮬레이션",
             "en": "**DX AI Studio** key features:\n"
                   "- 📊 **DX App** — AI model inference, hardware monitoring\n"
                   "- 🎬 **DX Stream** — Video streaming pipeline\n"
-                  "- 🗂️ **DX Model Zoo** — 280+ model catalog\n"
+                  "- 🗂️ **DX Model Zoo** — 340+ model catalog\n"
                   "- ⚙️ **DX Compiler** — ONNX → NPU compilation\n"
                   "- 🧪 **DX Sandbox** — Hardware simulation",
             "ja": "**DX AI Studio** の主な機能:\n"
                   "- 📊 **DX App** — AI モデル推論、ハードウェア監視\n"
                   "- 🎬 **DX Stream** — ビデオストリーミングパイプライン\n"
-                  "- 🗂️ **DX Model Zoo** — 280+ モデルカタログ\n"
+                  "- 🗂️ **DX Model Zoo** — 340+ モデルカタログ\n"
                   "- ⚙️ **DX Compiler** — ONNX → NPU コンパイル\n"
                   "- 🧪 **DX Sandbox** — ハードウェアシミュレーション",
             "zh-CN": "**DX AI Studio** 主要功能:\n"
                      "- 📊 **DX App** — AI 模型推理、硬件监控\n"
                      "- 🎬 **DX Stream** — 视频流管道\n"
-                     "- 🗂️ **DX Model Zoo** — 280+ 模型目录\n"
+                     "- 🗂️ **DX Model Zoo** — 340+ 模型目录\n"
                      "- ⚙️ **DX Compiler** — ONNX → NPU 编译\n"
                      "- 🧪 **DX Sandbox** — 硬件仿真",
             "zh-TW": "**DX AI Studio** 主要功能:\n"
                      "- 📊 **DX App** — AI 模型推論、硬體監控\n"
                      "- 🎬 **DX Stream** — 影片串流管線\n"
-                     "- 🗂️ **DX Model Zoo** — 280+ 模型目錄\n"
+                     "- 🗂️ **DX Model Zoo** — 340+ 模型目錄\n"
                      "- ⚙️ **DX Compiler** — ONNX → NPU 編譯\n"
                      "- 🧪 **DX Sandbox** — 硬體模擬",
             "es": "Funciones principales de **DX AI Studio**:\n"
                   "- 📊 **DX App** — Inferencia de modelos de IA, monitoreo de hardware\n"
                   "- 🎬 **DX Stream** — Pipeline de transmisión de vídeo\n"
-                  "- 🗂️ **DX Model Zoo** — Catálogo de más de 280 modelos\n"
+                  "- 🗂️ **DX Model Zoo** — Catálogo de más de 340 modelos\n"
                   "- ⚙️ **DX Compiler** — Compilación ONNX → NPU\n"
                   "- 🧪 **DX Sandbox** — Simulación de hardware",
         },

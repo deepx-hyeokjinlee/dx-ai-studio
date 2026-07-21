@@ -1,8 +1,8 @@
 # DX-AI-Studio User Manual
 
 **DX-AI-Studio** brings the whole DEEPX NPU SDK into one browser hub — model catalog,
-compiler, inference, streaming, benchmarking, hardware monitor, deployment planner, and
-an agent-driven app builder — so you can go from a trained model to a running NPU
+compiler, inference, streaming, benchmarking, hardware monitor, an edge-deployment guide,
+and an agent-driven app builder — so you can go from a trained model to a running NPU
 application without leaving the page.
 
 This manual covers how to **install and launch** the studio, use the **hub**, and work
