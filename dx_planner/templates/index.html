@@ -266,12 +266,12 @@
         <div class="cfg-card cfg-card--flat" id="priority-card">
           <div class="priority-list">
             <label class="priority-radio">
-              <input type="radio" name="priority" value="cost" checked>
+              <input type="radio" name="priority" value="channels" checked>
               <span class="priority-body">
-                <span class="priority-icon">💰</span>
+                <span class="priority-icon">📹</span>
                 <span class="priority-text">
-                  <strong><span class="ko">최저 비용</span><span class="ja">最低コスト</span><span class="zh-CN">最低成本</span><span class="zh-TW">最低成本</span><span class="en">Lowest Cost</span><span class="es">Costo más bajo</span></strong>
-                  <span class="txt-dim txt-sm"><span class="ko">채널당 보드 비용 최소화</span><span class="ja">ボードのチャンネル単価を最小化</span><span class="zh-CN">最小化每通道板卡成本</span><span class="zh-TW">最小化每通道板卡成本</span><span class="en">Minimize board cost per channel</span><span class="es">Minimizar costo de placa por canal</span></span>
+                  <strong><span class="ko">최다 채널</span><span class="ja">最多チャンネル</span><span class="zh-CN">最多通道</span><span class="zh-TW">最多通道</span><span class="en">Most channels</span><span class="es">Más canales</span></strong>
+                  <span class="txt-dim txt-sm"><span class="ko">측정된 최대 채널 우선</span><span class="ja">計測最大チャンネル優先</span><span class="zh-CN">优先测量最大通道</span><span class="zh-TW">優先測量最大通道</span><span class="en">Prioritize measured max channels</span><span class="es">Prioriza canales máx. medidos</span></span>
                 </span>
               </span>
             </label>
@@ -445,18 +445,15 @@ maxChannels = max stream_count where per_channel_fps ≥ effectiveTarget</pre>
         </section>
 
         <section class="cfg-card methodology-card">
-          <h3 class="card-title"><span class="ko">4. 비용·정렬</span><span class="en">4. Cost &amp; ranking</span><span class="ja">4. コストと順位</span><span class="zh-CN">4. 成本与排序</span><span class="zh-TW">4. 成本與排序</span><span class="es">4. Costo y ranking</span></h3>
-          <pre class="methodology-formula">systemPrice = unit_price × billing_units
-  billing_units = h1_cards || m1_modules || 1  (from benchmark environment)
-costPerChannelAtNeed = systemPrice / min(cameras, maxChannels)
-sort: meets → confidence → priority → maxChannels</pre>
+          <h3 class="card-title"><span class="ko">4. 정렬</span><span class="en">4. Sorting</span><span class="ja">4. 並び替え</span><span class="zh-CN">4. 排序</span><span class="zh-TW">4. 排序</span><span class="es">4. Orden</span></h3>
+          <pre class="methodology-formula">sort: meets → confidence → priority → maxChannels</pre>
           <p class="txt-sm txt-dim">
-            <span class="ko">채널·FPS는 해당 벤치마크 system(호스트+NPU 구성) 실측입니다. 비용은 NPU SKU 가격×벤치 구성 수이며 TCO(호스트·전원·설치)는 아닙니다.</span>
-            <span class="en">Channels and FPS come from that benchmark system (host + NPU topology). Cost uses NPU SKU price × modules/cards in the run — not full TCO.</span>
-            <span class="ja">コストは NPU ボードのみ。TCO（ホスト・電源・設置）は含みません。</span>
-            <span class="zh-CN">成本仅含 NPU 板卡，不含 TCO（主机、电源、安装）。</span>
-            <span class="zh-TW">成本僅含 NPU 板卡，不含 TCO（主機、電源、安裝）。</span>
-            <span class="es">El costo es solo la placa NPU, no TCO completo.</span>
+            <span class="ko">채널·FPS는 해당 벤치마크 구성(호스트+NPU) 실측입니다. 가격은 DEEPX에 문의하세요.</span>
+            <span class="en">Channels and FPS come from that benchmark system (host + NPU). Contact DEEPX for pricing.</span>
+            <span class="ja">チャンネル・FPS はそのベンチマーク構成（ホスト+NPU）の実測値です。価格は DEEPX へお問い合わせください。</span>
+            <span class="zh-CN">通道与 FPS 为该 benchmark 构成（主机+NPU）的实测值。价格请联系 DEEPX。</span>
+            <span class="zh-TW">通道與 FPS 為該 benchmark 構成（主機+NPU）的實測值。價格請聯絡 DEEPX。</span>
+            <span class="es">Los canales y FPS provienen de ese sistema de benchmark (host + NPU). Consulte el precio a DEEPX.</span>
           </p>
         </section>
       </div>
@@ -487,14 +484,6 @@ sort: meets → confidence → priority → maxChannels</pre>
             <span class="zh-CN">仅覆盖 YOLO26 DX Benchmark 矩阵，不含摄像头 codec、前后处理或多模型流水线。</span>
             <span class="zh-TW">僅涵蓋 YOLO26 DX Benchmark 矩陣，不含攝影機 codec、前後處理或多模型流水線。</span>
             <span class="es">Solo la matriz YOLO26 DX Benchmark — sin codec de cámara, pre/post ni pipelines multi-modelo.</span>
-          </li>
-          <li>
-            <span class="ko">표시 비용은 NPU system 가격 기준 <strong>벤치마크 추정</strong>이며 호스트·전원·설치·TCO는 포함하지 않습니다.</span>
-            <span class="en">Shown costs are <strong>benchmark estimates</strong> from NPU system price — host, power, installation, and full TCO are excluded.</span>
-            <span class="ja">表示コストは NPU システム価格の<strong>ベンチマーク推定</strong>。ホスト・電源・設置・TCO は含みません。</span>
-            <span class="zh-CN">所示成本为 NPU 系统价格的<strong>基准估计</strong>，不含主机、电源、安装及 TCO。</span>
-            <span class="zh-TW">所示成本為 NPU 系統價格的<strong>基準估計</strong>，不含主機、電源、安裝及 TCO。</span>
-            <span class="es">Los costos mostrados son <strong>estimaciones de benchmark</strong> del sistema NPU — sin host, energía, instalación ni TCO.</span>
           </li>
           <li>
             <span class="ko">EdgeGuide 수치는 <strong>100% 정확한 사양서가 아닙니다.</strong> 양산·견적·최종 채널 수는 DEEPX에 문의해 주세요.</span>

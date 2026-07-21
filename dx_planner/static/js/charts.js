@@ -303,7 +303,7 @@ const RadarChart = {
     const cy = size / 2;
     const radius = size * 0.35;
     const axes = 5;
-    const labels = ['FPS', 'Channels', 'TOPS/W', 'Cost Eff.', 'TOPS'];
+    const labels = ['FPS', 'Channels', 'TOPS/W', 'Stability', 'TOPS'];
 
     // 각 플랫폼에 대해 5축 값 계산
     function calcMetrics(pid) {
@@ -321,12 +321,14 @@ const RadarChart = {
       const { maxChannels, boundaryFlag: bf } = RecommendEngine._calcMaxChannels(
         bench || { throughput_fps: 0 }, multiAll, inputs.targetFps
       );
-      const systemPrice = typeof RecommendEngine !== 'undefined'
-        ? RecommendEngine._systemPriceUsd(p)
-        : (p.npu.system_price_usd ?? p.npu.price_usd);
       const topsW = p.npu.tdp_w > 0 ? p.npu.tops / p.npu.tdp_w : 0;
-      const costEff = systemPrice > 0 ? maxChannels / systemPrice : 0;
-      return { metrics: [fps, maxChannels, topsW, costEff, p.npu.tops], boundaryFlag: bf };
+      const stability = (typeof RecommendEngine !== 'undefined' && RecommendEngine._stabilityScore)
+        ? multiAll.reduce((best, m) => {
+            const s = RecommendEngine._stabilityScore(m);
+            return s > best ? s : best;
+          }, 0)
+        : 0;
+      return { metrics: [fps, maxChannels, topsW, stability, p.npu.tops], boundaryFlag: bf };
     }
 
     // 정규화를 위한 최대값 계산

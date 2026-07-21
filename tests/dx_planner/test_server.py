@@ -271,8 +271,6 @@ def test_edgeguide_deeplink_prefill_auto_recommend_contract():
     assert "btn-methodology-icon" in index_html
     assert "MethodologyDialog" in _read_planner_file("static/js/methodology.js")
     assert "MethodologyDialog.init" in planner_js
-    assert "costPerChannelAtNeed" in _read_planner_file("static/js/recommend.js")
-    assert "_systemPriceUsd" in _read_planner_file("static/js/recommend.js")
     assert "_topologyLabel" in _read_planner_file("static/js/recommend.js")
     assert "goToSetupStep" in _read_planner_file("static/js/wizard.js")
     assert "maxLatencyPreset" in _read_planner_file("templates/index.html")
@@ -418,63 +416,18 @@ def test_edgeguide_tutorial_workspace_contracts():
         assert forbidden not in tutorial_js
 
 
-def test_recommend_js_cost_sort_guards_null_price():
-    """recommend.js의 cost 정렬에서 price_usd가 null/undefined일 때 NaN이 아닌 Infinity를 사용해야 한다.
+def test_recommend_js_channels_sort_replaces_cost():
+    """Pricing/cost-sort was removed; ranking now offers a measured 'channels' priority.
 
-    platform.npu.price_usd가 null이거나 undefined일 때 나눗셈 결과가 NaN이 되면
-    Array.sort() 비교자가 망가져서 정렬 순서가 비결정적이 된다.
+    The old cost comparator (and its price_usd null / Infinity-minus-Infinity guards) no longer
+    exists because EdgeGuide dropped all monetary figures — real prices proved unreliable.
     """
     recommend_src = _read_planner_file("static/js/recommend.js")
 
-    # price_usd에 대한 null/undefined 가드가 있어야 한다
-    assert 'price_usd' in recommend_src, "recommend.js must reference price_usd"
-
-    # null 가드 패턴 확인: price_usd가 null/undefined일 때 Infinity로 폴백
-    import re
-    # costPerChannel 계산에서 price_usd null 가드가 있어야 한다
-    has_null_guard = bool(re.search(
-        r'price_usd\s*(==|===|!=|!==)\s*(null|undefined)|'
-        r'price_usd\s*\?\?|'
-        r'price_usd\s*\|\||'
-        r'typeof\s+.*price_usd',
-        recommend_src
-    ))
-    assert has_null_guard, (
-        "recommend.js must guard against null/undefined price_usd to prevent NaN in cost sort"
-    )
-
-
-def test_recommend_js_cost_sort_handles_infinity_minus_infinity():
-    """recommend.js의 cost 정렬에서 Infinity - Infinity = NaN 문제를 방지해야 한다.
-
-    두 플랫폼 모두 price_usd가 null이면 costPerChannel이 둘 다 Infinity가 되고,
-    Infinity - Infinity = NaN이 되어 정렬이 비결정적이다.
-    비교자에서 두 값이 모두 Infinity이면 0을 반환하는 가드가 있어야 한다.
-    """
-    recommend_src = _read_planner_file("static/js/recommend.js")
-
-    import re
-    sort_body = ""
-    match = re.search(r'_sort\s*\([^)]*\)\s*\{', recommend_src)
-    assert match, "_sort function must exist in recommend.js"
-    start = match.end()
-    depth = 1
-    i = start
-    while i < len(recommend_src) and depth > 0:
-        if recommend_src[i] == '{': depth += 1
-        elif recommend_src[i] == '}': depth -= 1
-        i += 1
-    sort_body = recommend_src[start:i-1]
-
-    # Infinity 비교 가드가 있어야 한다
-    has_infinity_guard = bool(re.search(
-        r'Infinity|isFinite|Number\.isFinite',
-        sort_body
-    ))
-    assert has_infinity_guard, (
-        "recommend.js _sort must handle Infinity - Infinity = NaN in cost comparator. "
-        "Add explicit guard so two Infinity values compare as equal (return 0)."
-    )
+    assert "case 'channels'" in recommend_src, "recommend.js must sort by measured max channels"
+    # No monetary/cost machinery may remain.
+    for gone in ["costPerChannel", "price_usd", "_systemPriceUsd", "case 'cost'"]:
+        assert gone not in recommend_src, f"pricing token {gone!r} must be gone from recommend.js"
 
 
 def test_recommend_js_null_stream_count_uses_theoretical_fallback():
@@ -493,12 +446,14 @@ def test_planner_release_data_state_contracts():
     explorer_js = _read_planner_file("static/js/explorer.js")
     style_css = _read_planner_file("static/css/style.css")
 
-    # price_usd가 null이면 추천 카드/상세 모두 $null이 아니라 N/A를 표시해야 함
-    assert "'$' + r.platform.npu.price_usd" not in cards_js
-    assert "'$' + p.npu.price_usd" not in explorer_js
-    assert "_formatMoney(systemPrice)" in cards_js
-    assert "return 'N/A';" in cards_js
-    assert "return 'N/A';" in explorer_js
+    # Pricing was removed from EdgeGuide (real prices proved unreliable); no money is rendered
+    # in cards or detail, and cost-based sorting is gone.
+    assert "_formatMoney" not in cards_js
+    assert "_formatMoney" not in explorer_js
+    assert "price_usd" not in cards_js
+    assert "systemPrice" not in cards_js
+    # benchmark date still falls back to 'N/A' when missing
+    assert "'N/A'" in cards_js
 
     # benchmark meta.generated / benchmark_dates가 UI에 노출되어야 함
     for token in [

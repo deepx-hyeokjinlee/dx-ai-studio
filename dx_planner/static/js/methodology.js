@@ -76,8 +76,6 @@ const MethodologyDialog = {
         '<li><span class="ko">1순위</span><span class="en">Top pick</span>: ' +
           this._esc(top.platform.npu.model + ' + ' + top.platform.host.name) +
           ' — max ' + top.maxChannels + ' ch · ' + flag + '</li>' +
-        '<li><span class="ko">채널당 비용(필요)</span><span class="en">Cost/ch (need)</span>: $' +
-          this._esc(top.costPerChannelAtNeed) + '</li>' +
       '</ul>';
 
     if (typeof DXI18n !== 'undefined' && DXI18n.applyLang) {

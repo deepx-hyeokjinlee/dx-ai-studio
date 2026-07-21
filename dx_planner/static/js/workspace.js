@@ -153,12 +153,12 @@ const PlannerWorkspace = {
           ' <span class="verdict-evidence">' + evidence + '</span>' +
         '</p>' +
         '<p class="verdict-sub txt-dim txt-sm">' +
-          '<span class="ko">목표 ' + inputs.targetFps + ' FPS + headroom → 유효 ' + effective + ' FPS · 최대 ' + channels + '채널 · 필요 채널당 ' + this._formatMoney(top.costPerChannelAtNeed) + '</span>' +
-          '<span class="en">Target ' + inputs.targetFps + ' FPS + headroom → effective ' + effective + ' FPS · up to ' + channels + ' ch · $/ch (need) ' + this._formatMoney(top.costPerChannelAtNeed) + '</span>' +
-          '<span class="ja">目標 ' + inputs.targetFps + ' FPS + headroom → 実効 ' + effective + ' FPS · 最大 ' + channels + 'ch · 必要$/ch ' + this._formatMoney(top.costPerChannelAtNeed) + '</span>' +
-          '<span class="zh-CN">目标 ' + inputs.targetFps + ' FPS + headroom → 有效 ' + effective + ' FPS · 最多 ' + channels + ' 路 · 所需$/路 ' + this._formatMoney(top.costPerChannelAtNeed) + '</span>' +
-          '<span class="zh-TW">目標 ' + inputs.targetFps + ' FPS + headroom → 有效 ' + effective + ' FPS · 最多 ' + channels + ' 路 · 所需$/路 ' + this._formatMoney(top.costPerChannelAtNeed) + '</span>' +
-          '<span class="es">Objetivo ' + inputs.targetFps + ' FPS + headroom → efectivo ' + effective + ' FPS · hasta ' + channels + ' ch · $/ch (nec.) ' + this._formatMoney(top.costPerChannelAtNeed) + '</span>' +
+          '<span class="ko">목표 ' + inputs.targetFps + ' FPS + headroom → 유효 ' + effective + ' FPS · 최대 ' + channels + '채널</span>' +
+          '<span class="en">Target ' + inputs.targetFps + ' FPS + headroom → effective ' + effective + ' FPS · up to ' + channels + ' ch</span>' +
+          '<span class="ja">目標 ' + inputs.targetFps + ' FPS + headroom → 実効 ' + effective + ' FPS · 最大 ' + channels + 'ch</span>' +
+          '<span class="zh-CN">目标 ' + inputs.targetFps + ' FPS + headroom → 有效 ' + effective + ' FPS · 最多 ' + channels + ' 路</span>' +
+          '<span class="zh-TW">目標 ' + inputs.targetFps + ' FPS + headroom → 有效 ' + effective + ' FPS · 最多 ' + channels + ' 路</span>' +
+          '<span class="es">Objetivo ' + inputs.targetFps + ' FPS + headroom → efectivo ' + effective + ' FPS · hasta ' + channels + ' ch</span>' +
         '</p>';
     } else {
       el.innerHTML =
@@ -215,12 +215,6 @@ const PlannerWorkspace = {
   _formatChannels(val, flag) {
     if (flag === '+') return val + '+';
     return String(val);
-  },
-
-  _formatMoney(value) {
-    const number = Number(value);
-    if (value == null || !Number.isFinite(number)) return 'N/A';
-    return '$' + number.toFixed(number >= 100 ? 0 : 2).replace(/\.0+$/, '').replace(/(\.\d*?)0+$/, '$1');
   },
 
   _summaryChip(label, value) {

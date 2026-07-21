@@ -2,20 +2,6 @@ const RecommendEngine = {
   DEFAULT_FPS_HEADROOM: 0.1,
   DEFAULT_CPU_BUDGET_PCT: 400,
 
-  /** Benchmark system bill (modules/cards), not catalog unit price when they differ. */
-  _systemPriceUsd(platform) {
-    const npu = platform && platform.npu ? platform.npu : {};
-    if (npu.system_price_usd != null) return npu.system_price_usd;
-    const unit = npu.unit_price_usd != null ? npu.unit_price_usd : npu.price_usd;
-    if (unit == null) return null;
-    const topo = platform.topology || {};
-    const h1 = Number(topo.h1_cards);
-    const m1 = Number(topo.m1_modules);
-    if (Number.isFinite(h1) && h1 > 0) return unit * h1;
-    if (Number.isFinite(m1) && m1 > 0) return unit * m1;
-    return unit;
-  },
-
   _topologyLabel(platform) {
     const topo = platform && platform.topology ? platform.topology : {};
     const parts = [];
@@ -77,16 +63,6 @@ const RecommendEngine = {
       const meetsLatency = this._meetsLatency(latencyMs, inputs.maxLatencyMs);
       const meetsRequirement = meetsChannels && meetsLatency && !limits.thermal && !limits.hostLimited;
 
-      const priceUsd = this._systemPriceUsd(platform);
-      const channelsForCost = maxChannels > 0
-        ? Math.min(inputs.cameras, maxChannels)
-        : 0;
-      const costPerChannelAtNeed = channelsForCost > 0 && priceUsd != null
-        ? priceUsd / channelsForCost
-        : Infinity;
-      const costPerChannelAtCapacity = maxChannels > 0 && priceUsd != null
-        ? priceUsd / maxChannels
-        : Infinity;
       const topsPerWatt = platform.npu.tdp_w > 0
         ? platform.npu.tops / platform.npu.tdp_w
         : 0;
@@ -106,9 +82,6 @@ const RecommendEngine = {
         hostLimited: limits.hostLimited,
         thermalLimited: limits.thermal,
         meetsRequirement,
-        costPerChannel: Math.round(costPerChannelAtNeed * 100) / 100,
-        costPerChannelAtNeed: Math.round(costPerChannelAtNeed * 100) / 100,
-        costPerChannelAtCapacity: Math.round(costPerChannelAtCapacity * 100) / 100,
         topsPerWatt: Math.round(topsPerWatt * 100) / 100,
         stabilityScore: this._stabilityScore(evidenceRow),
       };
@@ -259,15 +232,9 @@ const RecommendEngine = {
 
       let primary = 0;
       switch (priority) {
-        case 'cost': {
-          const ac = a.costPerChannelAtNeed;
-          const bc = b.costPerChannelAtNeed;
-          if (ac === Infinity && bc === Infinity) primary = 0;
-          else if (ac === Infinity) primary = 1;
-          else if (bc === Infinity) primary = -1;
-          else primary = ac - bc;
+        case 'channels':
+          primary = b.maxChannels - a.maxChannels;
           break;
-        }
         case 'performance':
           primary = b.throughputFps - a.throughputFps;
           break;

@@ -60,12 +60,13 @@ const platform = {
 
 const inputs = {
   task: 'object_detection', size: 'n', cameras: 4, targetFps: 30,
-  priority: 'cost', ort: true, fpsHeadroom: 0,
+  priority: 'channels', ort: true, fpsHeadroom: 0,
 };
 const results = RecommendEngine.recommend(inputs, [platform]);
 assert(results.length === 1, 'one result expected');
-assert(results[0].costPerChannelAtNeed === 24.75, 'cost at need should be 99/4');
-assert(results[0].costPerChannelAtCapacity === 11, 'cost at capacity should be 99/9');
+// Pricing was removed from EdgeGuide (real prices proved unreliable); no cost fields remain.
+assert(results[0].costPerChannelAtNeed === undefined, 'no cost-per-channel field should exist');
+assert(results[0].maxChannels === 9, 'measured max channels should be 9');
 assert(results[0].meetsRequirement === true, 'should meet 4 channels');
 
 const hotRow = {
@@ -78,14 +79,6 @@ const hotInputs = { ...inputs, cameras: 4 };
 const hotResults = RecommendEngine.recommend(hotInputs, [hotPlatform]);
 assert(hotResults[0].hostLimited === true, 'cpu budget should flag host-limited');
 assert(hotResults[0].meetsRequirement === false, 'host limited should fail meets');
-
-const dualM1 = JSON.parse(JSON.stringify(platform));
-dualM1.topology = { device_count: 2, m1_modules: 2, h1_cards: 0, hw_config: 'M1' };
-dualM1.npu.unit_price_usd = 99;
-dualM1.npu.system_price_usd = 198;
-dualM1.npu.price_usd = 99;
-const dualResults = RecommendEngine.recommend(inputs, [dualM1]);
-assert(dualResults[0].costPerChannelAtNeed === 49.5, 'dual M1 system price 198/4 = 49.5');
 
 console.log('OK');
 """
@@ -109,11 +102,14 @@ def test_recommend_engine_node_logic():
 def test_recommend_engine_source_contracts():
     src = RECOMMEND_JS.read_text(encoding="utf-8")
     for token in [
-        "costPerChannelAtNeed",
-        "costPerChannelAtCapacity",
+        "case 'channels'",  # pricing removed → rank by measured max channels
+        "boundaryFlag === 'interpolated'",  # measured-only guard drops estimates
         "_interpolateCrossing",
         "confidenceTier",
         "fpsHeadroom",
         "host-limited",
     ]:
         assert token in src
+    # Pricing was removed from EdgeGuide; these must NOT reappear.
+    for gone in ["costPerChannel", "_systemPriceUsd", "price_usd"]:
+        assert gone not in src, f"pricing token {gone!r} should be gone from recommend.js"

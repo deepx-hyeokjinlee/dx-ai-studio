@@ -74,16 +74,9 @@ const ExplorerView = {
         this._factItem(copy.status, status) +
         this._factItem(copy.throughput, this._formatNumber(metrics.throughputFps, 0)) +
         this._factItem(copy.latency, this._formatNumber(metrics.latencyMs, 2)) +
-        this._factItem(copy.priceUnit, this._formatMoney(platform.npu.unit_price_usd ?? platform.npu.price_usd)) +
-        this._factItem(copy.priceSystem, this._formatMoney(
-          typeof RecommendEngine !== 'undefined'
-            ? RecommendEngine._systemPriceUsd(platform)
-            : platform.npu.system_price_usd
-        )) +
         this._factItem(copy.tdp, platform.npu.tdp_w + 'W') +
-        this._factItem(copy.costNeed, this._formatMoney(metrics.costPerChannelAtNeed ?? metrics.costPerChannel)) +
-        this._factItem(copy.costMax, this._formatMoney(metrics.costPerChannelAtCapacity)) +
         this._factItem(copy.topsPerW, this._formatNumber(metrics.topsPerWatt, 2)) +
+        this._factItem(copy.pricing, copy.pricingValue) +
       '</div>';
   },
 
@@ -93,49 +86,49 @@ const ExplorerView = {
         task: 'Task', modelSize: 'Model size', channelsRequired: 'Channels required',
         targetFps: 'Target FPS', runtime: 'Runtime', runtimeOrt: 'ONNX Runtime', runtimeNative: 'Native',
         maxChannels: 'Max channels', status: 'Status', meets: 'Meets', insufficient: 'Insufficient',
-        throughput: 'Throughput FPS', latency: 'Latency (ms)', priceUnit: 'Unit price',
-        priceSystem: 'System price', tdp: 'TDP', costNeed: 'Cost per channel (required)',
-        costMax: 'Cost per channel (max capacity)', topsPerW: 'TOPS/W', theoretical: 'theoretical',
+        throughput: 'Throughput FPS', latency: 'Latency (ms)', tdp: 'TDP',
+        topsPerW: 'TOPS/W', theoretical: 'theoretical',
+        pricing: 'Pricing', pricingValue: 'Contact DEEPX for quote',
       },
       ko: {
         task: '작업', modelSize: '모델 크기', channelsRequired: '필요 채널 수',
         targetFps: '목표 FPS', runtime: '런타임', runtimeOrt: 'ONNX Runtime', runtimeNative: 'Native',
         maxChannels: '최대 채널', status: '충족 여부', meets: '충족', insufficient: '부족',
-        throughput: '처리량 FPS', latency: '지연 (ms)', priceUnit: '단가 (SKU)',
-        priceSystem: '시스템 가격', tdp: 'TDP', costNeed: '채널당 비용 (필요)',
-        costMax: '채널당 비용 (최대)', topsPerW: 'TOPS/W', theoretical: '이론값',
+        throughput: '처리량 FPS', latency: '지연 (ms)', tdp: 'TDP',
+        topsPerW: 'TOPS/W', theoretical: '이론값',
+        pricing: '가격', pricingValue: '가격은 DEEPX에 문의',
       },
       ja: {
         task: 'タスク', modelSize: 'モデルサイズ', channelsRequired: '必要チャンネル数',
         targetFps: '目標FPS', runtime: 'ランタイム', runtimeOrt: 'ONNX Runtime', runtimeNative: 'Native',
         maxChannels: '最大チャンネル', status: '充足状況', meets: '充足', insufficient: '不足',
-        throughput: 'スループット FPS', latency: 'レイテンシ (ms)', priceUnit: '単価 (SKU)',
-        priceSystem: 'システム価格', tdp: 'TDP', costNeed: 'チャンネル単価 (必要)',
-        costMax: 'チャンネル単価 (最大)', topsPerW: 'TOPS/W', theoretical: '理論値',
+        throughput: 'スループット FPS', latency: 'レイテンシ (ms)', tdp: 'TDP',
+        topsPerW: 'TOPS/W', theoretical: '理論値',
+        pricing: '価格', pricingValue: '価格はDEEPXへお問い合わせ',
       },
       'zh-CN': {
         task: '任务', modelSize: '模型大小', channelsRequired: '所需通道数',
         targetFps: '目标 FPS', runtime: '运行时', runtimeOrt: 'ONNX Runtime', runtimeNative: 'Native',
         maxChannels: '最大通道', status: '达标情况', meets: '达标', insufficient: '不足',
-        throughput: '吞吐量 FPS', latency: '延迟 (ms)', priceUnit: '单价 (SKU)',
-        priceSystem: '系统价格', tdp: 'TDP', costNeed: '每通道成本 (需求)',
-        costMax: '每通道成本 (最大)', topsPerW: 'TOPS/W', theoretical: '理论值',
+        throughput: '吞吐量 FPS', latency: '延迟 (ms)', tdp: 'TDP',
+        topsPerW: 'TOPS/W', theoretical: '理论值',
+        pricing: '价格', pricingValue: '价格请联系 DEEPX',
       },
       'zh-TW': {
         task: '任務', modelSize: '模型大小', channelsRequired: '所需通道數',
         targetFps: '目標 FPS', runtime: '執行環境', runtimeOrt: 'ONNX Runtime', runtimeNative: 'Native',
         maxChannels: '最大通道', status: '達標情況', meets: '達標', insufficient: '不足',
-        throughput: '吞吐量 FPS', latency: '延遲 (ms)', priceUnit: '單價 (SKU)',
-        priceSystem: '系統價格', tdp: 'TDP', costNeed: '每通道成本 (需求)',
-        costMax: '每通道成本 (最大)', topsPerW: 'TOPS/W', theoretical: '理論值',
+        throughput: '吞吐量 FPS', latency: '延遲 (ms)', tdp: 'TDP',
+        topsPerW: 'TOPS/W', theoretical: '理論值',
+        pricing: '價格', pricingValue: '價格請聯絡 DEEPX',
       },
       es: {
         task: 'Tarea', modelSize: 'Tamaño del modelo', channelsRequired: 'Canales requeridos',
         targetFps: 'FPS objetivo', runtime: 'Entorno', runtimeOrt: 'ONNX Runtime', runtimeNative: 'Native',
         maxChannels: 'Canales máx.', status: 'Estado', meets: 'Cumple', insufficient: 'Insuficiente',
-        throughput: 'Throughput FPS', latency: 'Latencia (ms)', priceUnit: 'Precio unitario',
-        priceSystem: 'Precio del sistema', tdp: 'TDP', costNeed: 'Costo por canal (requerido)',
-        costMax: 'Costo por canal (máx.)', topsPerW: 'TOPS/W', theoretical: 'teórico',
+        throughput: 'Throughput FPS', latency: 'Latencia (ms)', tdp: 'TDP',
+        topsPerW: 'TOPS/W', theoretical: 'teórico',
+        pricing: 'Precio', pricingValue: 'Consultar precio a DEEPX',
       },
     });
   },
@@ -153,9 +146,6 @@ const ExplorerView = {
     const topoLabel = typeof RecommendEngine !== 'undefined'
       ? RecommendEngine._topologyLabel(p)
       : '';
-    const systemPrice = typeof RecommendEngine !== 'undefined'
-      ? RecommendEngine._systemPriceUsd(p)
-      : (p.npu.system_price_usd ?? p.npu.price_usd);
     el.innerHTML =
       '<div class="spec-grid">' +
         this._specItem('NPU', p.npu.model) +
@@ -165,14 +155,6 @@ const ExplorerView = {
         ) : '') +
         this._specItem('TOPS', p.npu.tops) +
         this._specItem('TDP', p.npu.tdp_w + 'W') +
-        this._specItem(
-          '<span class="ko">단가 (SKU)</span><span class="en">Unit price</span><span class="ja">単価</span><span class="zh-CN">单价</span><span class="zh-TW">單價</span>',
-          this._formatMoney(p.npu.unit_price_usd ?? p.npu.price_usd)
-        ) +
-        this._specItem(
-          '<span class="ko">시스템 가격</span><span class="en">System price</span><span class="ja">システム価格</span><span class="zh-CN">系统价格</span><span class="zh-TW">系統價格</span>',
-          this._formatMoney(systemPrice)
-        ) +
         this._specItem('DRAM', p.npu.dram) +
         this._specItem(
           '<span class="ko">호스트</span><span class="en">Host</span><span class="ja">ホスト</span><span class="zh-CN">主机</span><span class="zh-TW">主機</span>',
@@ -235,16 +217,9 @@ const ExplorerView = {
       [copy.host, platform.host.name, comparePlatform ? comparePlatform.host.name : null],
       [copy.tops, platform.npu.tops, comparePlatform ? comparePlatform.npu.tops : null],
       [copy.tdp, platform.npu.tdp_w + 'W', comparePlatform ? comparePlatform.npu.tdp_w + 'W' : null],
-      [copy.priceUnit, this._formatMoney(platform.npu.unit_price_usd ?? platform.npu.price_usd), comparePlatform ? this._formatMoney(comparePlatform.npu.unit_price_usd ?? comparePlatform.npu.price_usd) : null],
-      [copy.priceSystem, this._formatMoney(
-        typeof RecommendEngine !== 'undefined' ? RecommendEngine._systemPriceUsd(platform) : platform.npu.system_price_usd
-      ), comparePlatform ? this._formatMoney(
-        typeof RecommendEngine !== 'undefined' ? RecommendEngine._systemPriceUsd(comparePlatform) : comparePlatform.npu.system_price_usd
-      ) : null],
       [copy.dram, platform.npu.dram, comparePlatform ? comparePlatform.npu.dram : null],
       [copy.throughput, this._formatNumber(current.throughputFps, 0), compare ? this._formatNumber(compare.throughputFps, 0) : null],
       [copy.maxChannels, this._formatChannels(current.maxChannels, current.boundaryFlag, copy), compare ? this._formatChannels(compare.maxChannels, compare.boundaryFlag, copy) : null],
-      [copy.costPerChannel, this._formatMoney(current.costPerChannelAtNeed ?? current.costPerChannel), compare ? this._formatMoney(compare.costPerChannelAtNeed ?? compare.costPerChannel) : null],
     ];
 
     let html = '<p class="comparison-summary-head">' + this._escHtml(copy.summaryTitle) + '</p>';
@@ -273,11 +248,8 @@ const ExplorerView = {
         compare: 'Compare',
         empty: 'Choose another platform in the dropdown to compare.',
         npu: 'NPU', host: 'Host', tops: 'TOPS', tdp: 'TDP', dram: 'DRAM',
-        priceUnit: 'Unit price',
-        priceSystem: 'System price',
         throughput: 'Throughput FPS',
         maxChannels: 'Max channels',
-        costPerChannel: 'Cost per channel (required)',
       },
       ko: {
         selectLabel: '비교 대상 선택',
@@ -287,11 +259,8 @@ const ExplorerView = {
         compare: '비교',
         empty: '위 드롭다운에서 다른 플랫폼을 선택하면 비교됩니다.',
         npu: 'NPU', host: '호스트', tops: 'TOPS', tdp: 'TDP', dram: 'DRAM',
-        priceUnit: '단가 (SKU)',
-        priceSystem: '시스템 가격',
         throughput: '처리량 FPS',
         maxChannels: '최대 채널',
-        costPerChannel: '채널당 비용 (필요)',
       },
       ja: {
         selectLabel: '比較対象を選択',
@@ -301,11 +270,8 @@ const ExplorerView = {
         compare: '比較',
         empty: '上のドロップダウンで別プラットフォームを選ぶと比較できます。',
         npu: 'NPU', host: 'ホスト', tops: 'TOPS', tdp: 'TDP', dram: 'DRAM',
-        priceUnit: '単価 (SKU)',
-        priceSystem: 'システム価格',
         throughput: 'スループット FPS',
         maxChannels: '最大チャンネル',
-        costPerChannel: 'チャンネル単価 (必要)',
       },
       'zh-CN': {
         selectLabel: '选择比较对象',
@@ -315,11 +281,8 @@ const ExplorerView = {
         compare: '对比',
         empty: '在上方下拉框中选择其他平台即可比较。',
         npu: 'NPU', host: '主机', tops: 'TOPS', tdp: 'TDP', dram: 'DRAM',
-        priceUnit: '单价 (SKU)',
-        priceSystem: '系统价格',
         throughput: '吞吐量 FPS',
         maxChannels: '最大通道',
-        costPerChannel: '每通道成本 (需求)',
       },
       'zh-TW': {
         selectLabel: '選擇比較對象',
@@ -329,11 +292,8 @@ const ExplorerView = {
         compare: '對比',
         empty: '在上方下拉框中選擇其他平台即可比較。',
         npu: 'NPU', host: '主機', tops: 'TOPS', tdp: 'TDP', dram: 'DRAM',
-        priceUnit: '單價 (SKU)',
-        priceSystem: '系統價格',
         throughput: '吞吐量 FPS',
         maxChannels: '最大通道',
-        costPerChannel: '每通道成本 (需求)',
       },
       es: {
         selectLabel: 'Seleccionar comparación',
@@ -343,11 +303,8 @@ const ExplorerView = {
         compare: 'Comparar',
         empty: 'Elija otra plataforma en el menú para comparar.',
         npu: 'NPU', host: 'Host', tops: 'TOPS', tdp: 'TDP', dram: 'DRAM',
-        priceUnit: 'Precio unitario',
-        priceSystem: 'Precio del sistema',
         throughput: 'Throughput FPS',
         maxChannels: 'Canales máx.',
-        costPerChannel: 'Costo por canal (requerido)',
       },
     };
     return table[lang] || table.en;
@@ -549,9 +506,6 @@ const ExplorerView = {
         maxChannels: result.maxChannels,
         boundaryFlag: result.boundaryFlag,
         meetsRequirement: result.meetsRequirement,
-        costPerChannel: result.costPerChannel,
-        costPerChannelAtNeed: result.costPerChannelAtNeed,
-        costPerChannelAtCapacity: result.costPerChannelAtCapacity,
         topsPerWatt: result.topsPerWatt,
       };
     }
@@ -566,16 +520,6 @@ const ExplorerView = {
       ? RecommendEngine._calcMaxChannels(bench, multiAll, inputs.targetFps, inputs.fpsHeadroom)
       : { maxChannels: 0, boundaryFlag: null };
     const maxChannels = channelCalc.maxChannels || 0;
-    const priceUsd = typeof RecommendEngine !== 'undefined'
-      ? RecommendEngine._systemPriceUsd(platform)
-      : (platform.npu.system_price_usd ?? platform.npu.price_usd ?? null);
-    const channelsForCost = maxChannels > 0 ? Math.min(inputs.cameras, maxChannels) : 0;
-    const costPerChannelAtNeed = channelsForCost > 0 && priceUsd != null
-      ? priceUsd / channelsForCost
-      : Infinity;
-    const costPerChannelAtCapacity = maxChannels > 0 && priceUsd != null
-      ? priceUsd / maxChannels
-      : Infinity;
     const topsPerWatt = platform.npu.tdp_w > 0 ? platform.npu.tops / platform.npu.tdp_w : 0;
     return {
       throughputFps: bench ? bench.throughput_fps || 0 : 0,
@@ -583,9 +527,6 @@ const ExplorerView = {
       maxChannels,
       boundaryFlag: channelCalc.boundaryFlag,
       meetsRequirement: maxChannels >= (inputs.cameras || 0),
-      costPerChannel: costPerChannelAtNeed,
-      costPerChannelAtNeed,
-      costPerChannelAtCapacity,
       topsPerWatt,
     };
   },
@@ -596,16 +537,6 @@ const ExplorerView = {
     if (!panel || !body) return;
 
     panel.hidden = false;
-    const metrics = result || this._metricsFor(platform, inputs, result);
-    const systemPrice = typeof RecommendEngine !== 'undefined'
-      ? RecommendEngine._systemPriceUsd(platform)
-      : (platform.npu.system_price_usd ?? platform.npu.price_usd);
-    const unitPrice = platform.npu.unit_price_usd ?? platform.npu.price_usd;
-    const price = this._formatMoney(systemPrice);
-    const unitLabel = systemPrice !== unitPrice
-      ? ' (unit ' + this._formatMoney(unitPrice) + ')'
-      : '';
-    const costCh = this._formatMoney(metrics.costPerChannelAtNeed ?? metrics.costPerChannel);
     const productName = platform.npu.model + ' + ' + platform.host.name;
     // Real DEEPX purchase + sales pages (was homepage / stale /contact).
     const inquiryUrl = 'https://deepx.ai/contact-us/sales-support/';
@@ -613,20 +544,20 @@ const ExplorerView = {
 
     body.innerHTML =
       '<p class="commerce-lead">' +
-        '<span class="ko"><strong>' + this._escHtml(productName) + '</strong> — system ' + price + unitLabel + ' · 채널당 약 ' + costCh + '</span>' +
-        '<span class="en"><strong>' + this._escHtml(productName) + '</strong> — system ' + price + unitLabel + ' · ~' + costCh + ' per channel</span>' +
-        '<span class="ja"><strong>' + this._escHtml(productName) + '</strong> — system ' + price + unitLabel + ' · チャンネルあたり約 ' + costCh + '</span>' +
-        '<span class="zh-CN"><strong>' + this._escHtml(productName) + '</strong> — system ' + price + unitLabel + ' · 每通道约 ' + costCh + '</span>' +
-        '<span class="zh-TW"><strong>' + this._escHtml(productName) + '</strong> — system ' + price + unitLabel + ' · 每通道約 ' + costCh + '</span>' +
-        '<span class="es"><strong>' + this._escHtml(productName) + '</strong> — system ' + price + unitLabel + ' · ~' + costCh + ' por canal</span>' +
+        '<span class="ko"><strong>' + this._escHtml(productName) + '</strong> — 가격은 DEEPX에 문의하세요</span>' +
+        '<span class="en"><strong>' + this._escHtml(productName) + '</strong> — contact DEEPX for pricing</span>' +
+        '<span class="ja"><strong>' + this._escHtml(productName) + '</strong> — 価格はDEEPXへお問い合わせください</span>' +
+        '<span class="zh-CN"><strong>' + this._escHtml(productName) + '</strong> — 价格请联系 DEEPX</span>' +
+        '<span class="zh-TW"><strong>' + this._escHtml(productName) + '</strong> — 價格請聯絡 DEEPX</span>' +
+        '<span class="es"><strong>' + this._escHtml(productName) + '</strong> — consulte el precio a DEEPX</span>' +
       '</p>' +
       '<p class="commerce-note txt-dim txt-sm">' +
-        '<span class="ko">시스템 가격은 벤치마크에 사용된 NPU 카드/모듈 수 기준이며 채널당 비용은 벤치마크 추정치입니다. 호스트·전원·설치 비용은 별도입니다.</span>' +
-        '<span class="en">System price reflects NPU cards/modules in the benchmark run; per-channel cost is a benchmark estimate. Host, power, and installation are extra.</span>' +
-        '<span class="ja">システム価格はベンチマーク構成の NPU 枚数/モジュール数基準。チャンネル単価はベンチマーク推定。ホスト・電源・設置費は別途。</span>' +
-        '<span class="zh-CN">系统价格按 benchmark 中的 NPU 卡/模块数量计；每通道成本为 benchmark 估计。主机、电源与安装费用另计。</span>' +
-        '<span class="zh-TW">系統價格依 benchmark 中的 NPU 卡/模組數量計；每通道成本為 benchmark 估計。主機、電源與安裝費用另計。</span>' +
-        '<span class="es">El precio del sistema refleja las tarjetas/módulos NPU del benchmark; el costo por canal es estimado. Host, energía e instalación son aparte.</span>' +
+        '<span class="ko">채널·FPS는 해당 벤치마크 구성(호스트+NPU)의 실측값입니다. 양산 견적·최종 가격은 DEEPX에 문의하세요.</span>' +
+        '<span class="en">Channels and FPS are measured on that benchmark system (host + NPU). Contact DEEPX for production quotes and final pricing.</span>' +
+        '<span class="ja">チャンネル・FPS はそのベンチマーク構成（ホスト+NPU）の実測値です。量産見積・最終価格は DEEPX へお問い合わせください。</span>' +
+        '<span class="zh-CN">通道与 FPS 为该 benchmark 构成（主机+NPU）的实测值。量产报价与最终价格请联系 DEEPX。</span>' +
+        '<span class="zh-TW">通道與 FPS 為該 benchmark 構成（主機+NPU）的實測值。量產報價與最終價格請聯絡 DEEPX。</span>' +
+        '<span class="es">Los canales y FPS son medidos en ese sistema de benchmark (host + NPU). Consulte a DEEPX para cotizaciones y precio final.</span>' +
       '</p>' +
       '<div class="commerce-actions">' +
         '<a class="btn-commerce btn-commerce-primary" href="' + storeUrl + '" target="_blank" rel="noopener noreferrer">' +
@@ -706,12 +637,6 @@ const ExplorerView = {
     if (flag === '+') return value + '+';
     if (flag === 'theoretical') return value + ' ' + facts.theoretical;
     return String(value);
-  },
-
-  _formatMoney(value) {
-    const number = Number(value);
-    if (value == null || !Number.isFinite(number)) return 'N/A';
-    return '$' + this._formatNumber(number, number >= 100 ? 0 : 2);
   },
 
   _formatNumber(value, digits) {

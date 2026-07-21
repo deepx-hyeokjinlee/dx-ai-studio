@@ -7,7 +7,7 @@ const WizardController = {
     size: 'n',
     cameras: 4,
     targetFps: 30,
-    priority: 'cost',
+    priority: 'channels',
     ort: true,
     fpsHeadroom: 0.1,
     maxLatencyMs: null,

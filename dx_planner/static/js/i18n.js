@@ -29,8 +29,6 @@ window._DX_I18N_DICT = {
   'Target FPS': { ko: '목표 FPS', ja: '目標 FPS', 'zh-CN': '目标 FPS', 'zh-TW': '目標 FPS',es:'FPS objetivo'},
   'Runtime': { ko: '런타임', ja: 'ランタイム', 'zh-CN': '运行时', 'zh-TW': '執行環境',es:'Tiempo de ejecución'},
   'Priority': { ko: '우선 순위', ja: '優先度', 'zh-CN': '优先级', 'zh-TW': '優先順序',es:'Prioridad'},
-  'Lowest Cost': { ko: '최저 비용', ja: '最低コスト', 'zh-CN': '最低成本', 'zh-TW': '最低成本',es:'Costo más bajo'},
-  'Minimize TCO': { ko: 'TCO 최소화', ja: 'TCO 最小化', 'zh-CN': '最小化 TCO', 'zh-TW': '最小化 TCO',es:'Minimizar TCO'},
   'Best Performance': { ko: '최고 성능', ja: '最高パフォーマンス', 'zh-CN': '最佳性能', 'zh-TW': '最佳效能',es:'Mejor rendimiento'},
   'Maximize throughput': { ko: '처리량 최대화', ja: 'スループット最大化', 'zh-CN': '最大化吞吐量', 'zh-TW': '最大化吞吐量',es:'Maximizar rendimiento'},
   'Lowest Power': { ko: '최저 전력', ja: '最低電力', 'zh-CN': '最低功耗', 'zh-TW': '最低功耗',es:'Potencia más baja'},

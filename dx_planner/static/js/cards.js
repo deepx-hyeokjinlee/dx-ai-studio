@@ -86,14 +86,10 @@ const CardRenderer = {
       : '';
 
     const theoreticalPrefix = theoretical ? '⚠️ ' : '';
-    const costPerCh = this._formatMoney(r.costPerChannel);
 
     const topoLine = typeof RecommendEngine !== 'undefined'
       ? RecommendEngine._topologyLabel(r.platform)
       : '';
-    const systemPrice = typeof RecommendEngine !== 'undefined'
-      ? RecommendEngine._systemPriceUsd(r.platform)
-      : (r.platform.npu.system_price_usd ?? r.platform.npu.price_usd);
 
     card.innerHTML =
       '<div class="card-rank">' + this._rankBadge(idx) + '</div>' +
@@ -106,9 +102,6 @@ const CardRenderer = {
         this._metric(String(Math.round(r.throughputFps)), 'FPS') +
         this._metric(chVal,
           '<span class="ko">채널</span><span class="en">Ch</span><span class="ja">Ch</span><span class="zh-CN">通道</span><span class="zh-TW">通道</span>') +
-        this._metric(costPerCh,
-          '<span class="ko">채널당</span><span class="en">$/ch</span><span class="ja">$/ch</span><span class="zh-CN">$/路</span><span class="zh-TW">$/路</span>') +
-        this._metric(this._formatMoney(systemPrice), 'System') +
         this._metric(r.platform.npu.tdp_w + 'W', 'TDP') +
       '</div>' +
       benchmarkMeta +
@@ -150,12 +143,6 @@ const CardRenderer = {
   _formatChannels(val, flag) {
     if (flag === '+') return val + '+';
     return String(val);
-  },
-
-  _formatMoney(value) {
-    const number = Number(value);
-    if (value == null || !Number.isFinite(number)) return 'N/A';
-    return '$' + this._formatNumber(number, number >= 100 ? 0 : 2);
   },
 
   _formatNumber(value, digits) {
