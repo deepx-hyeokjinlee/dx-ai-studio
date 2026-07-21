@@ -57,6 +57,13 @@ const RecommendEngine = {
 
       const headroom = this._normalizeHeadroom(inputs.fpsHeadroom);
       const channelCalc = this._calcMaxChannels(bench, multiAll, inputs.targetFps, headroom);
+      // Only surface platforms backed by MEASURED multi-stream evidence at the target. Drop
+      // estimated channel counts — interpolated (between measured points) and theoretical
+      // (single-stream throughput ÷ target, no multi-stream data) — so recommendations reflect
+      // real measurements only, not extrapolation.
+      if (channelCalc.boundaryFlag === 'interpolated' || channelCalc.boundaryFlag === 'theoretical') {
+        return null;
+      }
       const evidenceRow = this._rowForCameras(multiAll, inputs.cameras);
       const limits = this._operationalLimits(evidenceRow, inputs);
 

@@ -340,7 +340,7 @@
           <canvas id="overviewChart"></canvas>
         </div>
         <div class="info-banner" id="fps-banner" style="display:none">
-          ⚠️ <span class="ko">60FPS 모드: 일부 플랫폼은 이론적 수치입니다.</span><span class="ja">60FPSモード：一部プラットフォームは理論値です。</span><span class="zh-CN">60FPS模式：部分平台显示理论数据。</span><span class="zh-TW">60FPS模式：部分平台顯示理論數據。</span><span class="en">60FPS mode: Some platforms show theoretical figures.</span><span class="es">Modo 60FPS: Algunas plataformas muestran cifras teóricas.</span>
+          ⚠️ <span class="ko">60FPS 모드: 실측 데이터가 있는 플랫폼만 표시됩니다.</span><span class="ja">60FPSモード：実測データのあるプラットフォームのみ表示されます。</span><span class="zh-CN">60FPS模式：仅显示有实测数据的平台。</span><span class="zh-TW">60FPS模式：僅顯示有實測資料的平台。</span><span class="en">60FPS mode: only platforms with measured data are shown.</span><span class="es">Modo 60FPS: solo se muestran plataformas con datos medidos.</span>
         </div>
       </section>
 
@@ -425,16 +425,14 @@
         <section class="cfg-card methodology-card">
           <h3 class="card-title"><span class="ko">2. 최대 채널</span><span class="en">2. Max channels</span><span class="ja">2. 最大チャンネル</span><span class="zh-CN">2. 最大通道</span><span class="zh-TW">2. 最大通道</span><span class="es">2. Canales máx.</span></h3>
           <pre class="methodology-formula">effectiveTarget = targetFps × (1 + headroom)
-maxChannels = max stream_count where per_channel_fps ≥ effectiveTarget
-           ?? floor(interpolate crossing between benchmark points)
-           ?? floor(throughput_fps / effectiveTarget)</pre>
+maxChannels = max stream_count where per_channel_fps ≥ effectiveTarget</pre>
           <p class="txt-sm txt-dim">
-            <span class="ko"><code>measured</code> / <code>+</code> / <code>interpolated</code> / <code>theoretical</code> 순으로 신뢰도가 낮아집니다.</span>
-            <span class="en">Confidence decreases: <code>measured</code> → <code>+</code> → <code>interpolated</code> → <code>theoretical</code>.</span>
-            <span class="ja">信頼度は <code>measured</code> → <code>+</code> → <code>interpolated</code> → <code>theoretical</code> の順に低下します。</span>
-            <span class="zh-CN">可信度依次降低：<code>measured</code> → <code>+</code> → <code>interpolated</code> → <code>theoretical</code>。</span>
-            <span class="zh-TW">可信度依次降低：<code>measured</code> → <code>+</code> → <code>interpolated</code> → <code>theoretical</code>。</span>
-            <span class="es">La confianza baja: <code>measured</code> → <code>+</code> → <code>interpolated</code> → <code>theoretical</code>.</span>
+            <span class="ko">실측 multi-stream 데이터로 뒷받침되는 추천만 표시합니다 — 보간·이론 추정치는 제외됩니다.</span>
+            <span class="en">Only recommendations backed by measured multi-stream data are shown — interpolated / theoretical estimates are excluded.</span>
+            <span class="ja">実測 multi-stream データに基づく推奨のみを表示します — 補間・理論推定は除外されます。</span>
+            <span class="zh-CN">仅显示有实测 multi-stream 数据支撑的推荐——排除插值/理论估算。</span>
+            <span class="zh-TW">僅顯示有實測 multi-stream 資料支撐的推薦——排除插值/理論估算。</span>
+            <span class="es">Solo se muestran recomendaciones respaldadas por mediciones multi-stream; se excluyen las estimaciones interpoladas o teóricas.</span>
           </p>
         </section>
 
@@ -475,12 +473,12 @@ sort: meets → confidence → priority → maxChannels</pre>
         </h3>
         <ul class="methodology-disclaimer-list txt-sm">
           <li>
-            <span class="ko"><code>interpolated</code>·<code>theoretical</code> 채널 수, 60 FPS 일부 수치는 <strong>추정치</strong>이며 실제 배포와 다를 수 있습니다.</span>
-            <span class="en"><code>interpolated</code> / <code>theoretical</code> channel counts and some 60 FPS figures are <strong>estimates</strong> — your deployment may differ.</span>
-            <span class="ja"><code>interpolated</code> / <code>theoretical</code> のチャンネル数や 60 FPS の一部は<strong>推定値</strong>です。</span>
-            <span class="zh-CN"><code>interpolated</code> / <code>theoretical</code> 通道数及部分 60 FPS 为<strong>估计值</strong>。</span>
-            <span class="zh-TW"><code>interpolated</code> / <code>theoretical</code> 通道數及部分 60 FPS 為<strong>估計值</strong>。</span>
-            <span class="es">Los canales <code>interpolated</code> / <code>theoretical</code> y algunas cifras a 60 FPS son <strong>estimaciones</strong>.</span>
+            <span class="ko">채널 수는 <strong>실측 multi-stream</strong> 수치만 표시합니다. 목표 조건에서 실측 데이터가 없는 플랫폼은 (추정 없이) 표시되지 않습니다.</span>
+            <span class="en">Channel counts shown are <strong>measured multi-stream</strong> figures only. Platforms without measured data at your target are omitted rather than estimated.</span>
+            <span class="ja">表示するチャンネル数は<strong>実測 multi-stream</strong>の数値のみです。目標条件で実測データがないプラットフォームは（推定せず）表示されません。</span>
+            <span class="zh-CN">显示的通道数仅为<strong>实测 multi-stream</strong> 数值。目标条件下无实测数据的平台不显示（不做估算）。</span>
+            <span class="zh-TW">顯示的通道數僅為<strong>實測 multi-stream</strong> 數值。目標條件下無實測資料的平台不顯示（不做估算）。</span>
+            <span class="es">Los canales mostrados son solo cifras <strong>multi-stream medidas</strong>. Las plataformas sin datos medidos para su objetivo se omiten en lugar de estimarse.</span>
           </li>
           <li>
             <span class="ko">벤치마크는 YOLO26 + DX Benchmark matrix 기준이며, 카메라 codec·전처리·후처리·멀티 모델 파이프라인은 포함하지 않습니다.</span>
