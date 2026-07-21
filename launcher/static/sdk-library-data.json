@@ -235,6 +235,106 @@
               "path": "docs/source/00b_Agent_Driven_Development_Showcases.md",
               "title": "Agent Dev Showcases",
               "size": 584
+            },
+            {
+              "path": "dx-agent-dev-showcase/README.md",
+              "title": "Showcases: Overview",
+              "size": 8511
+            },
+            {
+              "path": "dx-agent-dev-showcase/README-ko.md",
+              "title": "Showcases: Overview (KO)",
+              "size": 8854
+            },
+            {
+              "path": "dx-agent-dev-showcase/mini-game-squat-fitness/README.md",
+              "title": "Showcase: Squat Fitness Mini-Game",
+              "size": 6411
+            },
+            {
+              "path": "dx-agent-dev-showcase/mini-game-squat-fitness/README-ko.md",
+              "title": "Showcase: Squat Fitness Mini-Game (KO)",
+              "size": 6925
+            },
+            {
+              "path": "dx-agent-dev-showcase/mini-game-stretching-coach/README.md",
+              "title": "Showcase: Stretching Coach Mini-Game",
+              "size": 7393
+            },
+            {
+              "path": "dx-agent-dev-showcase/mini-game-stretching-coach/README-ko.md",
+              "title": "Showcase: Stretching Coach Mini-Game (KO)",
+              "size": 7843
+            },
+            {
+              "path": "dx-agent-dev-showcase/paddleocr-video-ocr/README.md",
+              "title": "Showcase: PaddleOCR Video OCR",
+              "size": 5195
+            },
+            {
+              "path": "dx-agent-dev-showcase/paddleocr-video-ocr/README-ko.md",
+              "title": "Showcase: PaddleOCR Video OCR (KO)",
+              "size": 5375
+            },
+            {
+              "path": "dx-agent-dev-showcase/rapiddoc-pdf2md/README.md",
+              "title": "Showcase: RapidDoc PDF-to-Markdown",
+              "size": 7200
+            },
+            {
+              "path": "dx-agent-dev-showcase/rapiddoc-pdf2md/README-ko.md",
+              "title": "Showcase: RapidDoc PDF-to-Markdown (KO)",
+              "size": 7477
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-retrain-eval-deepx-export-braintumor/README.md",
+              "title": "Showcase: YOLO Retrain — Brain Tumor",
+              "size": 3493
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-retrain-eval-deepx-export-braintumor/README-ko.md",
+              "title": "Showcase: YOLO Retrain — Brain Tumor (KO)",
+              "size": 3498
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-retrain-eval-deepx-export-pills/README.md",
+              "title": "Showcase: YOLO Retrain — Pills",
+              "size": 3974
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-retrain-eval-deepx-export-pills/README-ko.md",
+              "title": "Showcase: YOLO Retrain — Pills (KO)",
+              "size": 3993
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-retrain-eval-deepx-export-ppe/README.md",
+              "title": "Showcase: YOLO Retrain — PPE",
+              "size": 5150
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-retrain-eval-deepx-export-ppe/README-ko.md",
+              "title": "Showcase: YOLO Retrain — PPE (KO)",
+              "size": 5037
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-retrain-eval-deepx-export-wildlife/README.md",
+              "title": "Showcase: YOLO Retrain — Wildlife",
+              "size": 4100
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-retrain-eval-deepx-export-wildlife/README-ko.md",
+              "title": "Showcase: YOLO Retrain — Wildlife (KO)",
+              "size": 4138
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-yolo-deepx-export/README.md",
+              "title": "Showcase: Ultralytics YOLO → DeepX Export",
+              "size": 5220
+            },
+            {
+              "path": "dx-agent-dev-showcase/ultralytics-yolo-deepx-export/README-ko.md",
+              "title": "Showcase: Ultralytics YOLO → DeepX Export (KO)",
+              "size": 5285
             }
           ]
         },
@@ -476,6 +576,16 @@
               "title": "Compilation Summary Report",
               "type": "md",
               "size": 3286
+            },
+            {
+              "path": "dx-compiler/source/docs/05_DX-COMPILER_Agent_Driven_Development.md",
+              "title": "Agent-Driven Development",
+              "size": 20679
+            },
+            {
+              "path": "dx-compiler/source/docs/05_DX-COMPILER_Agent_Driven_Development-KO.md",
+              "title": "Agent-Driven Development (KO)",
+              "size": 22768
             }
           ]
         }
@@ -751,6 +861,21 @@
               "path": "dx-runtime/dx_rt/tool/loop-selector/LOOP-SELECTOR.md",
               "title": "loop-selector",
               "size": 7633
+            },
+            {
+              "path": "dx-runtime/dx_rt/csharp_package/DxEngine_NuGet_Guide.md",
+              "title": "C# NuGet Package Guide",
+              "size": 3852
+            },
+            {
+              "path": "dx-runtime/docs/source/agent_development.md",
+              "title": "Runtime Agent-Driven Development",
+              "size": 19854
+            },
+            {
+              "path": "dx-runtime/docs/source/agent_development-KO.md",
+              "title": "Runtime Agent-Driven Development (KO)",
+              "size": 21735
             }
           ]
         },
@@ -846,6 +971,21 @@
               "title": "DX-APP Change Log",
               "type": "md",
               "size": 22055
+            },
+            {
+              "path": "dx-runtime/dx_app/docs/source/docs/12_DX-APP_YOLO_Customizing_Guide.md",
+              "title": "DX-APP YOLO Customizing Guide",
+              "size": 12470
+            },
+            {
+              "path": "dx-runtime/dx_app/docs/source/docs/13_DX-APP_Agent_Driven_Development.md",
+              "title": "DX-APP Agent-Driven Development",
+              "size": 25169
+            },
+            {
+              "path": "dx-runtime/dx_app/docs/source/docs/13_DX-APP_Agent_Driven_Development-KO.md",
+              "title": "DX-APP Agent-Driven Development (KO)",
+              "size": 27046
             }
           ]
         },
@@ -1035,6 +1175,26 @@
               "path": "dx-runtime/dx_stream/bindings/python/pydxs/README.md",
               "title": "pydxs",
               "size": 9941
+            },
+            {
+              "path": "dx-runtime/dx_stream/docs/source/docs/08_DX-STREAM_Agent_Driven_Development.md",
+              "title": "DX-STREAM Agent-Driven Development",
+              "size": 22135
+            },
+            {
+              "path": "dx-runtime/dx_stream/docs/source/docs/08_DX-STREAM_Agent_Driven_Development-KO.md",
+              "title": "DX-STREAM Agent-Driven Development (KO)",
+              "size": 24439
+            },
+            {
+              "path": "dx-runtime/dx_stream/docs/source/docs/Appendix_Build_on_Windows.md",
+              "title": "Appendix: Build on Windows",
+              "size": 12918
+            },
+            {
+              "path": "dx-runtime/dx_stream/docs/source/docs/RELEASE_NOTES.md",
+              "title": "DX-STREAM Release Notes",
+              "size": 12362
             }
           ]
         },
