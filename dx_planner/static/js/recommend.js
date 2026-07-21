@@ -42,15 +42,17 @@ const RecommendEngine = {
    */
   recommend(inputs, platforms) {
     const results = platforms.map(platform => {
-      const modelName = `yolo26${inputs.size}`;
+      // Match by (size, task, ort) using the benchmark rows' own fields. The data models are
+      // named yolo26-n_640x640 / yolo26-l-pose_640x640 etc., so the old `yolo26${size}` string
+      // never equalled b.model and every platform fell through to null (0 recommendations).
       const ort = inputs.ort !== undefined ? inputs.ort : true;
       const bench = platform.benchmarks.find(
-        b => b.model === modelName && b.task === inputs.task && b.ort === ort
+        b => b.size === inputs.size && b.task === inputs.task && b.ort === ort
       );
       if (!bench) return null;
 
       const multiAll = platform.multi_stream.filter(
-        m => m.model === modelName && m.task === inputs.task && m.ort === ort
+        m => m.size === inputs.size && m.task === inputs.task && m.ort === ort
       );
 
       const headroom = this._normalizeHeadroom(inputs.fpsHeadroom);
