@@ -54,7 +54,11 @@ body { overflow-x: auto; overflow-y: hidden; }
   justify-content: stretch;
   align-items: start;
   gap: var(--sp-4);
-  transition: grid-template-columns .28s ease;
+  /* NOTE: do NOT transition grid-template-columns. Animating grid tracks (fr/minmax) forces a
+     full layout reflow every frame — with the cards + radar canvas + comparison table this
+     janked hard on the recommended→detailed switch (and the track count changes 2→3 so it
+     can't interpolate anyway). The panels fade/slide via their own opacity/transform
+     transitions; the column layout snaps instantly. */
 }
 .planner-workspace.workspace-state-recommended {
   grid-template-columns: minmax(360px, .42fr) minmax(0, 1fr);
