@@ -41,7 +41,14 @@
 
     var root = document.createElement(safeHref ? 'a' : 'div');
     root.className = 'dx-brand';
-    if (safeHref) root.href = safeHref;
+    if (safeHref) {
+      root.href = safeHref;
+      // The brand links to the launcher home. Modules render inside the launcher's
+      // iframe pool, so a default _self navigation would load the launcher shell
+      // *inside* the iframe — stacking a second top bar. Force _top to break out
+      // and land on the real launcher home (harmless no-op when not framed).
+      root.target = '_top';
+    }
     root.style.setProperty('--dx-brand-accent', opts.accent || 'var(--accent, #638cff)');
     root.innerHTML = [
       '<span class="dx-brand-prefix">DX</span>',
