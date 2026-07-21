@@ -949,3 +949,55 @@ mark.sdk-search-hit.current {
   padding: 0.25rem 0.5rem;
   margin-top: 0.25rem;
 }
+
+/* ── Markdown admonitions (MkDocs !!! / ??? ) ── */
+.sdk-adm {
+  margin: 14px 0;
+  border: 1px solid var(--border, #2a3550);
+  border-left: 4px solid var(--sdk-adm-accent, #58a6ff);
+  border-radius: 8px;
+  background: var(--sdk-adm-bg, rgba(88,166,255,0.07));
+  overflow: hidden;
+}
+.sdk-adm-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--sdk-adm-accent, #58a6ff);
+  background: var(--sdk-adm-bg, rgba(88,166,255,0.07));
+}
+details.sdk-adm > summary.sdk-adm-title { cursor: pointer; list-style: none; }
+details.sdk-adm > summary.sdk-adm-title::-webkit-details-marker { display: none; }
+details.sdk-adm > summary.sdk-adm-title::after { content: '▸'; margin-left: auto; transition: transform .15s; }
+details.sdk-adm[open] > summary.sdk-adm-title::after { transform: rotate(90deg); }
+.sdk-adm-icon { font-size: 14px; line-height: 1; }
+.sdk-adm-body { padding: 4px 14px 10px; }
+.sdk-adm-body > :first-child { margin-top: 0; }
+.sdk-adm-body > :last-child { margin-bottom: 0; }
+
+/* Type palettes */
+.sdk-adm-note, .sdk-adm-info, .sdk-adm-todo { --sdk-adm-accent:#58a6ff; --sdk-adm-bg:rgba(88,166,255,0.07); }
+.sdk-adm-abstract, .sdk-adm-summary, .sdk-adm-tldr { --sdk-adm-accent:#4dd0c1; --sdk-adm-bg:rgba(77,208,193,0.07); }
+.sdk-adm-tip, .sdk-adm-hint, .sdk-adm-success, .sdk-adm-check, .sdk-adm-done { --sdk-adm-accent:#3fb950; --sdk-adm-bg:rgba(63,185,80,0.07); }
+.sdk-adm-question, .sdk-adm-help, .sdk-adm-faq { --sdk-adm-accent:#a371f7; --sdk-adm-bg:rgba(163,113,247,0.07); }
+.sdk-adm-warning, .sdk-adm-caution, .sdk-adm-attention, .sdk-adm-important { --sdk-adm-accent:#d29922; --sdk-adm-bg:rgba(210,153,34,0.08); }
+.sdk-adm-failure, .sdk-adm-fail, .sdk-adm-missing, .sdk-adm-danger, .sdk-adm-error, .sdk-adm-bug { --sdk-adm-accent:#f47067; --sdk-adm-bg:rgba(244,112,103,0.08); }
+.sdk-adm-example { --sdk-adm-accent:#8b7cff; --sdk-adm-bg:rgba(139,124,255,0.07); }
+.sdk-adm-quote, .sdk-adm-cite { --sdk-adm-accent:#8b949e; --sdk-adm-bg:rgba(139,148,158,0.06); }
+
+/* ── Content tabs (MkDocs === "Tab") → stacked labeled blocks ── */
+.sdk-tab { margin: 12px 0; border: 1px solid var(--border, #2a3550); border-radius: 8px; overflow: hidden; }
+.sdk-tab-label {
+  padding: 7px 14px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--accent, #638cff);
+  background: rgba(99,140,255,0.08);
+  border-bottom: 1px solid var(--border, #2a3550);
+}
+.sdk-tab-body { padding: 8px 14px; }
+.sdk-tab-body > :first-child { margin-top: 0; }
+.sdk-tab-body > :last-child { margin-bottom: 0; }

@@ -701,9 +701,6 @@
       return t;
     };
 
-    const lines = s.split('\n');
-    const out = [];
-    let i = 0;
     const isBlank = (l) => /^\s*$/.test(l) || l.trim() === '\x00REF\x00';
     const listRe = /^(\s*)(?:[*-]|\d+\.)[ \t]+(.+)$/;
     const headRe = /^(#{1,6})\s+(.+)$/;
@@ -712,65 +709,115 @@
     const htmlRe = /^\s*<(\/?)(div|img|table|thead|tbody|tr|td|th|p|ul|ol|li|blockquote|figure|figcaption|h[1-6]|hr|br|section|span|pre|details|summary|iframe|video|source|!--)/i;
     const cbRe = /^\s*\x00CB\d+\x00\s*$/;
     const rowRe = /^\s*\|.*\|\s*$/;
-    const isSpecial = (l) => headRe.test(l) || hrRe.test(l) || listRe.test(l) || bqRe.test(l) || htmlRe.test(l) || cbRe.test(l) || rowRe.test(l);
+    // MkDocs admonitions (`!!! type "Title"`, collapsible `???`/`???+`) and content tabs
+    // (`=== "Tab"`) — the source docs use these heavily; without support they'd render as
+    // literal `!!! note` text. Body is the following 4-space/tab-indented block.
+    const admRe = /^(!!!|\?\?\?\+?)\s+([\w-]+)(?:\s+"([^"]*)")?\s*$/;
+    const tabRe = /^===\+?\s+"([^"]*)"\s*$/;
+    const indentedRe = /^( {4}|\t)/;
+    const ADM_ICONS = {
+      note:'📝', abstract:'📄', summary:'📄', tldr:'📄', info:'ℹ️', todo:'☑️',
+      tip:'💡', hint:'💡', important:'❗', success:'✅', check:'✅', done:'✅',
+      question:'❓', help:'❓', faq:'❓', warning:'⚠️', caution:'⚠️', attention:'⚠️',
+      failure:'❌', fail:'❌', missing:'❌', danger:'🛑', error:'🛑', bug:'🐛',
+      example:'📋', quote:'❝', cite:'❝',
+    };
+    const isSpecial = (l) => headRe.test(l) || hrRe.test(l) || listRe.test(l) || bqRe.test(l) || htmlRe.test(l) || cbRe.test(l) || rowRe.test(l) || admRe.test(l) || tabRe.test(l);
 
-    while (i < lines.length) {
-      const line = lines[i];
-      if (isBlank(line)) { i++; continue; }
-      let m;
-      if ((m = line.match(headRe))) { out.push(`<h${m[1].length}>${inline(m[2].trim())}</h${m[1].length}>`); i++; continue; }
-      if (hrRe.test(line)) { out.push('<hr>'); i++; continue; }
-      if (cbRe.test(line)) { out.push(line.trim()); i++; continue; }
-      // Table: header row followed by a |---|---| separator.
-      if (rowRe.test(line) && i + 1 < lines.length && /^\s*\|[-| :]+\|\s*$/.test(lines[i + 1])) {
-        const cell = (r) => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
-        const ths = cell(line).map(c => `<th>${inline(c)}</th>`).join('');
-        i += 2;
-        const trs = [];
-        while (i < lines.length && rowRe.test(lines[i])) {
-          trs.push(`<tr>${cell(lines[i]).map(c => `<td>${inline(c)}</td>`).join('')}</tr>`);
-          i++;
+    // Collect the indented body under an admonition/tab marker, then dedent one level.
+    const takeIndentedBody = (lines, i) => {
+      const inner = [];
+      while (i < lines.length && (isBlank(lines[i]) || indentedRe.test(lines[i]))) { inner.push(lines[i]); i++; }
+      while (inner.length && isBlank(inner[inner.length - 1])) inner.pop();
+      return [inner.map((l) => l.replace(indentedRe, '')), i];
+    };
+
+    const renderBlocks = (lines) => {
+      const out = [];
+      let i = 0;
+      while (i < lines.length) {
+        const line = lines[i];
+        if (isBlank(line)) { i++; continue; }
+        let m;
+        // Admonition / collapsible admonition
+        if ((m = line.match(admRe))) {
+          const collapsible = m[1][0] === '?';
+          const type = m[2].toLowerCase();
+          const title = (m[3] != null && m[3] !== '') ? m[3] : (m[2].charAt(0).toUpperCase() + m[2].slice(1));
+          let inner; [inner, i] = takeIndentedBody(lines, i + 1);
+          const body = renderBlocks(inner);
+          const icon = ADM_ICONS[type] || '📌';
+          const titleHtml = `<span class="sdk-adm-icon">${icon}</span>${inline(title)}`;
+          if (collapsible) {
+            const open = m[1] === '???+' ? ' open' : '';
+            out.push(`<details class="sdk-adm sdk-adm-${type}"${open}><summary class="sdk-adm-title">${titleHtml}</summary><div class="sdk-adm-body">${body}</div></details>`);
+          } else {
+            out.push(`<div class="sdk-adm sdk-adm-${type}"><div class="sdk-adm-title">${titleHtml}</div><div class="sdk-adm-body">${body}</div></div>`);
+          }
+          continue;
         }
-        out.push(`<table><thead><tr>${ths}</tr></thead><tbody>${trs.join('')}</tbody></table>`);
-        continue;
-      }
-      if (bqRe.test(line)) {
-        const buf = [];
-        while (i < lines.length && bqRe.test(lines[i])) { buf.push(lines[i].replace(bqRe, '')); i++; }
-        out.push(`<blockquote>${inline(buf.join(' '))}</blockquote>`);
-        continue;
-      }
-      // List — consecutive items (blank lines between items still merge into one <ul>).
-      if (listRe.test(line)) {
-        const items = [];
-        while (i < lines.length) {
-          if (listRe.test(lines[i])) { items.push(lines[i].match(listRe)[2].trim()); i++; }
-          else if (isBlank(lines[i]) && i + 1 < lines.length && listRe.test(lines[i + 1])) { i++; }
-          else break;
+        // Content tab → labeled block (stacked; not interactive tabs)
+        if ((m = line.match(tabRe))) {
+          let inner; [inner, i] = takeIndentedBody(lines, i + 1);
+          out.push(`<div class="sdk-tab"><div class="sdk-tab-label">${inline(m[1])}</div><div class="sdk-tab-body">${renderBlocks(inner)}</div></div>`);
+          continue;
         }
-        out.push('<ul>' + items.map((it) => `<li>${inline(it)}</li>`).join('') + '</ul>');
-        continue;
+        if ((m = line.match(headRe))) { out.push(`<h${m[1].length}>${inline(m[2].trim())}</h${m[1].length}>`); i++; continue; }
+        if (hrRe.test(line)) { out.push('<hr>'); i++; continue; }
+        if (cbRe.test(line)) { out.push(line.trim()); i++; continue; }
+        // Table: header row followed by a |---|---| separator.
+        if (rowRe.test(line) && i + 1 < lines.length && /^\s*\|[-| :]+\|\s*$/.test(lines[i + 1])) {
+          const cell = (r) => r.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+          const ths = cell(line).map(c => `<th>${inline(c)}</th>`).join('');
+          i += 2;
+          const trs = [];
+          while (i < lines.length && rowRe.test(lines[i])) {
+            trs.push(`<tr>${cell(lines[i]).map(c => `<td>${inline(c)}</td>`).join('')}</tr>`);
+            i++;
+          }
+          out.push(`<table><thead><tr>${ths}</tr></thead><tbody>${trs.join('')}</tbody></table>`);
+          continue;
+        }
+        if (bqRe.test(line)) {
+          const buf = [];
+          while (i < lines.length && bqRe.test(lines[i])) { buf.push(lines[i].replace(bqRe, '')); i++; }
+          out.push(`<blockquote>${inline(buf.join(' '))}</blockquote>`);
+          continue;
+        }
+        // List — consecutive items (blank lines between items still merge into one <ul>).
+        if (listRe.test(line)) {
+          const items = [];
+          while (i < lines.length) {
+            if (listRe.test(lines[i])) { items.push(lines[i].match(listRe)[2].trim()); i++; }
+            else if (isBlank(lines[i]) && i + 1 < lines.length && listRe.test(lines[i + 1])) { i++; }
+            else break;
+          }
+          out.push('<ul>' + items.map((it) => `<li>${inline(it)}</li>`).join('') + '</ul>');
+          continue;
+        }
+        // Raw HTML block — pass through (apply inline so <img> src gets rewritten), no <p> wrap.
+        if (htmlRe.test(line)) {
+          const buf = [];
+          while (i < lines.length && !isBlank(lines[i])) { buf.push(lines[i]); i++; }
+          out.push(inline(buf.join('\n')));
+          continue;
+        }
+        // Paragraph — always consume the current line (guarantees progress even for
+        // a special-looking line no block handler claimed, e.g. a stray `|` row), then
+        // gather continuation lines until a blank line or the start of another block.
+        const buf = [lines[i]];
+        i++;
+        while (i < lines.length && !isBlank(lines[i]) && !isSpecial(lines[i])) { buf.push(lines[i]); i++; }
+        const para = buf.map((l, idx) => {
+          const hard = /  +$/.test(l) || /\\$/.test(l);
+          return l.replace(/\\$/, '').replace(/\s+$/, '') + (idx < buf.length - 1 ? (hard ? '<br>' : ' ') : '');
+        }).join('');
+        out.push(`<p>${inline(para)}</p>`);
       }
-      // Raw HTML block — pass through (apply inline so <img> src gets rewritten), no <p> wrap.
-      if (htmlRe.test(line)) {
-        const buf = [];
-        while (i < lines.length && !isBlank(lines[i])) { buf.push(lines[i]); i++; }
-        out.push(inline(buf.join('\n')));
-        continue;
-      }
-      // Paragraph — always consume the current line (guarantees progress even for
-      // a special-looking line no block handler claimed, e.g. a stray `|` row), then
-      // gather continuation lines until a blank line or the start of another block.
-      const buf = [lines[i]];
-      i++;
-      while (i < lines.length && !isBlank(lines[i]) && !isSpecial(lines[i])) { buf.push(lines[i]); i++; }
-      const para = buf.map((l, idx) => {
-        const hard = /  +$/.test(l) || /\\$/.test(l);
-        return l.replace(/\\$/, '').replace(/\s+$/, '') + (idx < buf.length - 1 ? (hard ? '<br>' : ' ') : '');
-      }).join('');
-      out.push(`<p>${inline(para)}</p>`);
-    }
-    let html = out.join('\n');
+      return out.join('\n');
+    };
+
+    let html = renderBlocks(s.split('\n'));
     html = html.replace(/\x00CB(\d+)\x00/g, (_, idx) => codeBlocks[idx]);
     return html;
   }
