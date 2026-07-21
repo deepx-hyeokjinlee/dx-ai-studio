@@ -31,7 +31,7 @@
         }
       },
       steps: [
-        { target: '#dxt-tutorial-card', position: 'top',
+        { target: '#dxt-tutorial-card', position: 'right',
           title: { en: 'Tutorial Mode', ko: '튜토리얼 모드', ja: 'チュートリアルモード', 'zh-CN': '教程模式', 'zh-TW': '教學模式', es: 'Modo tutorial' },
           content: { en: 'This is <strong>Tutorial Mode</strong> — <strong>on by default</strong>, so interactive tutorials start automatically when you open a module. Don\'t want them? Turn it <strong>off</strong> here anytime.', ko: '여기가 <strong>튜토리얼 모드</strong>입니다 — <strong>기본으로 켜져</strong> 있어 모듈을 열면 인터랙티브 튜토리얼이 자동으로 시작됩니다. 원치 않으면 언제든 여기서 <strong>끄세요</strong>.', ja: 'これが<strong>チュートリアルモード</strong>です — <strong>デフォルトでオン</strong>なので、モジュールを開くとインタラクティブチュートリアルが自動的に始まります。不要ならいつでもここで<strong>オフ</strong>にできます。', 'zh-CN': '这是<strong>教程模式</strong>——<strong>默认开启</strong>，打开模块时会自动启动交互式教程。不需要？随时在此<strong>关闭</strong>。', 'zh-TW': '這是<strong>教學模式</strong>——<strong>預設開啟</strong>，開啟模組時會自動啟動互動式教學。不需要？隨時在此<strong>關閉</strong>。', es: 'Este es el <strong>modo tutorial</strong>: <strong>activado por defecto</strong>, así que los tutoriales interactivos se inician automáticamente al abrir un módulo. ¿No los quieres? Desactívalo <strong>aquí</strong> cuando quieras.' } },
         { target: '.top-bar', position: 'bottom',
